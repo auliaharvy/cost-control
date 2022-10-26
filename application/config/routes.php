@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -111,3 +111,9 @@ $route['kas/historymaterial'] = 'Welcome/log_material';
 $route['hutang'] = 'C_hutang/index';
 $route['hutang_detail/(:num)'] = 'C_hutang/detail/$1';
 $route['bayarhutang/(:num)'] = 'C_hutang/bayar_hutang/$1';
+
+//Halaman Master Data
+$route['masterdata'] = 'C_masterdata/index';
+$route['tambahuser'] = 'C_masterdata/tambahuser';
+$route['edituser'] = 'C_masterdata/edituser';
+$route['editpassuser'] = 'C_masterdata/editpassuser';

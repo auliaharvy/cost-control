@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class C_pengguna extends CI_Controller
+class C_masterdata extends CI_Controller
 {
 
     function __construct()
@@ -11,28 +11,28 @@ class C_pengguna extends CI_Controller
             redirect('Login');
         }
         date_default_timezone_set('Asia/Jakarta');
-        $this->load->model("M_pengguna");
+        $this->load->model("M_masterdata");
+        $this->load->model("M_material");
     }
 
     public function index()
     {
-        $data = $this->M_pengguna->getUser();
-        $role = $this->M_pengguna->showData("mst_role");
+        $datauser = $this->M_masterdata->getUser();
+        $role = $this->M_masterdata->showData("mst_role");
+        $datamaterial = $this->M_masterdata->showData("mst_material");
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
             'sidebar' => $this->sidebar(),
             'footer' => $this->footer(),
-            'data' => $data,
+            'datauser' => $datauser,
+            'datamaterial' => $datamaterial,
             'role' => $role,
         );
-        $this->load->view('user/index', $show);
-        // $this->load->view('data');
+        $this->load->view('masterdata/index', $show);
     }
 
-
-
-    public function add()
+    public function tambahuser()
     {
         $this->form_validation->set_rules('fullname', 'Nama Lengkap', 'required');
         $this->form_validation->set_rules('role_id', 'Role', 'required');
@@ -67,12 +67,11 @@ class C_pengguna extends CI_Controller
         }
     }
 
-    public function do_update()
+    public function edituser()
     {
         $id = $_POST['user_id'];
         $this->form_validation->set_rules('fullname', 'Nama Lengkap', 'required');
         $this->form_validation->set_rules('role_id', 'Role', 'required');
-
         if ($this->form_validation->run() == FALSE) {
             $msg = validation_errors();
             $this->flashdata_failed1($msg);
@@ -88,7 +87,6 @@ class C_pengguna extends CI_Controller
                 "last_update_by" => $this->session->userdata('id'),
                 "updated_at" => $date,
             );
-
             $res = $this->M_data->UpdateData('mst_users', $data, $where);
             if ($res >= 0) {
                 $msg = "Update User Berhasil";
@@ -102,13 +100,11 @@ class C_pengguna extends CI_Controller
         }
     }
 
-    public function change_pass()
+    public function editpassuser()
     {
         $id = $_POST['user_id'];
         $this->form_validation->set_rules('password', 'Password', 'required|min_length[5]');
         $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|matches[password]');
-
-
         if ($this->form_validation->run() == FALSE) {
             $msg = validation_errors();
             $this->flashdata_failed1($msg);
@@ -121,9 +117,7 @@ class C_pengguna extends CI_Controller
                 "password" => md5($_POST['password']),
                 "last_update_by" => $this->session->userdata('id'),
                 "updated_at" => $date,
-
             );
-
             $res = $this->M_data->UpdateData('mst_users', $data, $where);
             if ($res >= 0) {
                 $msg = "Update Password Berhasil";

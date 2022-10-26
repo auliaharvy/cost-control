@@ -39,7 +39,7 @@
                 </li>
               </ul>
               <div class="tab-content">
-                <div role="tabpanel" class="tab-pane in show" id="user">
+                <div role="tabpanel" class="tab-pane fade show active" id="user">
                   <div class="card">
                     <div class="card-header">
                       <h3 class="card-title">Kelola User</h3>
@@ -47,15 +47,15 @@
                     <div class="card-body">
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahuser"><i class="fa fa-plus-circle"></i> Tambah User </button><br>
                       <br>
-                      <table style="width: 100%;" id="example1" class="table table-bordered table-striped text-center">
+                      <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                         <thead>
                           <tr>
-                            <th>No</th>
-                            <th>Action</th>
-                            <th>Nama Lengkap</th>
-                            <th>Username</th>
-                            <th>Role</th>
-                            <th>Status</th>
+                            <th class="text-center">No</th>
+                            <th class="text-center">Action</th>
+                            <th class="text-center">Nama Lengkap</th>
+                            <th class="text-center">Username</th>
+                            <th class="text-center">Role</th>
+                            <th class="text-center">Status</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -65,16 +65,16 @@
                             foreach ($datauser as $d) {
                               $id = $d['id']; ?>
                               <tr class="odd gradeX">
-                                <td><?php echo $nomor++; ?></td>
-                                <td align="center">
+                                <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                                <td style="width: 15%;" align="center">
                                   <a data-toggle="modal" data-target="#edituser<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></a>
                                   <a data-toggle="modal" data-target="#editpassuser<?php echo $id; ?>" class="btn btn-success btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Password"><i class="fas fa-lock"></i>Ubah Password</a>
                                 </td>
-                                <td class="text"><span><?php echo $d['fullname']; ?></span></td>
-                                <td><?php echo $d['username']; ?></td>
-                                <td class="text"><span><?php echo $d['role_name']; ?></span></td>
-                                <td align="center">
-                                  <p class="<?php echo $d['background_text']; ?>"><?php echo $d['is_active_v'];  ?></p>
+                                <td style="width: 20%;"><?php echo $d['fullname']; ?></td>
+                                <td style="width: 20%;"><?php echo $d['username']; ?></td>
+                                <td style="width: 20%;"><?php echo $d['role_name']; ?></td>
+                                <td style="width: 10%;" align="center">
+                                  <p class="<?php echo $d['background_text']; ?>"><?php echo $d['is_active_v']; ?></p>
                                 </td>
                               </tr>
                           <?php
@@ -93,13 +93,13 @@
                     <div class="card-body">
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmaterial"><i class="fa fa-plus-circle"></i>Tambah Material</button><br>
                       <br>
-                      <table style="width: 100%;" id="example2" class="table table-bordered table-striped text-center">
+                      <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
                         <thead>
                           <tr>
-                            <th>No</th>
-                            <th>Action</th>
-                            <th>Material</th>
-                            <th>Unit</th>
+                            <th class="text-center">No</th>
+                            <th class="text-center">Action</th>
+                            <th class="text-center">Material</th>
+                            <th class="text-center">Unit</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -109,12 +109,12 @@
                             foreach ($datamaterial as $d) {
                               $id = $d['id']; ?>
                               <tr class="odd gradeX">
-                                <td><?php echo $nomor++; ?></td>
-                                <td align="center">
+                                <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                                <td style="width: 10%;" align="center">
                                   <a data-toggle="modal" data-target="#editmaterial<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></a>
                                 </td>
-                                <td><?php echo $d['material_name']; ?></td>
-                                <td><?php echo $d['unit']; ?></td>
+                                <td style="width: 55%;"><?php echo $d['material_name']; ?></td>
+                                <td style="width: 30%;"><?php echo $d['unit']; ?></td>
                               </tr>
                           <?php
                             }
@@ -231,115 +231,114 @@
                   </form>
                 </div>
               </div>
-            <?php endforeach; ?>
-            <!-- /.card -->
             </div>
-            <?php
-            foreach ($datauser as $i) :
-              $id = $i['id'];
-              $password = $i['password'];
-            ?>
-              <div class="modal fade" id="editpassuser<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header bg-primary">
-                      <h3 class="modal-title" id="myModalLabel">Ubah Password</h3>
-                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                    </div>
-                    <form class="form-horizontal" method="post" action="<?php echo base_url() . 'editpassuser' ?>">
-                      <div class="modal-body">
-                        <input type="hidden" name="user_id" autocomplete="off" value="<?php echo $id; ?>" required class="form-control">
-                        <div class="form-group">
-                          <label class="control-label col-xs-3">Password</label>
-                          <div class="col-xs-8">
-                            <input name="password" class="form-control" type="password" required>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label class="control-label col-xs-3">Password Confirm</label>
-                          <div class="col-xs-8">
-                            <input name="passconf" class="form-control" type="password" required>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-                        <button class="btn btn-info">Update</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            <?php endforeach; ?>
-            <div id="tambahmaterial" class="modal fade">
+          <?php endforeach; ?>
+          <?php
+          foreach ($datauser as $i) :
+            $id = $i['id'];
+            $password = $i['password'];
+          ?>
+            <div class="modal fade" id="editpassuser<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
               <div class="modal-dialog">
-                <form action="<?php echo site_url('material_add'); ?>" method="post">
-                  <div class="modal-content">
-                    <div class="modal-header bg-primary">
-                      <h4 class="modal-title">Tambah Data</h4>
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
+                <div class="modal-content">
+                  <div class="modal-header bg-primary">
+                    <h3 class="modal-title" id="myModalLabel">Ubah Password</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                  </div>
+                  <form class="form-horizontal" method="post" action="<?php echo base_url() . 'editpassuser' ?>">
                     <div class="modal-body">
+                      <input type="hidden" name="user_id" autocomplete="off" value="<?php echo $id; ?>" required class="form-control">
                       <div class="form-group">
-                        <label class='col-xs-3'>Nama Material</label>
-                        <div class='col-xs-8'><input type="text" name="material_name" autocomplete="off" placeholder="Masukan Nama Material" required class="form-control"></div>
+                        <label class="control-label col-xs-3">Password</label>
+                        <div class="col-xs-8">
+                          <input name="password" class="form-control" type="password" required>
+                        </div>
                       </div>
                       <div class="form-group">
-                        <label class='col-xs-3'>Unit</label>
-                        <div class='col-xs-8'><input type="text" name="unit" autocomplete="off" placeholder="e.g Sack, Pcs, Kg" required class="form-control"></div>
+                        <label class="control-label col-xs-3">Password Confirm</label>
+                        <div class="col-xs-8">
+                          <input name="passconf" class="form-control" type="password" required>
+                        </div>
                       </div>
-                      <br>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary"><i class="icon-checkmark-circle2"></i> Simpan</button>
+                      <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                      <button class="btn btn-info">Update</button>
                     </div>
-                </form>
+                  </form>
+                </div>
               </div>
             </div>
-        </div>
-        <?php
-        foreach ($data as $i) :
-          $material_id = $i['id'];
-          $material_name = $i['material_name'];
-          $unit = $i['unit'];
-        ?>
-          <div class="modal fade" id="editmaterial<?php echo $material_id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+          <?php endforeach; ?>
+          <div id="tambahmaterial" class="modal fade">
             <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header bg-primary">
-                  <h3 class="modal-title" id="myModalLabel">Edit Project</h3>
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                </div>
-                <form class="form-horizontal" method="post" action="<?php echo base_url() . 'material_update' ?>">
+              <form action="<?php echo site_url('tambahmaterial'); ?>" method="post">
+                <div class="modal-content">
+                  <div class="modal-header bg-primary">
+                    <h4 class="modal-title">Tambah Data Material</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
                   <div class="modal-body">
-                    <input type="hidden" name="material_id" autocomplete="off" value="<?php echo $material_id; ?>" required class="form-control">
                     <div class="form-group">
                       <label class='col-xs-3'>Nama Material</label>
-                      <div class='col-xs-8'><input type="text" name="material_name" value="<?php echo $material_name; ?>" autocomplete="off" placeholder="Masukan Nama Material" required class="form-control"></div>
+                      <div class='col-xs-8'><input type="text" name="material_name" autocomplete="off" placeholder="Masukan Nama Material" required class="form-control"></div>
                     </div>
                     <div class="form-group">
                       <label class='col-xs-3'>Unit</label>
-                      <div class='col-xs-8'><input type="text" name="unit" value="<?php echo $unit; ?>" autocomplete="off" placeholder="e.g Sack, Pcs, Kg" required class="form-control"></div>
+                      <div class='col-xs-8'><input type="text" name="unit" autocomplete="off" placeholder="e.g Sack, Pcs, Kg" required class="form-control"></div>
                     </div>
+                    <br>
                   </div>
                   <div class="modal-footer">
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-                    <button class="btn btn-info">Update</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary"><i class="icon-checkmark-circle2"></i> Simpan</button>
                   </div>
-                </form>
-              </div>
+              </form>
             </div>
           </div>
-        <?php endforeach; ?>
-        <!-- /.col -->
+          <?php
+          foreach ($data as $i) :
+            $material_id = $i['id'];
+            $material_name = $i['material_name'];
+            $unit = $i['unit'];
+          ?>
+            <div class="modal fade" id="editmaterial<?php echo $material_id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header bg-primary">
+                    <h3 class="modal-title" id="myModalLabel">Edit Project</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                  </div>
+                  <form class="form-horizontal" method="post" action="<?php echo base_url() . 'editmaterial' ?>">
+                    <div class="modal-body">
+                      <input type="hidden" name="material_id" autocomplete="off" value="<?php echo $material_id; ?>" required class="form-control">
+                      <div class="form-group">
+                        <label class='col-xs-3'>Nama Material</label>
+                        <div class='col-xs-8'><input type="text" name="material_name" value="<?php echo $material_name; ?>" autocomplete="off" placeholder="Masukan Nama Material" required class="form-control"></div>
+                      </div>
+                      <div class="form-group">
+                        <label class='col-xs-3'>Unit</label>
+                        <div class='col-xs-8'><input type="text" name="unit" value="<?php echo $unit; ?>" autocomplete="off" placeholder="e.g Sack, Pcs, Kg" required class="form-control"></div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                      <button class="btn btn-info">Update</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          <?php endforeach; ?>
+          <!-- /.col -->
+        </div>
       </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
   </div>
-  <!-- /.row -->
-  </section>
-  <!-- /.content -->
+  <!-- /.content-wrapper -->
 </div>
-<!-- /.content-wrapper -->
 <!-- ./wrapper -->
 <!-- jQuery -->
 <?php echo $footer; ?>

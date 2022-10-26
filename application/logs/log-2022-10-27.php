@@ -1,3 +1,27 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 ERROR - 2022-10-27 00:49:06 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 302
+ERROR - 2022-10-27 00:53:11 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 302
+ERROR - 2022-10-27 00:56:01 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 302
+ERROR - 2022-10-27 00:56:09 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 302
+ERROR - 2022-10-27 00:59:14 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 302
+ERROR - 2022-10-27 00:59:19 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 302
+ERROR - 2022-10-27 01:00:04 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 302
+ERROR - 2022-10-27 01:00:37 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 302
+ERROR - 2022-10-27 01:00:43 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 302
+ERROR - 2022-10-27 01:08:39 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 302
+ERROR - 2022-10-27 01:10:52 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 301
+ERROR - 2022-10-27 01:15:21 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 300
+ERROR - 2022-10-27 01:15:25 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 300
+ERROR - 2022-10-27 01:15:28 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 300
+ERROR - 2022-10-27 01:15:36 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 300
+ERROR - 2022-10-27 01:17:46 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 300
+ERROR - 2022-10-27 01:17:52 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 300
+ERROR - 2022-10-27 01:21:30 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 300
+ERROR - 2022-10-27 01:22:39 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 300
+ERROR - 2022-10-27 01:23:35 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 300
+ERROR - 2022-10-27 01:23:42 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 300
+ERROR - 2022-10-27 01:24:18 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 300
+ERROR - 2022-10-27 01:25:37 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 300
+ERROR - 2022-10-27 01:32:53 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 302
+ERROR - 2022-10-27 01:45:29 --> Severity: Warning --> Invalid argument supplied for foreach() /Users/daud/.bitnami/stackman/machines/xampp/volumes/root/htdocs/costcontrol1.1/application/views/masterdata/index.php 300

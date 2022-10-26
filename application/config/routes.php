@@ -90,16 +90,16 @@ $route['laporan'] = 'C_laporan';
 $route['laporan_detail/(:num)'] = 'C_laporan/detail/$1';
 $route['report/export/(:num)'] = 'C_laporan/export/$1';
 
-$route['user'] = 'C_pengguna';
-$route['user/add'] = 'C_pengguna/add';
-$route['user/update'] = 'C_pengguna/do_update';
-$route['user/changepassword'] = 'C_pengguna/change_pass';
+// $route['user'] = 'C_pengguna';
+// $route['user/add'] = 'C_pengguna/add';
+// $route['user/update'] = 'C_pengguna/do_update';
+// $route['user/changepassword'] = 'C_pengguna/change_pass';
+// $route['material'] = 'C_material/index';
+// $route['material_add'] = 'C_material/add';
+// $route['material_update'] = 'C_material/do_update';
 
 $route['dashboard'] = 'C_dashboard/index';
 
-$route['material'] = 'C_material/index';
-$route['material_add'] = 'C_material/add';
-$route['material_update'] = 'C_material/do_update';
 
 $route['kas/inventory_add'] = 'Welcome/inventory_add';
 $route['kas/update_inventory'] = 'Welcome/update_inventory';
@@ -117,3 +117,5 @@ $route['masterdata'] = 'C_masterdata/index';
 $route['tambahuser'] = 'C_masterdata/tambahuser';
 $route['edituser'] = 'C_masterdata/edituser';
 $route['editpassuser'] = 'C_masterdata/editpassuser';
+$route['tambahmaterial'] = 'C_masterdata/tambahmaterial';
+$route['editmaterial'] = 'C_masterdata/editmaterial';

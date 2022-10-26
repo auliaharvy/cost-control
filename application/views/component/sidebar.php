@@ -270,28 +270,13 @@
         <?php } ?>
         <!-- Role Admin -->
         <?php if (($this->session->userdata('role')) == 1) { ?>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="nav-item">
+            <a href="<?php echo base_url('masterdata') ?>" class="nav-link">
               <i class="nav-icon fa fa-book"></i>
               <p>
                 MASTER DATA
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url('masterdata') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Kelola User</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url('material') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Master Material</p>
-                </a>
-              </li>
-            </ul>
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">

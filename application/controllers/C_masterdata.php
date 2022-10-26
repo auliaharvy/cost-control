@@ -131,6 +131,44 @@ class C_masterdata extends CI_Controller
         }
     }
 
+    public function tambahmaterial()
+    {
+        $this->form_validation->set_rules('material_name', 'Nama Material', 'required');
+        $this->form_validation->set_rules('unit', 'Unit', 'required');
+        if ($this->form_validation->run() == FALSE) {
+            $this->flashdata_failed();
+        } else {
+            $data = array(
+                "material_name" => $_POST['material_name'],
+                "unit" => $_POST['unit'],
+            );
+            $this->db->insert('mst_material', $data);
+            $this->flashdata_succeed();
+        }
+    }
+
+    public function editmaterial()
+    {
+        $id = $_POST['material_id'];
+        $this->form_validation->set_rules('material_name', 'Nama Material', 'required');
+        $this->form_validation->set_rules('unit', 'Unit', 'required');
+        if ($this->form_validation->run() == FALSE) {
+            $this->flashdata_failed();
+        } else {
+            $where = array('id' => $id);
+            $data = array(
+                "material_name" => $_POST['material_name'],
+                "unit" => $_POST['unit'],
+            );
+            $res = $this->M_data->UpdateData('mst_material', $data, $where);
+            if ($res >= 1) {
+                $this->flashdata_succeed();
+            } else {
+                $this->flashdata_failed();
+            }
+        }
+    }
+
     public function delete($id)
     {
         $where = array('id' => $id);

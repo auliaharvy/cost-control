@@ -62,7 +62,7 @@ echo link_tag('assets/plugins/iCheck/square/blue.css');
         </div>
         <!-- /.col -->
         <div class="col-xs-push-8 col-xs-4 text-center">
-          <button type="submit" class="btn btn-info">LOGIN</button>
+          <button type="submit" class="btn btn-info btn-circle">LOGIN</button>
         </div>
         <!-- /.col -->
       </form>

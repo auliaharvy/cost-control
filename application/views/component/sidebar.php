@@ -278,34 +278,21 @@
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="nav-item">
+            <a href="<?php echo base_url('kas') ?>" class="nav-link">
               <i class="nav-icon fas fa-cash-register"></i>
               <p>
                 KAS
-                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url('kas') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Kas Besar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url('/kas/historycash') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Log Kas</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url('/kas/historymaterial') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Log Transfer Material</p>
-                </a>
-              </li>
-            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="<?php echo base_url('inventory') ?>" class="nav-link">
+              <i class="nav-icon fas fa-warehouse"></i>
+              <p>
+                INVENTORY
+              </p>
+            </a>
           </li>
           <li class="nav-item ">
             <a href="<?php echo base_url('laporan') ?>" class="nav-link">

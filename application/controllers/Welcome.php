@@ -188,14 +188,11 @@ class Welcome extends CI_Controller
         $this->form_validation->set_rules('qty', 'Quantity', 'required|greater_than[0]');
         $material_id = $_POST['material_id'];
         $date = date('Y-m-d H:i:s');
-
         if ($this->form_validation->run() == FALSE) {
-
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
             redirect('/');
         } else {
-
             $data = array(
                 "material_id" => $material_id,
                 "qty" => $_POST['qty'],
@@ -213,7 +210,6 @@ class Welcome extends CI_Controller
                     "last_updated_by" => $this->session->userdata('id'),
                     "updated_at" => $date,
                 );
-
                 $res = $this->M_data->UpdateData('akk_inventory', $data_up, $where);
             } else {
                 $res = $this->M_data->InsertData('akk_inventory', $data);
@@ -242,8 +238,6 @@ class Welcome extends CI_Controller
     public function update_inventory()
     {
         $this->form_validation->set_rules('qty', 'Quantity', 'required|greater_than[0]');
-
-
         if ($this->form_validation->run() == FALSE) {
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
@@ -252,7 +246,6 @@ class Welcome extends CI_Controller
             $id = $_POST['inventory_id'];
             $tag = $_POST['tag'];
             $qty = $_POST['qty'];
-
             $get = $this->M_data->GetData("akk_inventory ", "where id = '$id'");
             $material_id = $get[0]['material_id'];
             $qty_awal = $get[0]['qty'];
@@ -271,7 +264,6 @@ class Welcome extends CI_Controller
                 "qty" => $qtyakhir,
                 "last_updated_by" => $this->session->userdata('id'),
                 "updated_at" => $date,
-
             );
             $data_log = array(
                 "material_id" => $material_id,
@@ -283,7 +275,6 @@ class Welcome extends CI_Controller
             $this->db->trans_start();
             $this->M_data->InsertData('log_inventory_organization', $data_log);
             $this->M_data->UpdateData('akk_inventory', $data, $where);
-
             $this->db->trans_complete();
             if ($this->db->trans_status() === TRUE) {
                 $this->flashdata_succeed1($msg);
@@ -401,10 +392,8 @@ class Welcome extends CI_Controller
     public function tambah_kas()
     {
         $id = $this->input->post('organization_id');
-
         $get = $this->M_data->GetData("mst_organization ", "where id = '$id'");
         $cash_now = $get[0]['cash_in_hand'];
-
         $tag = $_POST['tag'];
         $a = $_POST['cash_in_hand'];
         $b = str_replace('.', '', $a); //ubah format rupiah ke integer
@@ -417,20 +406,14 @@ class Welcome extends CI_Controller
             $cash_in_hand = $cash_in_hand * (-1); //dijadikan min
             $msg = "Pengurangan Kas";
         }
-
-
         $where = array('id' => $id);
-
         date_default_timezone_set('Asia/Jakarta');
         $date = date('Y-m-d H:i:s');
         $data_up = array(
             'cash_in_hand' => $cash_update,
-
             "updated_at" => $date,
             "updated_by" => $this->session->userdata('id'),
-
         );
-
         $data_insert = array(
             "cash_additional" => $cash_in_hand,
             'note' => $_POST['note'],
@@ -440,8 +423,6 @@ class Welcome extends CI_Controller
         $this->M_data->UpdateData('mst_organization', $data_up, $where);
         $this->M_data->InsertData('log_mst_organization', $data_insert);
         $this->db->trans_complete();
-
-
         if ($this->db->trans_status() === TRUE) {
             $this->flashdata_succeed1($msg);
             redirect('/');

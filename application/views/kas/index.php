@@ -56,13 +56,12 @@
                       <?php $cash = number_format($d['cash_in_hand'], '0', ',', '.'); ?>
                       <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
                       <td style="width: 10%;" align="center">
-                        <a data-toggle="modal" data-target="#editkas<?php echo $id; ?>" class="btn btn-sm btn-success btn-circle" data-popup="tooltip" data-placement="top" title="Tambah Kas"><i class="fas fas fa-plus"></i></a>
-                        <a data-toggle="modal" data-target="#modal-editkurang<?php echo $id; ?>" class="btn btn-sm btn-warning btn-circle" data-popup="tooltip" data-placement="top" title="Kurang Kas"><i class="fas fas fa-minus"></i></a>
+                        <a data-toggle="modal" data-target="#editkas<?php echo $id; ?>" class="btn btn-sm btn-warning btn-circle" data-popup="tooltip" data-placement="top" title="Edit Kas"><i class="fas fas fa-edit"></i></a>
                       </td>
-                      <td style="width: 20%;"><?php echo $d['organization_name']; ?></td>
+                      <td style="width: 25%;"><?php echo $d['organization_name']; ?></td>
                       <td style="width: 20%;" class="text-center">Rp <?php echo $cash; ?></td>
                       <td style="width: 25%;"><?php echo $d['organization_address']; ?></td>
-                      <td style="width: 20%;" class="text-center"><?php echo $d['phone_number']; ?></td>
+                      <td style="width: 15%;" class="text-center"><?php echo $d['phone_number']; ?></td>
                     </tr>
                   <?php
                   } ?>
@@ -128,7 +127,7 @@
                         <h3 class="modal-title" id="myModalLabel">Edit Kas</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                       </div>
-                      <form class="form-horizontal" method="post" action="<?php echo base_url() . 'kas/addkas' ?>">
+                      <form class="form-horizontal" method="post" action="<?php echo base_url() . 'editkas' ?>">
                         <div class="modal-body">
                           <div class="form-group">
                             <div class="col-xs-8">
@@ -136,7 +135,11 @@
                             </div>
                           </div>
                           <div class="form-group">
-                            <label class='col-xs-3'>Jumlah Kas</label>
+                            <p><input type="radio" name="tag" value="0">Tambah Kas</input></p>
+                            <p><input type="radio" name="tag" value="1">Kurang Kas</input></p>
+                          </div>
+                          <div class="form-group">
+                            <label class='col-xs-3'>Jumlah Nominal</label>
                             <div class="input-group">
                               <div class="input-group-prepend">
                                 <span class="input-group-text">Rp</span>
@@ -148,48 +151,10 @@
                             <label class='col-xs-3'>Note</label>
                             <div class='col-xs-8'><textarea class="form-control" rows="3" name="note"></textarea></div>
                           </div>
-                          <input name="tag" value="0" class="form-control" type="hidden" readonly>
                         </div>
                         <div class="modal-footer">
                           <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-                          <button class="btn btn-info">Tambah</button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal fade" id="modal-editkurang<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header bg-primary">
-                        <h3 class="modal-title" id="myModalLabel">Kurang Kas</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                      </div>
-                      <form class="form-horizontal" method="post" action="<?php echo base_url() . 'kas/addkas' ?>">
-                        <div class="modal-body">
-                          <div class="form-group">
-                            <div class="col-xs-8">
-                              <input name="organization_id" value="<?php echo $id; ?>" class="form-control" type="hidden" placeholder="Kode Barang..." readonly>
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label class='col-xs-3'>Jumlah Kas</label>
-                            <div class="input-group">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text">Rp</span>
-                              </div>
-                              <input type="text" name="cash_in_hand" autocomplete="off" required class="form-control uang">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label class='col-xs-3'>Note</label>
-                            <div class='col-xs-8'><textarea class="form-control" rows="3" name="note"></textarea></div>
-                          </div>
-                          <input name="tag" value="1" class="form-control" type="hidden" readonly>
-                        </div>
-                        <div class="modal-footer">
-                          <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-                          <button class="btn btn-info">Kurang</button>
+                          <button class="btn btn-info">Edit</button>
                         </div>
                       </form>
                     </div>
@@ -219,7 +184,7 @@
         "info": true,
         "autoWidth": false,
       });
-      var table = $('#example2').DataTable({
+      $('#example2').DataTable({
         "paging": true,
         "lengthChange": true,
         "scrollX": true,

@@ -11,7 +11,6 @@ class M_kas extends CI_Model
 
 	public function showdata($table)
 	{
-
 		$this->db->order_by('id', 'asc');
 		$data = $this->db->get($table);
 		if ($data->num_rows() > 0) {
@@ -34,7 +33,6 @@ class M_kas extends CI_Model
 		$this->db->select('
           *,DATE_FORMAT(created_at,"%d %M %Y") as created_at_v
         ');
-
 		$this->db->from('log_mst_organization');
 		$this->db->order_by('id', 'asc');
 		$query = $this->db->get();

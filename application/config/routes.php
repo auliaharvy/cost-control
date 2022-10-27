@@ -122,3 +122,8 @@ $route['editmaterial'] = 'C_masterdata/editmaterial';
 
 //Halaman Kas
 $route['kas'] = 'C_kas/index';
+$route['editkas'] = 'C_kas/editkas';
+
+//Halaman Kas
+$route['inventory'] = 'C_inventory/index';
+$route['editmaterial'] = 'C_inventory/editmaterial';

@@ -97,16 +97,14 @@ $route['report/export/(:num)'] = 'C_laporan/export/$1';
 // $route['material'] = 'C_material/index';
 // $route['material_add'] = 'C_material/add';
 // $route['material_update'] = 'C_material/do_update';
+// $route['kas/inventory_add'] = 'Welcome/inventory_add';
+// $route['kas/update_inventory'] = 'Welcome/update_inventory';
+// $route['kas/transfer'] = 'Welcome/transfer';
+// $route['kas/addkas'] = 'Welcome/tambah_kas';
+// $route['kas/historycash'] = 'Welcome/log_kas';
+// $route['kas/historymaterial'] = 'Welcome/log_material';
 
 $route['dashboard'] = 'C_dashboard/index';
-
-
-$route['kas/inventory_add'] = 'Welcome/inventory_add';
-$route['kas/update_inventory'] = 'Welcome/update_inventory';
-$route['kas/transfer'] = 'Welcome/transfer';
-$route['kas/addkas'] = 'Welcome/tambah_kas';
-$route['kas/historycash'] = 'Welcome/log_kas';
-$route['kas/historymaterial'] = 'Welcome/log_material';
 
 $route['hutang'] = 'C_hutang/index';
 $route['hutang_detail/(:num)'] = 'C_hutang/detail/$1';
@@ -124,6 +122,8 @@ $route['editmaterial'] = 'C_masterdata/editmaterial';
 $route['kas'] = 'C_kas/index';
 $route['editkas'] = 'C_kas/editkas';
 
-//Halaman Kas
+//Halaman Inventory
 $route['inventory'] = 'C_inventory/index';
 $route['editmaterial'] = 'C_inventory/editmaterial';
+$route['tambahmaterial'] = 'C_inventory/tambahmaterial';
+$route['transfermaterial'] = 'C_inventory/transfermaterial';

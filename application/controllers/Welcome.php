@@ -293,8 +293,6 @@ class Welcome extends CI_Controller
         $project_id = $_POST['project_id'];
         $cekqty = $this->M_data->cekMaterialInventory($material_id);
         $qty_inv = $cekqty[0]['qty'];
-
-
         if ($this->form_validation->run() == FALSE) {
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
@@ -304,17 +302,12 @@ class Welcome extends CI_Controller
             $this->flashdata_failed1($pesan);
             redirect('/');
         } else {
-
-
             $date = date('Y-m-d H:i:s');
-
-
             $getinv = $this->M_data->cekMaterialProject($project_id, $material_id);
             if ($getinv) { //jika material sudah ada di inventory project
                 $id_inv_project = $getinv[0]['id'];
                 $qty_project = $getinv[0]['qty'];
                 $qty_akhir = $qty_project + $_POST['qty'];
-
                 $data_up_pro = array(
                     "qty" => $qty_akhir,
                     "last_updated_by" => $this->session->userdata('id'),
@@ -332,9 +325,6 @@ class Welcome extends CI_Controller
                 );
                 $this->M_data->InsertData('akk_inventory_project', $data_ins_pro);
             }
-
-
-
             $cekmaterial = $this->M_data->cekMaterialInventory($material_id);
             $where = array('material_id' => $material_id);
             $qty_awal = $cekmaterial[0]['qty'];
@@ -344,7 +334,6 @@ class Welcome extends CI_Controller
                 "last_updated_by" => $this->session->userdata('id'),
                 "updated_at" => $date,
             );
-
             $data_log = array(
                 "material_id" => $material_id,
                 "qty" => $_POST['qty'],
@@ -353,14 +342,9 @@ class Welcome extends CI_Controller
                 "created_at" => $date,
                 "note" => "Transfer Inventory",
             );
-
-
             $this->db->trans_start();
-
-
             $this->M_data->UpdateData('akk_inventory', $data_up, $where);
             $this->M_data->InsertData('log_inventory_organization', $data_log);
-
             $this->db->trans_complete();
             if ($this->db->trans_status() === TRUE) {
                 $msg = "Transfer Material";

@@ -11,20 +11,34 @@ class C_inventory extends CI_Controller
             redirect('Login');
         }
         date_default_timezone_set('Asia/Jakarta');
-        $this->load->model("M_data");
+        $this->load->model("M_inventory");
         $this->load->helper('form');
         $this->load->library('Lharby');
     }
 
     public function index()
     {
-        $datainventory = $this->M_data->showInventory();
+        if ($this->input->server('REQUEST_METHOD') == 'POST') {
+            $range = $_POST['range'];
+            $title = 'LOG TRANSFER MATERIAL DALAM ' . $range . ' BULAN TERAKHIR';
+            $datalogmaterial = $this->M_inventory->showLogMaterialRange($range);
+        } else {
+            $datalogmaterial = $this->M_inventory->showLogMaterial();
+            $title = '';
+        }
+        $data_project = $this->M_inventory->GetData("mst_project ", "where project_status=0");
+        $data_mst_material = $this->M_inventory->showData("mst_material");
+        $datainventory = $this->M_inventory->showInventory();
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
             'sidebar' => $this->sidebar(),
             'footer' => $this->footer(),
             'datainventory' => $datainventory,
+            'datalogmaterial' => $datalogmaterial,
+            'data_mst_material' => $data_mst_material,
+            'data_project' => $data_project,
+            'title' => $title,
 
         );
         $this->load->view('inventory/index', $show);
@@ -80,6 +94,132 @@ class C_inventory extends CI_Controller
             }
         }
     }
+
+    public function tambahmaterial()
+    {
+        $this->form_validation->set_rules('qty', 'Quantity', 'required|greater_than[0]');
+        $material_id = $_POST['material_id'];
+        $date = date('Y-m-d H:i:s');
+        if ($this->form_validation->run() == FALSE) {
+            $pesan = validation_errors();
+            $this->flashdata_failed1($pesan);
+            redirect('/');
+        } else {
+            $data = array(
+                "material_id" => $material_id,
+                "qty" => $_POST['qty'],
+                "last_updated_by" => $this->session->userdata('id'),
+                "created_at" => $date,
+            );
+            $where = array('material_id' => $material_id);
+            $cekmaterial = $this->M_data->cekMaterialInventory($material_id);
+            $this->db->trans_start();
+            if ($cekmaterial) { //jika material sudah ada di project tsb
+                $qty_awal = $cekmaterial[0]['qty'];
+                $qty_akhir = $qty_awal + $_POST['qty'];
+                $data_up = array(
+                    "qty" => $qty_akhir,
+                    "last_updated_by" => $this->session->userdata('id'),
+                    "updated_at" => $date,
+                );
+                $res = $this->M_data->UpdateData('akk_inventory', $data_up, $where);
+            } else {
+                $res = $this->M_data->InsertData('akk_inventory', $data);
+            }
+            $data_log = array(
+                "material_id" => $material_id,
+                "qty" => $_POST['qty'],
+                "created_by" => $this->session->userdata('id'),
+                "created_at" => $date,
+                "note" => "Penambahan inventory",
+            );
+            $this->M_data->InsertData('log_inventory_organization', $data_log);
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === TRUE) {
+                $msg = "Penambahan Material ";
+                $this->flashdata_succeed1($msg);
+                redirect('inventory');
+            } else {
+                $msg = "Penambahan Material ";
+                $this->flashdata_failed1($msg);
+                redirect('inventory');
+            }
+        }
+    }
+
+
+    public function transfermaterial()
+    {
+        $this->form_validation->set_rules('qty', 'Quantity', 'required|greater_than[0]');
+        $material_id = $_POST['material_id'];
+        $project_id = $_POST['project_id'];
+        $cekqty = $this->M_data->cekMaterialInventory($material_id);
+        $qty_inv = $cekqty[0]['qty'];
+        if ($this->form_validation->run() == FALSE) {
+            $pesan = validation_errors();
+            $this->flashdata_failed1($pesan);
+            redirect('/');
+        } else if ($qty_inv < $_POST['qty']) {
+            $pesan = "Jumlah Transfer yang diinput tidak boleh melebihi Inventory yang ada";
+            $this->flashdata_failed1($pesan);
+            redirect('/');
+        } else {
+            $date = date('Y-m-d H:i:s');
+            $getinv = $this->M_data->cekMaterialProject($project_id, $material_id);
+            if ($getinv) { //jika material sudah ada di inventory project
+                $id_inv_project = $getinv[0]['id'];
+                $qty_project = $getinv[0]['qty'];
+                $qty_akhir = $qty_project + $_POST['qty'];
+                $data_up_pro = array(
+                    "qty" => $qty_akhir,
+                    "last_updated_by" => $this->session->userdata('id'),
+                    "updated_at" => $date,
+                );
+                $where_up_pro = array('id' => $id_inv_project); //update qty di inventory project
+                $this->M_data->UpdateData('akk_inventory_project', $data_up_pro, $where_up_pro);
+            } else {
+                $data_ins_pro = array(
+                    "project_id" => $project_id,
+                    "material_id" => $material_id,
+                    "qty" => $_POST['qty'],
+                    "created_at" => $date,
+                    "last_updated_by" => $this->session->userdata('id'),
+                );
+                $this->M_data->InsertData('akk_inventory_project', $data_ins_pro);
+            }
+            $cekmaterial = $this->M_data->cekMaterialInventory($material_id);
+            $where = array('material_id' => $material_id);
+            $qty_awal = $cekmaterial[0]['qty'];
+            $qty_akhir = $qty_awal - $_POST['qty'];
+            $data_up = array(
+                "qty" => $qty_akhir,
+                "last_updated_by" => $this->session->userdata('id'),
+                "updated_at" => $date,
+            );
+            $data_log = array(
+                "material_id" => $material_id,
+                "qty" => $_POST['qty'],
+                "project_id" => $project_id,
+                "created_by" => $this->session->userdata('id'),
+                "created_at" => $date,
+                "note" => "Transfer Inventory",
+            );
+            $this->db->trans_start();
+            $this->M_data->UpdateData('akk_inventory', $data_up, $where);
+            $this->M_data->InsertData('log_inventory_organization', $data_log);
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === TRUE) {
+                $msg = "Transfer Material";
+                $this->flashdata_succeed1($msg);
+                redirect('inventory');
+            } else {
+                $msg = "Transfer Material";
+                $this->flashdata_failed1($msg);
+                redirect('inventory');
+            }
+        }
+    }
+
 
     function convert_date($tgl)
     {

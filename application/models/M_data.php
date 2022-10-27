@@ -60,7 +60,6 @@ class M_data extends CI_Model
 
 	public function showLogMaterialRange($range)
 	{
-
 		$data = $this->db->query("SELECT a.*,b.project_name,c.material_name,DATE_FORMAT(a.created_at,'%d %M %Y') as created_at_v
 			FROM log_inventory_organization as a LEFT JOIN mst_project as b on a.project_id=b.id
 			JOIN mst_material as c on a.material_id=c.id

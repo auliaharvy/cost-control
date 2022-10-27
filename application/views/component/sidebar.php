@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Role Admin -->
   <?php if (($this->session->userdata('role')) == 1) { ?>
-    <a href="<?php echo base_url('dashboard') ?>" class="brand-link">
+    <a href="<?php echo base_url('masterdata') ?>" class="brand-link">
       <img src="<?php echo base_url('assets/img/logo.jpg'); ?>" alt="AKK Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <h3><?php echo $this->session->userdata('username') ?></h3>
       <span class="brand-text font-weight-light">Admin</span>
@@ -9,7 +9,7 @@
     <!-- Role Owner -->
   <?php }
   if (($this->session->userdata('role')) == 2) { ?>
-    <a href="<?php echo base_url('pencairan') ?>" class="brand-link">
+    <a href="<?php echo base_url('dashboard') ?>" class="brand-link">
       <img src="<?php echo base_url('assets/img/logo.jpg'); ?>" alt="AKK Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <h3><?php echo $this->session->userdata('username') ?></h3>
       <span class="brand-text font-weight-light">Owner</span>

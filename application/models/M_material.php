@@ -25,7 +25,6 @@ class M_material extends CI_Model
 		$this->db->from('mst_office as a');
 		$this->db->join('mst_office_type as b', 'a.type_office_id = b.id');
 		$this->db->join('mst_users as c', 'a.user_id = c.id');
-
 		$query = $this->db->get();
 		return $query->result_array();
 	}

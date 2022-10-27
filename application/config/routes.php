@@ -90,20 +90,6 @@ $route['laporan'] = 'C_laporan';
 $route['laporan_detail/(:num)'] = 'C_laporan/detail/$1';
 $route['report/export/(:num)'] = 'C_laporan/export/$1';
 
-// $route['user'] = 'C_pengguna';
-// $route['user/add'] = 'C_pengguna/add';
-// $route['user/update'] = 'C_pengguna/do_update';
-// $route['user/changepassword'] = 'C_pengguna/change_pass';
-// $route['material'] = 'C_material/index';
-// $route['material_add'] = 'C_material/add';
-// $route['material_update'] = 'C_material/do_update';
-// $route['kas/inventory_add'] = 'Welcome/inventory_add';
-// $route['kas/update_inventory'] = 'Welcome/update_inventory';
-// $route['kas/transfer'] = 'Welcome/transfer';
-// $route['kas/addkas'] = 'Welcome/tambah_kas';
-// $route['kas/historycash'] = 'Welcome/log_kas';
-// $route['kas/historymaterial'] = 'Welcome/log_material';
-
 $route['dashboard'] = 'C_dashboard/index';
 
 $route['hutang'] = 'C_hutang/index';
@@ -127,3 +113,17 @@ $route['inventory'] = 'C_inventory/index';
 $route['editmaterial'] = 'C_inventory/editmaterial';
 $route['tambahmaterial'] = 'C_inventory/tambahmaterial';
 $route['transfermaterial'] = 'C_inventory/transfermaterial';
+
+// $route['user'] = 'C_pengguna';
+// $route['user/add'] = 'C_pengguna/add';
+// $route['user/update'] = 'C_pengguna/do_update';
+// $route['user/changepassword'] = 'C_pengguna/change_pass';
+// $route['material'] = 'C_material/index';
+// $route['material_add'] = 'C_material/add';
+// $route['material_update'] = 'C_material/do_update';
+// $route['kas/inventory_add'] = 'Welcome/inventory_add';
+// $route['kas/update_inventory'] = 'Welcome/update_inventory';
+// $route['kas/transfer'] = 'Welcome/transfer';
+// $route['kas/addkas'] = 'Welcome/tambah_kas';
+// $route['kas/historycash'] = 'Welcome/log_kas';
+// $route['kas/historymaterial'] = 'Welcome/log_material';

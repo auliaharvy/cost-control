@@ -119,3 +119,6 @@ $route['edituser'] = 'C_masterdata/edituser';
 $route['editpassuser'] = 'C_masterdata/editpassuser';
 $route['tambahmaterial'] = 'C_masterdata/tambahmaterial';
 $route['editmaterial'] = 'C_masterdata/editmaterial';
+
+//Halaman Kas
+$route['kas'] = 'C_kas/index';

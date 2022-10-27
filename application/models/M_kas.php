@@ -1,8 +1,13 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class M_pengguna extends CI_Model
+class M_kas extends CI_Model
 {
+	public function cek_user($data)
+	{
+		$query = $this->db->get_where('mst_users', $data);
+		return $query;
+	}
 
 	public function showdata($table)
 	{
@@ -16,32 +21,22 @@ class M_pengguna extends CI_Model
 		}
 	}
 
-	public function getUser()
+	public function showLogKasRange($range)
 	{
-		$this->db->select("
-          a.*,b.id as role_id,b.role_name,IF(a.is_active=0,'Active','Non Active') as is_active_v,
-          IF(a.is_active=0,'','bg-danger text-white') as background_text
-      ");
-
-		$this->db->from('mst_users as a');
-		$this->db->join('mst_role as b', 'a.role = b.id');
-
-		$query = $this->db->get();
-		return $query->result_array();
+		$data = $this->db->query("SELECT *,DATE_FORMAT(created_at,'%d %M %Y') as created_at_v
+			FROM log_mst_organization
+			WHERE created_at >= DATE_ADD(NOW(), INTERVAL -$range MONTH)");
+		return $data->result_array();
 	}
 
-	public function showKas($id, $date)
+	public function showLogKas()
 	{
 		$this->db->select('
-          a.*,b.id as param_id, b.value as jenis_kas
-      ');
-		$this->db->join('mst_param as b', 'a.kas_type = b.id');
-		$this->db->from('mst_kas as a');
-		$this->db->where('b.id', $id);
-		if ($date != null) {
-			$this->db->where('DATE(a.created_at)', $date);
-		}
+          *,DATE_FORMAT(created_at,"%d %M %Y") as created_at_v
+        ');
 
+		$this->db->from('log_mst_organization');
+		$this->db->order_by('id', 'asc');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -50,12 +45,6 @@ class M_pengguna extends CI_Model
 	{
 		$data = $this->db->query('select * from ' . $tableName . $where);
 		return $data->result_array();
-	}
-
-	public function GetData2($tableName, $where = "")
-	{
-		$data = $this->db->query('select * from ' . $tableName . $where);
-		return $data;
 	}
 
 	public function InsertData($tabelName, $data)
@@ -74,5 +63,11 @@ class M_pengguna extends CI_Model
 	{
 		$res = $this->db->update($tabelName, $data, $where);
 		return $res;
+	}
+
+	public function GetData2($tableName, $where = "")
+	{
+		$data = $this->db->query('select * from ' . $tableName . $where);
+		return $data;
 	}
 }

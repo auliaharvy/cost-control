@@ -180,10 +180,6 @@ class C_masterdata extends CI_Controller
         }
     }
 
-
-
-
-
     public function header()
     {
         $data = array();

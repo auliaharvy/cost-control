@@ -17,7 +17,7 @@
     <!-- Role Finance -->
   <?php }
   if (($this->session->userdata('role')) == 3) { ?>
-    <a href="<?php echo base_url('pencairan') ?>" class="brand-link">
+    <a href="<?php echo base_url('dashboard') ?>" class="brand-link">
       <img src="<?php echo base_url('assets/img/logo.jpg'); ?>" alt="AKK Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <h3><?php echo $this->session->userdata('username') ?></h3>
       <span class="brand-text font-weight-light">Finance</span>
@@ -39,85 +39,36 @@
         <!--Menu Role Owner  -->
         <?php if (($this->session->userdata('role')) == 2) { ?>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+            <a href="<?php echo base_url('dashboard') ?>" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
               <p>
-                BERANDA
-                <i class="right fas fa-angle-left"></i>
+                DASHBOARD
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url('dashboard') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard Transaksi</p>
-                </a>
-              </li>
-            </ul>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="nav-item">
+            <a href="<?php echo base_url('kas') ?>" class="nav-link">
               <i class="nav-icon fas fa-cash-register"></i>
               <p>
                 KAS
-                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url('/') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Kas Besar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url('/kas/historycash') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Log Kas</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url('/kas/historymaterial') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Log Transfer Material</p>
-                </a>
-              </li>
-            </ul>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="nav-item">
+            <a href="<?php echo base_url('inventory') ?>" class="nav-link">
+              <i class="nav-icon fas fa-warehouse"></i>
+              <p>
+                INVENTORY
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?php echo base_url('transaksi') ?>" class="nav-link">
               <i class="nav-icon fas fa-hand-holding-usd"></i>
               <p>
                 TRANSAKSI
-                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url('pengajuan') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pengajuan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url('termin') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Termin</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url('hutang') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Hutang</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url('list_pencairan') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>List Pencairan</p>
-                </a>
-              </li>
-            </ul>
           </li>
           <li class="nav-item ">
             <a href="<?php echo base_url('laporan') ?>" class="nav-link">
@@ -127,89 +78,48 @@
               </p>
             </a>
           </li>
+          <li class="nav-item ">
+            <a href="<?php echo base_url('approval') ?>" class="nav-link">
+              <i class="nav-icon fas fa-clipboard"></i>
+              <p>
+                APPROVAL
+              </p>
+            </a>
+          </li>
         <?php } ?>
         <!-- Role Finance -->
         <?php if (($this->session->userdata('role')) == 3) { ?>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+            <a href="<?php echo base_url('dashboard') ?>" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
               <p>
-                BERANDA
-                <i class="right fas fa-angle-left"></i>
+                DASHBOARD
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url('dashboard') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard Transaksi</p>
-                </a>
-              </li>
-            </ul>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="nav-item">
+            <a href="<?php echo base_url('kas') ?>" class="nav-link">
               <i class="nav-icon fas fa-cash-register"></i>
               <p>
                 KAS
-                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url('/') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Kas Besar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url('/kas/historycash') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Log Kas</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url('/kas/historymaterial') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Log Transfer Material</p>
-                </a>
-              </li>
-            </ul>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="nav-item">
+            <a href="<?php echo base_url('inventory') ?>" class="nav-link">
+              <i class="nav-icon fas fa-warehouse"></i>
+              <p>
+                INVENTORY
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?php echo base_url('transaksi') ?>" class="nav-link">
               <i class="nav-icon fas fa-hand-holding-usd"></i>
               <p>
                 TRANSAKSI
-                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url('termin') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Termin</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url('hutang') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Hutang</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url('pencairan') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pencairan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url('list_pencairan') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>List Pencairan</p>
-                </a>
-              </li>
-            </ul>
           </li>
           <li class="nav-item ">
             <a href="<?php echo base_url('laporan') ?>" class="nav-link">
@@ -302,46 +212,13 @@
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="nav-item">
+            <a href="<?php echo base_url('transaksi') ?>" class="nav-link">
               <i class="nav-icon fas fa-hand-holding-usd"></i>
               <p>
                 TRANSAKSI
-                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url('termin') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Termin</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url('pengajuan') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pengajuan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url('hutang') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Hutang</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url('pencairan') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pencairan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url('list_pencairan') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>List Pencairan</p>
-                </a>
-              </li>
-            </ul>
           </li>
         <?php } ?>
         <br>

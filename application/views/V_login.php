@@ -40,7 +40,6 @@ echo link_tag('assets/plugins/iCheck/square/blue.css');
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-      <?php echo $this->session->userdata('role'); ?>
       <form action="<?php echo base_url('Login/auth'); ?>" method="post">
         <div class="form-group has-feedback">
           <div class="input-group">

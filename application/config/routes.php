@@ -63,7 +63,7 @@ $route['createrap'] = 'C_project/generaterap';
 $route['confirmrap'] = 'C_project/confirmrap';
 
 $route['project/add_termin'] = 'C_project/create_penerimaan_termin';
-$route['termin'] = 'C_termin';
+$route['transaksi'] = 'C_transaksi/index';
 $route['termin/add'] = 'C_termin/add';
 
 $route['createpengajuan'] = 'C_project/generatepengajuan';

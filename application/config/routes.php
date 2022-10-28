@@ -114,6 +114,10 @@ $route['editmaterial'] = 'C_inventory/editmaterial';
 $route['tambahmaterial'] = 'C_inventory/tambahmaterial';
 $route['transfermaterial'] = 'C_inventory/transfermaterial';
 
+// Halaman Approval
+$route['approval'] = 'C_approval/index';
+
+
 // $route['user'] = 'C_pengguna';
 // $route['user/add'] = 'C_pengguna/add';
 // $route['user/update'] = 'C_pengguna/do_update';

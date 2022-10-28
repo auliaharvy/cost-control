@@ -164,8 +164,16 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="<?php echo base_url('pengajuan') ?>" class="nav-link">
+              <i class="nav-icon fas fa-layer-group"></i>
+              <p>
+                PENGAJUAN
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="<?php echo base_url('hutang') ?>" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
+              <i class="nav-icon fas fa-dollar-sign"></i>
               <p>HUTANG</p>
             </a>
           </li>

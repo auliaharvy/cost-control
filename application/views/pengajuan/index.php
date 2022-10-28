@@ -56,7 +56,6 @@
                         <td class="text"><span><?php echo $d['project_location']; ?></span></td>
                         <td><?php echo $d['project_deadline']; ?></td>
                         <td class="text"><span>Rp <?php echo $d['total_pengajuan_v']; ?></span></td>
-
                         <td align="center">
                           <a href="<?php echo base_url() . "pengajuan_detail/" . $d['id']; ?>"><button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button></a>
                         </td>
@@ -65,24 +64,10 @@
                       $nomor = $nomor + 1;
                     }
                   } ?>
-
                 </tbody>
-
               </table>
-
-              <div class="col-md-6">
-
-                <br><br>
-                <br><br><br>
-              </div>
-
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
-
-
           </div>
-
           <!-- /.card -->
         </div>
         <!-- /.col -->

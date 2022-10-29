@@ -36,12 +36,11 @@
               <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>No</th>
-                    <th>Project</th>
-                    <th>Project Location</th>
-                    <th>Project Deadline</th>
-                    <th>Total Hutang</th>
-                    <th>Action</th>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Action</th>
+                    <th class="text-center">Nama Project</th>
+                    <th class="text-center">Tanggal Pengajuan</th>
+                    <th class="text-center">Jumlah Hutang</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -50,14 +49,15 @@
                     foreach ($databelum as $d) {
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
-                        <td><?php echo $nomor++; ?></td>
-                        <td><?php echo $d['project_name']; ?></td>
-                        <td><?php echo $d['project_location']; ?></td>
-                        <td><?php echo $d['project_deadline']; ?></td>
-                        <td>Rp <?php echo $d['total_hutang']; ?></td>
-                        <td align="center">
-                          <a href="<?php echo base_url() . "hutang_detail/" . $d['id']; ?>"><button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button></a>
+                        <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                        <td style="width: 10%;" align="center">
+                          <?php if ($d['is_pay'] == 0) { ?>
+                            <a href="<?php echo site_url('bayarhutang/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Membayar Hutang <?= $d['project_name']; ?> ?');" style="width: 120px;" class="btn btn-success btn-circle " data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fas fa-edit"></i>BAYAR</a>
+                          <?php } ?>
                         </td>
+                        <td style="width: 45%;"><?php echo $d['project_name']; ?></td>
+                        <td style="width: 20%;" class="text-center"><?php echo $d['created_at']; ?></td>
+                        <td style="width: 20%;" class="text-center"><?php echo $d['jumlah_hutang_v']; ?></td>
                       </tr>
                   <?php
                     }
@@ -74,12 +74,11 @@
               <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>No</th>
-                    <th>Project</th>
-                    <th>Project Location</th>
-                    <th>Project Deadline</th>
-                    <th>Total Hutang</th>
-                    <th>Action</th>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Nama Project</th>
+                    <th class="text-center">Tanggal Pembayaran</th>
+                    <th class="text-center">Jumlah Hutang</th>
+                    <th class="text-center">Keterangan</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -88,14 +87,11 @@
                     foreach ($datasudah as $d) {
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
-                        <td><?php echo $nomor++; ?></td>
-                        <td><?php echo $d['project_name']; ?></td>
-                        <td><?php echo $d['project_location']; ?></td>
-                        <td><?php echo $d['project_deadline']; ?></td>
-                        <td>Rp <?php echo $d['total_hutang']; ?></td>
-                        <td align="center">
-                          <a href="<?php echo base_url() . "hutang_detail/" . $d['id']; ?>"><button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button></a>
-                        </td>
+                        <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                        <td style="width: 45%;"><?php echo $d['project_name']; ?></td>
+                        <td style="width: 20%;" class="text-center"><?php echo $d['updated_at']; ?></td>
+                        <td style="width: 20%;" class="text-center">Rp <?php echo $d['total_hutang']; ?></td>
+                        <td style="width: 10%;" class="text-center">Terbayar</td>
                       </tr>
                   <?php
                     }

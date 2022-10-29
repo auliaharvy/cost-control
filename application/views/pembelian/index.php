@@ -30,9 +30,8 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Pembelian</h3>
+              <h3 class="card-title">Pembelian ( Belum Belanja )</h3>
             </div>
-            <!-- /.card-header -->
             <div class="card-body">
               <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -48,9 +47,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php if (is_array($data) || is_object($data)) {
+                  <?php if (is_array($databelum) || is_object($databelum)) {
                     $nomor = 1;
-                    foreach ($data as $d) {
+                    foreach ($databelum as $d) {
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
                         <td><?php echo $nomor++; ?></td>
@@ -69,9 +68,7 @@
                   } ?>
                 </tbody>
               </table>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
           </div>
           <!-- /.card -->
         </div>

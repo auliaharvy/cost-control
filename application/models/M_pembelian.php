@@ -16,7 +16,32 @@ class M_pembelian extends CI_Model
 		}
 	}
 
-	public function showPembelian()
+	public function showPembelianbelum()
+	{
+
+		$user_id = $this->session->userdata('id');
+		$this->db->select('
+          a.*,d.project_name,d.project_location,
+          d.project_deadline,c.id as pengajuan_id
+      ');
+		$this->db->order_by('id', 'asc');
+		$this->db->from('trx_pengiriman_uang as a');
+		$this->db->join('akk_pengajuan_approval as b', 'a.pengajuan_approval_id = b.id');
+		$this->db->join('akk_pengajuan as c', 'b.pengajuan_id = c.id');
+		$this->db->join('mst_project as d', 'c.project_id = d.id');
+		$this->db->join('trx_pembelian_barang as e', 'e.pengiriman_uang_id = a.id');
+		$this->db->where('d.project_status', 0);
+		$this->db->where('d.created_by', $user_id);
+		$this->db->where('e.id');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
+
+	public function showPembeliansudah()
 	{
 
 		$user_id = $this->session->userdata('id');

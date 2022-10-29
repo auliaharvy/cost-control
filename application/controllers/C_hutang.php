@@ -53,7 +53,6 @@ class C_hutang extends CI_Controller
     {
         $get = $this->M_hutang->getHutang($id); //get projetc header
         $datahutang = $this->M_hutang->showHutangProject($id);
-
         $tgl = $get[0]['project_deadline'];
         $rab_project = $this->lharby->formatRupiah($get[0]['rab_project']);
         $cash_in_hand = $this->lharby->formatRupiah($get[0]['cash_in_hand']);
@@ -63,20 +62,15 @@ class C_hutang extends CI_Controller
             'kas' => $cash_in_hand,
             'project_name' => $get[0]['project_name'],
             'project_location' => $get[0]['project_location'],
-
             'project_deadline' => $deadline,
             'rab_project' => $rab_project,
             // 'is_rap_confirm' => $cekrap[0]['is_rap_confirm'],
-
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
             'sidebar' => $this->sidebar(),
             'footer' => $this->footer(),
             'datahutang' => $datahutang,
-
         );
-
-
         $this->load->view('hutang/detail', $data);
     }
 

@@ -55,7 +55,7 @@
                     foreach ($data as $d) {
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
-                        <td><?php echo $nomor; ?></td>
+                        <td><?php echo $nomor++; ?></td>
                         <td class="text"><span><?php echo $d['project_name']; ?></span></td>
                         <td class="text"><span><?php echo $d['project_location']; ?></span></td>
                         <td><?php echo $d['project_deadline_v']; ?></td>
@@ -64,27 +64,16 @@
                         <td class="text"><span>Rp <?php echo $d['total_pengeluaran_v']; ?></span></td>
                         <td><?php echo $d['persentase_v'];  ?></td>
                         <td><?php echo $d['finish_at_v']; ?></td>
-
                         <td align="center">
-
                           <a href="<?php echo base_url() . "laporan_detail/" . $d['id']; ?>"><button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button>
-
                         </td>
                       </tr>
                   <?php
-                      $nomor = $nomor + 1;
                     }
                   } ?>
                 </tbody>
-
               </table>
-              <div class="col-md-6">
-
-                <br><br>
-                <br><br><br>
-              </div>
             </div>
-            <!-- /.card-body -->
           </div>
           <!-- /.card -->
 

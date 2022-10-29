@@ -109,21 +109,11 @@
                         <td>Rp <?php echo $d['jumlah_uang_pembelian_v']; ?></td>
                         <td><?php echo $d['tanggal_pembelian']; ?></td>
                         <td align="center">
-
                           <?php if ($d['is_buy'] == 0) { ?>
-
-                            <!--  <a href="<?php echo site_url('C_pembelian/create_belanja/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Membelanjakan <?= $d['nama_jenis_rap']; ?> ?');" class="btn btn-danger btn-circle " data-popup="tooltip" data-placement="top" title="Belanja Item"><i class="fa fa-shopping-cart"></i> BELANJA</a> -->
-
                             <a href="" data-toggle="modal" style="width: 120px;" data-target="#modal-edit<?php echo $idx; ?>" class="btn btn-danger btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fa fa-shopping-cart"></i>BELANJA</a>
-
                           <?php } else { ?>
-                            <!--<h6 class="bg-success text-white">TELAH DIBELANJAKAN</h6>-->
                             <a><button class="btn btn-success btn-circle disabled text-white">TELAH DIBELANJAKAN</button></a>
                           <?php } ?>
-
-                          <!-- <a href="#"><button class="btn btn-primary btn-circle "><i class="fa fa-edit "></i>Confirm RAP</button></a> -->
-
-
                         </td>
                       </tr>
                   <?php

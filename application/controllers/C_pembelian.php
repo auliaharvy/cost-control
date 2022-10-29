@@ -17,13 +17,15 @@ class C_pembelian extends CI_Controller
 
     public function index() //project on progress
     {
-        $data = $this->M_pembelian->showPembelian(); //show pembelian data
+        $databelum = $this->M_pembelian->showPembelianbelum(); //show pembelian data
+        $datasudah = $this->M_pembelian->showPembeliansudah(); //show pembelian data
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
             'sidebar' => $this->sidebar(),
             'footer' => $this->footer(),
-            'data' => $data,
+            'databelum' => $databelum,
+            'datasudah' => $datasudah,
 
         );
         $this->load->view('pembelian/index', $show);

@@ -29,8 +29,10 @@ class M_pembelian extends CI_Model
 		$this->db->join('akk_pengajuan_approval as b', 'a.pengajuan_approval_id = b.id');
 		$this->db->join('akk_pengajuan as c', 'b.pengajuan_id = c.id');
 		$this->db->join('mst_project as d', 'c.project_id = d.id');
+		$this->db->join('trx_pembelian_barang as e', 'e.pengiriman_uang_id = a.id');
 		$this->db->where('d.project_status', 0);
 		$this->db->where('d.created_by', $user_id);
+		$this->db->where('e.id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
@@ -51,7 +53,6 @@ class M_pembelian extends CI_Model
 		$this->db->join('akk_rap_biaya as c', 'b.rap_biaya_id = c.id');
 		$this->db->join('trx_pembelian_barang as e', 'e.pengiriman_uang_id = a.id', 'left');
 		$this->db->where('b.pengajuan_id', $id);
-
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();

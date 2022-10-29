@@ -132,28 +132,13 @@
         <?php } ?>
         <!-- Role Site manager -->
         <?php if (($this->session->userdata('role')) == 4) { ?>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="nav-item">
+            <a href="<?php echo base_url('project_on') ?>" class="nav-link">
               <i class="nav-icon fas fa-tasks"></i>
               <p>
                 PROJECT
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url('project_on') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>On Progress</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url('project_finish') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Finish</p>
-                </a>
-              </li>
-            </ul>
           </li>
           <li class="nav-item ">
             <a href="<?php echo base_url('pembelian') ?>" class="nav-link">

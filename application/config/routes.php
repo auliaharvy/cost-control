@@ -111,7 +111,7 @@ $route['editkas'] = 'C_kas/editkas';
 //Halaman Inventory
 $route['inventory'] = 'C_inventory/index';
 $route['editmaterial'] = 'C_inventory/editmaterial';
-$route['tambahmaterial'] = 'C_inventory/tambahmaterial';
+$route['tambah_material'] = 'C_inventory/tambahmaterial';
 $route['transfermaterial'] = 'C_inventory/transfermaterial';
 
 // Halaman Approval

@@ -174,7 +174,7 @@
               <div role="tabpanel" class="tab-pane" id="hutang">
                 <div class="card">
                   <div class="card-header">
-                    <h3 class="card-title">Hutang</h3>
+                    <h3 class="card-title">Hutang ( Belum Bayar )</h3>
                   </div>
                   <div class="card-body">
                     <table style="width: 100%;" id="example4" class="table table-bordered table-striped">
@@ -189,9 +189,47 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <?php if (is_array($datahutang) || is_object($datahutang)) {
+                        <?php if (is_array($datahutangbelum) || is_object($datahutangbelum)) {
                           $nomor = 1;
-                          foreach ($datahutang as $d) {
+                          foreach ($datahutangbelum as $d) {
+                            $id = $d['id']; ?>
+                            <tr class="odd gradeX">
+                              <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                              <td style="width: 5%;" align="center">
+                                <a href="<?php echo base_url() . "hutang_detail/" . $d['id']; ?>"><button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button></a>
+                              </td>
+                              <td style="width: 25%;"><?php echo $d['project_name']; ?></td>
+                              <td style="width: 25%;"><?php echo $d['project_location']; ?></td>
+                              <td style="width: 20%;" class="text-center"><?php echo $d['project_deadline']; ?></td>
+                              <td style="width: 20%;" class="text-center">Rp <?php echo $d['total_hutang']; ?></td>
+                            </tr>
+                        <?php
+                          }
+                        } ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Hutang ( Sudah Bayar )</h3>
+                  </div>
+                  <div class="card-body">
+                    <table style="width: 100%;" id="example5" class="table table-bordered table-striped">
+                      <thead>
+                        <tr>
+                          <th class="text-center">No</th>
+                          <th class="text-center">Detail</th>
+                          <th class="text-center">Project</th>
+                          <th class="text-center">Project Location</th>
+                          <th class="text-center">Project Deadline</th>
+                          <th class="text-center">Jumlah Hutang</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php if (is_array($datahutangsudah) || is_object($datahutangsudah)) {
+                          $nomor = 1;
+                          foreach ($datahutangsudah as $d) {
                             $id = $d['id']; ?>
                             <tr class="odd gradeX">
                               <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
@@ -217,7 +255,7 @@
                     <h3 class="card-title">Detail Pencairan</h3>
                   </div>
                   <div class="card-body">
-                    <table style="width: 100%;" id="example5" class="table table-bordered table-striped">
+                    <table style="width: 100%;" id="example6" class="table table-bordered table-striped">
                       <thead>
                         <tr>
                           <th class="text-center">No</th>
@@ -254,7 +292,8 @@
                     <h3 class="card-title">Detail Pencairan</h3>
                   </div>
                   <div class="card-body">
-                    <table style="width: 100%;" id="example6" class="table table-bordered table-striped">
+                    <table style="width: 100%;" id="example7
+                    " class="table table-bordered table-striped">
                       <thead>
                         <tr>
                           <th class="text-center">No</th>

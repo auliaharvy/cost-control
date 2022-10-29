@@ -1,13 +1,10 @@
-<?php echo $nav;?>
-
+<?php echo $nav; ?>
 <div class="wrapper">
   <!-- Navbar -->
   <?php echo $navbar; ?>
   <!-- /.navbar -->
-
   <!-- Main Sidebar Container -->
   <?php echo $sidebar; ?>
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -26,64 +23,63 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
+    <?= $this->session->flashdata('pesan') ?>
     <section class="content">
       <div class="row">
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-               <?=$this->session->flashdata('pesan')?>
-                                
-              <br><table id="example2" class="table table-bordered table-striped">
+              <table id="example2" class="table table-bordered table-striped">
                 <thead>
-                <tr>
-                  <th>No</th>
-                  <th>Project</th>
-                  <th>Lokasi Project</th>
-                  <th>Deadline</th>
-                  <th>Total RAB</th>
-                  <th>Total RAP</th>
-                  <th>Total Pengeluaran</th>
-                  <th>%</th>
-                  <th>Finish At</th>
-                  <th>Action</th>
-                </tr>
+                  <tr>
+                    <th>No</th>
+                    <th>Project</th>
+                    <th>Lokasi Project</th>
+                    <th>Deadline</th>
+                    <th>Total RAB</th>
+                    <th>Total RAP</th>
+                    <th>Total Pengeluaran</th>
+                    <th>%</th>
+                    <th>Finish At</th>
+                    <th>Action</th>
+                  </tr>
                 </thead>
                 <tbody>
-           <?php
-           if (is_array($data) || is_object($data))
-{
-                                         $nomor = 1;
-                                         foreach($data as $d){  $id=$d['id'];?>
-                                        <tr class="odd gradeX">
-                                            <td><?php echo $nomor; ?></td>
-                                            <td class="text"><span><?php echo $d['project_name']; ?></span></td>
-                                            <td class="text"><span><?php echo $d['project_location']; ?></span></td>
-                                            <td><?php echo $d['project_deadline_v']; ?></td>
-                                            <td class="text"><span>Rp <?php echo $d['rab_project_v']; ?></span></td>
-                                            <td class="text"><span>Rp <?php echo $d['total_biaya_v']; ?></span></td>
-                                            <td class="text"><span>Rp <?php echo $d['total_pengeluaran_v']; ?></span></td>
-                                            <td><?php echo $d['persentase_v'];  ?></td>
-                                            <td><?php echo $d['finish_at_v']; ?></td>
-                                            
-                                            <td align="center">
-                                              
-                                              <a href="<?php echo base_url()."laporan_detail/".$d['id']; ?>"><button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button>
-                                            
-                                            </td>
-                                        </tr>
-                                        <?php 
-                                            $nomor = $nomor+1; } } ?>
+                  <?php
+                  if (is_array($data) || is_object($data)) {
+                    $nomor = 1;
+                    foreach ($data as $d) {
+                      $id = $d['id']; ?>
+                      <tr class="odd gradeX">
+                        <td><?php echo $nomor; ?></td>
+                        <td class="text"><span><?php echo $d['project_name']; ?></span></td>
+                        <td class="text"><span><?php echo $d['project_location']; ?></span></td>
+                        <td><?php echo $d['project_deadline_v']; ?></td>
+                        <td class="text"><span>Rp <?php echo $d['rab_project_v']; ?></span></td>
+                        <td class="text"><span>Rp <?php echo $d['total_biaya_v']; ?></span></td>
+                        <td class="text"><span>Rp <?php echo $d['total_pengeluaran_v']; ?></span></td>
+                        <td><?php echo $d['persentase_v'];  ?></td>
+                        <td><?php echo $d['finish_at_v']; ?></td>
+
+                        <td align="center">
+
+                          <a href="<?php echo base_url() . "laporan_detail/" . $d['id']; ?>"><button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button>
+
+                        </td>
+                      </tr>
+                  <?php
+                      $nomor = $nomor + 1;
+                    }
+                  } ?>
                 </tbody>
-               
+
               </table>
               <div class="col-md-6">
-               
+
                 <br><br>
                 <br><br><br>
               </div>
@@ -94,29 +90,29 @@
 
 
 
-</div>
-
-          
-          <!-- /.card -->
         </div>
-        <!-- /.col -->
+
+
+        <!-- /.card -->
       </div>
-      <!-- /.row -->
-    </section>
-    <!-- /.content -->
+      <!-- /.col -->
   </div>
-  <!-- /.content-wrapper -->
-  
+  <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
 <!-- ./wrapper -->
 
 <!-- jQuery -->
 
-<?php echo $footer;?>
+<?php echo $footer; ?>
 <!-- page script -->
 <script>
-  $(function () {
+  $(function() {
     $("#example1").DataTable();
-     var table = $('#example2').DataTable({
+    var table = $('#example2').DataTable({
       "paging": true,
       "lengthChange": true,
       "scrollX": true,
@@ -125,11 +121,12 @@
       "info": true,
       "autoWidth": true,
     });
-    
-     table.columns.adjust().draw();
+
+    table.columns.adjust().draw();
 
   });
 </script>
 
 </body>
+
 </html>

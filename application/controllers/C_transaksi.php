@@ -21,7 +21,8 @@ class C_transaksi extends CI_Controller
         $datapengajuanbelumapprove = $this->M_transaksi->pengajuanbelumapprove();
         $datapengajuansudahapprove = $this->M_transaksi->pengajuansudahapprove();
         // $datapengajuan = $this->M_transaksi->showPengajuan();
-        $datahutang = $this->M_transaksi->showHutang();
+        $datahutangbelum = $this->M_transaksi->showHutangbelum();
+        $datahutangsudah = $this->M_transaksi->showHutangsudah();
         $datapencairan = $this->M_transaksi->showPencairan();
         $datalogpencairan = $this->M_transaksi->dataPencairan();
         $status = 0; //on progress
@@ -34,7 +35,8 @@ class C_transaksi extends CI_Controller
             'datatermin' => $datatermin,
             'datapengajuanbelumapprove' => $datapengajuanbelumapprove,
             'datapengajuansudahapprove' => $datapengajuansudahapprove,
-            'datahutang' => $datahutang,
+            'datahutangbelum' => $datahutangbelum,
+            'datahutangsudah' => $datahutangsudah,
             'datapencairan' => $datapencairan,
             'datalogpencairan' => $datalogpencairan,
             'project' => $project,

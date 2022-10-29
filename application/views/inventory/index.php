@@ -163,7 +163,7 @@
           } ?>
           <div id="tambahmaterial" class="modal fade">
             <div class="modal-dialog">
-              <form action="<?php echo site_url('tambahmaterial'); ?>" method="post">
+              <form action="<?php echo site_url('tambah_material'); ?>" method="post">
                 <div class="modal-content">
                   <div class="modal-header bg-primary">
                     <h4 class="modal-title">Tambah Material</h4>

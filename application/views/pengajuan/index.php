@@ -12,12 +12,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1><b>DETAIL</b>PENGAJUAN</h1>
+            <h1><b>PENGAJUAN</b></h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="<?php echo base_url('/') ?>">Home</a></li>
-              <li class="breadcrumb-item active">Detail Pengajuan</li>
+              <li class="breadcrumb-item active">Pengajuan</li>
             </ol>
           </div>
         </div>
@@ -30,18 +30,19 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Detail Pengajuan</h3>
+              <h3 class="card-title">Pengajuan</h3>
             </div>
             <div class="card-body">
-              <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahpengajuan"><i class="fa fa-plus-circle"></i> Tambah Pengajuan </button><br><br>
+              <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Project</th>
-                    <th class="text"><span>Project Location</span></th>
-                    <th>Project Deadline</th>
-                    <th>Total Pengajuan</th>
                     <th>Action</th>
+                    <th>Nama Project</th>
+                    <th>Nama Pekerjaan</th>
+                    <th>Jumlah Pengajuan</th>
+                    <th>Keterangan</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -51,23 +52,95 @@
                     foreach ($data as $d) {
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
-                        <td><?php echo $nomor; ?></td>
-                        <td class="text"><span><?php echo $d['project_name']; ?></span></td>
-                        <td class="text"><span><?php echo $d['project_location']; ?></span></td>
-                        <td><?php echo $d['project_deadline']; ?></td>
-                        <td class="text"><span>Rp <?php echo $d['total_pengajuan_v']; ?></span></td>
+                        <td><?php echo $nomor++; ?></td>
                         <td align="center">
-                          <a href="<?php echo base_url() . "pengajuan_detail/" . $d['id']; ?>"><button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button></a>
+                          <a data-toggle="modal" data-target="#editpengajuan" <?php echo $id; ?>"><button class="btn btn-warning btn-circle btn-sm"><i class="fa fa-edit" data-popup="tooltip" data-placement="top" title="Edit Data"></i></button></a>
                         </td>
+                        <td><?php echo $d['project_name']; ?></td>
+                        <td><?php echo $d['nama_pekerjaan']; ?></td>
+                        <td>Rp <?php echo $d['jumlah_pengajuan_v']; ?></td>
+                        <td><?php echo $d['keterangan']; ?></td>
                       </tr>
                   <?php
-                      $nomor = $nomor + 1;
                     }
                   } ?>
                 </tbody>
               </table>
             </div>
           </div>
+          <div id="tambahpengajuan" class="modal fade">
+            <div class="modal-dialog">
+              <form action="<?php echo site_url('tambahmaterial'); ?>" method="post">
+                <div class="modal-content">
+                  <div class="modal-header bg-primary">
+                    <h4 class="modal-title">Tambah Pengajuan</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label>Material</label>
+                      <select class="form-control js-states" id="single" style="width:100%;" name="material_id" required>
+                        <option value="">---Select List---</option>
+                        <?php foreach ($data_mst_material as $dk) { ?>
+                          <option value="<?php echo $dk['id']; ?>"><?php echo $dk['material_name']; ?></option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class='col-xs-3'>Qty</label>
+                      <div class='col-xs-8'><input type="number" name="qty" autocomplete="off" required class="form-control"></div>
+                    </div>
+                    <br>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary"><i class="icon-checkmark-circle2"></i> Simpan</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <?php if (is_array($data) || is_object($data)) {
+            foreach ($data as $i) :
+              $id = $i['id'];
+              $qty = $i['qty'];
+          ?>
+              <div class="modal fade" id="editpengajuan<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                      <h3 class="modal-title" id="myModalLabel">Tambah Qty</h3>
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                    </div>
+                    <form class="form-horizontal form-inventory" method="post" action="<?php echo base_url() . 'editmaterial' ?>">
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <div class="col-xs-8">
+                            <input name="inventory_id" value="<?php echo $id; ?>" class="form-control" type="hidden" readonly>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <p><input type="radio" name="tag" value="0">Tambah Qty</input></p>
+                          <p><input type="radio" name="tag" value="1">Kurang Qty</input></p>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label col-xs-3">Qty</label>
+                          <div class="col-xs-8">
+                            <input name="qty" class="form-control" type="number" required>
+                            <span id="qty_error" class="text-danger"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                        <button class="btn btn-info">Edit</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+          <?php endforeach;
+          } ?>
           <!-- /.card -->
         </div>
         <!-- /.col -->
@@ -77,31 +150,39 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+</div>
+<!-- ./wrapper -->
 
-  <!-- ./wrapper -->
+<!-- jQuery -->
 
-  <!-- jQuery -->
-
-  <?php echo $footer; ?>
-  <!-- page script -->
-  <script>
-    $(function() {
-      $("#example1").DataTable();
-      var table = $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": true,
-        "scrollX": true,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": true,
-      });
-
-      table.columns.adjust().draw();
-
+<?php echo $footer; ?>
+<!-- page script -->
+<script>
+  $(function() {
+    $("#example1").DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "scrollX": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true,
     });
-  </script>
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "scrollX": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true,
+    });
 
-  </body>
+    table.columns.adjust().draw();
 
-  </html>
+  });
+</script>
+
+</body>
+
+</html>

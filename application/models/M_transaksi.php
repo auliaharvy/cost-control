@@ -166,6 +166,54 @@ JOIN mst_project as c ON a.project_id = c.id WHERE c.project_status=0');
 		}
 	}
 
+	public function showHutangbelum()
+	{
+		$role = $this->session->userdata('role');
+		$user_id = $this->session->userdata('id');
+		if ($role == 4) {
+			$data = $this->db->query("SELECT a.*, FORMAT(b.termin_terbayar,0,'de_DE') as total_hutang, FORMAT(a.rab_project,0,'de_DE') as rab_project_v,
+		FORMAT(ROUND((a.rab_project - b.termin_terbayar),0),0,'de_DE') as sisa_termin FROM mst_project as a 
+		JOIN (SELECT SUM(nominal) AS termin_terbayar,project_id, is_pay FROM akk_hutang GROUP BY project_id) as b 
+		ON a.id = b.project_id 
+		WHERE a.project_status = 0 AND a.created_by = $user_id AND b.is_pay = 0");
+		} else {
+			$data = $this->db->query("SELECT a.*, FORMAT(b.termin_terbayar,0,'de_DE') as total_hutang, FORMAT(a.rab_project,0,'de_DE') as rab_project_v,
+		FORMAT(ROUND((a.rab_project - b.termin_terbayar),0),0,'de_DE') as sisa_termin FROM mst_project as a 
+		JOIN (SELECT SUM(nominal) AS termin_terbayar,project_id, is_pay FROM akk_hutang GROUP BY project_id) as b 
+		ON a.id = b.project_id 
+		WHERE b.is_pay = 0");
+		}
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
+
+	public function showHutangsudah()
+	{
+		$role = $this->session->userdata('role');
+		$user_id = $this->session->userdata('id');
+		if ($role == 4) {
+			$data = $this->db->query("SELECT a.*, FORMAT(b.termin_terbayar,0,'de_DE') as total_hutang, FORMAT(a.rab_project,0,'de_DE') as rab_project_v,
+		FORMAT(ROUND((a.rab_project - b.termin_terbayar),0),0,'de_DE') as sisa_termin FROM mst_project as a 
+		JOIN (SELECT SUM(nominal) AS termin_terbayar,project_id, is_pay FROM akk_hutang GROUP BY project_id) as b 
+		ON a.id = b.project_id 
+		WHERE a.project_status = 0 AND a.created_by = $user_id AND b.is_pay = 1");
+		} else {
+			$data = $this->db->query("SELECT a.*, FORMAT(b.termin_terbayar,0,'de_DE') as total_hutang, FORMAT(a.rab_project,0,'de_DE') as rab_project_v,
+		FORMAT(ROUND((a.rab_project - b.termin_terbayar),0),0,'de_DE') as sisa_termin FROM mst_project as a 
+		JOIN (SELECT SUM(nominal) AS termin_terbayar,project_id, is_pay FROM akk_hutang GROUP BY project_id) as b 
+		ON a.id = b.project_id 
+		WHERE b.is_pay = 1");
+		}
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
+
 	public function showPencairan()
 	{
 		$this->db->select('

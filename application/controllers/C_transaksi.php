@@ -12,6 +12,7 @@ class C_transaksi extends CI_Controller
         }
         date_default_timezone_set('Asia/Jakarta');
         $this->load->model("M_transaksi");
+        // $this->load->model("M_laporan");
         $this->load->library('Lharby');
     }
 
@@ -27,6 +28,7 @@ class C_transaksi extends CI_Controller
         $datalogpencairan = $this->M_transaksi->dataPencairan();
         $status = 0; //on progress
         $project = $this->M_transaksi->getProject($status);
+        // $data_rap_biaya = $this->M_laporan->getBiayaRap();
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
@@ -40,6 +42,7 @@ class C_transaksi extends CI_Controller
             'datapencairan' => $datapencairan,
             'datalogpencairan' => $datalogpencairan,
             'project' => $project,
+            // 'data_rap_biaya' => $data_rap_biaya,
 
         );
         $this->load->view('transaksi/index', $show);

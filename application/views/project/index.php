@@ -57,9 +57,9 @@
                 </thead>
                 <tbody>
                   <?php
-                  if (is_array($data) || is_object($data)) {
+                  if (is_array($databelum) || is_object($databelum)) {
                     $nomor = 1;
-                    foreach ($data as $d) {
+                    foreach ($databelum as $d) {
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
                         <td><?php echo $nomor++; ?></td>
@@ -116,9 +116,9 @@
                 </thead>
                 <tbody>
                   <?php
-                  if (is_array($data) || is_object($data)) {
+                  if (is_array($datasudah) || is_object($datasudah)) {
                     $nomor = 1;
-                    foreach ($data as $d) {
+                    foreach ($datasudah as $d) {
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
                         <td><?php echo $nomor++; ?></td>

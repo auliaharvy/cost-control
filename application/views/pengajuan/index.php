@@ -77,20 +77,41 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
                   <div class="modal-body">
+                    <input type="hidden" name="project_id" autocomplete="off" value="<?php echo $project_id; ?>" required class="form-control">
+                    <input type="hidden" name="pengajuan_id" autocomplete="off" value="<?php echo $pengajuan_id; ?>" required class="form-control">
                     <div class="form-group">
-                      <label>Material</label>
-                      <select class="form-control js-states" id="single" style="width:100%;" name="material_id" required>
-                        <option value="">---Select List---</option>
-                        <?php foreach ($data_mst_material as $dk) { ?>
-                          <option value="<?php echo $dk['id']; ?>"><?php echo $dk['material_name']; ?></option>
+                      <label>Project</label>
+                      <select class="form-control project_id" name="project_id" required>
+                        <option value="">Pilih Project</option>
+                        <?php foreach ($project as $us) { ?>
+                          <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?></option>
                         <?php } ?>
                       </select>
                     </div>
                     <div class="form-group">
-                      <label class='col-xs-3'>Qty</label>
-                      <div class='col-xs-8'><input type="number" name="qty" autocomplete="off" required class="form-control"></div>
+                      <label>RAP Item List</label>
+                      <select class="form-control js-states" id="single" style="width:100%;" name="rap_biaya_id" required>
+                        <option value="">---Select List---</option>
+                        <?php foreach ($data_rap_biaya as $dk) { ?>
+                          <option value="<?php echo $dk['id']; ?>"><?php echo $dk['nama_jenis']; ?>--<?php echo $dk['nama_jenis_rap']; ?>--RAP : <?php echo $dk['jumlah_biaya']; ?> </option>
+                        <?php } ?>
+                      </select>
                     </div>
-                    <br>
+                    <div class="form-group">
+                      <label class='col-xs-3'>Jumlah Pengajuan</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Rp</span>
+                        </div>
+                        <input type="text" name="jumlah_pengajuan" autocomplete="off" required placeholder="Masukkan Jumlah Pengajuan" class="form-control uang">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class='col-xs-3'>Note</label>
+                      <div class='col-xs-8'><textarea class="form-control" rows="3" name="note"></textarea>
+                      </div>
+                      <br>
+                    </div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -179,6 +200,28 @@
     });
 
     table.columns.adjust().draw();
+    $('.project_id').change(function() {
+      var id = $(this).val();
+      var project_id = $('input[name="project_id"]').val();
+      $.ajax({
+        url: "<?php echo base_url(); ?>C_pengajuan/getRap/" + project_id,
+        method: "POST",
+        data: {
+          id: id
+        },
+        async: false,
+        dataType: 'json',
+        success: function(data) {
+          var html = '';
+          var i;
+          for (i = 0; i < data.length; i++) {
+            html += '<option value="' + data[i].id + '">' + data[i].project_name + '</option>';
+          }
+          $('.project_office_id').html(html);
+
+        }
+      });
+    });
 
   });
 </script>

@@ -19,6 +19,8 @@ class C_pengajuan extends CI_Controller
     {
 
         $data = $this->M_transaksi->pengajuanbelumapprove();
+        $project = $this->M_transaksi->getProject(0);
+
 
         $show = array(
             'nav' => $this->header(),
@@ -26,9 +28,19 @@ class C_pengajuan extends CI_Controller
             'sidebar' => $this->sidebar(),
             'footer' => $this->footer(),
             'data' => $data,
+            'project' => $project,
+
 
         );
         $this->load->view('pengajuan/index', $show);
+    }
+
+    public function getRap($project_id)
+    {
+        $id = $this->input->post('id');
+        $data = $this->M_laporan->getBiayaRap($project_id, 1);
+
+        echo json_encode($data);
     }
 
     public function detail($id)

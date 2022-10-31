@@ -1,73 +1,72 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Login extends CI_Controller
 {
-	function __construct() {
-        parent::__construct();
-        if ($this->session->userdata('role')==99) {
-            redirect('Welcome'); 
-        }
+	function __construct()
+	{
+		parent::__construct();
+		if ($this->session->userdata('role') == 99) {
+			redirect('Welcome');
+		}
+	}
 
-    }
-	
-	public function index(){
-        
+	public function index()
+	{
+
 		$this->load->helper('html');
 		$show = array(
-			'header'=> $this->header(),
-			
+			'header' => $this->header(),
+
 		);
-		
-		$this->load->view('V_login',$show);
-		
+
+		$this->load->view('V_login', $show);
 	}
-	public function auth() {
-		$data = array('username' => $this->input->post('username'),
-						'password' => md5($this->input->post('password'))
-			);
+	public function auth()
+	{
+		$data = array(
+			'username' => $this->input->post('username'),
+			'password' => md5($this->input->post('password'))
+		);
 		$this->load->model('m_login'); // load model_user
 		$hasil = $this->m_login->cek_user($data);
 		if ($hasil->num_rows() >= 1) {
 			foreach ($hasil->result() as $sess) {
-				
 				$sess_data['id'] = $sess->id;
 				$sess_data['fullname'] = $sess->fullname;
-				$sess_data['username'] = $sess->username;			
+				$sess_data['username'] = $sess->username;
 				$sess_data['role'] = $sess->role;
 				$this->session->set_userdata($sess_data);
 			}
-			if ($this->session->userdata('role')== 2 || $this->session->userdata('role')== 1) { //Owner / SA
+			if ($this->session->userdata('role') == 1) { //SA
+				redirect('C_masterdata');
+			} elseif ($this->session->userdata('role') == 2) { //Owner
 				redirect('C_dashboard');
-			}
-			elseif ($this->session->userdata('role')== 3) { //Keuangan
-				redirect('C_pencairan');
-			}
-			elseif ($this->session->userdata('role')== 4) { //Keuangan
+			} elseif ($this->session->userdata('role') == 3) { //Keuangan
+				redirect('C_dashboard');
+			} elseif ($this->session->userdata('role') == 4) { //Site Manager
 				redirect('C_project');
 			}
-				
-		}
-		else {
+		} else {
 			echo "<script>alert('Gagal login: Cek username, password!');history.go(-1);</script>";
 		}
 	}
 
-	public function logout() {
+	public function logout()
+	{
 		$this->session->unset_userdata('username');
 		$this->session->unset_userdata('fullname');
 		$this->session->unset_userdata('role');
-		
+
 		session_destroy();
 		redirect('Login');
 	}
 
 
-	public function header(){
+	public function header()
+	{
 		$data = array();
-		$show = $this->load->view('component/header',$data,TRUE);
+		$show = $this->load->view('component/header', $data, TRUE);
 		return $show;
 	}
-
-
 }

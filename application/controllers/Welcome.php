@@ -19,30 +19,21 @@ class Welcome extends CI_Controller
         if ($this->session->userdata('role') == null) {
             redirect('Login');
         }
+        $this->load->model("M_masterdata");
+        $this->load->model("M_data");
     }
 
     public function index()
     {
-        // echo $this->session->userdata('role'); exit();
-        $data = $this->M_data->showdata("mst_organization");
-        // $data_inventory = $this->M_data->showData("akk_inventory");
-        $data_inventory = $this->M_data->showInventory();
-
-        $data_mst_material = $this->M_data->showData("mst_material");
-        $data_project = $this->M_data->GetData("mst_project ", "where project_status=0");
-        $show = array(
-            'nav' => $this->header(),
-            'navbar' => $this->navbar(),
-            'sidebar' => $this->sidebar(),
-            'footer' => $this->footer(),
-            'data' => $data,
-            'data_inventory' => $data_inventory,
-            'data_mst_material' => $data_mst_material,
-            'data_project' => $data_project,
-
-        );
-        $this->load->view('kas/V_kas', $show);
-        // $this->load->view('data');
+        if ($this->session->userdata('role') == 1) { //SA
+            redirect('C_masterdata');
+        } elseif ($this->session->userdata('role') == 2) { //Owner
+            redirect('C_dashboard');
+        } elseif ($this->session->userdata('role') == 3) { //Keuangan
+            redirect('C_dashboard');
+        } elseif ($this->session->userdata('role') == 4) { //Site Manager
+            redirect('C_project');
+        }
     }
 
     // Export ke excel

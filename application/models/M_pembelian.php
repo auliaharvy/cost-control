@@ -24,7 +24,6 @@ class M_pembelian extends CI_Model
           a.*,d.project_name,d.project_location,
           d.project_deadline,c.id as pengajuan_id
       ');
-		$this->db->order_by('id', 'asc');
 		$this->db->from('trx_pengiriman_uang as a');
 		$this->db->join('akk_pengajuan_approval as b', 'a.pengajuan_approval_id = b.id');
 		$this->db->join('akk_pengajuan as c', 'b.pengajuan_id = c.id');

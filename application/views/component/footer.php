@@ -1,17 +1,16 @@
-
 <footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-      <b>Version</b> 1.0
-    </div>
-    <strong>Copyright &copy; 2020 <a href="http://adminlte.io">Akkarya</a>.</strong> All rights
-    reserved.
-  </footer>
+  <div class="float-right d-none d-sm-block">
+    <b>Version</b> 1.1
+  </div>
+  <strong>Copyright &copy; 2020 <a href="http://adminlte.io">Akkarya</a>.</strong> All rights
+  reserved.
+</footer>
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+  <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
 </div>
 
 <!-- page script -->
@@ -34,9 +33,10 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script>
-$(document).ready(function(){
-$(".preloader").fadeOut();
-$( '.uang' ).mask('000.000.000.000', {reverse: true});
-})
+  $(document).ready(function() {
+    $(".preloader").fadeOut();
+    $('.uang').mask('000.000.000.000', {
+      reverse: true
+    });
+  })
 </script>
-       

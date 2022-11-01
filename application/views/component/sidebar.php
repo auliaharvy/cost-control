@@ -129,6 +129,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item ">
+            <a href="<?php echo base_url('pencairan') ?>" class="nav-link">
+              <i class="nav-icon fas fa-file-alt"></i>
+              <p>
+                PENCAIRAN
+              </p>
+            </a>
+          </li>
         <?php } ?>
         <!-- Role Site manager -->
         <?php if (($this->session->userdata('role')) == 4) { ?>

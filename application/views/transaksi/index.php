@@ -447,11 +447,13 @@
       $('#example7').DataTable({
         "paging": true,
         "lengthChange": true,
-        // "scrollX": true,
+        "fixedHeader": true,
+        "scrollX": true,
+        "scrollXInner": "100%",
         "searching": true,
         "ordering": true,
         "info": true,
-        "autoWidth": true,
+        "autoWidth": false,
       });
 
       table.columns.adjust().draw();

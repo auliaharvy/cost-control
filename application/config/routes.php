@@ -107,6 +107,7 @@ $route['editmaterial'] = 'C_masterdata/editmaterial';
 //Halaman Kas
 $route['kas'] = 'C_kas/index';
 $route['editkas'] = 'C_kas/editkas';
+$route['tambahkas'] = 'C_kas/tambahkas';
 
 //Halaman Inventory
 $route['inventory'] = 'C_inventory/index';

@@ -172,7 +172,7 @@
             </div>
             <div id="tambahkas" class="modal fade">
               <div class="modal-dialog">
-                <form action="<?php echo site_url('kas'); ?>" method="post">
+                <form action="<?php echo site_url('tambahkas'); ?>" method="post">
                   <div class="modal-content">
                     <div class="modal-header bg-primary">
                       <h4 class="modal-title">Tambah Kas</h4>
@@ -184,8 +184,13 @@
                         <div class='col-xs-8'><input type="text" name="organisasi" autocomplete="off" required class="form-control"></div>
                       </div>
                       <div class="form-group">
-                        <label class='col-xs-3'>Cash In Hand</label>
-                        <div class='col-xs-8'><input type="number" name="cashinhand" autocomplete="off" required class="form-control"></div>
+                        <label class='col-xs-3'>Jumlah Nominal</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Rp</span>
+                          </div>
+                          <input type="text" name="cashinhand" autocomplete="off" required class="form-control uang">
+                        </div>
                       </div>
                       <div class="form-group">
                         <label class='col-xs-3'>Alamat</label>

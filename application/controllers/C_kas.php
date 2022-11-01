@@ -41,6 +41,37 @@ class C_kas extends CI_Controller
         );
         $this->load->view('kas/index', $show);
     }
+
+    public function tambahkas()
+    {
+        $this->form_validation->set_rules('organisasi', 'Nama Organisasi', 'required');
+        $this->form_validation->set_rules('cashinhand', 'Cash In Hand', 'required');
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+        $this->form_validation->set_rules('telepon', 'No. Telepon', 'required');
+        date_default_timezone_set('Asia/Jakarta');
+        $date = date('Y-m-d H:i:s');
+        $a = $_POST['cashinhand'];
+        $cash_inhand = str_replace('.', '', $a); //ubah format rupiah ke integer
+        $cash_in_hand = intval($cash_inhand);
+        if ($this->form_validation->run() == FALSE) {
+            $pesan = validation_errors();
+            $this->flashdata_failed1($pesan);
+            redirect('kas');
+        } else {
+            $data = array(
+                "organization_name" => $_POST['organisasi'],
+                "cash_in_hand" => $cash_in_hand,
+                "organization_address" => $_POST['alamat'],
+                "phone_number" => $_POST['telepon'],
+                "created_at" => $date,
+            );
+            $this->db->insert('mst_organization', $data);
+            $pesan = "Penambahan Kas Sukses";
+            $this->flashdata_succeed1($pesan);
+            redirect('kas');
+        }
+    }
+
     public function editkas()
     {
         $id = $this->input->post('organization_id');

@@ -46,7 +46,6 @@
                     <h3 class="card-title">Master Kas</h3>
                   </div>
                   <div class="card-body">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahkas"><i class="fa fa-plus-circle"></i> Tambah Kas </button><br>
                     <a href="<?php echo base_url('Welcome/export'); ?>">Export Data</a>
                     <br>
                     <table style="width: 100%;" id="example1" class="table table-bordered table-hover">
@@ -168,46 +167,6 @@
                     </table>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div id="tambahkas" class="modal fade">
-              <div class="modal-dialog">
-                <form action="<?php echo site_url('tambahkas'); ?>" method="post">
-                  <div class="modal-content">
-                    <div class="modal-header bg-primary">
-                      <h4 class="modal-title">Tambah Kas</h4>
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                      <div class="form-group">
-                        <label>Nama Organisasi</label>
-                        <div class='col-xs-8'><input type="text" name="organisasi" autocomplete="off" required class="form-control"></div>
-                      </div>
-                      <div class="form-group">
-                        <label class='col-xs-3'>Jumlah Nominal</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text">Rp</span>
-                          </div>
-                          <input type="text" name="cashinhand" autocomplete="off" required class="form-control uang">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class='col-xs-3'>Alamat</label>
-                        <div class='col-xs-8'><input type="text" name="alamat" autocomplete="off" required class="form-control"></div>
-                      </div>
-                      <div class="form-group">
-                        <label class='col-xs-3'>No. Telpon</label>
-                        <div class='col-xs-8'><input type="number" name="telepon" autocomplete="off" required class="form-control"></div>
-                      </div>
-                      <br>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary"><i class="icon-checkmark-circle2"></i> Simpan</button>
-                    </div>
-                  </div>
-                </form>
               </div>
             </div>
             <?php

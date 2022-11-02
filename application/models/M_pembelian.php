@@ -40,6 +40,34 @@ class M_pembelian extends CI_Model
 		}
 	}
 
+	public function showPembelian1()
+	{
+		$user_id = $this->session->userdata('id');
+		$this->db->select('
+          a.*,d.project_name,d.project_location,f.nama_pekerjaan,FORMAT(b.jumlah_approval,0,"de_DE") as jumlah_approval_v,
+          d.project_deadline,c.id as pengajuan_id,FORMAT(g.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian_v,
+		  DATE_FORMAT(g.created_at,"%d %M %Y") as tanggal_pembelian_v,g.note as keterangan
+      ');
+		$this->db->order_by('id', 'asc');
+		$this->db->from('trx_pengiriman_uang as a');
+		$this->db->join('akk_pengajuan_approval as b', 'a.pengajuan_approval_id = b.id');
+		$this->db->join('akk_pengajuan as c', 'b.pengajuan_id = c.id');
+		$this->db->join('mst_project as d', 'c.project_id = d.id');
+		$this->db->join('akk_rap as e', 'd.id = e.project_id');
+		$this->db->join('akk_rap_biaya as f', 'e.id = f.rap_id');
+		$this->db->join('trx_pembelian_barang as g', 'd.id = g.project_office_id');
+		$this->db->where('d.project_status', 0);
+		$this->db->where('d.created_by', $user_id);
+		// $this->db->where('d.id');
+		$this->db->group_by('d.id');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
+
 	public function showPembeliansudah()
 	{
 

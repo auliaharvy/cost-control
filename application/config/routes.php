@@ -118,6 +118,10 @@ $route['transfermaterial'] = 'C_inventory/transfermaterial';
 // Halaman Approval
 $route['approval'] = 'C_approval/index';
 
+// Halaman Pengajuan
+$route['pengajuan'] = 'C_pengajuan/index';
+$route['tambahpengajuan'] = 'C_pengajuan/tambahpengajuan';
+
 
 // $route['user'] = 'C_pengguna';
 // $route['user/add'] = 'C_pengguna/add';

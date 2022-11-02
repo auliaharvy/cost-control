@@ -147,16 +147,15 @@ class M_laporan extends CI_Model
 	public function dataPembelian($id)
 	{ //pembelian berdasarkan pengajuan
 
-		$this->db->select('a.*,IF (a.destination_id = 1, concat(q.nama_type," ",r.fullname), c.project_name) AS pro_office,FORMAT(a.jumlah_uang_pembelian,0,"de_DE") as jumlah_uang,
-			g.nama_jenis_rap,g.nama_pekerjaan,h.project_name as project_source,
-			DATE_FORMAT(a.created_at,"%d %M %Y") as tanggal_pembelian');
+		$this->db->select('
+		a.*,IF (a.destination_id = 1, concat(q.nama_type," ",r.fullname), c.project_name) AS pro_office,FORMAT(a.jumlah_uang_pembelian,0,"de_DE") as jumlah_uang,
+		g.nama_jenis_rap,g.nama_pekerjaan,h.project_name as project_source,
+		DATE_FORMAT(a.created_at,"%d %M %Y") as tanggal_pembelian
+		');
 		$this->db->order_by('id', 'asc');
 		$this->db->from('trx_pembelian_barang as a');
 		$this->db->join('trx_pengiriman_uang as s', 'a.pengiriman_uang_id = s.id');
-
 		$this->db->join('mst_project as c', 'a.project_office_id = c.id', 'left');
-
-
 		$this->db->join('akk_pengajuan_approval as d', 's.pengajuan_approval_id = d.id');
 		$this->db->join('akk_pengajuan_biaya as e', 'd.pengajuan_biaya_id = e.id');
 		$this->db->join('akk_pengajuan as f', 'e.pengajuan_id = f.id');

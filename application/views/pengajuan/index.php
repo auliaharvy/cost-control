@@ -70,7 +70,7 @@
           </div>
           <div id="tambahpengajuan" class="modal fade">
             <div class="modal-dialog">
-              <form action="<?php echo site_url('tambahmaterial'); ?>" method="post">
+              <form action="<?php echo site_url('pengajuan/create'); ?>" method="post">
                 <div class="modal-content">
                   <div class="modal-header bg-primary">
                     <h4 class="modal-title">Tambah Pengajuan</h4>
@@ -78,7 +78,7 @@
                   </div>
                   <div class="modal-body">
                     <input type="hidden" name="project_id" autocomplete="off" value="<?php echo $project_id; ?>" required class="form-control">
-                    <input type="hidden" name="pengajuan_id" autocomplete="off" value="<?php echo $pengajuan_id; ?>" required class="form-control">
+                    <input name="pengajuan_id" autocomplete="off" value="<?php echo $pengajuan_id; ?>" required class="form-control pengajuan_id" id="pengajuan_id">
                     <div class="form-group">
                       <label>Project</label>
                       <select class="form-control project_id" name="project_id" required>
@@ -90,11 +90,8 @@
                     </div>
                     <div class="form-group">
                       <label>RAP Item List</label>
-                      <select class="form-control js-states" id="single" style="width:100%;" name="rap_biaya_id" required>
+                      <select class="form-control js-states rap_biaya_id" id="single" style="width:100%;" name="rap_biaya_id" required>
                         <option value="">---Select List---</option>
-                        <?php foreach ($data_rap_biaya as $dk) { ?>
-                          <option value="<?php echo $dk['id']; ?>"><?php echo $dk['nama_jenis']; ?>--<?php echo $dk['nama_jenis_rap']; ?>--RAP : <?php echo $dk['jumlah_biaya']; ?> </option>
-                        <?php } ?>
                       </select>
                     </div>
                     <div class="form-group">
@@ -199,12 +196,11 @@
       "autoWidth": true,
     });
 
-    table.columns.adjust().draw();
     $('.project_id').change(function() {
       var id = $(this).val();
       var project_id = $('input[name="project_id"]').val();
       $.ajax({
-        url: "<?php echo base_url(); ?>C_pengajuan/getRap/" + project_id,
+        url: "<?php echo base_url(); ?>C_pengajuan/getListBiayaRap/" + id,
         method: "POST",
         data: {
           id: id
@@ -215,13 +211,56 @@
           var html = '';
           var i;
           for (i = 0; i < data.length; i++) {
-            html += '<option value="' + data[i].id + '">' + data[i].project_name + '</option>';
+            html += '<option value="' + data[i].id + '">' + data[i].nama_pekerjaan + " > " + data[i].jumlah_biaya_v + '</option>';
           }
-          $('.project_office_id').html(html);
+          $('.rap_biaya_id').html(html);
 
         }
       });
     });
+
+    $('.project_id').change(function() {
+      var id = $(this).val();
+      var project_id = $('input[name="project_id"]').val();
+      console.log(id);
+      $.ajax({
+        url: "<?php echo base_url(); ?>C_pengajuan/getPengajuanId/" + id,
+        method: "POST",
+        data: {
+          id: id
+        },
+        async: false,
+        dataType: 'json',
+        success: function(data) {
+          console.log(data);
+          $('#pengajuan_id').val(data);
+        }
+      });
+    });
+
+    table.columns.adjust().draw();
+    // $('.project_id').change(function() {
+    //   var id = $(this).val();
+    //   var project_id = $('input[name="project_id"]').val();
+    //   $.ajax({
+    //     url: "<?php echo base_url(); ?>C_pengajuan/getRap/" + project_id,
+    //     method: "POST",
+    //     data: {
+    //       id: id
+    //     },
+    //     async: false,
+    //     dataType: 'json',
+    //     success: function(data) {
+    //       var html = '';
+    //       var i;
+    //       for (i = 0; i < data.length; i++) {
+    //         html += '<option value="' + data[i].id + '">' + data[i].project_name + '</option>';
+    //       }
+    //       $('.project_office_id').html(html);
+
+    //     }
+    //   });
+    // });
 
   });
 </script>

@@ -12,17 +12,16 @@ class C_project extends CI_Controller
         }
         date_default_timezone_set('Asia/Jakarta');
         $this->load->model("M_project");
+        $this->load->model("M_laporan");
         $this->load->helper('form');
         $this->load->library('Lharby');
     }
 
     public function index() //project on progress
     {
-        if ($status = 0) {
-            $databelum = $this->M_project->getProject($status);
-        } else {
-            $datasudah = $this->M_project->getProject($status);
-        }
+
+        $databelum = $this->M_project->getProject(0);
+        $datasudah = $this->M_project->getProject(1);
 
         $show = array(
             'nav' => $this->header(),
@@ -79,9 +78,6 @@ class C_project extends CI_Controller
         $a = $_POST['rab_project'];
         $rab_projec = str_replace('.', '', $a); //ubah format rupiah ke integer
         $rab_project = intval($rab_projec);
-
-
-
         if ($now > $deadline) {
             $pesan = "Input waktu deadline dengan tanggal yang benar";
             $this->flashdata_failed1($pesan);
@@ -239,7 +235,7 @@ class C_project extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
-            redirect('rap/' . $project_id);
+            redirect('project_detail/' . $project_id);
         } else {
             $rap_id = $_POST['rap_id'];
             // $get = $this->M_data->GetData("akk_rap ","where id = '$rap_id'");
@@ -272,10 +268,10 @@ class C_project extends CI_Controller
             $this->db->trans_complete();
             if ($this->db->trans_status() === TRUE) {
                 $this->flashdata_succeed_rap();
-                redirect('rap/' . $project_id);
+                redirect('project_detail/' . $project_id);
             } else {
                 $this->flashdata_failed_rap();
-                redirect('rap/' . $project_id);
+                redirect('project_detail/' . $project_id);
             }
         }
     }
@@ -363,7 +359,7 @@ class C_project extends CI_Controller
         $cekrap = $this->M_project->GetData("akk_rap ", "where project_id = '$project_id'");
 
         if ($cekpengajuan) {
-            redirect('pengajuan/' . $project_id);
+            redirect('pengajuan');
         } else {
             $data = array(
                 "project_id" => $project_id,
@@ -372,7 +368,7 @@ class C_project extends CI_Controller
             );
             $res = $this->db->insert('akk_pengajuan', $data);
             if ($res > 0) {
-                redirect('pengajuan/' . $project_id);
+                redirect('pengajuan/');
             } else {
                 $this->flashdata_failed_rap();
                 redirect('project_detail/' . $project_id);
@@ -456,7 +452,6 @@ class C_project extends CI_Controller
             'project_location' => $get[0]['project_location'],
             'project_deadline' => $deadline,
             'rab_project' => $rab_biaya,
-
             'is_pengajuan_confirm' => $get[0]['is_pengajuan_confirm'],
             'data_pengajuan_biaya' => $data_pengajuan_biaya,
             'data_rap_biaya' => $data_rap_biaya,
@@ -476,22 +471,18 @@ class C_project extends CI_Controller
         $date = date('Y-m-d H:i:s');
         $data = array(
             'is_rap_confirm' => $_POST['is_rap_confirm'],
-
-
             "last_updated_by" => $this->session->userdata('id'),
             "updated_at" => $date,
-
         );
-
         $res = $this->M_data->UpdateData('akk_rap', $data, $where);
         if ($res >= 1) {
             $pesan = "" . $msg . " RAP Sukses";
             $this->flashdata_succeed1($pesan);
-            redirect('rap/' . $project_id);
+            redirect('project_detail/' . $project_id);
         } else {
             $pesan = "" . $msg . " RAP Gagal";
             $this->flashdata_failed1($pesan);
-            redirect('rap/' . $project_id);
+            redirect('project_detail/' . $project_id);
         }
     }
 
@@ -554,49 +545,45 @@ class C_project extends CI_Controller
         $cekrap = $this->M_data->GetData("akk_rap ", "where project_id = '$id'");
         $listProject = $this->M_project->getProject(0);
         $totalRap = $this->M_project->getDetailProject($id);
+        $data_rap_biaya = $this->M_laporan->getBiayaRap($get[0]['id'], 1);
+        $cash_in_hand = $this->lharby->formatRupiah($get[0]['cash_in_hand']);
 
         if ($cekrap) { //jika project sudah punya rap
             $is_rap_confirm = $cekrap[0]['is_rap_confirm'];
         } else { //jika project belum ada rap
             $is_rap_confirm = 0;
         }
+        $datakategori = $this->M_data->showdata("mst_kategori_biaya");
+        $getRap = $this->M_project->getRap($id);
         $data_inventory = $this->M_project->showInventory($id);
-
         $tgl = $get[0]['project_deadline'];
         $deadline = $this->convert_date($tgl);
         $rab = $get[0]['rab_project'];
         $rab_biaya = $this->lharby->formatRupiah($rab);
         $rap = $totalRap[0]['total_biaya_v'];
         $rap_biaya = $this->lharby->formatRupiah($rap);
-
         $data_mst_material = $this->M_data->showData("mst_material");
-
         $data = array(
             'id' => $id,
             'project_id' => $id,
             'project_name' => $get[0]['project_name'],
             'project_location' => $get[0]['project_location'],
             'project_status' => $get[0]['project_status'],
+            'datakategori' => $datakategori,
             'project_deadline' => $deadline,
             'rab_project' => $rab_biaya,
             'rap_project' => $rap_biaya,
+            'cash_in_hand' => $cash_in_hand,
+            'rap_id' => $getRap[0]['id'],
             'is_rap_confirm' => $is_rap_confirm,
             'data_inventory' => $data_inventory,
             'data_mst_material' => $data_mst_material,
+            'data_rap_biaya' => $data_rap_biaya,
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
             'sidebar' => $this->sidebar(),
             'footer' => $this->footer(),
-
         );
-        // $show = array(
-        //     'nav'=> $this->header(),
-        //     'navbar'=> $this->navbar(),
-        //     'sidebar' => $this->sidebar(),
-        //     'footer'=> $this->footer(),
-        //     'data' => $data,
-
-        // );
 
         $this->load->view('project/detail', $data);
     }

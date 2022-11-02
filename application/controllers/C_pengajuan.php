@@ -12,6 +12,10 @@ class C_pengajuan extends CI_Controller
         }
         date_default_timezone_set('Asia/Jakarta');
         $this->load->model("M_transaksi");
+        $this->load->model("M_pengajuan");
+        $this->load->model("M_laporan");
+        $this->load->model("M_project");
+        $this->load->model("M_data");
         $this->load->library('Lharby');
     }
 
@@ -20,7 +24,7 @@ class C_pengajuan extends CI_Controller
 
         $data = $this->M_transaksi->pengajuanbelumapprove();
         $project = $this->M_transaksi->getProject(0);
-
+        // $data_rap_biaya = $this->M_pengajuan->getBiayaRap();
 
         $show = array(
             'nav' => $this->header(),
@@ -29,7 +33,7 @@ class C_pengajuan extends CI_Controller
             'footer' => $this->footer(),
             'data' => $data,
             'project' => $project,
-
+            // 'data_rap_biaya' => $data_rap_biaya,
 
         );
         $this->load->view('pengajuan/index', $show);
@@ -76,26 +80,18 @@ class C_pengajuan extends CI_Controller
         $is_approved = $_POST['is_approved'];
         $pengajuan_biaya_id = $_POST['pengajuan_biaya_id'];
         $pengajuan_id = $_POST['pengajuan_id'];
-
         $a = $_POST['jumlah_approval'];
         $b = str_replace('.', '', $a); //ubah format rupiah ke integer
         $jumlah_approval = intval($b);
-
-
         $msg = $_POST['msg'];
-
         $where = array('id' => $pengajuan_biaya_id);
         $date = date('Y-m-d H:i:s');
         $data_update = array(
             'is_approved' => $is_approved,
-
-
             "last_updated_by" => $this->session->userdata('id'),
             "updated_at" => $date,
-
         );
         $cekapproval = $this->M_pengajuan->GetData("akk_pengajuan_approval ", "where pengajuan_biaya_id = '$pengajuan_biaya_id'");
-
         $this->db->trans_start();
         if ($cekapproval) {
             $data_approval = array(
@@ -107,22 +103,17 @@ class C_pengajuan extends CI_Controller
             $whereapp = array('pengajuan_biaya_id' => $pengajuan_biaya_id);
             $this->M_pengajuan->UpdateData('akk_pengajuan_approval', $data_approval, $whereapp);
         } else {
-
-
             $data_insert = array(
                 'pengajuan_id' => $pengajuan_id,
                 'pengajuan_biaya_id' => $pengajuan_biaya_id,
                 'jumlah_approval' => $jumlah_approval,
                 'created_at' => $date,
-
                 'last_updated_by' => $this->session->userdata('id'),
             );
             $this->M_pengajuan->insertData('akk_pengajuan_approval', $data_insert);
         }
-
         $this->M_pengajuan->UpdateData('akk_pengajuan_biaya', $data_update, $where);
         $this->db->trans_complete();
-
         if ($this->db->trans_status() === FALSE) {
             $pesan = "" . $msg . " Pengajuan Gagal";
             $this->flashdata_failed1($pesan);
@@ -139,26 +130,17 @@ class C_pengajuan extends CI_Controller
         $is_approved = $_POST['is_approved'];
         $pengajuan_biaya_id = $_POST['pengajuan_biaya_id'];
         $pengajuan_id = $_POST['pengajuan_id'];
-
         $msg = $_POST['msg'];
-
         $where = array('id' => $pengajuan_biaya_id);
         $date = date('Y-m-d H:i:s');
         $data_update = array(
             'is_approved' => $is_approved,
-
-
             "last_updated_by" => $this->session->userdata('id'),
             "updated_at" => $date,
-
         );
-
-
-
         $this->db->trans_start();
         $this->M_pengajuan->UpdateData('akk_pengajuan_biaya', $data_update, $where);
         $this->db->trans_complete();
-
         if ($this->db->trans_status() === FALSE) {
             $pesan = "" . $msg . " Pengajuan Gagal";
             $this->flashdata_failed1($pesan);
@@ -169,10 +151,6 @@ class C_pengajuan extends CI_Controller
             redirect('pengajuan_detail/' . $pengajuan_id);
         }
     }
-
-
-
-
 
     public function generaterap()
     {
@@ -226,7 +204,6 @@ class C_pengajuan extends CI_Controller
         $get = $this->M_project->getPengajuan($id);
         $data_pengajuan_biaya = $this->M_project->getBiayaPengajuan($get[0]['id']);
         $data_rap_biaya = $this->M_project->getBiayaRap2($get[0]['id']);
-
         $datakategori = $this->M_data->showdata("mst_kategori_biaya");
         $datajenis = $this->M_data->showdata("mst_jenis_biaya");
         $tgl = $get[0]['project_deadline'];
@@ -243,7 +220,6 @@ class C_pengajuan extends CI_Controller
             'project_location' => $get[0]['project_location'],
             'project_deadline' => $deadline,
             'rab_project' => $get[0]['rab_project'],
-
             'is_pengajuan_confirm' => $get[0]['is_pengajuan_confirm'],
             'data_pengajuan_biaya' => $data_pengajuan_biaya,
             'data_rap_biaya' => $data_rap_biaya,
@@ -336,7 +312,25 @@ class C_pengajuan extends CI_Controller
         }
     }
 
+    public function getListBiayaRap($id)
+    {
+        //  $id=$this->input->post('id');
 
+        $get = $this->M_data->GetData("mst_project ", "where id = '$id'");
+        $data_rap_biaya = $this->M_laporan->getBiayaRap($get[0]['id'], 1);
+
+
+        echo json_encode($data_rap_biaya);
+    }
+
+    public function getPengajuanId($id)
+    {
+        //  $id=$this->input->post('id');
+
+        $get = $this->M_project->getPengajuan($id);
+
+        echo $get[0]['pengajuan_id'];
+    }
 
 
     function convert_date($tgl)

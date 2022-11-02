@@ -104,7 +104,7 @@ JOIN mst_project as c ON a.project_id = c.id WHERE c.project_status=0');
 	{
 		$this->db->select('
         a.*, c.project_name, d.nama_pekerjaan, DATE_FORMAT(a.created_at,"%d %M %Y") as tanggal_pengajuan,
-		FORMAT(b.jumlah_pengajuan,0,"de_DE") as jumlah_pengajuan_v, d.note as keterangan
+		FORMAT(b.jumlah_pengajuan,0,"de_DE") as jumlah_pengajuan_v, b.note as keterangan
         ');
 		$this->db->from('akk_pengajuan as a');
 		$this->db->join('akk_pengajuan_biaya as b', 'a.id = b.pengajuan_id');

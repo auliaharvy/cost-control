@@ -14,12 +14,12 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1><b>DETAIL</b> PROJECT</h1>
+              <h1><b>DETAIL</b> LAPORAN</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="<?php echo base_url('/') ?>">Home</a></li>
-                <li class="breadcrumb-item active">Detail Project</li>
+                <li class="breadcrumb-item active">Detail Laporan</li>
               </ol>
             </div>
           </div>
@@ -32,7 +32,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Detail Project</h3>
+                <h3 class="card-title">Detail Laporan</h3>
               </div>
               <div class="card-body">
                 <div class="row col-md-12">
@@ -202,6 +202,7 @@
                       <th class="text-center">Sumber Dana</th>
                       <th class="text-center">Jumlah Dana</th>
                       <th class="text-center">Tanggal Pembelian</th>
+                      <th class="text-center">Ket</th>
                     </tr>
                   </thead>
                   <tbody id="showdata8">
@@ -211,12 +212,13 @@
                         $id = $d['id']; ?>
                         <tr class="odd gradeX">
                           <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 20%;"><?php echo $d['project_source']; ?></td>
-                          <td style="width: 20%;"><?php echo $d['nama_jenis_rap']; ?></td>
-                          <td style="width: 20%;"><?php echo $d['nama_pekerjaan']; ?></td>
-                          <td style="width: 15%;"><?php echo $d['pro_office']; ?></td>
+                          <td style="width: 15%;"><?php echo $d['project_source']; ?></td>
+                          <td style="width: 15%;"><?php echo $d['nama_jenis_rap']; ?></td>
+                          <td style="width: 15%;"><?php echo $d['nama_pekerjaan']; ?></td>
+                          <td style="width: 10%;"><?php echo $d['pro_office']; ?></td>
                           <td style="width: 10%;" class="text-center">Rp <?php echo $d['jumlah_uang']; ?></td>
                           <td style="width: 10%;" class="text-center"><?php echo $d['tanggal_pembelian']; ?></td>
+                          <td style="width: 20%;"><?php echo $d['note']; ?></td>
                         </tr>
                     <?php
                       }
@@ -249,7 +251,7 @@
                       foreach ($data_pembelian_remaining as $d) {
                         $id = $d['id']; ?>
                         <tr class="odd gradeX">
-                          <td style="width: 5%;" class="text-center"><?php echo $nomor; ?></td>
+                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
                           <td style="width: 20%;"><?php echo $d['project_source']; ?></td>
                           <td style="width: 10%;"><?php echo $d['nama_jenis_rap']; ?></td>
                           <td style="width: 15%;"><?php echo $d['nama_pekerjaan']; ?></td>
@@ -259,7 +261,6 @@
                           <td style="width: 20%;"><?php echo $d['note']; ?></td>
                         </tr>
                     <?php
-                        $nomor = $nomor + 1;
                       }
                     } ?>
                   </tbody>

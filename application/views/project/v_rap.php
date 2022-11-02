@@ -138,12 +138,9 @@
                           <td class="text"><span>Rp <?php echo $d['jumlah_aktual_v']; ?></span></td>
                           <td><?php echo $d['persentase']; ?> %</td>
                           <td class="text"><span><?php echo $d['note']; ?></span></td>
-
                           <td align="center">
-
                             <?php if ($is_rap_confirm == 0) { ?>
                               <a data-toggle="modal" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></a>
-                              <!--  <a href="#" onclick="return confirm('Apakah Anda Ingin Menghapus Data <?= $d['nama_jenis']; ?> ?');" class="btn btn-danger btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a> -->
                             <?php } else { ?>
                               <button type="button" class="btn btn-warning btn-circle btn-sm disabled"><i class="fas fa-edit"></i></button>
                             <?php } ?>
@@ -390,7 +387,6 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header bg-primary">
-
                         <h3 class="modal-title" id="myModalLabel">Edit RAP</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                       </div>
@@ -398,12 +394,8 @@
                         <div class="modal-body">
                           <input type="hidden" name="rap_item_id" autocomplete="off" value="<?php echo $id; ?>" required class="form-control">
                           <input type="hidden" name="project_id" autocomplete="off" value="<?php echo $project_id; ?>" required class="form-control">
-
                           <div class="form-group">
-
-
                           </div>
-
                           <div class="form-group">
                             <label class="control-label col-xs-3">Nama Project</label>
                             <div class="col-xs-8">
@@ -423,7 +415,6 @@
                             <label>Jenis</label>
                             <select class="form-control jenis_biaya_id" name="jenis_biaya_id" required>
                               <option value="<?php echo $jenis_biaya_id; ?>"><?php echo $nama_jenis; ?></option>
-
                             </select>
                           </div>
                           <div class="form-group">

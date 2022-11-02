@@ -58,9 +58,9 @@
                         </td>
                         <td><?php echo $d['project_name']; ?></td>
                         <td><?php echo $d['nama_pekerjaan']; ?></td>
-                        <td><?php echo $d['jumlah_approval']; ?></td>
-                        <td><?php echo $d['jumlah_pembelian']; ?></td>
-                        <td><?php echo $d['tanggal_pembelian']; ?></td>
+                        <td>RP. <?php echo $d['jumlah_approval_v']; ?></td>
+                        <td><?php echo $d['jumlah_pembelian_v']; ?></td>
+                        <td><?php echo $d['tanggal_pembelian_v']; ?></td>
                         <td><?php echo $d['keterangan']; ?></td>
                       </tr>
                   <?php

@@ -17,7 +17,7 @@ class C_pembelian extends CI_Controller
 
     public function index() //project on progress
     {
-        $databelum = $this->M_pembelian->showPembelianbelum(); //show pembelian data
+        $databelum = $this->M_pembelian->showPembelian1(); //show pembelian data
         $datasudah = $this->M_pembelian->showPembeliansudah(); //show pembelian data
         $show = array(
             'nav' => $this->header(),

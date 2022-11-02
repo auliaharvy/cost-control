@@ -121,7 +121,44 @@ class C_hutang extends CI_Controller
         }
     }
 
+    public function tambahhutang()
+    {
 
+        $this->form_validation->set_rules('project_id', 'Project', 'required');
+        $this->form_validation->set_rules('nominal', 'Nominal', 'required');
+        $project_id = $_POST['project_id'];
+
+        $a = $_POST['nominal'];
+        $b = str_replace('.', '', $a); //ubah format rupiah ke integer
+        $nominal = intval($b);
+
+        $date = date('Y-m-d H:i:s');
+
+        if ($this->form_validation->run() == FALSE) {
+            $pesan = validation_errors();
+            $this->flashdata_failed1($pesan);
+            redirect('pengajuan/' . $project_id);
+        } else {
+
+            $data = array(
+                "project_id" => $project_id,
+                "nominal" => $nominal,
+                "note" => $_POST['note'],
+                "created_by" => $this->session->userdata('id'),
+                "created_at" => $date,
+            );
+            $res = $this->db->insert('akk_hutang', $data);
+            if ($res >= 1) {
+                $pesan = "Pengajuan Hutang Berhasil";
+                $this->flashdata_succeed1($pesan);
+                redirect('project_detail/' . $project_id);
+            } else {
+                $pesan = "Pengajuan Hutang Gagal";
+                $this->flashdata_failed1($pesan);
+                redirect('project_detail/' . $project_id);
+            }
+        }
+    }
 
     public function create_kiriM_hutang()
     {

@@ -33,6 +33,7 @@
               <h3 class="card-title">Hutang ( Belum Bayar )</h3>
             </div>
             <div class="card-body">
+              <a href="" data-toggle="modal" data-target="#tambahhutang" class="btn btn-primary" data-popup="tooltip" data-placement="top" title="Tambah Hutang"><i class="fa fa-edit"></i>Tambah Hutang</a><br><br>
               <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
@@ -98,6 +99,38 @@
                   } ?>
                 </tbody>
               </table>
+            </div>
+          </div>
+          <div id="tambahhutang" class="modal fade">
+            <div class="modal-dialog">
+              <form action="<?php echo base_url() . 'C_hutang/tambahhutang' ?>" method="post">
+                <div class="modal-content">
+                  <div class="modal-header bg-primary">
+                    <h4 class="modal-title">Tambah Hutang</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <input type="hidden" name="project_id" value="<?php echo $project_id; ?>" autocomplete="off" required class="form-control">
+                    <div class="form-group">
+                      <label class='col-xs-3'>Nominal</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Rp</span>
+                        </div>
+                        <input type="text" name="nominal" autocomplete="off" placeholder="masukan nominal hutang" required class="form-control uang">
+                      </div>
+                      <div class="form-group">
+                        <label class='col-xs-3'>Note</label>
+                        <div class='col-xs-8'><textarea class="form-control" rows="3" name="note"></textarea></div>
+                      </div>
+                    </div>
+                    <br>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary"><i class="icon-checkmark-circle2"></i> Simpan</button>
+                  </div>
+              </form>
             </div>
           </div>
         </div>

@@ -40,8 +40,10 @@
                     <th class="text-center">No</th>
                     <th class="text-center">Action</th>
                     <th class="text-center">Nama Project</th>
+                    <th class="text-center">Cash In Hand</th>
                     <th class="text-center">Tanggal Pengajuan</th>
                     <th class="text-center">Jumlah Hutang</th>
+                    <th class="text-center">Keterangan</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -56,9 +58,11 @@
                             <a href="<?php echo site_url('bayarhutang/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Membayar Hutang <?= $d['project_name']; ?> ?');" style="width: 120px;" class="btn btn-success btn-circle " data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fas fa-edit"></i>BAYAR</a>
                           <?php } ?>
                         </td>
-                        <td style="width: 45%;"><?php echo $d['project_name']; ?></td>
-                        <td style="width: 20%;" class="text-center"><?php echo $d['created_at']; ?></td>
-                        <td style="width: 20%;" class="text-center"><?php echo $d['jumlah_hutang_v']; ?></td>
+                        <td style="width: 25%;"><?php echo $d['project_name']; ?></td>
+                        <td style="width: 20%;"><?php echo $d['cash_in_hand']; ?></td>
+                        <td style="width: 15%;" class="text-center"><?php echo $d['tanggal_pengajuan']; ?></td>
+                        <td style="width: 15%;" class="text-center"><?php echo $d['jumlah_hutang']; ?></td>
+                        <td style="width: 10%;" class="text-center"><?php echo $d['keterangan']; ?></td>
                       </tr>
                   <?php
                     }
@@ -110,7 +114,15 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
                   <div class="modal-body">
-                    <input type="hidden" name="project_id" value="<?php echo $project_id; ?>" autocomplete="off" required class="form-control">
+                    <div class="form-group">
+                      <label>Project</label>
+                      <select class="form-control project_id" name="project_id" required>
+                        <option value="">Pilih Project</option>
+                        <?php foreach ($project as $us) { ?>
+                          <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?></option>
+                        <?php } ?>
+                      </select>
+                    </div>
                     <div class="form-group">
                       <label class='col-xs-3'>Nominal</label>
                       <div class="input-group">

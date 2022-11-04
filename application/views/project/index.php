@@ -36,7 +36,7 @@
               <div class="col-md-6">
               </div>
               <?php if (($this->session->userdata('role')) == 4) { ?>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah"><i class="fa fa-plus-circle"></i> Tambah </button><br>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah"><i class="fa fa-plus-circle"></i> Tambah Project </button><br>
               <?php } ?>
               <br>
               <table style="width: 150%;" id="example1" class="table table-bordered table-striped">

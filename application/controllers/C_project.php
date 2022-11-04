@@ -724,11 +724,8 @@ class C_project extends CI_Controller
             redirect('project_detail/' . $project_id);
         } else {
             $id = $_POST['inventory_id'];
-
             $tag = $_POST['tag'];
-
             $qty = $_POST['qty'];
-
             $get = $this->M_data->GetData("akk_inventory_project ", "where id = '$id'");
             $qty_awal = $get[0]['qty'];
             if ($tag == 0) { //plus
@@ -740,12 +737,9 @@ class C_project extends CI_Controller
             $date = date('Y-m-d H:i:s');
             $data = array(
                 "qty" => $qtyakhir,
-
                 "last_updated_by" => $this->session->userdata('id'),
                 "updated_at" => $date,
-
             );
-
             $res = $this->M_data->UpdateData('akk_inventory_project', $data, $where);
             if ($res >= 1) {
                 $this->flashdata_succeed_rap();

@@ -93,17 +93,12 @@
                         <td class="text"><span>Rp <?php echo $d['jumlah_approval_v']; ?></span></td>
                         <td class="text"><span><?php echo $d['tanggal_pencairan']; ?></span></td>
                         <td align="center">
-
                           <?php if ($d['is_send_cash'] == 0) { ?>
                             <a href="" data-toggle="modal" style="width: 120px;" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-success btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i>KIRIM BIAYA</a>
                           <?php } ?>
                           <?php if ($d['is_send_cash'] == 1) { ?>
                             <a href="" data-toggle="modal" style="width: 120px;" class="btn btn-primary btn-circle disabled" data-popup="tooltip" data-placement="top" title="Edit Data">BIAYA TERKIRIM</a>
                           <?php } ?>
-
-                          <!-- <a href="#"><button class="btn btn-primary btn-circle "><i class="fa fa-edit "></i>Confirm RAP</button></a> -->
-
-
                         </td>
                       </tr>
                   <?php

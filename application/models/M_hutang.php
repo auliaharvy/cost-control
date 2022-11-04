@@ -76,9 +76,9 @@ class M_hutang extends CI_Model
 		$role = $this->session->userdata('role');
 		$user_id = $this->session->userdata('id');
 		if ($role == 4) {
-			$data = $this->db->query("SELECT a.*, FORMAT(b.termin_terbayar,0,'de_DE') as total_hutang, FORMAT(a.rab_project,0,'de_DE') as rab_project_v,
+			$data = $this->db->query("SELECT a.*, FORMAT(b.termin_terbayar,0,'de_DE') as jumlah_hutang, FORMAT(a.rab_project,0,'de_DE') as rab_project_v,
 		FORMAT(ROUND((a.rab_project - b.termin_terbayar),0),0,'de_DE') as sisa_termin FROM mst_project as a 
-		JOIN (SELECT SUM(nominal) AS termin_terbayar,project_id,is_pay FROM akk_hutang GROUP BY project_id) as b 
+		JOIN (SELECT SUM(nominal) AS termin_terbayar,project_id,is_pay,note AS keterangan,created_at AS tanggal_pengajuan FROM akk_hutang GROUP BY id) as b 
 		ON a.id = b.project_id 
 		WHERE a.project_status = 0 AND a.created_by = $user_id AND b.is_pay = 0");
 		} else {
@@ -102,7 +102,7 @@ class M_hutang extends CI_Model
 		if ($role == 4) {
 			$data = $this->db->query("SELECT a.*, FORMAT(b.termin_terbayar,0,'de_DE') as total_hutang, FORMAT(a.rab_project,0,'de_DE') as rab_project_v,
 		FORMAT(ROUND((a.rab_project - b.termin_terbayar),0),0,'de_DE') as sisa_termin FROM mst_project as a 
-		JOIN (SELECT SUM(nominal) AS termin_terbayar,project_id, is_pay FROM akk_hutang GROUP BY project_id) as b 
+		JOIN (SELECT SUM(nominal) AS termin_terbayar,project_id, is_pay FROM akk_hutang GROUP BY id) as b 
 		ON a.id = b.project_id 
 		WHERE a.project_status = 0 AND a.created_by = $user_id AND b.is_pay = 1");
 		} else {
@@ -131,7 +131,8 @@ class M_hutang extends CI_Model
 			$this->db->from('mst_project as a');
 			$this->db->join('akk_hutang as b', 'a.id = b.project_id');
 			$this->db->where('a.project_status');
-			$this->db->where('a.created_by');
+			$this->db->where('a.project_status', 0);
+			$this->db->where('a.created_by', $user_id);
 			$this->db->where('b.is_pay', 0);
 			$this->db->group_by('project_id');
 		} else {

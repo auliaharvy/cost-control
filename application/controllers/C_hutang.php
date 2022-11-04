@@ -12,6 +12,7 @@ class C_hutang extends CI_Controller
         }
         date_default_timezone_set('Asia/Jakarta');
         $this->load->model("M_hutang");
+        $this->load->model("M_transaksi");
         $this->load->library('Lharby');
     }
 
@@ -20,6 +21,7 @@ class C_hutang extends CI_Controller
 
         $databelum = $this->M_hutang->showHutangbelum();
         $datasudah = $this->M_hutang->showHutangsudah();
+        $project = $this->M_transaksi->getProject(0);
 
         $show = array(
             'nav' => $this->header(),
@@ -28,6 +30,8 @@ class C_hutang extends CI_Controller
             'footer' => $this->footer(),
             'databelum' => $databelum,
             'datasudah' => $datasudah,
+            'project' => $project,
+
 
         );
         $this->load->view('hutang/index', $show);
@@ -88,7 +92,7 @@ class C_hutang extends CI_Controller
         if ($cashproject < $nominal) {
             $msg = "Jumlah cash di projek kurang dari biaya hutang";
             $this->flashdata_failed1($msg);
-            redirect('hutang_detail/' . $project_id);
+            redirect('hutang/' . $project_id);
         } else {
             $cash_remaining = $cashproject - $nominal;
             $data_update_hutang = array(
@@ -97,7 +101,6 @@ class C_hutang extends CI_Controller
                 "updated_by" => $this->session->userdata('id'),
             );
             $where_loghutang = array("id" => $hutang_id);
-
             $data_upd_cash_project = array(
                 "cash_in_hand" => $cash_remaining,
                 "updated_at" => $date,
@@ -105,18 +108,17 @@ class C_hutang extends CI_Controller
             );
             $where_cash_project = array("id" => $project_id);
             $this->db->trans_start();
-
             $this->M_data->UpdateData('akk_hutang', $data_update_hutang, $where_loghutang);
             $this->M_data->UpdateData('mst_project', $data_upd_cash_project, $where_cash_project);
             $this->db->trans_complete();
             if ($this->db->trans_status() === TRUE) {
                 $msg = "Pembayaran Hutang Berhasil";
                 $this->flashdata_succeed1($msg);
-                redirect('hutang_detail/' . $project_id);
+                redirect('hutang/' . $project_id);
             } else {
                 $msg = "Pembayaran Hutang Gagal";
                 $this->flashdata_failed1($msg);
-                redirect('hutang_detail/' . $project_id);
+                redirect('hutang/' . $project_id);
             }
         }
     }
@@ -127,19 +129,15 @@ class C_hutang extends CI_Controller
         $this->form_validation->set_rules('project_id', 'Project', 'required');
         $this->form_validation->set_rules('nominal', 'Nominal', 'required');
         $project_id = $_POST['project_id'];
-
         $a = $_POST['nominal'];
         $b = str_replace('.', '', $a); //ubah format rupiah ke integer
         $nominal = intval($b);
-
         $date = date('Y-m-d H:i:s');
-
         if ($this->form_validation->run() == FALSE) {
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
-            redirect('pengajuan/' . $project_id);
+            redirect('hutang/');
         } else {
-
             $data = array(
                 "project_id" => $project_id,
                 "nominal" => $nominal,
@@ -151,11 +149,11 @@ class C_hutang extends CI_Controller
             if ($res >= 1) {
                 $pesan = "Pengajuan Hutang Berhasil";
                 $this->flashdata_succeed1($pesan);
-                redirect('project_detail/' . $project_id);
+                redirect('hutang/');
             } else {
                 $pesan = "Pengajuan Hutang Gagal";
                 $this->flashdata_failed1($pesan);
-                redirect('project_detail/' . $project_id);
+                redirect('hutang/');
             }
         }
     }

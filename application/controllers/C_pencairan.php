@@ -12,6 +12,7 @@ class C_pencairan extends CI_Controller
         }
         date_default_timezone_set('Asia/Jakarta');
         $this->load->model("M_pencairan");
+        $this->load->model("M_transaksi");
         $this->load->library('Lharby');
     }
 
@@ -19,6 +20,7 @@ class C_pencairan extends CI_Controller
     {
 
         $data = $this->M_pencairan->showPencairan();
+        $datalogpencairan = $this->M_transaksi->dataPencairan();
 
         $show = array(
             'nav' => $this->header(),
@@ -26,6 +28,7 @@ class C_pencairan extends CI_Controller
             'sidebar' => $this->sidebar(),
             'footer' => $this->footer(),
             'data' => $data,
+            'datalogpencairan' => $datalogpencairan,
 
         );
         $this->load->view('pencairan/index', $show);
@@ -98,9 +101,7 @@ class C_pencairan extends CI_Controller
         $this->form_validation->set_rules('jumlah_uang', 'Jumlah Pencairan', 'required|numeric|greater_than[0]');
         $this->form_validation->set_rules('destination_id', 'destination', 'required');
         $this->form_validation->set_rules('project_office_id', 'Project / Office ', 'required');
-
         $date = date('Y-m-d H:i:s');
-
         $pengajuan_id = $_POST['pengajuan_id'];
         $organization_id = 1;
         $destination_id = $_POST['destination_id'];
@@ -112,24 +113,20 @@ class C_pencairan extends CI_Controller
 
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
-            redirect('pengajuan/' . $project_id);
+            redirect('pengajuan/');
         } else {
-
             $data = array(
                 "organization_id" => $organization_id, //default 
                 "pengajuan_approval_id" => $pengajuan_approval_id,
                 "destination_id" => $destination_id,
                 "project_office_id" => $project_office_id,
                 "jumlah_uang" => $jumlah_uang,
-
                 "last_updated_by" => $this->session->userdata('id'),
                 "created_at" => $date,
             );
-
             $organization = $this->M_data->GetData("mst_organization ", "where id = '$organization_id'");
             $cash_org = $organization[0]['cash_in_hand'];
             $updt_cash_org = $cash_org - $jumlah_uang;
-
             if ($destination_id == 1) { //office
                 $office = $this->M_data->GetData("mst_office ", "where id = '$project_office_id'");
                 $cash_office = $office[0]['cash_in_hand'];
@@ -141,32 +138,24 @@ class C_pencairan extends CI_Controller
                 $updt_cash_off_proj = $cash_project + $jumlah_uang;
                 $table = 'mst_project';
             }
-
             $data_update_approv = array(
                 "is_send_cash" => 1,
                 "updated_at" => $date,
                 "last_updated_by" => $this->session->userdata('id'),
             );
-
             $where_approv = array('id' => $pengajuan_approval_id);
-
             $data_update_org = array(
                 "cash_in_hand" => $updt_cash_org,
                 "updated_at" => $date,
                 "updated_by" => $this->session->userdata('id'),
             );
-
             $where_org = array('id' => $organization_id);
-
             $data_update_off_proj = array(
                 "cash_in_hand" => $updt_cash_off_proj,
                 "updated_at" => $date,
                 "last_updated_by" => $this->session->userdata('id'),
             );
             $where_off_proj = array('id' => $project_office_id);
-
-
-
             $this->db->trans_start();
             $this->db->insert('trx_pengiriman_uang', $data);
             $this->M_data->UpdateData('akk_pengajuan_approval', $data_update_approv, $where_approv);
@@ -175,10 +164,10 @@ class C_pencairan extends CI_Controller
             $this->db->trans_complete();
             if ($this->db->trans_status() === TRUE) {
                 $this->flashdata_succeed_rap();
-                redirect('pencairan_detail/' . $pengajuan_id);
+                redirect('pencairan/');
             } else {
                 $this->flashdata_failed_rap();
-                redirect('pencairan_detail/' . $pengajuan_id);
+                redirect('pencairan_/');
             }
         }
     }

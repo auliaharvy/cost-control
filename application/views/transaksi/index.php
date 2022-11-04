@@ -52,7 +52,7 @@
                     <h3 class="card-title">Termin</h3>
                   </div>
                   <div class="card-body">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah"><i class="fa fa-plus-circle"></i> Tambah Termin </button><br>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahtermin"><i class="fa fa-plus-circle"></i> Tambah Termin </button><br>
                     <br>
                     <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                       <thead>
@@ -259,10 +259,11 @@
                       <thead>
                         <tr>
                           <th class="text-center">No</th>
-                          <th class="text-center">Detail</th>
+                          <th class="text-center">Action</th>
                           <th class="text-center">Project</th>
-                          <th class="text-center">Project Location</th>
-                          <th class="text-center">Project Deadline</th>
+                          <th class="text-center">Nama Jenis</th>
+                          <th class="text-center">Nama Pekerjaan</th>
+                          <th class="text-center">Tanggal Pengajuan</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -272,8 +273,13 @@
                             $id = $d['id']; ?>
                             <tr class="odd gradeX">
                               <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                              <td style="width: 5%;" align="center">
-                                <a href="<?php echo base_url() . "pencairan_detail/" . $d['id']; ?>"><button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button></a>
+                              <td align="center">
+                                <?php if ($d['is_send_cash'] == 0) { ?>
+                                  <a href="" data-toggle="modal" style="width: 120px;" data-target="#pencairan<?php echo $id; ?>" class="btn btn-success btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i>KIRIM BIAYA</a>
+                                <?php } ?>
+                                <?php if ($d['is_send_cash'] == 1) { ?>
+                                  <a href="" data-toggle="modal" style="width: 120px;" class="btn btn-primary btn-circle disabled" data-popup="tooltip" data-placement="top" title="Edit Data">BIAYA TERKIRIM</a>
+                                <?php } ?>
                               </td>
                               <td style="width: 40%;"><?php echo $d['project_name']; ?></td>
                               <td style="width: 25%;"><?php echo $d['project_location']; ?></td>
@@ -325,7 +331,7 @@
                   </div>
                 </div>
               </div>
-              <div id="modal-tambah" class="modal fade">
+              <div id="tambahtermin" class="modal fade">
                 <div class="modal-dialog">
                   <form action="<?php echo site_url('termin/add'); ?>" method="post">
                     <div class="modal-content">
@@ -371,6 +377,61 @@
                   </form>
                 </div>
               </div>
+              <?php if (is_array($data_pencairan) || is_object($data_pencairan)) {
+                foreach ($data_pencairan as $i) :
+                  $id = $i['id'];
+                  $pengajuan_id = $i['pengajuan_id'];
+                  $jumlah_approval = $i['jumlah_approval'];
+
+              ?>
+                  <div class="modal fade" id="pencairan<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header bg-primary">
+                          <h3 class="modal-title" id="myModalLabel">Kirim Biaya</h3>
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                        </div>
+                        <form class="form-horizontal" method="post" action="<?php echo site_url('kirimpencairan'); ?>">
+                          <div class="modal-body">
+                            <div class="form-group">
+                              <div class="col-xs-8">
+                                <input name="pengajuan_approval_id" value="<?php echo $id; ?>" class="form-control" type="hidden" readonly>
+                                <input name="pengajuan_id" value="<?php echo $pengajuan_id; ?>" class="form-control" type="hidden" readonly>
+                                <input type="hidden" name="is_approved" value="1">
+                                <input type="hidden" name="msg" value="Approve">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label>Destination</label>
+                              <select class="form-control disabled destination_id" name="destination_id" id="destination<?php echo $id; ?>" required>
+                                <option value="2">Project</option>
+                                <option value="1">Office</option>
+                                <option value="2">Project</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label>Project / Office </label>
+                              <select class="form-control project_office_id" name="project_office_id" id="project_office_id<?php echo $id; ?>" required>
+                                <option value="">---Select List---</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <div class="col-xs-8">
+                                <input name="jumlah_uang" value="<?php echo $jumlah_approval; ?>" class="form-control" type="hidden" placeholder="Masukan Jumlah Approval.." required>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                            <button class="btn btn-info">Kirim</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+              <?php endforeach;
+              } ?>
+
             </div>
             <!-- /.card -->
           </div>

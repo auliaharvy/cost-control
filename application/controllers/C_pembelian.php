@@ -19,6 +19,8 @@ class C_pembelian extends CI_Controller
     {
         $databelum = $this->M_pembelian->showPembelian1(); //show pembelian data
         $datasudah = $this->M_pembelian->showPembeliansudah(); //show pembelian data
+        // $data_pembelian = $this->M_pembelian->getPengajuan($id);
+
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
@@ -26,6 +28,8 @@ class C_pembelian extends CI_Controller
             'footer' => $this->footer(),
             'databelum' => $databelum,
             'datasudah' => $datasudah,
+            // 'data_pembelian' => $data_pembelian,
+
 
         );
         $this->load->view('pembelian/index', $show);
@@ -54,7 +58,6 @@ class C_pembelian extends CI_Controller
         $user_id = $this->session->userdata('id');
         $project_id = $get[0]['id'];
         $data_rap_biaya = $this->M_pembelian->getBiayaRap($get[0]['id']);
-
         if ($role == 4) { // pm
             $destination_id = 2;
             $title = 'KAS PROJECT';
@@ -121,19 +124,15 @@ class C_pembelian extends CI_Controller
     {
         $date = date('Y-m-d H:i:s');
         $user_id = $this->session->userdata('id');
-
         $pengiriman_uang_id = $_POST['pengiriman_uang_id'];
         $project_id = $_POST['project_id'];
         $destination_id = $_POST['destination_id'];
         $proj_off_id = $_POST['project_office_id'];
-
         $a = $_POST['jumlah_uang_pembelian'];
         $b = str_replace('.', '', $a); //ubah format rupiah ke integer
         $jumlah_uang_pembelian = intval($b);
-
         $getRapItem = $this->M_pembelian->getBiayaAktualRap($pengiriman_uang_id); //cari data untuk menambahkan jumlah aktual
         $rap_item_id = $getRapItem[0]['rap_biaya_id'];
-
         $aktual_rap = $getRapItem[0]['jumlah_aktual'];
         $jumlah_aktual_total = $jumlah_uang_pembelian + $aktual_rap;
         $whererap = array('id' => $rap_item_id);
@@ -142,16 +141,13 @@ class C_pembelian extends CI_Controller
             "last_update_by" => $user_id,
             "updated_at" => $date,
         );
-
         $pengajuan_id = $getRapItem[0]['pengajuan_id'];
-
         $getPencairan = $this->M_pembelian->GetData("trx_pengiriman_uang ", "where id = '$pengiriman_uang_id'");
         $uang_pencairan = $getPencairan[0]['jumlah_uang'];
         if ($jumlah_uang_pembelian > $uang_pencairan) {
             $pesan = "Jumlah Pembelian yang diinput tidak boleh melebihi jumlah yang ada";
-
             $this->flashdata_failed1($pesan);
-            redirect('pembelian_detail/' . $pengajuan_id);
+            redirect('pembelian/' . $pengajuan_id);
         } else {
             $remaining_pembelian = $uang_pencairan - $jumlah_uang_pembelian;
             if ($remaining_pembelian > 0) {
@@ -159,10 +155,6 @@ class C_pembelian extends CI_Controller
             } else {
                 $is_buy = 1; //total
             }
-
-
-
-
             if ($destination_id == 1) { //office
                 $table = 'mst_office ';
                 $getcash = $this->M_pembelian->GetData($table, "where id = '$proj_off_id'");
@@ -190,9 +182,6 @@ class C_pembelian extends CI_Controller
                 "last_updated_by" => $user_id,
                 "updated_at" => $date,
             );
-
-
-
             $where = array('id' => $pengiriman_uang_id);
             $data = array(
                 "remaining_pembelian" => $remaining_pembelian,
@@ -203,7 +192,6 @@ class C_pembelian extends CI_Controller
             );
             $this->db->trans_start();
             /*Trx Cash Remaining */
-
             $where_cash = "where project_id = '$project_id' and destination_id = '$destination_id' and project_office_id = '$proj_off_id'";
             $getCashRemaining = $this->M_pembelian->GetData("trx_cash_remaining ", $where_cash); //cek ada cash remaining utk project dan destination tsb
             if ($getCashRemaining) {
@@ -219,8 +207,6 @@ class C_pembelian extends CI_Controller
                 );
                 $this->M_data->UpdateData('trx_cash_remaining', $data_update_cash, $where_cash_remaining);
             } else { //jika sebelumnya tidak ada sisa pembelanjaan di project dan destination tsb
-
-
                 $data_insert_cash = array(
                     "project_id" => $project_id,
                     "destination_id" => $destination_id,
@@ -238,10 +224,10 @@ class C_pembelian extends CI_Controller
             $this->db->trans_complete();
             if ($this->db->trans_status() === TRUE) {
                 $this->flashdata_succeed_rap();
-                redirect('pembelian_detail/' . $pengajuan_id);
+                redirect('pembelian/' . $pengajuan_id);
             } else {
                 $this->flashdata_failed_rap();
-                redirect('pembelian_detail/' . $pengajuan_id);
+                redirect('pembelian/' . $pengajuan_id);
             }
         }
     }

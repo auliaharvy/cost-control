@@ -48,7 +48,7 @@
                   <div class="card-body">
                     <a href="<?php echo base_url('Welcome/export'); ?>">Export Data</a>
                     <br>
-                    <table style="width: 100%;" id="example1" class="table table-bordered table-hover">
+                    <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                       <thead>
                         <tr>
                           <th class="text-center">No</th>
@@ -100,7 +100,7 @@
                     </form><br>
                     <h3 class="card-title"><i><?php echo $title; ?></i></h3>
                     <br><br>
-                    <table style="width: 100%;" id="example2" class="table table-bordered table-hover">
+                    <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
                       <thead>
                         <tr>
                           <th class="text-center">No</th>

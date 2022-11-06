@@ -34,9 +34,9 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmaterial"><i class="fa fa-plus-circle"></i> Tambah Material </button>
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#transfermaterial"><i class="fa fa-plus-circle"></i> Transfer Material </button><br><br>
-              <table style="width: 100%;" id="example1" class="table table-bordered table-hover">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmaterial" title="Tambah Material"><i class="fa fa-plus-circle"></i> Tambah Material </button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#transfermaterial" title="Transfer Material"><i class="fa fa-plus-circle"></i> Transfer Material </button><br><br>
+              <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th class="text-center">No</th>
@@ -55,7 +55,7 @@
                       <tr class="odd gradeX">
                         <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
                         <td style="width: 10%;" align="center">
-                          <a data-toggle="modal" data-target="#editmaterial<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Material"><i class="fas fa-edit"></i></a>
+                          <button data-toggle="modal" data-target="#editmaterial<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Material"><i class="fas fa-edit"></i></button>
                         </td>
                         <td style="width: 40%;"><?php echo $d['material_name']; ?></td>
                         <td style="width: 20%;" class="text-center"><?php echo $d['qty']; ?></td>
@@ -83,12 +83,12 @@
                     <option value="12">1 Tahun Terakhir</option>
                   </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Search</button>
+                <button type="submit" class="btn btn-primary" title="Search">Search</button>
               </form>
               <br>
               <h3 class="card-title"><i><?php echo $title; ?></i></h3>
               <br><br>
-              <table style="width: 100%;" id="example2" class="table table-bordered table-hover">
+              <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th class="text-center">No</th>
@@ -163,7 +163,7 @@
           } ?>
           <div id="tambahmaterial" class="modal fade">
             <div class="modal-dialog">
-              <form action="<?php echo site_url('tambah_material'); ?>" method="post">
+              <form action="<?php echo site_url('tambahmaterialinv'); ?>" method="post">
                 <div class="modal-content">
                   <div class="modal-header bg-primary">
                     <h4 class="modal-title">Tambah Material</h4>
@@ -195,7 +195,7 @@
           </div>
           <div id="transfermaterial" class="modal fade">
             <div class="modal-dialog">
-              <form action="<?php echo site_url('transfermaterial'); ?>" method="post">
+              <form action="<?php echo site_url('transfermaterialinv'); ?>" method="post">
                 <div class="modal-content">
                   <div class="modal-header bg-primary">
                     <h4 class="modal-title">Transfer Material</h4>

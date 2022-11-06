@@ -1,14 +1,10 @@
 <?php echo $nav; ?>
-
-
 <div class="wrapper">
   <!-- Navbar -->
   <?php echo $navbar; ?>
   <!-- /.navbar -->
-
   <!-- Main Sidebar Container -->
   <?php echo $sidebar; ?>
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -27,8 +23,8 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
+    <?= $this->session->flashdata('pesan') ?>
     <section class="content">
       <div class="row">
         <div class="col-12">
@@ -39,35 +35,25 @@
             <!-- /.card-header -->
             <div class="card-body">
               <div class="col-md-6">
-
                 <table class="table ttable-condensed">
-
                   <tr>
                     <th>Project Name</th>
-
                     <td><?php echo $project_name; ?></td>
                   </tr>
                   <tr>
                     <th>Lokasi Project</th>
-
                     <td class="text"><span><?php echo $project_location; ?></span></td>
                   </tr>
-
                   <tr>
                     <th>Project Deadline</th>
-
                     <td><?php echo $project_deadline; ?></td>
                   </tr>
                   <tr>
                     <th>RAB</th>
-
-
                     <td><?php echo $rab_project; ?></td>
                   </tr>
-
                 </table>
               </div>
-              <?= $this->session->flashdata('pesan') ?>
               <br>
               <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
                 <thead>
@@ -133,22 +119,17 @@
           foreach ($data_pengajuan as $i) :
             $id = $i['id'];
             $pengajuan_id = $i['pengajuan_id'];
-
           ?>
             <div class="modal fade" id="modal-edit<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header bg-primary">
-
-
                     <h3 class="modal-title" id="myModalLabel">Approve Pengajuan</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                   </div>
                   <form class="form-horizontal" method="post" action="<?php echo site_url('approvedpengajuan'); ?>">
                     <div class="modal-body">
-
                       <div class="form-group">
-
                         <div class="col-xs-8">
                           <input name="pengajuan_biaya_id" value="<?php echo $id; ?>" class="form-control" type="hidden" readonly>
                           <input name="pengajuan_id" value="<?php echo $pengajuan_id; ?>" class="form-control" type="hidden" readonly>
@@ -156,7 +137,6 @@
                           <input type="hidden" name="msg" value="Approve">
                         </div>
                       </div>
-
                       <div class="form-group">
                         <label class="control-label col-xs-3">Jumlah Approval</label>
                         <div class="col-xs-8">
@@ -167,20 +147,16 @@
                         <label class='col-xs-3'>Note</label>
                         <div class='col-xs-8'><textarea class="form-control" rows="3" name="note"></textarea>
                         </div>
-
                       </div>
-
-                      <div class="modal-footer">
-                        <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-                        <button class="btn btn-info">Approve</button>
-                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                      <button class="btn btn-info">Approve</button>
+                    </div>
                   </form>
                 </div>
               </div>
             </div>
-
-
-
         </div>
       <?php endforeach; ?>
       <!-- /.card -->

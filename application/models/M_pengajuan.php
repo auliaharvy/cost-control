@@ -16,7 +16,7 @@ class M_pengajuan extends CI_Model
 		}
 	}
 
-	public function showpengajuandetail($id)
+	public function showpengajuandetail()
 	{
 		$this->db->select('
           a.*,b.nama_jenis_rap,b.nama_pekerjaan,c.note_app,c.jumlah_approval,c.is_send_cash,IF(c.jumlah_approval is NOT NULL,FORMAT(c.jumlah_approval,0,"de_DE"),0) as jumlah_approval_v
@@ -26,7 +26,7 @@ class M_pengajuan extends CI_Model
 		$this->db->from('akk_pengajuan_biaya as a');
 		$this->db->join('akk_rap_biaya as b', 'a.rap_biaya_id = b.id');
 		$this->db->join('akk_pengajuan_approval as c', 'a.id = c.pengajuan_biaya_id', 'left');
-		$this->db->where('a.pengajuan_id', $id);
+		$this->db->where('a.pengajuan_id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
@@ -62,7 +62,6 @@ class M_pengajuan extends CI_Model
       ');
 		$this->db->from('akk_pengajuan as a');
 		$this->db->join('mst_project as b', 'a.project_id = b.id');
-
 		$this->db->where('a.id', $id);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {

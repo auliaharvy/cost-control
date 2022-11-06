@@ -58,11 +58,9 @@ class C_pengajuan extends CI_Controller
             'id' => $id,
             'project_name' => $get[0]['project_name'],
             'project_location' => $get[0]['project_location'],
-
             'project_deadline' => $deadline,
             'rab_project' => $rab_project,
             // 'is_rap_confirm' => $cekrap[0]['is_rap_confirm'],
-
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
             'sidebar' => $this->sidebar(),
@@ -117,11 +115,11 @@ class C_pengajuan extends CI_Controller
         if ($this->db->trans_status() === FALSE) {
             $pesan = "" . $msg . " Pengajuan Gagal";
             $this->flashdata_failed1($pesan);
-            redirect('pengajuan_detail/' . $pengajuan_id);   // generate an error... or use the log_message() function to log your error
+            redirect('approval/');   // generate an error... or use the log_message() function to log your error
         } else {
             $pesan = "" . $msg . " Pengajuan Sukses";
             $this->flashdata_succeed1($pesan);
-            redirect('pengajuan_detail/' . $pengajuan_id);
+            redirect('approval/');
         }
     }
 
@@ -144,11 +142,11 @@ class C_pengajuan extends CI_Controller
         if ($this->db->trans_status() === FALSE) {
             $pesan = "" . $msg . " Pengajuan Gagal";
             $this->flashdata_failed1($pesan);
-            redirect('pengajuan_detail/' . $pengajuan_id);   // generate an error... or use the log_message() function to log your error
+            redirect('pengajuan/');   // generate an error... or use the log_message() function to log your error
         } else {
             $pesan = "" . $msg . " Pengajuan Sukses";
             $this->flashdata_succeed1($pesan);
-            redirect('pengajuan_detail/' . $pengajuan_id);
+            redirect('pengajuan/');
         }
     }
 

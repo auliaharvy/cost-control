@@ -100,6 +100,7 @@ $route['bayarhutang/(:num)'] = 'C_hutang/bayar_hutang/$1';
 $route['masterdata'] = 'C_masterdata/index';
 $route['tambahuser'] = 'C_masterdata/tambahuser';
 $route['edituser'] = 'C_masterdata/edituser';
+$route['deleteuser'] = 'C_masterdata/deleteuser';
 $route['editpassuser'] = 'C_masterdata/editpassuser';
 $route['tambahmaterial'] = 'C_masterdata/tambahmaterial';
 $route['editmaterial'] = 'C_masterdata/editmaterial';
@@ -112,11 +113,12 @@ $route['tambahkas'] = 'C_kas/tambahkas';
 //Halaman Inventory
 $route['inventory'] = 'C_inventory/index';
 $route['editmaterial'] = 'C_inventory/editmaterial';
-$route['tambah_material'] = 'C_inventory/tambahmaterial';
-$route['transfermaterial'] = 'C_inventory/transfermaterial';
+$route['tambahmaterialinv'] = 'C_inventory/tambahmaterial';
+$route['transfermaterialinv'] = 'C_inventory/transfermaterial';
 
 // Halaman Approval
 $route['approval'] = 'C_approval/index';
+$route['approvepengajuan'] = 'C_approval/approved';
 
 // Halaman Pengajuan
 $route['pengajuan'] = 'C_pengajuan/index';

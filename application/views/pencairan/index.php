@@ -62,7 +62,7 @@
                         <td class="text"><span><?php echo $d['project_name']; ?></span></td>
                         <td class="text"><span><?php echo $d['project_location']; ?></span></td>
                         <td><?php echo $d['project_deadline']; ?></td>
-                        <td><?php echo $d['jumlah_approval']; ?></td>
+                        <td><?php echo $d['jumlah_pengajuan']; ?></td>
                       </tr>
                   <?php
                       $nomor = $nomor + 1;

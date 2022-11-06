@@ -12,6 +12,7 @@ class C_approval extends CI_Controller
         }
         date_default_timezone_set('Asia/Jakarta');
         $this->load->model("M_approval");
+        $this->load->model("M_pengajuan");
         $this->load->helper('form');
         $this->load->library('Lharby');
     }
@@ -20,6 +21,7 @@ class C_approval extends CI_Controller
     {
         $datapengajuanbelumapprove = $this->M_approval->pengajuanbelumapprove();
         $datapengajuansudahapprove = $this->M_approval->pengajuansudahapprove();
+
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
@@ -32,46 +34,52 @@ class C_approval extends CI_Controller
         $this->load->view('approval/index', $show);
     }
 
-    public function editkas()
+    public function approved()
     {
-        $id = $this->input->post('organization_id');
-        $get = $this->M_kas->GetData("mst_organization ", "where id = '$id'");
-        $cash_now = $get[0]['cash_in_hand'];
-        $tag = $_POST['tag'];
-        $a = $_POST['cash_in_hand'];
+        $is_approved = $_POST['is_approved'];
+        $pengajuan_biaya_id = $_POST['pengajuan_biaya_id'];
+        $pengajuan_id = $_POST['pengajuan_id'];
+        $a = $_POST['jumlah_approval'];
         $b = str_replace('.', '', $a); //ubah format rupiah ke integer
-        $cash_in_hand = intval($b);
-        if ($tag == 0) { //tambah
-            $cash_update = $cash_now + $cash_in_hand;
-            $msg = "Penambahan Kas";
-        } else { //kurang
-            $cash_update = $cash_now - $cash_in_hand;
-            $cash_in_hand = $cash_in_hand * (-1); //dijadikan min
-            $msg = "Pengurangan Kas";
-        }
-        $where = array('id' => $id);
-        date_default_timezone_set('Asia/Jakarta');
+        $jumlah_approval = intval($b);
+        $where = array('id' => $pengajuan_biaya_id);
         $date = date('Y-m-d H:i:s');
-        $data_up = array(
-            'cash_in_hand' => $cash_update,
+        $data_update = array(
+            'is_approved' => $is_approved,
+            "last_updated_by" => $this->session->userdata('id'),
             "updated_at" => $date,
-            "updated_by" => $this->session->userdata('id'),
         );
-        $data_insert = array(
-            "cash_additional" => $cash_in_hand,
-            'note' => $_POST['note'],
-            "created_by" => $this->session->userdata('id'),
-        );
+        $cekapproval = $this->M_pengajuan->GetData("akk_pengajuan_approval ", "where pengajuan_biaya_id = '$pengajuan_biaya_id'");
         $this->db->trans_start();
-        $this->M_data->UpdateData('mst_organization', $data_up, $where);
-        $this->M_data->InsertData('log_mst_organization', $data_insert);
-        $this->db->trans_complete();
-        if ($this->db->trans_status() === TRUE) {
-            $this->flashdata_succeed1($msg);
-            redirect('kas');
+        if ($cekapproval) {
+            $data_approval = array(
+                'jumlah_approval' => $jumlah_approval,
+                'note_app' => $_POST['note'],
+                'created_at' => $date,
+                'last_updated_by' => $this->session->userdata('id'),
+            );
+            $whereapp = array('pengajuan_biaya_id' => $pengajuan_biaya_id);
+            $this->M_pengajuan->UpdateData('akk_pengajuan_approval', $data_approval, $whereapp);
         } else {
-            $this->flashdata_failed1($msg);
-            redirect('kas');
+            $data_insert = array(
+                'pengajuan_id' => $pengajuan_id,
+                'pengajuan_biaya_id' => $pengajuan_biaya_id,
+                'jumlah_approval' => $jumlah_approval,
+                'created_at' => $date,
+                'last_updated_by' => $this->session->userdata('id'),
+            );
+            $this->M_pengajuan->insertData('akk_pengajuan_approval', $data_insert);
+        }
+        $this->M_pengajuan->UpdateData('akk_pengajuan_biaya', $data_update, $where);
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) {
+            $pesan = "" . " Pengajuan Gagal di Approve";
+            $this->flashdata_failed1($pesan);
+            redirect('approval/');   // generate an error... or use the log_message() function to log your error
+        } else {
+            $pesan = "" . " Pengajuan Sukses di Approve";
+            $this->flashdata_succeed1($pesan);
+            redirect('approval/');
         }
     }
 

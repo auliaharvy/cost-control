@@ -44,7 +44,7 @@ class C_masterdata extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $msg = validation_errors();
             $this->flashdata_failed1($msg);
-            redirect('user');
+            redirect('masterdata');
         } else {
             $data = array(
                 "fullname" => $_POST['fullname'],
@@ -58,11 +58,11 @@ class C_masterdata extends CI_Controller
             if ($res >= 0) {
                 $msg = "Tambah User Berhasil";
                 $this->flashdata_succeed1($msg);
-                redirect('user');
+                redirect('masterdata');
             } else {
                 $msg = "Tambah User Gagal";
                 $this->flashdata_failed1($msg);
-                redirect('user');
+                redirect('masterdata');
             }
         }
     }
@@ -75,7 +75,7 @@ class C_masterdata extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $msg = validation_errors();
             $this->flashdata_failed1($msg);
-            redirect('user');
+            redirect('masterdata');
         } else {
             $where = array('id' => $id);
             date_default_timezone_set('Asia/Jakarta');
@@ -91,11 +91,11 @@ class C_masterdata extends CI_Controller
             if ($res >= 0) {
                 $msg = "Update User Berhasil";
                 $this->flashdata_succeed1($msg);
-                redirect('user');
+                redirect('masterdata');
             } else {
                 $msg = "Update User Gagal";
                 $this->flashdata_failed1($msg);
-                redirect('user');
+                redirect('masterdata');
             }
         }
     }
@@ -108,7 +108,7 @@ class C_masterdata extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $msg = validation_errors();
             $this->flashdata_failed1($msg);
-            redirect('user');
+            redirect('masterdata');
         } else {
             $where = array('id' => $id);
             date_default_timezone_set('Asia/Jakarta');
@@ -122,11 +122,11 @@ class C_masterdata extends CI_Controller
             if ($res >= 0) {
                 $msg = "Update Password Berhasil";
                 $this->flashdata_succeed1($msg);
-                redirect('user');
+                redirect('masterdata');
             } else {
                 $msg = "Update Password Gagal";
                 $this->flashdata_failed1($msg);
-                redirect('user');
+                redirect('masterdata');
             }
         }
     }
@@ -136,14 +136,24 @@ class C_masterdata extends CI_Controller
         $this->form_validation->set_rules('material_name', 'Nama Material', 'required');
         $this->form_validation->set_rules('unit', 'Unit', 'required');
         if ($this->form_validation->run() == FALSE) {
-            $this->flashdata_failed();
+            $msg = validation_errors();
+            $this->flashdata_failed1($msg);
+            redirect('masterdata');
         } else {
             $data = array(
                 "material_name" => $_POST['material_name'],
                 "unit" => $_POST['unit'],
             );
-            $this->db->insert('mst_material', $data);
-            $this->flashdata_succeed();
+            $res = $this->db->insert('mst_material', $data);
+            if ($res >= 0) {
+                $msg = "Tambah Material Berhasil";
+                $this->flashdata_succeed1($msg);
+                redirect('masterdata');
+            } else {
+                $msg = "Tambah Material Gagal";
+                $this->flashdata_failed1($msg);
+                redirect('masterdata');
+            }
         }
     }
 
@@ -153,7 +163,9 @@ class C_masterdata extends CI_Controller
         $this->form_validation->set_rules('material_name', 'Nama Material', 'required');
         $this->form_validation->set_rules('unit', 'Unit', 'required');
         if ($this->form_validation->run() == FALSE) {
-            $this->flashdata_failed();
+            $msg = validation_errors();
+            $this->flashdata_failed1($msg);
+            redirect('masterdata');
         } else {
             $where = array('id' => $id);
             $data = array(
@@ -161,22 +173,45 @@ class C_masterdata extends CI_Controller
                 "unit" => $_POST['unit'],
             );
             $res = $this->M_data->UpdateData('mst_material', $data, $where);
-            if ($res >= 1) {
-                $this->flashdata_succeed();
+            if ($res >= 0) {
+                $msg = "Update Material Berhasil";
+                $this->flashdata_succeed1($msg);
+                redirect('masterdata');
             } else {
-                $this->flashdata_failed();
+                $msg = "Update Material Gagal";
+                $this->flashdata_failed1($msg);
+                redirect('masterdata');
             }
         }
     }
 
-    public function delete($id)
+    public function deleteuser($id)
     {
         $where = array('id' => $id);
-        $res = $this->M_data->DeleteData('mst_office', $where);
-        if ($res >= 1) {
-            $this->flashdata_succeed();
+        $res = $this->M_data->DeleteData('mst_users', $where);
+        if ($res >= 0) {
+            $msg = "Hapus User Berhasil";
+            $this->flashdata_succeed1($msg);
+            redirect('masterdata');
         } else {
-            $this->flashdata_failed();
+            $msg = "Hapus User Gagal";
+            $this->flashdata_failed1($msg);
+            redirect('masterdata');
+        }
+    }
+
+    public function deletematerial($id)
+    {
+        $where = array('id' => $id);
+        $res = $this->M_data->DeleteData('mst_material', $where);
+        if ($res >= 0) {
+            $msg = "Hapus Material Berhasil";
+            $this->flashdata_succeed1($msg);
+            redirect('masterdata');
+        } else {
+            $msg = "Hapus Material Gagal";
+            $this->flashdata_failed1($msg);
+            redirect('masterdata');
         }
     }
 

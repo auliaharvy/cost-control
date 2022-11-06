@@ -67,11 +67,11 @@
                             $id = $d['id']; ?>
                             <tr class="odd gradeX">
                               <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                              <td style="width: 15%;" align="center">
-                                <a data-toggle="modal" data-target="#edituser<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></a>
-                                <a data-toggle="modal" data-target="#editpassuser<?php echo $id; ?>" class="btn btn-success btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Password"><i class="fas fa-lock"></i>Ubah Password</a>
+                              <td style="width: 20%;" align="center">
+                                <button data-toggle="modal" data-target="#edituser<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit User"><i class="fas fa-edit"></i></button>
+                                <button data-toggle="modal" data-target="#editpassuser<?php echo $id; ?>" class="btn btn-success btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Password"><i class="fas fa-lock"></i> Ubah Password</button>
                               </td>
-                              <td style="width: 20%;"><?php echo $d['fullname']; ?></td>
+                              <td style="width: 25%;"><?php echo $d['fullname']; ?></td>
                               <td style="width: 20%;"><?php echo $d['username']; ?></td>
                               <td style="width: 20%;"><?php echo $d['role_name']; ?></td>
                               <td style="width: 10%;" align="center">
@@ -112,7 +112,7 @@
                             <tr class="odd gradeX">
                               <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
                               <td style="width: 10%;" align="center">
-                                <a data-toggle="modal" data-target="#editmaterial<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Material"><i class="fas fa-edit"></i></a>
+                                <button data-toggle="modal" data-target="#editmaterial<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Material"><i class="fas fa-edit"></i></button>
                               </td>
                               <td style="width: 55%;"><?php echo $d['material_name']; ?></td>
                               <td style="width: 30%;"><?php echo $d['unit']; ?></td>
@@ -306,7 +306,7 @@
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header bg-primary">
-                      <h3 class="modal-title" id="myModalLabel">Edit Project</h3>
+                      <h3 class="modal-title" id="myModalLabel">Edit Material</h3>
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                     </div>
                     <form class="form-horizontal" method="post" action="<?php echo base_url() . 'editmaterial' ?>">
@@ -357,7 +357,7 @@
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": true,
-      "scrollX": true,
+      // "scrollX": true,
       "searching": true,
       "ordering": true,
       "info": true,

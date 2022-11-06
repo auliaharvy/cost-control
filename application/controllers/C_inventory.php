@@ -61,11 +61,11 @@ class C_inventory extends CI_Controller
             if ($tag == 0) { //plus
                 $qtyakhir = $qty_awal + $qty;
                 $msg = "Penambahan Material ";
-                $note = "Penambahan inventory melalui Kas Besar";
+                $note = "Penambahan inventory melalui Inventory";
             } else {
                 $qtyakhir = $qty_awal - $qty;
                 $msg = "Pengurangan Material ";
-                $note = "Pengurangan inventory melalui Kas Besar";
+                $note = "Pengurangan inventory melalui Inventory";
             }
             $where = array('id' => $id);
             $date = date('Y-m-d H:i:s');
@@ -103,7 +103,7 @@ class C_inventory extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
-            redirect('/');
+            redirect('inventory');
         } else {
             $data = array(
                 "material_id" => $material_id,
@@ -158,11 +158,11 @@ class C_inventory extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
-            redirect('/');
+            redirect('inventory');
         } else if ($qty_inv < $_POST['qty']) {
             $pesan = "Jumlah Transfer yang diinput tidak boleh melebihi Inventory yang ada";
             $this->flashdata_failed1($pesan);
-            redirect('/');
+            redirect('inventory');
         } else {
             $date = date('Y-m-d H:i:s');
             $getinv = $this->M_data->cekMaterialProject($project_id, $material_id);
@@ -253,17 +253,6 @@ class C_inventory extends CI_Controller
         $data = array();
         $show = $this->load->view('component/footer', $data, TRUE);
         return $show;
-    }
-
-    public function flashdata_succeed()
-    {
-        $this->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-success\" id=\"alert\">Action Succeed !!!</div></div>");
-        redirect('/C_project');
-    }
-    public function flashdata_failed()
-    {
-        $this->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-danger\" id=\"alert\">Action Failed !!!</div></div>");
-        redirect('/C_project');
     }
 
     public function flashdata_succeed1($pesan)

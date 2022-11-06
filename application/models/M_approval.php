@@ -13,14 +13,14 @@ class M_approval extends CI_Model
 	{
 		$this->db->select('
         a.*, c.project_name, d.nama_pekerjaan, DATE_FORMAT(a.created_at,"%d %M %Y") as tanggal_pengajuan,
-		FORMAT(b.jumlah_pengajuan,0,"de_DE") as jumlah_pengajuan_v, d.note as keterangan
+		FORMAT(b.jumlah_pengajuan,0,"de_DE") as jumlah_pengajuan_v, b.note as keterangan,a.id as pengajuan_id,c.id
         ');
 		$this->db->from('akk_pengajuan as a');
 		$this->db->join('akk_pengajuan_biaya as b', 'a.id = b.pengajuan_id');
 		$this->db->join('mst_project as c', 'a.project_id = c.id');
 		$this->db->join('akk_rap_biaya as d', 'b.rap_biaya_id = d.id');
 		$this->db->where('b.is_approved', 0);
-		$this->db->group_by('b.pengajuan_id');
+		$this->db->group_by('b.id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
@@ -34,7 +34,7 @@ class M_approval extends CI_Model
 		$this->db->select('
         a.*, c.project_name, d.nama_pekerjaan, DATE_FORMAT(e.updated_at,"%d %M %Y") as tanggal_approve,
 		FORMAT(b.jumlah_pengajuan,0,"de_DE") as jumlah_pengajuan_v, FORMAT(e.jumlah_approval,0,"de_DE") as jumlah_approval_v,
-		d.note as keterangan
+		b.note as keterangan
         ');
 		$this->db->from('akk_pengajuan as a');
 		$this->db->join('akk_pengajuan_biaya as b', 'a.id = b.pengajuan_id');
@@ -42,7 +42,7 @@ class M_approval extends CI_Model
 		$this->db->join('akk_rap_biaya as d', 'b.rap_biaya_id = d.id');
 		$this->db->join('akk_pengajuan_approval as e', 'a.id = e.pengajuan_id');
 		$this->db->where('b.is_approved', 1);
-		$this->db->group_by('b.pengajuan_id');
+		$this->db->group_by('b.id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();

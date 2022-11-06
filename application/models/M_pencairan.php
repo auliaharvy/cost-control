@@ -99,12 +99,12 @@ class M_pencairan extends CI_Model
 
 		$this->db->select('
           a.*,c.project_name,c.project_location,
-          c.project_deadline
+          c.project_deadline,b.jumlah_pengajuan
       ');
 		$this->db->order_by('id', 'asc');
 		$this->db->from('akk_pengajuan as a');
-
 		$this->db->join('mst_project as c', 'a.project_id = c.id');
+		$this->db->join('akk_pengajuan_biaya as b', 'a.id = b.pengajuan_id');
 		$this->db->where('c.project_status', 0);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {

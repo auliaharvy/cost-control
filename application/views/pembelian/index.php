@@ -33,6 +33,7 @@
               <h3 class="card-title">Pembelian ( Belum Belanja )</h3>
             </div>
             <div class="card-body">
+              <a href="" data-toggle="modal" style="width: 120px;" data-target="#belanja" class="btn btn-success btn-circle" data-popup="tooltip" data-placement="top" title="Belanja"><i class="fa fa-shopping-cart"></i> BELANJA</a><br><br>
               <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
@@ -41,8 +42,6 @@
                     <th>Nama Project</th>
                     <th>Nama Pekerjaan</th>
                     <th>Jumlah Approval</th>
-                    <th>Jumlah Pembelian</th>
-                    <th>Tanggal Pembelian</th>
                     <th>Keterangan</th>
                   </tr>
                 </thead>
@@ -57,14 +56,12 @@
                           <?php if ($d['is_buy'] == 0) { ?>
                             <a href="" data-toggle="modal" style="width: 120px;" data-target="#modal-edit<?php echo $idx; ?>" class="btn btn-danger btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fa fa-shopping-cart"></i>BELANJA</a>
                           <?php } else { ?>
-                            <a><button class="btn btn-success btn-circle disabled text-white">TELAH DIBELANJAKAN</button></a>
+                            <a><button class="btn btn-success btn-circle disabled text-white"><i class="fa fa-check"></i></button></a>
                           <?php } ?>
                         </td>
                         <td><?php echo $d['project_name']; ?></td>
                         <td><?php echo $d['nama_pekerjaan']; ?></td>
-                        <td>RP. <?php echo $d['jumlah_approval_v']; ?></td>
-                        <td><?php echo $d['jumlah_pembelian_v']; ?></td>
-                        <td><?php echo $d['tanggal_pembelian_v']; ?></td>
+                        <td>Rp. <?php echo $d['jumlah_approval']; ?></td>
                         <td><?php echo $d['keterangan']; ?></td>
                       </tr>
                   <?php
@@ -92,17 +89,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php if (is_array($databelum) || is_object($databelum)) {
+                  <?php if (is_array($datasudah) || is_object($datasudah)) {
                     $nomor = 1;
-                    foreach ($databelum as $d) {
+                    foreach ($datasudah as $d) {
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
                         <td><?php echo $nomor++; ?></td>
                         <td><?php echo $d['project_name']; ?></td>
                         <td><?php echo $d['nama_pekerjaan']; ?></td>
-                        <td>RP. <?php echo $d['jumlah_approval_v']; ?></td>
-                        <td><?php echo $d['jumlah_pembelian_v']; ?></td>
-                        <td><?php echo $d['tanggal_pembelian_v']; ?></td>
+                        <td>RP. <?php echo $d['jumlah_approval']; ?></td>
+                        <td><?php echo $d['jumlah_pembelian']; ?></td>
+                        <td><?php echo $d['tanggal_pembelian']; ?></td>
                         <td><?php echo $d['keterangan']; ?></td>
                       </tr>
                   <?php
@@ -158,6 +155,50 @@
               </div>
           <?php endforeach;
           } ?>
+          <div id="belanja" class="modal fade">
+            <div class="modal-dialog">
+              <form action="<?php echo site_url('pembelian/create_remaining'); ?>" method="post">
+                <div class="modal-content">
+                  <div class="modal-header bg-primary">
+                    <h4 class="modal-title">Pembelian Remaining</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <input type="hidden" name="project_id" autocomplete="off" value="<?php echo $project_id; ?>" required class="form-control">
+                    <input type="hidden" name="pengajuan_id" autocomplete="off" value="<?php echo $pengajuan_id; ?>" required class="form-control">
+                    <input type="hidden" name="destination_id" autocomplete="off" value="<?php echo $destination_id; ?>" required class="form-control">
+                    <input type="hidden" name="project_office_id" autocomplete="off" value="<?php echo $project_office_id; ?>" required class="form-control">
+                    <div class="form-group">
+                      <label>RAP Item List</label>
+                      <select class="form-control js-states" id="single" style="width:100%;" name="rap_biaya_id" required>
+                        <option value="">---Select List---</option>
+                        <?php foreach ($data_rap_biaya as $dk) { ?>
+                          <option value="<?php echo $dk['id']; ?>"><?php echo $dk['nama_jenis']; ?>--<?php echo $dk['nama_jenis_rap']; ?>--RAP : <?php echo $dk['jumlah_biaya']; ?> </option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class='col-xs-3'>Jumlah Pembelian</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Rp</span>
+                        </div>
+                        <input type="text" name="jumlah_uang_pembelian" autocomplete="off" required placeholder="Masukkan Jumlah Pembelian" class="form-control uang">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class='col-xs-3'>Note</label>
+                      <div class='col-xs-8'><textarea class="form-control" rows="3" name="note"></textarea>
+                      </div>
+                      <br>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary"><i class="icon-checkmark-circle2"></i> Simpan</button>
+                    </div>
+              </form>
+            </div>
+          </div>
           <!-- /.card -->
         </div>
         <!-- /.col -->
@@ -167,36 +208,35 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+</div>
+<!-- ./wrapper -->
 
-  <!-- ./wrapper -->
-
-  <!-- jQuery -->
-
-  <?php echo $footer; ?>
-  <!-- page script -->
-  <script>
-    $(function() {
-      $("#example1").DataTable({
-        "paging": true,
-        "lengthChange": true,
-        "scrollX": true,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": true,
-      });
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": true,
-        "scrollX": true,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": true,
-      });
-      table.columns.adjust().draw();
+<!-- jQuery -->
+<?php echo $footer; ?>
+<!-- page script -->
+<script>
+  $(function() {
+    $("#example1").DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "scrollX": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true,
     });
-  </script>
-  </body>
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "scrollX": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true,
+    });
+    table.columns.adjust().draw();
+  });
+</script>
+</body>
 
-  </html>
+</html>

@@ -99,11 +99,11 @@
                       <thead>
                         <tr>
                           <th class="text-center">No</th>
-                          <th class="text-center">Detail</th>
                           <th class="text-center">Nama Project</th>
                           <th class="text-center">Nama Pekerjaan</th>
                           <th class="text-center">Tanggal Pengajuan</th>
                           <th class="text-center">Jumlah Pengajuan</th>
+                          <th class="text-center">Keterangan</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -114,13 +114,11 @@
                             $id = $d['id']; ?>
                             <tr class="odd gradeX">
                               <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                              <td style="width: 5%;" align="center">
-                                <a href="<?php echo base_url() . "pengajuan_detail/" . $d['id']; ?>"><button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button></a>
-                              </td>
-                              <td style="width: 25%;"><?php echo $d['project_name']; ?></td>
-                              <td style="width: 25%;"><?php echo $d['nama_pekerjaan']; ?></td>
+                              <td style="width: 20%;"><?php echo $d['project_name']; ?></td>
+                              <td style="width: 20%;"><?php echo $d['nama_pekerjaan']; ?></td>
                               <td style="width: 20%;" class="text-center"><?php echo $d['tanggal_pengajuan']; ?></td>
-                              <td style="width: 20%;" class="text-center">Rp <?php echo $d['jumlah_pengajuan_v']; ?></td>
+                              <td style="width: 15%;" class="text-center">Rp <?php echo $d['jumlah_pengajuan_v']; ?></td>
+                              <td style="width: 20%;"><?php echo $d['keterangan']; ?></td>
                             </tr>
                         <?php
                           }
@@ -138,12 +136,12 @@
                       <thead>
                         <tr>
                           <th class="text-center">No</th>
-                          <th class="text-center">Detail</th>
                           <th class="text-center">Nama Project</th>
                           <th class="text-center">Nama Pekerjaan</th>
                           <th class="text-center">Tanggal Approval</th>
                           <th class="text-center">Jumlah Pengajuan</th>
                           <th class="text-center">Jumlah Approval</th>
+                          <th class="text-center">Keterangan</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -154,14 +152,12 @@
                             $id = $d['id']; ?>
                             <tr class="odd gradeX">
                               <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                              <td style="width: 5%;" align="center">
-                                <a href="<?php echo base_url() . "pengajuan_detail/" . $d['id']; ?>"><button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button></a>
-                              </td>
-                              <td style="width: 25%;"><?php echo $d['project_name']; ?></td>
-                              <td style="width: 25%;"><?php echo $d['nama_pekerjaan']; ?></td>
+                              <td style="width: 20%;"><?php echo $d['project_name']; ?></td>
+                              <td style="width: 15%;"><?php echo $d['nama_pekerjaan']; ?></td>
                               <td style="width: 15%;" class="text-center"><?php echo $d['tanggal_approve']; ?></td>
                               <td style="width: 15%;" class="text-center">Rp <?php echo $d['jumlah_pengajuan_v']; ?></td>
                               <td style="width: 10%;" class="text-center">Rp <?php echo $d['jumlah_approval_v']; ?></td>
+                              <td style="width: 20%;"><?php echo $d['keterangan']; ?></td>
                             </tr>
                         <?php
                           }
@@ -181,11 +177,12 @@
                       <thead>
                         <tr>
                           <th class="text-center">No</th>
-                          <th class="text-center">Detail</th>
-                          <th class="text-center">Project</th>
-                          <th class="text-center">Project Location</th>
-                          <th class="text-center">Project Deadline</th>
+                          <th class="text-center">Action</th>
+                          <th class="text-center">Nama Project</th>
+                          <th class="text-center">Cash In Hand</th>
+                          <th class="text-center">Tanggal Pengajuan</th>
                           <th class="text-center">Jumlah Hutang</th>
+                          <th class="text-center">Keterangan</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -195,13 +192,20 @@
                             $id = $d['id']; ?>
                             <tr class="odd gradeX">
                               <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                              <td style="width: 5%;" align="center">
-                                <a href="<?php echo base_url() . "hutang_detail/" . $d['id']; ?>"><button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button></a>
+                              <td style="width: 10%;" align="center">
+                                <?php if (($this->session->userdata('role')) == 3) { ?>
+                                  <a href="<?php echo site_url('bayarhutang/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Membayar Hutang <?= $d['project_name']; ?> ?');" style="width: 120px;" class="btn btn-success btn-circle disabled " data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fas fa-edit"></i>BAYAR</a>
+                                <?php } else { ?>
+                                  <?php if ($d['is_pay'] == 0) { ?>
+                                    <a href="<?php echo site_url('bayarhutang/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Membayar Hutang <?= $d['project_name']; ?> ?');" style="width: 120px;" class="btn btn-success btn-circle " data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fas fa-edit"></i>BAYAR</a>
+                                <?php }
+                                } ?>
                               </td>
                               <td style="width: 25%;"><?php echo $d['project_name']; ?></td>
-                              <td style="width: 25%;"><?php echo $d['project_location']; ?></td>
-                              <td style="width: 20%;" class="text-center"><?php echo $d['project_deadline']; ?></td>
-                              <td style="width: 20%;" class="text-center">Rp <?php echo $d['total_hutang']; ?></td>
+                              <td style="width: 20%;"><?php echo $d['cash_in_hand']; ?></td>
+                              <td style="width: 15%;" class="text-center"><?php echo $d['tanggal_pengajuan']; ?></td>
+                              <td style="width: 15%;" class="text-center"><?php echo $d['jumlah_hutang']; ?></td>
+                              <td style="width: 10%;" class="text-center"><?php echo $d['keterangan']; ?></td>
                             </tr>
                         <?php
                           }
@@ -219,7 +223,6 @@
                       <thead>
                         <tr>
                           <th class="text-center">No</th>
-                          <th class="text-center">Detail</th>
                           <th class="text-center">Project</th>
                           <th class="text-center">Project Location</th>
                           <th class="text-center">Project Deadline</th>
@@ -233,9 +236,6 @@
                             $id = $d['id']; ?>
                             <tr class="odd gradeX">
                               <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                              <td style="width: 5%;" align="center">
-                                <a href="<?php echo base_url() . "hutang_detail/" . $d['id']; ?>"><button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button></a>
-                              </td>
                               <td style="width: 25%;"><?php echo $d['project_name']; ?></td>
                               <td style="width: 25%;"><?php echo $d['project_location']; ?></td>
                               <td style="width: 20%;" class="text-center"><?php echo $d['project_deadline']; ?></td>

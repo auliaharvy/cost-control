@@ -156,7 +156,7 @@
                   <thead>
                     <tr>
                       <th class="text-center">No</th>
-                      <th class="text-center">Project</th>
+                      <th class="text-center">Nama Project</th>
                       <th class="text-center">Nama Jenis</th>
                       <th class="text-center">Nama Pekerjaan</th>
                       <th class="text-center">Sumber Dana</th>
@@ -202,7 +202,7 @@
                       <th class="text-center">Sumber Dana</th>
                       <th class="text-center">Jumlah Dana</th>
                       <th class="text-center">Tanggal Pembelian</th>
-                      <th class="text-center">Ket</th>
+                      <th class="text-center">Keterangan</th>
                     </tr>
                   </thead>
                   <tbody id="showdata8">
@@ -242,7 +242,7 @@
                       <th class="text-center">Sumber Dana</th>
                       <th class="text-center">Jumlah Dana</th>
                       <th class="text-center">Tanggal Pembelian</th>
-                      <th class="text-center">Ket</th>
+                      <th class="text-center">Keterangan</th>
                     </tr>
                   </thead>
                   <tbody id="showdata8">

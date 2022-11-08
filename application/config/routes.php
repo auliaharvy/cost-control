@@ -100,10 +100,9 @@ $route['bayarhutang/(:num)'] = 'C_hutang/bayar_hutang/$1';
 $route['masterdata'] = 'C_masterdata/index';
 $route['tambahuser'] = 'C_masterdata/tambahuser';
 $route['edituser'] = 'C_masterdata/edituser';
-$route['deleteuser'] = 'C_masterdata/deleteuser';
 $route['editpassuser'] = 'C_masterdata/editpassuser';
 $route['tambahmaterial'] = 'C_masterdata/tambahmaterial';
-$route['editmaterial'] = 'C_masterdata/editmaterial';
+$route['editmaterial-master'] = 'C_masterdata/editmaterial';
 
 //Halaman Kas
 $route['kas'] = 'C_kas/index';

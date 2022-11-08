@@ -38,10 +38,11 @@
                   <tr>
                     <th>No</th>
                     <th>Action</th>
-                    <th>Project</th>
+                    <th>Nama Project</th>
                     <th>Nama Jenis</th>
                     <th>Nama Pekerjaan</th>
                     <th>Jumlah Approval</th>
+                    <th>Keterangan</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -50,7 +51,7 @@
                     foreach ($data as $d) {
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
-                        <td><?php echo $nomor; ?></td>
+                        <td><?php echo $nomor++; ?></td>
                         <td align="center">
                           <?php if ($d['is_send_cash'] == 0) { ?>
                             <a href="" data-toggle="modal" style="width: 120px;" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-success btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i>KIRIM BIAYA</a>
@@ -59,14 +60,13 @@
                             <a href="" data-toggle="modal" style="width: 120px;" class="btn btn-primary btn-circle disabled" data-popup="tooltip" data-placement="top" title="Edit Data">BIAYA TERKIRIM</a>
                           <?php } ?>
                         </td>
-                        <td class="text"><span><?php echo $d['project_name']; ?></span></td>
-                        <td class="text"><span><?php echo $d['project_location']; ?></span></td>
-                        <td><?php echo $d['project_deadline']; ?></td>
-                        <td><?php echo $d['jumlah_pengajuan']; ?></td>
+                        <td class="text"><?php echo $d['project_name']; ?></td>
+                        <td class="text"><?php echo $d['nama_jenis_rap']; ?></td>
+                        <td><?php echo $d['nama_pekerjaan']; ?></td>
+                        <td>Rp <?php echo $d['jumlah_approval']; ?></td>
+                        <td><?php echo $d['keterangan']; ?></td>
                       </tr>
-                  <?php
-                      $nomor = $nomor + 1;
-                    }
+                  <?php }
                   } ?>
                 </tbody>
               </table>
@@ -77,16 +77,17 @@
               <h3 class="card-title">Pencairan ( Sudah Di Kirim )</h3>
             </div>
             <div class="card-body">
-              <table style="width: 100%;" id="example7" class="table table-bordered table-striped">
+              <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th class="text-center">No</th>
-                    <th class="text-center">Project</th>
+                    <th class="text-center">Nama Project</th>
                     <th class="text-center">Nama Jenis</th>
                     <th class="text-center">Nama Pekerjaan</th>
                     <th class="text-center">Sumber Dana</th>
                     <th class="text-center">Tujuan Dana</th>
                     <th class="text-center">Jumlah Dana</th>
+                    <th class="text-center">Keterangan</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -96,12 +97,13 @@
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
                         <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                        <td style="width: 25%;"><?php echo $d['project_source']; ?></td>
+                        <td style="width: 15%;"><?php echo $d['project_name']; ?></td>
                         <td style="width: 10%;"><?php echo $d['nama_jenis_rap']; ?></td>
-                        <td style="width: 20%;"><?php echo $d['nama_pekerjaan']; ?></td>
+                        <td style="width: 15%;"><?php echo $d['nama_pekerjaan']; ?></td>
                         <td style="width: 10%;"><?php echo $d['organization_name']; ?></td>
-                        <td style="width: 20%;"><?php echo $d['pro_office']; ?></td>
+                        <td style="width: 15%;"><?php echo $d['project_name']; ?></td>
                         <td style="width: 10%;" class="text-center">Rp <?php echo $d['jumlah_uang']; ?></td>
+                        <td style="width: 20%;"><?php echo $d['keterangan']; ?></td>
                       </tr>
                   <?php
                     }
@@ -111,11 +113,13 @@
             </div>
           </div>
         </div>
-        <?php if (is_array($data_pencairan) || is_object($data_pencairan)) {
-          foreach ($data_pencairan as $i) :
+        <?php if (is_array($data) || is_object($data)) {
+          foreach ($data as $i) :
             $id = $i['id'];
             $pengajuan_id = $i['pengajuan_id'];
             $jumlah_approval = $i['jumlah_approval'];
+            $project_name = $i['project_name'];
+            $project_id = $i['project_id'];
         ?>
             <div class="modal fade" id="modal-edit<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
               <div class="modal-dialog">
@@ -138,14 +142,13 @@
                         <label>Destination</label>
                         <select class="form-control disabled destination_id" name="destination_id" id="destination<?php echo $id; ?>" required>
                           <option value="2">Project</option>
-                          <option value="1">Office</option>
-                          <option value="2">Project</option>
                         </select>
                       </div>
                       <div class="form-group">
-                        <label>Project / Office </label>
-                        <select class="form-control project_office_id" name="project_office_id" id="project_office_id<?php echo $id; ?>" required>
+                        <label>Nama Project</label>
+                        <select class="form-control project_office_id" name="project_office_id" id="project_office_id<?php echo $project_id; ?>" required>
                           <option value="">---Select List---</option>
+                          <option value="<?php echo $project_id; ?>"><?php echo $project_name; ?></option>
                         </select>
                       </div>
                       <div class="form-group">
@@ -164,12 +167,11 @@
             </div>
         <?php endforeach;
         } ?>
-
       </div>
       <!-- /.col -->
+      <!-- /.row -->
+    </section>
   </div>
-  <!-- /.row -->
-  </section>
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->

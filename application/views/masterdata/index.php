@@ -309,9 +309,9 @@
                       <h3 class="modal-title" id="myModalLabel">Edit Material</h3>
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                     </div>
-                    <form class="form-horizontal" method="post" action="<?php echo base_url() . 'editmaterial' ?>">
+                    <form class="form-horizontal" method="post" action="<?php echo base_url() . 'editmaterial-master' ?>">
                       <div class="modal-body">
-                        <input type="hidden" name="material_id" autocomplete="off" value="<?php echo $material_id; ?>" required class="form-control">
+                        <input name="material_id" autocomplete="off" value="<?php echo $material_id; ?>" required class="form-control">
                         <div class="form-group">
                           <label class='col-xs-3'>Nama Material</label>
                           <div class='col-xs-8'><input type="text" name="material_name" value="<?php echo $material_name; ?>" autocomplete="off" placeholder="Masukan Nama Material" required class="form-control"></div>

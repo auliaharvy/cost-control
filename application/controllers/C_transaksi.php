@@ -13,6 +13,7 @@ class C_transaksi extends CI_Controller
         date_default_timezone_set('Asia/Jakarta');
         $this->load->model("M_transaksi");
         $this->load->model("M_pencairan");
+        $this->load->model("M_hutang");
         $this->load->library('Lharby');
     }
 
@@ -22,8 +23,8 @@ class C_transaksi extends CI_Controller
         $datapengajuanbelumapprove = $this->M_transaksi->pengajuanbelumapprove();
         $datapengajuansudahapprove = $this->M_transaksi->pengajuansudahapprove();
         // $datapengajuan = $this->M_transaksi->showPengajuan();
-        $datahutangbelum = $this->M_transaksi->showHutangbelum();
-        $datahutangsudah = $this->M_transaksi->showHutangsudah();
+        $datahutangbelum = $this->M_hutang->showHutangbelum();
+        $datahutangsudah = $this->M_hutang->showHutangsudah();
         $datapencairan = $this->M_transaksi->showPencairan();
         // $data_pencairan = $this->M_pencairan->showPengajuanApproval();
         $datalogpencairan = $this->M_transaksi->dataPencairan();

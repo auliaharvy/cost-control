@@ -19,16 +19,21 @@ class C_pencairan extends CI_Controller
     public function index() //project on progress
     {
 
-        $data = $this->M_pencairan->showPencairan();
-        $datalogpencairan = $this->M_transaksi->dataPencairan();
+        $data = $this->M_pencairan->dataPencairanbelum();
+        $datalogpencairan = $this->M_pencairan->dataPencairansudah();
+        $data_pencairan = $this->M_pencairan->showPengajuanApproval();
+        $project = $this->M_transaksi->getProject(0);
+
 
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
             'sidebar' => $this->sidebar(),
             'footer' => $this->footer(),
-            'data' => $data,
+            'data' => $data_pencairan,
             'datalogpencairan' => $datalogpencairan,
+            // 'data_pencairan' => $data_pencairan,
+            'project' => $project,
 
         );
         $this->load->view('pencairan/index', $show);
@@ -62,11 +67,9 @@ class C_pencairan extends CI_Controller
             'id' => $id,
             'project_name' => $get[0]['project_name'],
             'project_location' => $get[0]['project_location'],
-
             'project_deadline' => $deadline,
             'rab_project' => $rab_project,
             // 'is_rap_confirm' => $cekrap[0]['is_rap_confirm'],
-
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
             'sidebar' => $this->sidebar(),
@@ -99,8 +102,8 @@ class C_pencairan extends CI_Controller
     {
 
         $this->form_validation->set_rules('jumlah_uang', 'Jumlah Pencairan', 'required|numeric|greater_than[0]');
-        $this->form_validation->set_rules('destination_id', 'destination', 'required');
-        $this->form_validation->set_rules('project_office_id', 'Project / Office ', 'required');
+        $this->form_validation->set_rules('destination_id', 'Destination', 'required');
+        $this->form_validation->set_rules('project_office_id', 'Nama Project', 'required');
         $date = date('Y-m-d H:i:s');
         $pengajuan_id = $_POST['pengajuan_id'];
         $organization_id = 1;
@@ -108,9 +111,7 @@ class C_pencairan extends CI_Controller
         $project_office_id = $_POST['project_office_id'];
         $jumlah_uang = $_POST['jumlah_uang'];
         $pengajuan_approval_id = $_POST['pengajuan_approval_id'];
-
         if ($this->form_validation->run() == FALSE) {
-
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
             redirect('pengajuan/');
@@ -167,7 +168,7 @@ class C_pencairan extends CI_Controller
                 redirect('pencairan/');
             } else {
                 $this->flashdata_failed_rap();
-                redirect('pencairan_/');
+                redirect('pencairan/');
             }
         }
     }
@@ -226,11 +227,11 @@ class C_pencairan extends CI_Controller
 
     public function flashdata_succeed_rap()
     {
-        $this->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-success\" id=\"alert\">Action Succeed !!!</div></div>");
+        $this->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-success\" id=\"alert\">Pencairan Berhasil</div></div>");
     }
     public function flashdata_failed_rap()
     {
-        $this->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-danger\" id=\"alert\">Action Failed !!!</div></div>");
+        $this->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-danger\" id=\"alert\">Pencairan Gagal</div></div>");
     }
 
     public function flashdata_succeed1($pesan)

@@ -12,10 +12,13 @@
     <!-- Messages Dropdown Menu -->
     <!-- Notifications Dropdown Menu -->
     <li class="nav-item dropdown">
-      <div style="color: white;
-padding: 15px 50px 5px 50px;
-float: right;
-font-size: 16px;"><a href="<?php echo base_url('Login/logout') ?>" onclick="return confirm('Apakah Anda Yakin Ingin Keluar ?');" class="btn btn-primary square-btn-adjust" title="Keluar/Log Out"> KELUAR</a> </div>
+      <div style="
+          color: white;
+          padding: 15px 5px 5px 50px;
+          float: right;
+          font-size: 16px;">
+        <a href="<?php echo base_url('Login/logout') ?>" onclick="return confirm('Apakah Anda Yakin Ingin Keluar ?');" class="btn btn-primary square-btn-adjust" title="Keluar/Log Out"> KELUAR</a>
+      </div>
     </li>
   </ul>
 </nav>

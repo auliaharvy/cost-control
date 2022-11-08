@@ -58,6 +58,7 @@
                           <button type="submit" class="btn btn-primary disabled"><i class="fa fa-edit"></i> Approve</button>
                         <?php } ?>
                       </td>
+                      <td style="width: 25%;"><?php echo $d['id']; ?></td>
                       <td style="width: 25%;"><?php echo $d['project_name']; ?></td>
                       <td style="width: 20%;" class="text-center"><?php echo $d['tanggal_pengajuan']; ?></td>
                       <td style="width: 20%;" class="text-center">Rp <?php echo $d['jumlah_pengajuan_v']; ?></td>
@@ -75,7 +76,7 @@
               <h3 class="card-title">Pengajuan ( Sudah Approve )</h3>
             </div>
             <div class="card-body">
-              <table style="width: 100%;" id="example2" class="table table-bordered table-hover">
+              <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th class="text-center">No</th>
@@ -96,7 +97,7 @@
                       <td style="width: 25%;"><?php echo $d['project_name']; ?></td>
                       <td style="width: 25%;"><?php echo $d['tanggal_approve']; ?></td>
                       <td style="width: 20%;" class="text-center">Rp <?php echo $d['jumlah_pengajuan_v']; ?></td>
-                      <td style="width: 15%;"><?php echo $d['jumlah_approval_v']; ?></td>
+                      <td style="width: 15%;">Rp <?php echo $d['jumlah_approval_v']; ?></td>
                       <td style="width: 25%;" class="text-center"><?php echo $d['keterangan']; ?></td>
                     </tr>
                   <?php
@@ -122,8 +123,8 @@
                     <div class="modal-body">
                       <div class="form-group">
                         <div class="col-xs-8">
-                          <input name="pengajuan_biaya_id" value="<?php echo $id; ?>" class="form-control" readonly>
-                          <input name="pengajuan_id" value="<?php echo $pengajuan_id; ?>" class="form-control" readonly>
+                          <input type="hidden" name="pengajuan_biaya_id" value="<?php echo $id; ?>" class="form-control" readonly>
+                          <input type="hidden" name="pengajuan_id" value="<?php echo $pengajuan_id; ?>" class="form-control" readonly>
                           <input type="hidden" name="is_approved" value="1">
                         </div>
                       </div>

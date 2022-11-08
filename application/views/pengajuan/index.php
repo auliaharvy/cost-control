@@ -41,6 +41,7 @@
                     <th>Action</th>
                     <th>Nama Project</th>
                     <th>Nama Pekerjaan</th>
+                    <th>Tanggal Pengajuan</th>
                     <th>Jumlah Pengajuan</th>
                     <th>Keterangan</th>
                   </tr>
@@ -58,8 +59,46 @@
                         </td>
                         <td><?php echo $d['project_name']; ?></td>
                         <td><?php echo $d['nama_pekerjaan']; ?></td>
+                        <td><?php echo $d['tanggal_pengajuan']; ?></td>
                         <td>Rp <?php echo $d['jumlah_pengajuan_v']; ?></td>
                         <td><?php echo $d['keterangan']; ?></td>
+                      </tr>
+                  <?php
+                    }
+                  } ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Pengajuan ( Sudah Approve )</h3>
+            </div>
+            <div class="card-body">
+              <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Nama Project</th>
+                    <th class="text-center">Nama Pekerjaan</th>
+                    <th class="text-center">Tanggal Approval</th>
+                    <th class="text-center">Jumlah Pengajuan</th>
+                    <th class="text-center">Jumlah Approval</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  if (is_array($datapengajuansudahapprove) || is_object($datapengajuansudahapprove)) {
+                    $nomor = 1;
+                    foreach ($datapengajuansudahapprove as $d) {
+                      $id = $d['id']; ?>
+                      <tr class="odd gradeX">
+                        <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                        <td style="width: 25%;"><?php echo $d['project_name']; ?></td>
+                        <td style="width: 25%;"><?php echo $d['nama_pekerjaan']; ?></td>
+                        <td style="width: 20%;" class="text-center"><?php echo $d['tanggal_approve']; ?></td>
+                        <td style="width: 15%;" class="text-center">Rp <?php echo $d['jumlah_pengajuan_v']; ?></td>
+                        <td style="width: 10%;" class="text-center">Rp <?php echo $d['jumlah_approval_v']; ?></td>
                       </tr>
                   <?php
                     }

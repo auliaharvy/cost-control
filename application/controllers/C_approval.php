@@ -56,6 +56,7 @@ class C_approval extends CI_Controller
                 'jumlah_approval' => $jumlah_approval,
                 'note_app' => $_POST['note'],
                 'created_at' => $date,
+                'updated_at' => $date,
                 'last_updated_by' => $this->session->userdata('id'),
             );
             $whereapp = array('pengajuan_biaya_id' => $pengajuan_biaya_id);
@@ -65,7 +66,9 @@ class C_approval extends CI_Controller
                 'pengajuan_id' => $pengajuan_id,
                 'pengajuan_biaya_id' => $pengajuan_biaya_id,
                 'jumlah_approval' => $jumlah_approval,
+                'note_app' => $_POST['note'],
                 'created_at' => $date,
+                'updated_at' => $date,
                 'last_updated_by' => $this->session->userdata('id'),
             );
             $this->M_pengajuan->insertData('akk_pengajuan_approval', $data_insert);

@@ -13,6 +13,8 @@ class C_masterdata extends CI_Controller
         date_default_timezone_set('Asia/Jakarta');
         $this->load->model("M_masterdata");
         $this->load->model("M_material");
+        $this->load->model("M_data");
+        $this->load->library("form_validation");
     }
 
     public function index()
@@ -177,6 +179,33 @@ class C_masterdata extends CI_Controller
                 $msg = "Update Material Berhasil";
                 $this->flashdata_succeed1($msg);
                 redirect('masterdata');
+            } else {
+                $msg = "Update Material Gagal";
+                $this->flashdata_failed1($msg);
+                redirect('masterdata');
+            }
+        }
+    }
+    public function editmaterial22()
+    {
+        $id = $_POST['material_id'];
+        $this->form_validation->set_rules('material_name', 'Nama Material', 'required');
+        $this->form_validation->set_rules('unit', 'Unit', 'required');
+        if ($this->form_validation->run() == FALSE) {
+            $msg = validation_errors();
+            $this->flashdata_failed1($msg);
+            redirect('masterdata');
+        } else {
+            $where = array('id' => $id);
+            $data = array(
+                "material_name" => $_POST['material_name'],
+                "unit" => $_POST['unit'],
+            );
+            $res = $this->M_data->UpdateData('mst_material', $data, $where);
+            if ($res >= 0) {
+                $msg = "Update Material Berhasil";
+                $this->flashdata_succeed1($msg);
+                redirect('kas');
             } else {
                 $msg = "Update Material Gagal";
                 $this->flashdata_failed1($msg);

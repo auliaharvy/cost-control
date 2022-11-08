@@ -23,6 +23,7 @@ class C_pengajuan extends CI_Controller
     {
 
         $data = $this->M_transaksi->pengajuanbelumapprove();
+        $datapengajuansudahapprove = $this->M_transaksi->pengajuansudahapprove();
         $project = $this->M_transaksi->getProject(0);
         // $data_rap_biaya = $this->M_pengajuan->getBiayaRap();
 
@@ -32,6 +33,7 @@ class C_pengajuan extends CI_Controller
             'sidebar' => $this->sidebar(),
             'footer' => $this->footer(),
             'data' => $data,
+            'datapengajuansudahapprove' => $datapengajuansudahapprove,
             'project' => $project,
             // 'data_rap_biaya' => $data_rap_biaya,
 

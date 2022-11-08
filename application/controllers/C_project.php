@@ -97,7 +97,14 @@ class C_project extends CI_Controller
                 "created_at" => $date,
             );
             $this->db->insert('mst_project', $data);
+            $project_id = $this->db->insert_id();
             $pesan = "Pembuatan Project Sukses";
+            $dataRap = array(
+                "project_id" => $project_id,
+                "last_updated_by" => $this->session->userdata('id'),
+            );
+            $this->db->insert('akk_rap', $dataRap);
+
             $this->flashdata_succeed1($pesan);
             redirect('project_on');
         }

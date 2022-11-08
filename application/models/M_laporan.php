@@ -81,10 +81,10 @@ class M_laporan extends CI_Model
 	public function showpengajuandetail($id)
 	{
 		$this->db->select('
-          a.*,b.nama_jenis_rap,b.nama_pekerjaan,c.note_app,c.jumlah_approval,c.is_send_cash,FORMAT(c.jumlah_approval,0,"de_DE") as jumlah_approval_v,
-          FORMAT(a.jumlah_pengajuan,0,"de_DE") as jumlah_pengajuan_v,
-          DATE_FORMAT(c.created_at,"%d %M %Y") as approval_date
-      ');
+        a.*,b.nama_jenis_rap,b.nama_pekerjaan,c.note_app,c.jumlah_approval,c.is_send_cash,FORMAT(c.jumlah_approval,0,"de_DE") as jumlah_approval_v,
+        FORMAT(a.jumlah_pengajuan,0,"de_DE") as jumlah_pengajuan_v,
+        DATE_FORMAT(c.created_at,"%d %M %Y") as approval_date
+        ');
 		$this->db->from('akk_pengajuan_biaya as a');
 		$this->db->join('akk_pengajuan as d', 'a.pengajuan_id = d.id');
 		$this->db->join('mst_project as e', 'd.project_id = e.id');
@@ -121,7 +121,7 @@ class M_laporan extends CI_Model
 		$this->db->select('a.*,IF (a.destination_id = 1, concat(q.nama_type," ",r.fullname), c.project_name) AS pro_office,b.organization_name,
 		FORMAT(a.jumlah_uang,0,"de_DE") as jumlah_uang,
 		DATE_FORMAT(a.created_at,"%d %M %Y") as tanggal_pencairan,
-			g.nama_jenis_rap,g.nama_pekerjaan,h.project_name as project_source');
+		g.nama_jenis_rap,g.nama_pekerjaan,h.project_name as project_source');
 		$this->db->order_by('id', 'asc');
 		$this->db->from('trx_pengiriman_uang as a');
 		$this->db->join('mst_organization as b', 'a.organization_id = b.id');

@@ -12,6 +12,7 @@ class C_pembelian extends CI_Controller
         }
         date_default_timezone_set('Asia/Jakarta');
         $this->load->model("M_pembelian");
+        $this->load->model("M_transaksi");
         $this->load->library('Lharby');
     }
 
@@ -20,7 +21,10 @@ class C_pembelian extends CI_Controller
         $databelum = $this->M_pembelian->showPembelianbelum1(); //show pembelian data
         $datasudah = $this->M_pembelian->showPembeliansudah1(); //show pembelian data
         // $data_pembelian = $this->M_pembelian->getPengajuan($id);
-
+        $project = $this->M_transaksi->getProject(0);
+        $get = $this->M_pembelian->getPengajuan(0);
+        $destination_id = 2;
+        $project_id = $get[0]['id'];
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
@@ -28,11 +32,34 @@ class C_pembelian extends CI_Controller
             'footer' => $this->footer(),
             'databelum' => $databelum,
             'datasudah' => $datasudah,
+            'project' => $project,
+            'project_id' => $project_id,
+            'destination_id' => $destination_id,
             // 'data_pembelian' => $data_pembelian,
 
 
         );
         $this->load->view('pembelian/index', $show);
+    }
+
+    public function getListBiayaRap($id)
+    {
+        //  $id=$this->input->post('id');
+
+        $get = $this->M_data->GetData("mst_project ", "where id = '$id'");
+        $data_rap_biaya = $this->M_laporan->getBiayaRap($get[0]['id'], 1);
+
+
+        echo json_encode($data_rap_biaya);
+    }
+
+
+    public function getRap($project_id)
+    {
+        $id = $this->input->post('id');
+        $data = $this->M_laporan->getBiayaRap($project_id, 1);
+
+        echo json_encode($data);
     }
 
     public function list_pencairan() //project on progress
@@ -98,7 +125,6 @@ class C_pembelian extends CI_Controller
             'footer' => $this->footer(),
             'data_pembelian' => $data_pembelian,
             'title' => $title,
-
         );
 
 

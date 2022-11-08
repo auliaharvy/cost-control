@@ -54,7 +54,7 @@
                         <td><?php echo $nomor++; ?></td>
                         <td align="center">
                           <?php if ($d['is_buy'] == 0) { ?>
-                            <a href="" data-toggle="modal" style="width: 120px;" data-target="#modal-edit<?php echo $idx; ?>" class="btn btn-danger btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fa fa-shopping-cart"></i>BELANJA</a>
+                            <a href="" data-toggle="modal" style="width: 120px;" data-target="#belanja-pengajuan<?php echo $idx; ?>" class="btn btn-danger btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fa fa-shopping-cart"></i>BELANJA</a>
                           <?php } else { ?>
                             <a><button class="btn btn-success btn-circle disabled text-white"><i class="fa fa-check"></i></button></a>
                           <?php } ?>
@@ -97,10 +97,10 @@
                         <td><?php echo $nomor++; ?></td>
                         <td><?php echo $d['project_name']; ?></td>
                         <td><?php echo $d['nama_pekerjaan']; ?></td>
-                        <td>RP. <?php echo $d['jumlah_approval']; ?></td>
-                        <td><?php echo $d['jumlah_pembelian']; ?></td>
+                        <td>Rp. <?php echo $d['jumlah_approval']; ?></td>
+                        <td>Rp. <?php echo $d['jumlah_pembelian']; ?></td>
                         <td><?php echo $d['tanggal_pembelian']; ?></td>
-                        <td><?php echo $d['keterangan']; ?></td>
+                        <td><?php echo $d['note']; ?></td>
                       </tr>
                   <?php
                     }
@@ -109,14 +109,67 @@
               </table>
             </div>
           </div>
-          <?php if (is_array($data_pembelian) || is_object($data_pembelian)) {
-            foreach ($data_pembelian as $i) :
+          <div id="belanja" class="modal fade">
+            <div class="modal-dialog">
+              <form action="<?php echo site_url('pembelian/create_remaining'); ?>" method="post">
+                <div class="modal-content">
+                  <div class="modal-header bg-primary">
+                    <h4 class="modal-title">Pembelian Tanpa Pengajuan</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <input name="project_id" autocomplete="off" value="<?php echo $project_id; ?>" required class="form-control">
+                    <input name="pengajuan_id" autocomplete="off" value="<?php echo $pengajuan_id; ?>" required class="form-control">
+                    <input name="destination_id" autocomplete="off" value="<?php echo $destination_id; ?>" required class="form-control">
+                    <input name="project_office_id" autocomplete="off" value="<?php echo $project_office_id; ?>" required class="form-control">
+                    <div class="form-group">
+                      <label>Project</label>
+                      <select class="form-control project_id" name="project_id" required>
+                        <option value="">Pilih Project</option>
+                        <?php foreach ($project as $us) { ?>
+                          <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?></option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>RAP Item List</label>
+                      <select class="form-control js-states" id="single" style="width:100%;" name="rap_biaya_id" required>
+                        <option value="">---Select List---</option>
+                        <?php foreach ($data_rap_biaya as $dk) { ?>
+                          <option value="<?php echo $dk['id']; ?>"><?php echo $dk['nama_jenis']; ?>--<?php echo $dk['nama_jenis_rap']; ?>--RAP : <?php echo $dk['jumlah_biaya']; ?> </option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class='col-xs-3'>Jumlah Pembelian</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Rp</span>
+                        </div>
+                        <input type="text" name="jumlah_uang_pembelian" autocomplete="off" required placeholder="Masukkan Jumlah Pembelian" class="form-control uang">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class='col-xs-3'>Note</label>
+                      <div class='col-xs-8'><textarea class="form-control" rows="3" name="note"></textarea>
+                      </div>
+                      <br>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary"><i class="icon-checkmark-circle2"></i> Simpan</button>
+                    </div>
+              </form>
+            </div>
+          </div>
+          <?php if (is_array($databelum) || is_object($databelum)) {
+            foreach ($databelum as $i) :
               $pengiriman_uang_id = $i['id'];
               $destination_id = $i['destination_id'];
               $project_office_id = $i['project_office_id'];
               $jumlah_uang = $i['jumlah_uang'];
           ?>
-              <div class="modal fade" id="modal-edit<?php echo $pengiriman_uang_id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+              <div class="modal fade" id="belanja-pengajuan<?php echo $pengiriman_uang_id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header bg-primary">
@@ -155,50 +208,7 @@
               </div>
           <?php endforeach;
           } ?>
-          <div id="belanja" class="modal fade">
-            <div class="modal-dialog">
-              <form action="<?php echo site_url('pembelian/create_remaining'); ?>" method="post">
-                <div class="modal-content">
-                  <div class="modal-header bg-primary">
-                    <h4 class="modal-title">Pembelian Remaining</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  </div>
-                  <div class="modal-body">
-                    <input type="hidden" name="project_id" autocomplete="off" value="<?php echo $project_id; ?>" required class="form-control">
-                    <input type="hidden" name="pengajuan_id" autocomplete="off" value="<?php echo $pengajuan_id; ?>" required class="form-control">
-                    <input type="hidden" name="destination_id" autocomplete="off" value="<?php echo $destination_id; ?>" required class="form-control">
-                    <input type="hidden" name="project_office_id" autocomplete="off" value="<?php echo $project_office_id; ?>" required class="form-control">
-                    <div class="form-group">
-                      <label>RAP Item List</label>
-                      <select class="form-control js-states" id="single" style="width:100%;" name="rap_biaya_id" required>
-                        <option value="">---Select List---</option>
-                        <?php foreach ($data_rap_biaya as $dk) { ?>
-                          <option value="<?php echo $dk['id']; ?>"><?php echo $dk['nama_jenis']; ?>--<?php echo $dk['nama_jenis_rap']; ?>--RAP : <?php echo $dk['jumlah_biaya']; ?> </option>
-                        <?php } ?>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label class='col-xs-3'>Jumlah Pembelian</label>
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">Rp</span>
-                        </div>
-                        <input type="text" name="jumlah_uang_pembelian" autocomplete="off" required placeholder="Masukkan Jumlah Pembelian" class="form-control uang">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class='col-xs-3'>Note</label>
-                      <div class='col-xs-8'><textarea class="form-control" rows="3" name="note"></textarea>
-                      </div>
-                      <br>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary"><i class="icon-checkmark-circle2"></i> Simpan</button>
-                    </div>
-              </form>
-            </div>
-          </div>
+
           <!-- /.card -->
         </div>
         <!-- /.col -->
@@ -233,6 +243,29 @@
       "ordering": true,
       "info": true,
       "autoWidth": true,
+    });
+
+    $('.project_id').change(function() {
+      var id = $(this).val();
+      var project_id = $('input[name="project_id"]').val();
+      $.ajax({
+        url: "<?php echo base_url(); ?>C_pembelian/getListBiayaRap/" + id,
+        method: "POST",
+        data: {
+          id: id
+        },
+        async: false,
+        dataType: 'json',
+        success: function(data) {
+          var html = '';
+          var i;
+          for (i = 0; i < data.length; i++) {
+            html += '<option value="' + data[i].id + '">' + data[i].nama_pekerjaan + " > " + data[i].jumlah_biaya_v + '</option>';
+          }
+          $('.rap_biaya_id').html(html);
+
+        }
+      });
     });
     table.columns.adjust().draw();
   });

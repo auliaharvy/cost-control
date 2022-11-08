@@ -44,7 +44,7 @@ class M_pembelian extends CI_Model
 	{
 		$user_id = $this->session->userdata('id');
 		$this->db->select('
-          a.*,c.project_name,e.nama_pekerjaan,a.note_app as keterangan
+          a.*,c.project_name,e.nama_pekerjaan,a.note_app as keterangan,FORMAT(a.jumlah_approval,0,"de_DE") as jumlah_approval
       ');
 		$this->db->from('akk_pengajuan_approval as a');
 		$this->db->join('akk_pengajuan as b', 'a.pengajuan_id = b.id');
@@ -65,7 +65,8 @@ class M_pembelian extends CI_Model
 	{
 		$user_id = $this->session->userdata('id');
 		$this->db->select('
-          a.*,b.project_name,d.nama_pekerjaan,f.jumlah_approval
+          a.*,b.project_name,d.nama_pekerjaan,FORMAT(f.jumlah_approval,0,"de_DE") as jumlah_approval,
+		  FORMAT(a.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian,DATE_FORMAT(a.created_at, "%d %M %Y") as tanggal_pembelian
       ');
 		$this->db->from('trx_pembelian_barang as a');
 		$this->db->join('mst_project as b', 'a.project_office_id = b.id');

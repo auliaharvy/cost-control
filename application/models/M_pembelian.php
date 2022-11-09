@@ -21,17 +21,48 @@ class M_pembelian extends CI_Model
 
 		$user_id = $this->session->userdata('id');
 		$this->db->select('
-          a.*,d.project_name,d.project_location,
-          d.project_deadline,c.id as pengajuan_id
+          a.*,d.project_name,d.project_location,b.note_app as keterangan,
+          d.project_deadline,c.id as pengajuan_id,FORMAT(a.jumlah_uang,0,"de_DE") as jumlah_uang, g.nama_pekerjaan
       ');
 		$this->db->from('trx_pengiriman_uang as a');
 		$this->db->join('akk_pengajuan_approval as b', 'a.pengajuan_approval_id = b.id');
 		$this->db->join('akk_pengajuan as c', 'b.pengajuan_id = c.id');
 		$this->db->join('mst_project as d', 'c.project_id = d.id');
-		$this->db->join('trx_pembelian_barang as e', 'e.pengiriman_uang_id = a.id');
+		$this->db->join('trx_pembelian_barang as e', 'e.pengiriman_uang_id = a.id', 'left');
+		$this->db->join('akk_rap as f', 'c.rap_id = f.id');
+		$this->db->join('akk_rap_biaya as g', 'f.id = g.rap_id', 'inner');
+		$this->db->where('a.is_buy', 0);
 		$this->db->where('d.project_status', 0);
 		$this->db->where('d.created_by', $user_id);
-		$this->db->where('e.id');
+		$this->db->group_by('a.id');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
+
+	public function showPembeliansudah()
+	{
+
+		$user_id = $this->session->userdata('id');
+		$this->db->select('
+          a.*,d.project_name,d.project_location,b.note_app as keterangan,FORMAT(e.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian,
+		  DATE_FORMAT(e.created_at, "%d %M %Y") as tanggal_pembelian,FORMAT(a.jumlah_uang,0,"de_DE") as jumlah_uang,
+          d.project_deadline,c.id as pengajuan_id, b.jumlah_approval, g.nama_pekerjaan
+      ');
+		$this->db->from('trx_pengiriman_uang as a');
+		$this->db->join('akk_pengajuan_approval as b', 'a.pengajuan_approval_id = b.id');
+		$this->db->join('akk_pengajuan as c', 'b.pengajuan_id = c.id');
+		$this->db->join('mst_project as d', 'c.project_id = d.id');
+		$this->db->join('trx_pembelian_barang as e', 'e.pengiriman_uang_id = a.id', 'left');
+		$this->db->join('akk_rap as f', 'c.rap_id = f.id');
+		$this->db->join('akk_rap_biaya as g', 'f.id = g.rap_id', 'inner');
+		$this->db->where('a.is_buy', 1);
+		$this->db->where('d.project_status', 0);
+		$this->db->where('d.created_by', $user_id);
+		$this->db->group_by('a.id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
@@ -77,31 +108,6 @@ class M_pembelian extends CI_Model
 		$this->db->join('akk_pengajuan_approval as f', 'e.id = f.pengajuan_id');
 		$this->db->where('b.project_status', 0);
 		$this->db->where('b.created_by', $user_id);
-		$data = $this->db->get();
-		if ($data->num_rows() > 0) {
-			return $data->result_array();
-		} else {
-			return false;
-		}
-	}
-
-	public function showPembeliansudah()
-	{
-
-		$user_id = $this->session->userdata('id');
-		$this->db->select('
-          a.*,d.project_name,d.project_location,
-          d.project_deadline,c.id as pengajuan_id
-      ');
-		$this->db->order_by('id', 'asc');
-		$this->db->from('trx_pengiriman_uang as a');
-		$this->db->join('akk_pengajuan_approval as b', 'a.pengajuan_approval_id = b.id');
-		$this->db->join('akk_pengajuan as c', 'b.pengajuan_id = c.id');
-		$this->db->join('mst_project as d', 'c.project_id = d.id');
-		$this->db->join('trx_pembelian_barang as e', 'e.pengiriman_uang_id = a.id');
-		$this->db->where('d.project_status', 0);
-		$this->db->where('d.created_by', $user_id);
-		$this->db->where('e.id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();

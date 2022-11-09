@@ -39,7 +39,7 @@ class M_laporan extends CI_Model
 		}
 	}
 
-	public function getBiayaRap($id, $kategori_id)
+	public function getBiayaRap($id)
 	{
 		$this->db->select('
           a.*,b.nama_jenis, c.nama_kategori,FORMAT(a.jumlah_biaya,0,"de_DE") as jumlah_biaya_v,IF(a.jumlah_aktual is NULL,0,FORMAT(a.jumlah_aktual,0,"de_DE")) as jumlah_aktual_v,
@@ -51,7 +51,7 @@ class M_laporan extends CI_Model
 		$this->db->join('mst_jenis_biaya as b', 'a.jenis_biaya_id = b.id');
 		$this->db->join('mst_kategori_biaya as c', 'a.kategori_biaya_id = c.id');
 		$this->db->where('d.project_id', $id);
-		$this->db->where('a.kategori_biaya_id', $kategori_id);
+		// $this->db->where('a.kategori_biaya_id', $kategori_id);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();

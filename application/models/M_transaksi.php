@@ -111,7 +111,7 @@ JOIN mst_project as c ON a.project_id = c.id WHERE c.project_status=0');
 		$this->db->join('mst_project as c', 'a.project_id = c.id');
 		$this->db->join('akk_rap_biaya as d', 'b.rap_biaya_id = d.id');
 		$this->db->where('b.is_approved', 0);
-		$this->db->group_by('b.pengajuan_id');
+		$this->db->group_by('b.id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();

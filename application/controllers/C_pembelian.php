@@ -18,8 +18,8 @@ class C_pembelian extends CI_Controller
 
     public function index() //project on progress
     {
-        $databelum = $this->M_pembelian->showPembelianbelum1(); //show pembelian data
-        $datasudah = $this->M_pembelian->showPembeliansudah1(); //show pembelian data
+        $databelum = $this->M_pembelian->showPembelianbelum(); //show pembelian data
+        $datasudah = $this->M_pembelian->showPembeliansudah(); //show pembelian data
         // $data_pembelian = $this->M_pembelian->getPengajuan($id);
         $project = $this->M_transaksi->getProject(0);
         // $get = $this->M_pembelian->getPengajuan(0);
@@ -250,10 +250,10 @@ class C_pembelian extends CI_Controller
             $this->db->trans_complete();
             if ($this->db->trans_status() === TRUE) {
                 $this->flashdata_succeed_rap();
-                redirect('pembelian/' . $pengajuan_id);
+                redirect('pembelian/');
             } else {
                 $this->flashdata_failed_rap();
-                redirect('pembelian/' . $pengajuan_id);
+                redirect('pembelian/');
             }
         }
     }

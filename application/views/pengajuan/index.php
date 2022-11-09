@@ -24,7 +24,7 @@
       </div><!-- /.container-fluid -->
     </section>
     <!-- Main content -->
-    <?= $this->session->flashdata('pesan') ?><br>
+    <?= $this->session->flashdata('pesan') ?>
     <section class="content">
       <div class="row">
         <div class="col-12">
@@ -60,7 +60,7 @@
                         <td><?php echo $d['project_name']; ?></td>
                         <td><?php echo $d['nama_pekerjaan']; ?></td>
                         <td><?php echo $d['tanggal_pengajuan']; ?></td>
-                        <td>Rp <?php echo $d['jumlah_pengajuan_v']; ?></td>
+                        <td>Rp. <?php echo $d['jumlah_pengajuan_v']; ?></td>
                         <td><?php echo $d['keterangan']; ?></td>
                       </tr>
                   <?php
@@ -97,8 +97,8 @@
                         <td style="width: 25%;"><?php echo $d['project_name']; ?></td>
                         <td style="width: 25%;"><?php echo $d['nama_pekerjaan']; ?></td>
                         <td style="width: 20%;" class="text-center"><?php echo $d['tanggal_approve']; ?></td>
-                        <td style="width: 15%;" class="text-center">Rp <?php echo $d['jumlah_pengajuan_v']; ?></td>
-                        <td style="width: 10%;" class="text-center">Rp <?php echo $d['jumlah_approval_v']; ?></td>
+                        <td style="width: 15%;" class="text-center">Rp. <?php echo $d['jumlah_pengajuan_v']; ?></td>
+                        <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_approval_v']; ?></td>
                       </tr>
                   <?php
                     }
@@ -117,7 +117,7 @@
                   </div>
                   <div class="modal-body">
                     <input type="hidden" name="project_id" autocomplete="off" value="<?php echo $project_id; ?>" required class="form-control">
-                    <input name="pengajuan_id" autocomplete="off" value="<?php echo $pengajuan_id; ?>" required class="form-control pengajuan_id" id="pengajuan_id">
+                    <input type="hidden" name="pengajuan_id" autocomplete="off" value="<?php echo $pengajuan_id; ?>" required class="form-control pengajuan_id" id="pengajuan_id">
                     <div class="form-group">
                       <label>Project</label>
                       <select class="form-control project_id" name="project_id" required>

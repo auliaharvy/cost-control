@@ -69,20 +69,20 @@
                           <?php echo $d['project_name']; ?>
                         </td>
                         <td style="width: 10%;" class="text-center">
-                          Rp <?php echo $d['cash_in_hand']; ?>
+                          Rp. <?php echo $d['cash_in_hand']; ?>
                         </td>
                         <td style="width: 10%;" class="text-center">
-                          Rp <?php echo $d['rab_project_v']; ?>
+                          Rp. <?php echo $d['rab_project_v']; ?>
                         </td>
                         <?php if ($d['total_biaya_v'] == null) { ?>
-                          <td style="width: 10%;" class="text-center">Rp 0</td>
+                          <td style="width: 10%;" class="text-center">Rp. 0</td>
                         <?php } else { ?>
-                          <td style="width: 10%;" class="text-center">Rp <?php echo $d['total_biaya_v']; ?></td>
+                          <td style="width: 10%;" class="text-center">Rp. <?php echo $d['total_biaya_v']; ?></td>
                         <?php } ?>
                         <?php if ($d['total_pengeluaran_v'] == null) { ?>
-                          <td style="width: 10%;" class="text-center">Rp 0</td>
+                          <td style="width: 10%;" class="text-center">Rp. 0</td>
                         <?php } else { ?>
-                          <td style="width: 10%;" class="text-center">Rp <?php echo $d['total_pengeluaran_v']; ?></td>
+                          <td style="width: 10%;" class="text-center">Rp. <?php echo $d['total_pengeluaran_v']; ?></td>
                         <?php } ?>
                         <td style="width: 10%;" class="text-center"><?php echo $d['persentase_v'];  ?></td>
                         <td style="width: 10%;" class="text-center">

@@ -54,14 +54,14 @@
                         <td><?php echo $nomor++; ?></td>
                         <td align="center">
                           <?php if ($d['is_buy'] == 0) { ?>
-                            <a href="" data-toggle="modal" style="width: 120px;" data-target="#belanja-pengajuan<?php echo $idx; ?>" class="btn btn-danger btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fa fa-shopping-cart"></i>BELANJA</a>
+                            <a href="" data-toggle="modal" style="width: 120px;" data-target="#belanja-pengajuan<?php echo $id; ?>" class="btn btn-danger btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fa fa-shopping-cart"></i>BELANJA</a>
                           <?php } else { ?>
                             <a><button class="btn btn-success btn-circle disabled text-white"><i class="fa fa-check"></i></button></a>
                           <?php } ?>
                         </td>
                         <td><?php echo $d['project_name']; ?></td>
                         <td><?php echo $d['nama_pekerjaan']; ?></td>
-                        <td>Rp. <?php echo $d['jumlah_approval']; ?></td>
+                        <td>Rp. <?php echo $d['jumlah_uang']; ?></td>
                         <td><?php echo $d['keterangan']; ?></td>
                       </tr>
                   <?php
@@ -97,10 +97,10 @@
                         <td><?php echo $nomor++; ?></td>
                         <td><?php echo $d['project_name']; ?></td>
                         <td><?php echo $d['nama_pekerjaan']; ?></td>
-                        <td>Rp. <?php echo $d['jumlah_approval']; ?></td>
+                        <td>Rp. <?php echo $d['jumlah_uang']; ?></td>
                         <td>Rp. <?php echo $d['jumlah_pembelian']; ?></td>
                         <td><?php echo $d['tanggal_pembelian']; ?></td>
-                        <td><?php echo $d['note']; ?></td>
+                        <td><?php echo $d['keterangan']; ?></td>
                       </tr>
                   <?php
                     }
@@ -155,10 +155,12 @@
                       </div>
                       <br>
                     </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary"><i class="icon-checkmark-circle2"></i> Simpan</button>
-                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary"><i class="icon-checkmark-circle2"></i> Simpan</button>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
@@ -208,7 +210,6 @@
               </div>
           <?php endforeach;
           } ?>
-
           <!-- /.card -->
         </div>
         <!-- /.col -->
@@ -220,7 +221,6 @@
   <!-- /.content-wrapper -->
 </div>
 <!-- ./wrapper -->
-
 <!-- jQuery -->
 <?php echo $footer; ?>
 <!-- page script -->

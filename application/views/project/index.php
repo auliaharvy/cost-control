@@ -72,17 +72,17 @@
                         <td class="text"><span><?php echo $d['project_name']; ?></span></td>
                         <td class="text"><span><?php echo $d['project_location']; ?></span></td>
                         <td><?php echo $d['project_deadline_v']; ?></td>
-                        <td class="text"><span>Rp <?php echo $d['cash_in_hand']; ?></span></td>
-                        <td class="text"><span>Rp <?php echo $d['rab_project_v']; ?></span></td>
+                        <td class="text"><span>Rp. <?php echo $d['cash_in_hand']; ?></span></td>
+                        <td class="text"><span>Rp. <?php echo $d['rab_project_v']; ?></span></td>
                         <?php if ($d['total_biaya_v'] == null) { ?>
-                          <td>Rp 0</td>
+                          <td>Rp. 0</td>
                         <?php } else { ?>
-                          <td class="text"><span>Rp <?php echo $d['total_biaya_v']; ?></span></td>
+                          <td class="text"><span>Rp. <?php echo $d['total_biaya_v']; ?></span></td>
                         <?php } ?>
                         <?php if ($d['total_pengeluaran_v'] == null) { ?>
-                          <td>Rp 0</td>
+                          <td>Rp. 0</td>
                         <?php } else { ?>
-                          <td class="text"><span>Rp <?php echo $d['total_pengeluaran_v']; ?></span></td>
+                          <td class="text"><span>Rp. <?php echo $d['total_pengeluaran_v']; ?></span></td>
                         <?php } ?>
                         <td><?php echo $d['persentase_v'];  ?></td>
                         <td><?php echo $d['project_progress'];  ?>%</td>
@@ -125,9 +125,9 @@
                         <td class="text"><span><?php echo $d['project_name']; ?></span></td>
                         <td class="text"><span><?php echo $d['project_location']; ?></span></td>
                         <td><?php echo $d['project_deadline_v']; ?></td>
-                        <td class="text"><span>Rp <?php echo $d['rab_project_v']; ?></span></td>
-                        <td class="text"><span>Rp <?php echo $d['total_biaya_v']; ?></span></td>
-                        <td class="text"><span>Rp <?php echo $d['total_pengeluaran_v']; ?></span></td>
+                        <td class="text"><span>Rp. <?php echo $d['rab_project_v']; ?></span></td>
+                        <td class="text"><span>Rp. <?php echo $d['total_biaya_v']; ?></span></td>
+                        <td class="text"><span>Rp. <?php echo $d['total_pengeluaran_v']; ?></span></td>
                         <td><?php echo $d['persentase_v'];  ?></td>
                         <td><?php echo $d['finish_at_v']; ?></td>
                         <td align="center">
@@ -176,89 +176,87 @@
                         <input type="text" name="rab_project" autocomplete="off" required class="form-control uang">
                       </div>
                     </div>
-                    <br>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary"><i class="icon-checkmark-circle2"></i> Simpan</button>
                   </div>
+                </div>
               </form>
             </div>
           </div>
-        </div>
-        <?php
-        foreach ($data as $i) :
-          $id = $i['id'];
-          $project_name = $i['project_name'];
-          $project_location = $i['project_location'];
-          $project_deadline = $i['project_deadline'];
-          $rab_project = $i['rab_project_v'];
-        ?>
-          <div class="modal fade" id="modal-edit<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header bg-primary">
-                  <h3 class="modal-title" id="myModalLabel">Edit Project</h3>
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                </div>
-                <form class="form-horizontal" method="post" action="<?php echo base_url() . 'C_project/do_update' ?>">
-                  <div class="modal-body">
-                    <div class="form-group">
-                      <div class="col-xs-8">
-                        <input name="project_id" value="<?php echo $id; ?>" class="form-control" type="hidden" placeholder="Kode Barang..." readonly>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="control-label col-xs-3">Nama Project</label>
-                      <div class="col-xs-8">
-                        <input name="project_name" value="<?php echo $project_name; ?>" class="form-control" type="text" required>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="control-label col-xs-3">Location</label>
-                      <div class="col-xs-8">
-                        <textarea required class="form-control" rows="3" name="project_location"><?php echo $project_location; ?></textarea>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="control-label col-xs-3">Deadline</label>
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+          <?php
+          foreach ($data as $i) :
+            $id = $i['id'];
+            $project_name = $i['project_name'];
+            $project_location = $i['project_location'];
+            $project_deadline = $i['project_deadline'];
+            $rab_project = $i['rab_project_v'];
+          ?>
+            <div class="modal fade" id="modal-edit<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header bg-primary">
+                    <h3 class="modal-title" id="myModalLabel">Edit Project</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                  </div>
+                  <form class="form-horizontal" method="post" action="<?php echo base_url() . 'C_project/do_update' ?>">
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <div class="col-xs-8">
+                          <input name="project_id" value="<?php echo $id; ?>" class="form-control" type="hidden" placeholder="Kode Barang..." readonly>
                         </div>
-                        <input name="project_deadline" value="<?php echo $project_deadline; ?>" class="form-control" type="date" required>
                       </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="control-label col-xs-3">RAB</label>
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">Rp</span>
+                      <div class="form-group">
+                        <label class="control-label col-xs-3">Nama Project</label>
+                        <div class="col-xs-8">
+                          <input name="project_name" value="<?php echo $project_name; ?>" class="form-control" type="text" required>
                         </div>
-                        <input type="text" name="rab_project" value="<?php echo $rab_project; ?>" autocomplete="off" required class="form-control uang">
                       </div>
-                    </div>
-                    <div class="form-group">
+                      <div class="form-group">
+                        <label class="control-label col-xs-3">Location</label>
+                        <div class="col-xs-8">
+                          <textarea required class="form-control" rows="3" name="project_location"><?php echo $project_location; ?></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-xs-3">Deadline</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                          </div>
+                          <input name="project_deadline" value="<?php echo $project_deadline; ?>" class="form-control" type="date" required>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-xs-3">RAB</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Rp</span>
+                          </div>
+                          <input type="text" name="rab_project" value="<?php echo $rab_project; ?>" autocomplete="off" required class="form-control uang">
+                        </div>
+                      </div>
                     </div>
                     <div class="modal-footer">
                       <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
                       <button class="btn btn-info">Update</button>
                     </div>
-                </form>
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
-          <!-- /.card -->
+            <!-- /.card -->
+          <?php endforeach; ?>
+        </div>
+        <!-- /.col -->
       </div>
-    <?php endforeach; ?>
-    <!-- /.col -->
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
   </div>
-  <!-- /.row -->
-  </section>
-  <!-- /.content -->
+  <!-- /.content-wrapper -->
 </div>
-<!-- /.content-wrapper -->
-
 <!-- ./wrapper -->
 
 <!-- jQuery -->

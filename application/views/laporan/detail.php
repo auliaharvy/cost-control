@@ -98,8 +98,8 @@
                           <td style="width: 10%;"><?php echo $d['nama_jenis_rap']; ?></td>
                           <td style="width: 15%;"><?php echo $d['nama_pekerjaan']; ?></td>
                           <td style="width: 10%;"><?php echo $d['nama_kategori']; ?></td>
-                          <td style="width: 10%;" class="text-center">Rp <?php echo $d['jumlah_biaya_v']; ?></td>
-                          <td style="width: 10%;" class="text-center">Rp <?php echo $d['jumlah_aktual_v']; ?></td>
+                          <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_biaya_v']; ?></td>
+                          <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_aktual_v']; ?></td>
                           <td style="width: 5%;"><?php echo $d['presentase']; ?> %</td>
                           <td style="width: 15%;"><?php echo $d['note']; ?></td>
                         </tr>
@@ -136,8 +136,8 @@
                         <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
                         <td style="width: 15%;"><?php echo $d['nama_jenis_rap']; ?></td>
                         <td style="width: 20%;"><?php echo $d['nama_pekerjaan']; ?></td>
-                        <td style="width: 10%;" class="text-center">Rp <?php echo $d['jumlah_pengajuan_v']; ?></td>
-                        <td style="width: 10%;" class="text-center">Rp <?php echo $d['jumlah_approval_v']; ?></td>
+                        <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_pengajuan_v']; ?></td>
+                        <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_approval_v']; ?></td>
                         <td style="width: 10%;" class="text-center"><?php echo $d['approval_date']; ?></td>
                         <td style="width: 30%;"><?php echo $d['note_app']; ?></td>
                       </tr>
@@ -177,7 +177,7 @@
                           <td style="width: 15%;"><?php echo $d['nama_pekerjaan']; ?></td>
                           <td style="width: 15%;"><?php echo $d['organization_name']; ?></td>
                           <td style="width: 15%;"><?php echo $d['pro_office']; ?></td>
-                          <td style="width: 10%;" class="text-center">Rp <?php echo $d['jumlah_uang']; ?></td>
+                          <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_uang']; ?></td>
                           <td style="width: 10%;" class="text-center"><?php echo $d['tanggal_pencairan']; ?></td>
                         </tr>
                     <?php
@@ -216,7 +216,7 @@
                           <td style="width: 15%;"><?php echo $d['nama_jenis_rap']; ?></td>
                           <td style="width: 15%;"><?php echo $d['nama_pekerjaan']; ?></td>
                           <td style="width: 10%;"><?php echo $d['pro_office']; ?></td>
-                          <td style="width: 10%;" class="text-center">Rp <?php echo $d['jumlah_uang']; ?></td>
+                          <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_uang']; ?></td>
                           <td style="width: 10%;" class="text-center"><?php echo $d['tanggal_pembelian']; ?></td>
                           <td style="width: 20%;"><?php echo $d['note']; ?></td>
                         </tr>
@@ -256,7 +256,7 @@
                           <td style="width: 10%;"><?php echo $d['nama_jenis_rap']; ?></td>
                           <td style="width: 15%;"><?php echo $d['nama_pekerjaan']; ?></td>
                           <td style="width: 10%;"><?php echo $d['pro_office']; ?></td>
-                          <td style="width: 10%;" class="text-center">Rp <?php echo $d['jumlah_uang']; ?></td>
+                          <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_uang']; ?></td>
                           <td style="width: 10%;" class="text-center"><?php echo $d['tanggal_pembelian']; ?></td>
                           <td style="width: 20%;"><?php echo $d['note']; ?></td>
                         </tr>

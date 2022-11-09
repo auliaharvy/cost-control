@@ -160,17 +160,15 @@ class C_project extends CI_Controller
         $this->form_validation->set_rules('rap_biaya_id', 'Rap Item', 'required');
         $this->form_validation->set_rules('jumlah_pengajuan', 'Jumlah Pengajuan', 'required');
         $rap_biaya_id = $_POST['rap_biaya_id'];
-
         $a = $_POST['jumlah_pengajuan'];
         $b = str_replace('.', '', $a); //ubah format rupiah ke integer
         $jumlah_pengajuan = intval($b);
-
         $date = date('Y-m-d H:i:s');
         $project_id = $_POST['project_id'];
         if ($this->form_validation->run() == FALSE) {
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
-            redirect('pengajuan/' . $project_id);
+            redirect('pengajuan');
         } else {
 
             $data = array(
@@ -184,7 +182,7 @@ class C_project extends CI_Controller
             $this->db->insert('akk_pengajuan_biaya', $data);
             $pesan = "Pembuatan Pengajuan Sukses";
             $this->flashdata_succeed1($pesan);
-            redirect('pengajuan/' . $project_id);
+            redirect('pengajuan');
         }
     }
 
@@ -552,9 +550,8 @@ class C_project extends CI_Controller
         $cekrap = $this->M_data->GetData("akk_rap ", "where project_id = '$id'");
         $listProject = $this->M_project->getProject(0);
         $totalRap = $this->M_project->getDetailProject($id);
-        $data_rap_biaya = $this->M_laporan->getBiayaRap($get[0]['id'], 1);
+        $data_rap_biaya = $this->M_laporan->getBiayaRap($get[0]['id']);
         $cash_in_hand = $this->lharby->formatRupiah($get[0]['cash_in_hand']);
-
         if ($cekrap) { //jika project sudah punya rap
             $is_rap_confirm = $cekrap[0]['is_rap_confirm'];
         } else { //jika project belum ada rap

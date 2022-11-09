@@ -24,7 +24,7 @@
       </div><!-- /.container-fluid -->
     </section>
     <!-- Main content -->
-    <?= $this->session->flashdata('pesan') ?><br>
+    <?= $this->session->flashdata('pesan') ?>
     <section class="content">
       <div class="row">
         <div class="col-12">
@@ -59,10 +59,10 @@
                           <?php } ?>
                         </td>
                         <td style="width: 25%;"><?php echo $d['project_name']; ?></td>
-                        <td style="width: 20%;"><?php echo $d['cash_in_hand']; ?></td>
-                        <td style="width: 15%;" class="text-center"><?php echo $d['tanggal_pengajuan']; ?></td>
-                        <td style="width: 15%;" class="text-center"><?php echo $d['jumlah_hutang']; ?></td>
-                        <td style="width: 10%;" class="text-center"><?php echo $d['keterangan']; ?></td>
+                        <td style="width: 20%;" class="text-center">Rp. <?php echo $d['cash_in_hand']; ?></td>
+                        <td style="width: 15%;" class="text-center"><?php echo $d['created_at']; ?></td>
+                        <td style="width: 15%;" class="text-center">Rp. <?php echo $d['nominal']; ?></td>
+                        <td style="width: 10%;"><?php echo $d['note']; ?></td>
                       </tr>
                   <?php
                     }
@@ -94,8 +94,8 @@
                       <tr class="odd gradeX">
                         <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
                         <td style="width: 45%;"><?php echo $d['project_name']; ?></td>
-                        <td style="width: 20%;" class="text-center"><?php echo $d['updated_at']; ?></td>
-                        <td style="width: 20%;" class="text-center">Rp <?php echo $d['total_hutang']; ?></td>
+                        <td style="width: 20%;" class="text-center"><?php echo $d['pay_at']; ?></td>
+                        <td style="width: 20%;" class="text-center">Rp <?php echo $d['nominal']; ?></td>
                         <td style="width: 10%;" class="text-center">Terbayar</td>
                       </tr>
                   <?php

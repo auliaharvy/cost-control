@@ -19,8 +19,8 @@ class C_hutang extends CI_Controller
     public function index() //project on progress
     {
 
-        $databelum = $this->M_hutang->showHutangbelum();
-        $datasudah = $this->M_hutang->showHutangsudah();
+        $databelum = $this->M_hutang->showHutangbelum1();
+        $datasudah = $this->M_hutang->showHutangsudah1();
         $project = $this->M_transaksi->getProject(0);
 
         $show = array(
@@ -85,14 +85,13 @@ class C_hutang extends CI_Controller
         $get = $this->M_data->GetData("akk_hutang ", "where id='$hutang_id'");
         $project_id = $get[0]['project_id'];
         $nominal = $get[0]['nominal'];
-
         //project cash in hand
         $getproject = $this->M_data->GetData("mst_project ", "where id='$project_id'");
         $cashproject = $getproject[0]['cash_in_hand'];
         if ($cashproject < $nominal) {
             $msg = "Jumlah cash di projek kurang dari biaya hutang";
             $this->flashdata_failed1($msg);
-            redirect('hutang/' . $project_id);
+            redirect('hutang/');
         } else {
             $cash_remaining = $cashproject - $nominal;
             $data_update_hutang = array(
@@ -114,11 +113,11 @@ class C_hutang extends CI_Controller
             if ($this->db->trans_status() === TRUE) {
                 $msg = "Pembayaran Hutang Berhasil";
                 $this->flashdata_succeed1($msg);
-                redirect('hutang/' . $project_id);
+                redirect('hutang/');
             } else {
                 $msg = "Pembayaran Hutang Gagal";
                 $this->flashdata_failed1($msg);
-                redirect('hutang/' . $project_id);
+                redirect('hutang/');
             }
         }
     }
@@ -164,38 +163,30 @@ class C_hutang extends CI_Controller
         $this->form_validation->set_rules('jumlah_uang', 'Jumlah Pencairan', 'required|numeric|greater_than[0]');
         $this->form_validation->set_rules('destination_id', 'destination', 'required');
         $this->form_validation->set_rules('project_office_id', 'Project / Office ', 'required');
-
         $date = date('Y-m-d H:i:s');
-
         $pengajuan_id = $_POST['pengajuan_id'];
         $organization_id = 1;
         $destination_id = $_POST['destination_id'];
         $project_office_id = $_POST['project_office_id'];
         $jumlah_uang = $_POST['jumlah_uang'];
         $pengajuan_approval_id = $_POST['pengajuan_approval_id'];
-
         if ($this->form_validation->run() == FALSE) {
-
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
             redirect('pengajuan');
         } else {
-
             $data = array(
                 "organization_id" => $organization_id, //default 
                 "pengajuan_approval_id" => $pengajuan_approval_id,
                 "destination_id" => $destination_id,
                 "project_office_id" => $project_office_id,
                 "jumlah_uang" => $jumlah_uang,
-
                 "last_updated_by" => $this->session->userdata('id'),
                 "created_at" => $date,
             );
-
             $organization = $this->M_data->GetData("mst_organization ", "where id = '$organization_id'");
             $cash_org = $organization[0]['cash_in_hand'];
             $updt_cash_org = $cash_org - $jumlah_uang;
-
             if ($destination_id == 1) { //office
                 $office = $this->M_data->GetData("mst_office ", "where id = '$project_office_id'");
                 $cash_office = $office[0]['cash_in_hand'];
@@ -207,32 +198,24 @@ class C_hutang extends CI_Controller
                 $updt_cash_off_proj = $cash_project + $jumlah_uang;
                 $table = 'mst_project';
             }
-
             $data_update_approv = array(
                 "is_send_cash" => 1,
                 "updated_at" => $date,
                 "last_updated_by" => $this->session->userdata('id'),
             );
-
             $where_approv = array('id' => $pengajuan_approval_id);
-
             $data_update_org = array(
                 "cash_in_hand" => $updt_cash_org,
                 "updated_at" => $date,
                 "updated_by" => $this->session->userdata('id'),
             );
-
             $where_org = array('id' => $organization_id);
-
             $data_update_off_proj = array(
                 "cash_in_hand" => $updt_cash_off_proj,
                 "updated_at" => $date,
                 "last_updated_by" => $this->session->userdata('id'),
             );
             $where_off_proj = array('id' => $project_office_id);
-
-
-
             $this->db->trans_start();
             $this->db->insert('trx_pengiriman_uang', $data);
             $this->M_data->UpdateData('akk_pengajuan_approval', $data_update_approv, $where_approv);

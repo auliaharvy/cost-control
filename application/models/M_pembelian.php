@@ -44,7 +44,8 @@ class M_pembelian extends CI_Model
 	{
 		$user_id = $this->session->userdata('id');
 		$this->db->select('
-          a.*,c.project_name,e.nama_pekerjaan,a.note_app as keterangan,FORMAT(a.jumlah_approval,0,"de_DE") as jumlah_approval
+          a.*,c.project_name,e.nama_pekerjaan,a.note_app as keterangan,FORMAT(a.jumlah_approval,0,"de_DE") as jumlah_approval,
+		  b.id
       ');
 		$this->db->from('akk_pengajuan_approval as a');
 		$this->db->join('akk_pengajuan as b', 'a.pengajuan_id = b.id');

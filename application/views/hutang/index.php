@@ -153,39 +153,37 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-  <!-- ./wrapper -->
-
-  <!-- jQuery -->
-
-  <?php echo $footer; ?>
-  <!-- page script -->
-  <script>
-    $(function() {
-      $("#example1").DataTable({
-        "paging": true,
-        "lengthChange": true,
-        "scrollX": true,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": true,
-      });
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": true,
-        "scrollX": true,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": true,
-      });
-
-      table.columns.adjust().draw();
-
+</div>
+<!-- ./wrapper -->
+<!-- jQuery -->
+<?php echo $footer; ?>
+<!-- page script -->
+<script>
+  $(function() {
+    $("#example1").DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "scrollX": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true,
     });
-  </script>
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "scrollX": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true,
+    });
 
-  </body>
+    table.columns.adjust().draw();
 
-  </html>
+  });
+</script>
+
+</body>
+
+</html>

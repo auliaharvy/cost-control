@@ -295,10 +295,10 @@ class C_hutang extends CI_Controller
 
     public function flashdata_succeed1($pesan)
     {
-        $this->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-success\" id=\"alert\">$pesan !!!</div></div>");
+        $this->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-success\" id=\"alert\">$pesan</div></div>");
     }
     public function flashdata_failed1($pesan)
     {
-        $this->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-danger\" id=\"alert\">$pesan !!!</div></div>");
+        $this->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-danger\" id=\"alert\">$pesan</div></div>");
     }
 }

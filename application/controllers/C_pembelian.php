@@ -22,9 +22,9 @@ class C_pembelian extends CI_Controller
         $datasudah = $this->M_pembelian->showPembeliansudah1(); //show pembelian data
         // $data_pembelian = $this->M_pembelian->getPengajuan($id);
         $project = $this->M_transaksi->getProject(0);
-        $get = $this->M_pembelian->getPengajuan(0);
+        // $get = $this->M_pembelian->getPengajuan(0);
         $destination_id = 2;
-        $project_id = $get[0]['id'];
+        // $project_id = $get[0]['id'];
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
@@ -33,7 +33,7 @@ class C_pembelian extends CI_Controller
             'databelum' => $databelum,
             'datasudah' => $datasudah,
             'project' => $project,
-            'project_id' => $project_id,
+            // 'project_id' => $project_id,
             'destination_id' => $destination_id,
             // 'data_pembelian' => $data_pembelian,
 
@@ -263,17 +263,14 @@ class C_pembelian extends CI_Controller
     { //REMAINING BIAYA HARUSNYA DIJADIIN SATU RECORD , BUKAN BANYAK RECORD DI TABLE PENCAIRAN
         $date = date('Y-m-d H:i:s');
         $user_id = $this->session->userdata('id');
-
         $project_id = $_POST['project_id'];
         $pengajuan_id = $_POST['pengajuan_id'];
         $destination_id = $_POST['destination_id'];
         $project_office_id = $_POST['project_office_id'];
         $rap_biaya_id = $_POST['rap_biaya_id'];
-
         $a = $_POST['jumlah_uang_pembelian'];
         $b = str_replace('.', '', $a); //ubah format rupiah ke integer
         $jumlah_uang_pembelian = intval($b);
-
         if ($destination_id == 1) { //office
             $table = 'mst_office ';
             $getcash = $this->M_pembelian->GetData($table, "where id = '$project_office_id'");
@@ -287,14 +284,10 @@ class C_pembelian extends CI_Controller
             $getcash = $this->M_pembelian->GetData($table, "where id = '$project_office_id'");
             $cash = $getcash[0]['cash_in_hand'];
             $total_cash = $cash - $jumlah_uang_pembelian;
-
             $data_remaining = $this->M_pembelian->showPencairanRemainingProject($project_id, $destination_id, $user_id);
-
             $cash_remaining = ($data_remaining[0]['cash_remaining']) - $jumlah_uang_pembelian; //cash di total remaining office berkurang 
-
             $id_trx_cash_remaining = $data_remaining[0]['id'];
         }
-
         if ($jumlah_uang_pembelian > $data_remaining[0]['cash_remaining']) {
             $pesan = "Jumlah Pembelian yang diinput tidak boleh melebihi jumlah yang ada";
             $this->flashdata_failed1($pesan);
@@ -306,7 +299,6 @@ class C_pembelian extends CI_Controller
                 "updated_at" => $date,
                 "last_updated_by" => $user_id
             );
-
             $datapembelian_remaining = array(
                 "project_id" => $project_id,
                 "rap_biaya_id" => $rap_biaya_id,
@@ -316,16 +308,13 @@ class C_pembelian extends CI_Controller
                 "created_at" => $date,
                 "last_updated_by" => $user_id,
             );
-
             $wheresource = array('id' => $project_office_id);
             $datasource = array(
                 "cash_in_hand" => $total_cash,
                 "last_updated_by" => $user_id,
                 "updated_at" => $date,
             );
-
             $getRapItem = $this->M_data->GetData("akk_rap_biaya ", "where id = '$rap_biaya_id'"); //cari data untuk menambahkan jumlah aktual
-
             $aktual_rap = $getRapItem[0]['jumlah_aktual'];
             $jumlah_aktual_total = $jumlah_uang_pembelian + $aktual_rap;
             $whererap = array('id' => $rap_biaya_id);
@@ -334,11 +323,7 @@ class C_pembelian extends CI_Controller
                 "last_update_by" => $user_id,
                 "updated_at" => $date,
             );
-
-
-
             $this->db->trans_start();
-
             $this->M_data->UpdateData($table, $datasource, $wheresource); //update cash in hand source (office ' project')
             $this->M_data->UpdateData('trx_cash_remaining', $data_trx_remaining, $where_trx_remaining);
             $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);

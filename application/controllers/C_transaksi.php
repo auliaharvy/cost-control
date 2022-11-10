@@ -69,7 +69,7 @@ class C_transaksi extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
-            redirect('termin');
+            redirect('transaksi');
         } else {
             $data = array(
                 "project_id" => $_POST['project_id'],
@@ -98,7 +98,7 @@ class C_transaksi extends CI_Controller
             $this->db->trans_complete();
             $pesan = "Penerimaan Termin Project Sukses";
             $this->flashdata_succeed1($pesan);
-            redirect('termin');
+            redirect('transaksi');
         }
     }
 

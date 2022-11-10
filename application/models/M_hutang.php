@@ -121,17 +121,26 @@ class M_hutang extends CI_Model
 
 	public function showHutangbelum1()
 	{
+		$role = $this->session->userdata('role');
 		$user_id = $this->session->userdata('id');
 		$this->db->select('
  		a.*,b.project_name,FORMAT(b.cash_in_hand,0,"de_DE") as cash_in_hand,DATE_FORMAT(a.created_at, "%d %M %Y") as created_at,
 		FORMAT(a.nominal,0,"de_DE") as nominal
         ');
-		$this->db->from('akk_hutang as a');
-		$this->db->join('mst_project as b', 'a.project_id = b.id');
-		$this->db->where('b.project_status', 0);
-		$this->db->where('b.created_by', $user_id);
-		$this->db->where('a.is_pay', 0);
-		$this->db->group_by('project_id');
+		if ($role == 4) {
+			$this->db->from('akk_hutang as a');
+			$this->db->join('mst_project as b', 'a.project_id = b.id');
+			$this->db->where('b.project_status', 0);
+			$this->db->where('b.created_by', $user_id);
+			$this->db->where('a.is_pay', 0);
+			$this->db->group_by('project_id');
+		} else {
+			$this->db->from('akk_hutang as a');
+			$this->db->join('mst_project as b', 'a.project_id = b.id');
+			$this->db->where('b.project_status', 0);
+			$this->db->where('a.is_pay', 0);
+			$this->db->group_by('project_id');
+		}
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
@@ -142,17 +151,27 @@ class M_hutang extends CI_Model
 
 	public function showHutangsudah1()
 	{
+		$role = $this->session->userdata('role');
 		$user_id = $this->session->userdata('id');
 		$this->db->select('
  		a.*,b.project_name,FORMAT(b.cash_in_hand,0,"de_DE") as cash_in_hand,DATE_FORMAT(a.pay_at, "%d %M %Y") as pay_at,
 		FORMAT(a.nominal,0,"de_DE") as nominal
         ');
-		$this->db->from('akk_hutang as a');
-		$this->db->join('mst_project as b', 'a.project_id = b.id');
-		$this->db->where('b.project_status', 0);
-		$this->db->where('b.created_by', $user_id);
-		$this->db->where('a.is_pay', 1);
-		$this->db->group_by('project_id');
+		if ($role == 4) {
+			$this->db->from('akk_hutang as a');
+			$this->db->join('mst_project as b', 'a.project_id = b.id');
+			$this->db->where('b.project_status', 0);
+			$this->db->where('b.created_by', $user_id);
+			$this->db->where('a.is_pay', 1);
+			$this->db->group_by('project_id');
+		} else {
+			$this->db->from('akk_hutang as a');
+			$this->db->join('mst_project as b', 'a.project_id = b.id');
+			$this->db->where('b.project_status', 0);
+			$this->db->where('a.is_pay', 1);
+			$this->db->group_by('project_id');
+		}
+
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();

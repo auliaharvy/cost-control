@@ -80,6 +80,7 @@ class C_hutang extends CI_Controller
 
     public function bayar_hutang($hutang_id)
     {
+        $role = $this->session->userdata('role');
         $date = date('Y-m-d H:i:s');
         $is_pay = 1; //lunas
         $get = $this->M_data->GetData("akk_hutang ", "where id='$hutang_id'");
@@ -89,9 +90,15 @@ class C_hutang extends CI_Controller
         $getproject = $this->M_data->GetData("mst_project ", "where id='$project_id'");
         $cashproject = $getproject[0]['cash_in_hand'];
         if ($cashproject < $nominal) {
-            $msg = "Jumlah cash di projek kurang dari biaya hutang";
-            $this->flashdata_failed1($msg);
-            redirect('hutang/');
+            if ($role == 4) {
+                $msg = "Jumlah cash di projek kurang dari biaya hutang";
+                $this->flashdata_failed1($msg);
+                redirect('hutang/');
+            } else {
+                $msg = "Jumlah cash di projek kurang dari biaya hutang";
+                $this->flashdata_failed1($msg);
+                redirect('transaksi/');
+            }
         } else {
             $cash_remaining = $cashproject - $nominal;
             $data_update_hutang = array(
@@ -111,13 +118,25 @@ class C_hutang extends CI_Controller
             $this->M_data->UpdateData('mst_project', $data_upd_cash_project, $where_cash_project);
             $this->db->trans_complete();
             if ($this->db->trans_status() === TRUE) {
-                $msg = "Pembayaran Hutang Berhasil";
-                $this->flashdata_succeed1($msg);
-                redirect('hutang/');
+                if ($role == 4) {
+                    $msg = "Pembayaran Hutang Berhasil";
+                    $this->flashdata_succeed1($msg);
+                    redirect('hutang/');
+                } else {
+                    $msg = "Pembayaran Hutang Berhasil";
+                    $this->flashdata_succeed1($msg);
+                    redirect('transaksi/');
+                }
             } else {
-                $msg = "Pembayaran Hutang Gagal";
-                $this->flashdata_failed1($msg);
-                redirect('hutang/');
+                if ($role == 4) {
+                    $msg = "Pembayaran Hutang Gagal";
+                    $this->flashdata_failed1($msg);
+                    redirect('hutang/');
+                } else {
+                    $msg = "Pembayaran Hutang Gagal";
+                    $this->flashdata_failed1($msg);
+                    redirect('transaksi/');
+                }
             }
         }
     }
@@ -159,7 +178,6 @@ class C_hutang extends CI_Controller
 
     public function create_kiriM_hutang()
     {
-
         $this->form_validation->set_rules('jumlah_uang', 'Jumlah Pencairan', 'required|numeric|greater_than[0]');
         $this->form_validation->set_rules('destination_id', 'destination', 'required');
         $this->form_validation->set_rules('project_office_id', 'Project / Office ', 'required');

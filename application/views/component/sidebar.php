@@ -3,32 +3,32 @@
   <?php if (($this->session->userdata('role')) == 1) { ?>
     <a href="<?php echo base_url('masterdata') ?>" class="brand-link">
       <img src="<?php echo base_url('assets/img/logo.jpg'); ?>" alt="AKK Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <h3><?php echo $this->session->userdata('username') ?></h3>
-      <span class="brand-text font-weight-light">Admin</span>
+      <h3>Akkarya Jaya</h3>
+      <span class="brand-text font-weight-light" style="padding-left: 15px;"><?php echo $this->session->userdata('username') ?> ( Admin )</span>
     </a>
     <!-- Role Owner -->
   <?php }
   if (($this->session->userdata('role')) == 2) { ?>
     <a href="<?php echo base_url('dashboard') ?>" class="brand-link">
       <img src="<?php echo base_url('assets/img/logo.jpg'); ?>" alt="AKK Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <h3><?php echo $this->session->userdata('username') ?></h3>
-      <span class="brand-text font-weight-light">Owner</span>
+      <h3>Akkarya Jaya</h3>
+      <span class="brand-text font-weight-light" style="padding-left: 15px;"><?php echo $this->session->userdata('username') ?> ( Owner )</span>
     </a>
     <!-- Role Finance -->
   <?php }
   if (($this->session->userdata('role')) == 3) { ?>
     <a href="<?php echo base_url('dashboard') ?>" class="brand-link">
       <img src="<?php echo base_url('assets/img/logo.jpg'); ?>" alt="AKK Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <h3><?php echo $this->session->userdata('username') ?></h3>
-      <span class="brand-text font-weight-light">Finance</span>
+      <h3>Akkarya Jaya</h3>
+      <span class="brand-text font-weight-light" style="padding-left: 15px;"><?php echo $this->session->userdata('username') ?> ( Finance )</span>
     </a>
     <!-- Role Site Manager -->
   <?php }
   if (($this->session->userdata('role')) == 4) { ?>
     <a href="<?php echo base_url('project_on') ?>" class="brand-link">
       <img src="<?php echo base_url('assets/img/logo.jpg'); ?>" alt="AKK Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <h3><?php echo $this->session->userdata('username') ?></h3>
-      <span class="brand-text font-weight-light">Site Manager</span>
+      <h3>Akkarya Jaya</h3>
+      <span class="brand-text font-weight-light" style="padding-left: 15px;"><?php echo $this->session->userdata('username') ?> ( Site Manager )</span>
     </a>
   <?php } ?>
   <!-- Sidebar -->

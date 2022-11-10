@@ -88,8 +88,8 @@
                           <input type="hidden" name="msg" value="Unconfirm">
                           <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i> Unconfirm RAP</button>
                         </form><br>
-                        <a href="" data-toggle="modal" data-target="#modal-progress" class="btn btn-primary" data-popup="tooltip" data-placement="top" title="Progress Project"><i class="fa fa-edit"></i>Update Progress</a><br><br>
-                        <a href="" data-toggle="modal" data-target="#modal-selesai" class="btn btn-success" data-popup="tooltip" data-placement="top" title="Selesaikan"><i class="fa fa-edit"></i> Selesaikan Project</a>
+                        <button data-toggle="modal" data-target="#updateprogress" class="btn btn-primary" data-popup="tooltip" data-placement="top" title="Progress Project"><i class="fa fa-edit"></i>Update Progress</button><br><br>
+                        <button data-toggle="modal" data-target="#projectselesai" class="btn btn-success" data-popup="tooltip" data-placement="top" title="Selesaikan"><i class="fa fa-edit"></i> Selesaikan Project</button>
                       <?php } ?>
                       <br>
                       <br>
@@ -319,7 +319,7 @@
               </form>
             </div>
           </div>
-          <div id="modal-progress" class="modal fade">
+          <div id="updateprogress" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
             <div class="modal-dialog">
               <form action="<?php echo base_url() . 'C_project/update_progress' ?>" method="post">
                 <div class="modal-content">
@@ -342,7 +342,7 @@
               </form>
             </div>
           </div>
-          <div id="modal-selesai" class="modal fade">
+          <div id="projectselesai" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
             <div class="modal-dialog">
               <form action="<?php echo base_url() . 'C_project/finishing_project' ?>" method="post">
                 <div class="modal-content">

@@ -32,46 +32,10 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Detail Laporan</h3>
-              </div>
-              <div class="card-body">
-                <div class="row col-md-12">
-                  <div class="col-md-6">
-                    <table class="table ttable-condensed">
-                      <tr>
-                        <th>Project Name</th>
-                        <td><?php echo $project_name; ?></td>
-                      </tr>
-                      <tr>
-                        <th>Lokasi Project</th>
-                        <td class="text"><span><?php echo $project_location; ?></span></td>
-                      </tr>
-                      <tr>
-                        <th>Project Deadline</th>
-                        <td><?php echo $project_deadline; ?></td>
-                      </tr>
-                      <tr>
-                        <th>RAB</th>
-                        <td><?php echo $rab_project; ?></td>
-                      </tr>
-                      <tr>
-                        <th>Cash In Hand</th>
-                        <td><?php echo $cash_in_hand; ?></td>
-                      </tr>
-                    </table>
-                  </div>
-                  <div class="col-md-5" style="margin-left: 10px;">
-                    <h2 class="<?php echo $background_text; ?>"><i>&nbsp;&nbsp;STATUS : <?php echo $status; ?></i></h2>
-                    <a href="<?php echo base_url() . "report/export/" . $project_id; ?>"><button class="btn btn-primary btn-circle btn-md"><i class="fa fa-download" data-popup="tooltip" data-placement="top" title="Detail Data"></i> EXPORT EXCEL</button></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header">
                 <h3 class="card-title">RAP PROJECT</h3>
               </div>
               <div class="card-body">
+                <a href="<?php echo base_url() . "report/export/" . $project_id; ?>"><button class="btn btn-primary btn-circle btn-md"><i class="fa fa-download" data-popup="tooltip" data-placement="top" title="Detail Data"></i> EXPORT EXCEL</button></a><br><br>
                 <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                   <thead>
                     <tr>

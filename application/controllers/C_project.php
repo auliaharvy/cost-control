@@ -491,10 +491,6 @@ class C_project extends CI_Controller
         }
     }
 
-
-
-
-
     public function inventory_add()
     {
         $this->form_validation->set_rules('qty', 'Quantity', 'required|greater_than[0]');
@@ -504,13 +500,10 @@ class C_project extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
-
             redirect('project_detail/' . $project_id);
         } else {
-
             $data = array(
                 "material_id" => $material_id,
-
                 "qty" => $_POST['qty'],
                 "project_id" => $project_id,
                 "last_updated_by" => $this->session->userdata('id'),
@@ -594,65 +587,55 @@ class C_project extends CI_Controller
 
     public function update_progress()
     {
+        $project_id = $_POST['project_id'];
         $id = $this->input->post('id_project');
         $this->form_validation->set_rules('project_progress', 'Project Progress', 'required|numeric|greater_than[0]');
         $date = date('Y-m-d H:i:s');
         if ($this->form_validation->run() == FALSE) {
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
-            redirect('project_on');
+            redirect('project_detail/' . $project_id);
         } else {
-
             $where = array('id' => $id);
             $project_progress = $_POST['project_progress'];
             if ($project_progress == 100) { //belum ada aksi jika 100%
                 $data = array(
                     'project_progress' => $project_progress,
-
                     "last_updated_by" => $this->session->userdata('id'),
                     "updated_at" => $date,
-
                 );
             } else {
                 $data = array(
                     'project_progress' => $project_progress,
-
                     "last_updated_by" => $this->session->userdata('id'),
                     "updated_at" => $date,
-
                 );
             }
-
-
             $res = $this->M_data->UpdateData('mst_project', $data, $where);
             if ($res >= 1) {
                 $pesan = "Update Project Progress Berhasil";
                 $this->flashdata_succeed1($pesan);
-                redirect('project_on');
+                redirect('project_detail/' . $project_id);
             } else {
                 $pesan = "Update Project Progress Gagal";
                 $this->flashdata_failed($pesan);
-                redirect('project_on');
+                redirect('project_detail/' . $project_id);
             }
         }
     }
-
-
     public function finishing_project()
     { //menyelesain project
         $id = $_POST['id_project'];
+        $project_id = $_POST['project_id'];
         $finish_at = $_POST['finish_at'];
         $get = $this->M_data->GetData("mst_project ", "where id = '$id'");
         $cash_in_hand_project = $get[0]['cash_in_hand'];
         $project_name = $get[0]['project_name'];
         $organization_id = $get[0]['organization_id'];
         $note = 'RETURN CASH PROJECT ' . $project_name;
-
         $getkas = $this->M_data->GetData("mst_organization ", "where id = '$organization_id'");
         $cash_in_hand_kas = $getkas[0]['cash_in_hand'];
         $total_cash = $cash_in_hand_kas + $cash_in_hand_project;
-
-
         $where = array('id' => $id);
         $date = date('Y-m-d H:i:s');
         $data = array( //cash dikosongkan , dan status menjadi 1 (selesai)
@@ -662,29 +645,22 @@ class C_project extends CI_Controller
             "last_updated_by" => $this->session->userdata('id'),
             "updated_at" => $date,
             "finish_at" => $finish_at,
-
-
         );
-
         $data_kas_log = array( //insert log organization
             "cash_additional" => $cash_in_hand_project,
             "note" => $note,
             "created_by" => $this->session->userdata('id'),
             "created_at" => $date,
         );
-
         $data_kas = array( //update cash orgnization
             "cash_in_hand" => $total_cash,
-
             "updated_by" => $this->session->userdata('id'),
             "updated_at" => $date,
         );
         $where_kas = array('id' => $organization_id);
-
         $this->db->trans_start();
         $this->M_data->UpdateData('mst_project', $data, $where);
         $this->M_data->UpdateData('mst_organization', $data_kas, $where_kas);
-
         $datainventory = $this->M_project->GetDataInventory($id);
         foreach ($datainventory as $di) {
             if ($di['mat_id_inv'] == null) {
@@ -701,18 +677,17 @@ class C_project extends CI_Controller
                 $this->M_data->UpdateData('akk_inventory', $data_up, $whereup);
             }
         }
-
         $this->M_data->InsertData('log_mst_organization', $data_kas_log);
         //  $this->db->insert_batch('akk_inventory', $datainventory);
         $this->db->trans_complete();
         if ($this->db->trans_status() === TRUE) {
             $pesan = "Penyelesaian Project Sukses";
             $this->flashdata_succeed1($pesan);
-            redirect('project_finish');
+            redirect('project_detail/' . $project_id);
         } else {
             $pesan = "Penyelesaian Project Gagal";
             $this->flashdata_failed1($pesan);
-            redirect('project_detail/' . $id);
+            redirect('project_detail/' . $project_id);
         }
     }
 

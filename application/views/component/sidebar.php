@@ -46,30 +46,6 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url('kas') ?>" class="nav-link">
-              <i class="nav-icon fas fa-cash-register"></i>
-              <p>
-                KAS
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url('inventory') ?>" class="nav-link">
-              <i class="nav-icon fas fa-warehouse"></i>
-              <p>
-                INVENTORY
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url('transaksi') ?>" class="nav-link">
-              <i class="nav-icon fas fa-hand-holding-usd"></i>
-              <p>
-                TRANSAKSI
-              </p>
-            </a>
-          </li>
           <li class="nav-item ">
             <a href="<?php echo base_url('laporan') ?>" class="nav-link">
               <i class="nav-icon fas fa-chart-bar"></i>
@@ -86,17 +62,6 @@
               </p>
             </a>
           </li>
-        <?php } ?>
-        <!-- Role Finance -->
-        <?php if (($this->session->userdata('role')) == 3) { ?>
-          <li class="nav-item has-treeview">
-            <a href="<?php echo base_url('dashboard') ?>" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
-              <p>
-                DASHBOARD
-              </p>
-            </a>
-          </li>
           <li class="nav-item">
             <a href="<?php echo base_url('kas') ?>" class="nav-link">
               <i class="nav-icon fas fa-cash-register"></i>
@@ -117,7 +82,18 @@
             <a href="<?php echo base_url('transaksi') ?>" class="nav-link">
               <i class="nav-icon fas fa-hand-holding-usd"></i>
               <p>
-                TRANSAKSI
+                LOG TRANSAKSI
+              </p>
+            </a>
+          </li>
+        <?php } ?>
+        <!-- Role Finance -->
+        <?php if (($this->session->userdata('role')) == 3) { ?>
+          <li class="nav-item has-treeview">
+            <a href="<?php echo base_url('dashboard') ?>" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                DASHBOARD
               </p>
             </a>
           </li>
@@ -137,14 +113,54 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="<?php echo base_url('kas') ?>" class="nav-link">
+              <i class="nav-icon fas fa-cash-register"></i>
+              <p>
+                KAS
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?php echo base_url('inventory') ?>" class="nav-link">
+              <i class="nav-icon fas fa-warehouse"></i>
+              <p>
+                INVENTORY
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?php echo base_url('transaksi') ?>" class="nav-link">
+              <i class="nav-icon fas fa-hand-holding-usd"></i>
+              <p>
+                LOG TRANSAKSI
+              </p>
+            </a>
+          </li>
         <?php } ?>
         <!-- Role Site manager -->
         <?php if (($this->session->userdata('role')) == 4) { ?>
+          <li class="nav-item ">
+            <a href="<?php echo base_url('laporan') ?>" class="nav-link">
+              <i class="nav-icon fas fa-chart-bar"></i>
+              <p>
+                LAPORAN
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             <a href="<?php echo base_url('project_on') ?>" class="nav-link">
               <i class="nav-icon fas fa-tasks"></i>
               <p>
                 PROJECT
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?php echo base_url('pengajuan') ?>" class="nav-link">
+              <i class="nav-icon fas fa-layer-group"></i>
+              <p>
+                PENGAJUAN
               </p>
             </a>
           </li>
@@ -157,25 +173,9 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?php echo base_url('pengajuan') ?>" class="nav-link">
-              <i class="nav-icon fas fa-layer-group"></i>
-              <p>
-                PENGAJUAN
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
             <a href="<?php echo base_url('hutang') ?>" class="nav-link">
               <i class="nav-icon fas fa-dollar-sign"></i>
               <p>HUTANG</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a href="<?php echo base_url('laporan') ?>" class="nav-link">
-              <i class="nav-icon fas fa-chart-bar"></i>
-              <p>
-                LAPORAN
-              </p>
             </a>
           </li>
         <?php } ?>
@@ -186,6 +186,14 @@
               <i class="nav-icon fa fa-book"></i>
               <p>
                 MASTER DATA
+              </p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a href="<?php echo base_url('laporan') ?>" class="nav-link">
+              <i class="nav-icon fas fa-chart-bar"></i>
+              <p>
+                LAPORAN
               </p>
             </a>
           </li>
@@ -205,19 +213,11 @@
               </p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a href="<?php echo base_url('laporan') ?>" class="nav-link">
-              <i class="nav-icon fas fa-chart-bar"></i>
-              <p>
-                LAPORAN
-              </p>
-            </a>
-          </li>
           <li class="nav-item">
             <a href="<?php echo base_url('transaksi') ?>" class="nav-link">
               <i class="nav-icon fas fa-hand-holding-usd"></i>
               <p>
-                TRANSAKSI
+                LOG TRANSAKSI
               </p>
             </a>
           </li>

@@ -147,7 +147,6 @@
                       <div class="form-group">
                         <label>Nama Project</label>
                         <select class="form-control project_office_id" name="project_office_id" id="project_office_id<?php echo $project_id; ?>" required>
-                          <option value="">---Select List---</option>
                           <option value="<?php echo $project_id; ?>"><?php echo $project_name; ?></option>
                         </select>
                       </div>

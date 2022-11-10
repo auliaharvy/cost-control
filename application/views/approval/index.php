@@ -58,7 +58,6 @@
                           <button type="submit" class="btn btn-primary disabled"><i class="fa fa-edit"></i> Approve</button>
                         <?php } ?>
                       </td>
-                      <td style="width: 25%;"><?php echo $d['id']; ?></td>
                       <td style="width: 25%;"><?php echo $d['project_name']; ?></td>
                       <td style="width: 20%;" class="text-center"><?php echo $d['tanggal_pengajuan']; ?></td>
                       <td style="width: 20%;" class="text-center">Rp <?php echo $d['jumlah_pengajuan_v']; ?></td>

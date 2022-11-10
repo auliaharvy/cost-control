@@ -319,29 +319,6 @@
               </form>
             </div>
           </div>
-          <div id="modal-selesai" class="modal fade">
-            <div class="modal-dialog">
-              <form action="<?php echo base_url() . 'C_project/finishing_project' ?>" method="post">
-                <div class="modal-content">
-                  <div class="modal-header bg-primary">
-                    <h4 class="modal-title">Finish Project</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  </div>
-                  <div class="modal-body">
-                    <input type="hidden" name="id_project" value="<?php echo $project_id; ?>" autocomplete="off" required placeholder="Masukkan Nama Project" class="form-control">
-                    <div class="form-group">
-                      <label class='col-xs-3'>Finish At</label>
-                      <div class='col-xs-8'><input type="date" name="finish_at" autocomplete="off" required class="form-control"></div>
-                    </div>
-                    <br>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary"><i class="icon-checkmark-circle2"></i> Simpan</button>
-                  </div>
-              </form>
-            </div>
-          </div>
           <div id="modal-progress" class="modal fade">
             <div class="modal-dialog">
               <form action="<?php echo base_url() . 'C_project/update_progress' ?>" method="post">
@@ -357,6 +334,28 @@
                       <div class='col-xs-8'><input type="number" name="project_progress" autocomplete="off" required placeholder="%" class="form-control"></div>
                     </div>
                     <br>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary"><i class="icon-checkmark-circle2"></i> Simpan</button>
+                  </div>
+              </form>
+            </div>
+          </div>
+          <div id="modal-selesai" class="modal fade">
+            <div class="modal-dialog">
+              <form action="<?php echo base_url() . 'C_project/finishing_project' ?>" method="post">
+                <div class="modal-content">
+                  <div class="modal-header bg-primary">
+                    <h4 class="modal-title">Finish Project</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <input type="hidden" name="id_project" value="<?php echo $project_id; ?>" autocomplete="off" required placeholder="Masukkan Nama Project" class="form-control">
+                    <div class="form-group">
+                      <label class='col-xs-3'>Finish At</label>
+                      <div class='col-xs-8'><input type="date" name="finish_at" autocomplete="off" required class="form-control"></div>
+                    </div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

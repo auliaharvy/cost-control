@@ -39,9 +39,9 @@
                     <th class="text-center">No</th>
                     <th class="text-center">Detail</th>
                     <th class="text-center">Project</th>
-                    <th class="text-center">Cash In Hand</th>
                     <th class="text-center">Total RAB</th>
                     <th class="text-center">Total RAP</th>
+                    <th class="text-center">Cash In Hand</th>
                     <th class="text-center">Total Pengeluaran</th>
                     <th class="text-center">Pengeluaran (%)</th>
                     <th class="text-center">Progress (%)</th>
@@ -69,9 +69,6 @@
                           <?php echo $d['project_name']; ?>
                         </td>
                         <td style="width: 10%;" class="text-center">
-                          Rp. <?php echo $d['cash_in_hand']; ?>
-                        </td>
-                        <td style="width: 10%;" class="text-center">
                           Rp. <?php echo $d['rab_project_v']; ?>
                         </td>
                         <?php if ($d['total_biaya_v'] == null) { ?>
@@ -79,6 +76,9 @@
                         <?php } else { ?>
                           <td style="width: 10%;" class="text-center">Rp. <?php echo $d['total_biaya_v']; ?></td>
                         <?php } ?>
+                        <td style="width: 10%;" class="text-center">
+                          Rp. <?php echo $d['cash_in_hand']; ?>
+                        </td>
                         <?php if ($d['total_pengeluaran_v'] == null) { ?>
                           <td style="width: 10%;" class="text-center">Rp. 0</td>
                         <?php } else { ?>

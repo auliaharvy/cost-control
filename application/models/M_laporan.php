@@ -51,7 +51,6 @@ class M_laporan extends CI_Model
 		$this->db->join('mst_jenis_biaya as b', 'a.jenis_biaya_id = b.id');
 		$this->db->join('mst_kategori_biaya as c', 'a.kategori_biaya_id = c.id');
 		$this->db->where('d.project_id', $id);
-		// $this->db->where('a.kategori_biaya_id', $kategori_id);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
@@ -78,7 +77,30 @@ class M_laporan extends CI_Model
 		}
 	}
 
-	public function showpengajuandetail($id)
+	public function showuangdetail($id)
+	{
+		$this->db->select('
+        a.*,d.nama_jenis_rap,d.nama_pekerjaan,FORMAT(c.jumlah_pengajuan,0,"de_DE") as jumlah_pengajuan_v,
+		FORMAT(e.jumlah_approval,0,"de_DE") as jumlah_approval_v,FORMAT(f.jumlah_uang,0,"de_DE") as jumlah_pencairan_v,
+		FORMAT(g.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian_v
+        ');
+		$this->db->from('akk_pengajuan as a');
+		$this->db->join('mst_project as b', 'a.project_id = b.id');
+		$this->db->join('akk_pengajuan_biaya as c', 'a.id = c.pengajuan_id');
+		$this->db->join('akk_rap_biaya as d', 'c.rap_biaya_id = d.id');
+		$this->db->join('akk_pengajuan_approval as e', 'c.id = e.pengajuan_biaya_id', 'left');
+		$this->db->join('trx_pengiriman_uang as f', 'e.id = f.pengajuan_approval_id');
+		$this->db->join('trx_pembelian_barang as g', 'f.id = g.pengiriman_uang_id');
+		$this->db->where('a.project_id', $id);
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
+
+	public function showuangdetail1($id)
 	{
 		$this->db->select('
         a.*,b.nama_jenis_rap,b.nama_pekerjaan,c.note_app,c.jumlah_approval,c.is_send_cash,FORMAT(c.jumlah_approval,0,"de_DE") as jumlah_approval_v,

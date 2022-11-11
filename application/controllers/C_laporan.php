@@ -35,7 +35,6 @@ class C_laporan extends CI_Controller
 
         );
         $this->load->view('laporan/index', $show);
-        // $this->load->view('data');
     }
 
 
@@ -53,11 +52,8 @@ class C_laporan extends CI_Controller
         $deadline = $this->convert_date($tgl);
         $rab_project = $this->lharby->formatRupiah($get[0]['rab_project']);
         $cash_in_hand = $this->lharby->formatRupiah($get[0]['cash_in_hand']);
-        $data_rap_biaya = $this->M_laporan->getBiayaRap($id, 1);
-        $data_pengajuan = $this->M_laporan->showpengajuandetail($id);
-        $data_pencairan = $this->M_laporan->dataPencairan($id);
-        $data_pembelian = $this->M_laporan->dataPembelian($id);
-        $data_pembelian_remaining = $this->M_laporan->dataPembelianRemaining($id);
+        $data_rap_biaya = $this->M_laporan->getBiayaRap($id);
+        $data_uang = $this->M_laporan->showuangdetail($id);
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
@@ -73,10 +69,7 @@ class C_laporan extends CI_Controller
             'project_deadline' => $deadline,
             'rab_project' => $rab_project,
             'data_rap_biaya' => $data_rap_biaya,
-            'data_pengajuan' => $data_pengajuan,
-            'data_pencairan' => $data_pencairan,
-            'data_pembelian' => $data_pembelian,
-            'data_pembelian_remaining' => $data_pembelian_remaining,
+            'data_uang' => $data_uang,
         );
         $this->load->view('laporan/detail', $show);
         // $this->load->view('data');

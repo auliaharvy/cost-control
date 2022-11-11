@@ -76,7 +76,7 @@
             </div>
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">DETAIL PENGAJUAN</h3>
+                <h3 class="card-title">DETAIL PENGELUARAN UANG</h3>
               </div>
               <div class="card-body">
                 <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
@@ -87,14 +87,16 @@
                       <th class="text-center">Nama Pekerjaan</th>
                       <th class="text-center">Jumlah Pengajuan</th>
                       <th class="text-center">Jumlah Approval</th>
-                      <th class="text-center">Approval</th>
+                      <th class="text-center">Jumlah Pencairan</th>
+                      <th class="text-center">Jumlah Pembelian</th>
+                      <th class="text-center">Tanggal</th>
                       <th class="text-center">Keterangan</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php
                     $nomor = 1;
-                    foreach ($data_pengajuan as $d) {
+                    foreach ($data_uang as $d) {
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
                         <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
@@ -102,6 +104,8 @@
                         <td style="width: 20%;"><?php echo $d['nama_pekerjaan']; ?></td>
                         <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_pengajuan_v']; ?></td>
                         <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_approval_v']; ?></td>
+                        <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_pencairan_v']; ?></td>
+                        <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_pembelian_v']; ?></td>
                         <td style="width: 10%;" class="text-center"><?php echo $d['approval_date']; ?></td>
                         <td style="width: 30%;"><?php echo $d['note_app']; ?></td>
                       </tr>
@@ -110,127 +114,6 @@
                   </tbody>
                 </table>
               </div>
-            </div>
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">DETAIL PENCAIRAN</h3>
-              </div>
-              <div class="card-body">
-                <table style="width: 100%;" id="example3" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th class="text-center">No</th>
-                      <th class="text-center">Nama Project</th>
-                      <th class="text-center">Nama Jenis</th>
-                      <th class="text-center">Nama Pekerjaan</th>
-                      <th class="text-center">Sumber Dana</th>
-                      <th class="text-center">Tujuan Dana</th>
-                      <th class="text-center">Jumlah Dana</th>
-                      <th class="text-center">Tanggal Pencairan</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php if (is_array($data_pencairan) || is_object($data_pencairan)) {
-                      $nomor = 1;
-                      foreach ($data_pencairan as $d) {
-                        $id = $d['id']; ?>
-                        <tr class="odd gradeX">
-                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 15%;"><?php echo $d['project_source']; ?></td>
-                          <td style="width: 15%;"><?php echo $d['nama_jenis_rap']; ?></td>
-                          <td style="width: 15%;"><?php echo $d['nama_pekerjaan']; ?></td>
-                          <td style="width: 15%;"><?php echo $d['organization_name']; ?></td>
-                          <td style="width: 15%;"><?php echo $d['pro_office']; ?></td>
-                          <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_uang']; ?></td>
-                          <td style="width: 10%;" class="text-center"><?php echo $d['tanggal_pencairan']; ?></td>
-                        </tr>
-                    <?php
-                      }
-                    } ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">DETAIL PEMBELIAN (BERDASARKAN PENGAJUAN)</h3>
-              </div>
-              <div class="card-body">
-                <table style="width: 100%;" id="example4" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th class="text-center">No</th>
-                      <th class="text-center">Project</th>
-                      <th class="text-center">Nama Jenis</th>
-                      <th class="text-center">Nama Pekerjaan</th>
-                      <th class="text-center">Sumber Dana</th>
-                      <th class="text-center">Jumlah Dana</th>
-                      <th class="text-center">Tanggal Pembelian</th>
-                      <th class="text-center">Keterangan</th>
-                    </tr>
-                  </thead>
-                  <tbody id="showdata8">
-                    <?php if (is_array($data_pembelian) || is_object($data_pembelian)) {
-                      $nomor = 1;
-                      foreach ($data_pembelian as $d) {
-                        $id = $d['id']; ?>
-                        <tr class="odd gradeX">
-                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 15%;"><?php echo $d['project_source']; ?></td>
-                          <td style="width: 15%;"><?php echo $d['nama_jenis_rap']; ?></td>
-                          <td style="width: 15%;"><?php echo $d['nama_pekerjaan']; ?></td>
-                          <td style="width: 10%;"><?php echo $d['pro_office']; ?></td>
-                          <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_uang']; ?></td>
-                          <td style="width: 10%;" class="text-center"><?php echo $d['tanggal_pembelian']; ?></td>
-                          <td style="width: 20%;"><?php echo $d['note']; ?></td>
-                        </tr>
-                    <?php
-                      }
-                    } ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">DETAIL PEMBELIAN (TANPA PENGAJUAN)</h3>
-              </div>
-              <div class="card-body">
-                <table style="width: 100%;" id="example5" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th class="text-center">No</th>
-                      <th class="text-center">Project</th>
-                      <th class="text-center">Nama Jenis</th>
-                      <th class="text-center">Nama Pekerjaan</th>
-                      <th class="text-center">Sumber Dana</th>
-                      <th class="text-center">Jumlah Dana</th>
-                      <th class="text-center">Tanggal Pembelian</th>
-                      <th class="text-center">Keterangan</th>
-                    </tr>
-                  </thead>
-                  <tbody id="showdata8">
-                    <?php if (is_array($data_pembelian_remaining) || is_object($data_pembelian_remaining)) {
-                      $nomor = 1;
-                      foreach ($data_pembelian_remaining as $d) {
-                        $id = $d['id']; ?>
-                        <tr class="odd gradeX">
-                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 20%;"><?php echo $d['project_source']; ?></td>
-                          <td style="width: 10%;"><?php echo $d['nama_jenis_rap']; ?></td>
-                          <td style="width: 15%;"><?php echo $d['nama_pekerjaan']; ?></td>
-                          <td style="width: 10%;"><?php echo $d['pro_office']; ?></td>
-                          <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_uang']; ?></td>
-                          <td style="width: 10%;" class="text-center"><?php echo $d['tanggal_pembelian']; ?></td>
-                          <td style="width: 20%;"><?php echo $d['note']; ?></td>
-                        </tr>
-                    <?php
-                      }
-                    } ?>
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
             </div>
             <!-- /.card -->
           </div>

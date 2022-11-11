@@ -131,7 +131,6 @@
                       <thead>
                         <tr>
                           <th class="text-center">No</th>
-                          <th class="text-center">Action</th>
                           <th class="text-center">Nama Project</th>
                           <th class="text-center">Cash In Hand</th>
                           <th class="text-center">Tanggal Pengajuan</th>
@@ -146,15 +145,6 @@
                             $id = $d['id']; ?>
                             <tr class="odd gradeX">
                               <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                              <td style="width: 10%;" align="center">
-                                <?php if (($this->session->userdata('role')) == 3) { ?>
-                                  <a href="<?php echo site_url('bayarhutang/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Membayar Hutang <?= $d['project_name']; ?> ?');" style="width: 120px;" class="btn btn-success btn-circle disabled " data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fas fa-edit"></i>BAYAR</a>
-                                <?php } else { ?>
-                                  <?php if ($d['is_pay'] == 0) { ?>
-                                    <a href="<?php echo site_url('bayarhutang/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Membayar Hutang <?= $d['project_name']; ?> ?');" style="width: 120px;" class="btn btn-success btn-circle " data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fas fa-edit"></i>BAYAR</a>
-                                <?php }
-                                } ?>
-                              </td>
                               <td style="width: 25%;"><?php echo $d['project_name']; ?></td>
                               <td style="width: 20%;" class="text-center">Rp. <?php echo $d['cash_in_hand']; ?></td>
                               <td style="width: 15%;" class="text-center"><?php echo $d['created_at']; ?></td>
@@ -281,117 +271,15 @@
               </div>
             </div>
           </div>
-          <div id="tambahtermin" class="modal fade">
-            <div class="modal-dialog">
-              <form action="<?php echo site_url('termin/add'); ?>" method="post">
-                <div class="modal-content">
-                  <div class="modal-header bg-primary">
-                    <h4 class="modal-title">Tambah Data</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="form-group">
-                      <label>Project</label>
-                      <select class="form-control project_id" name="project_id" required>
-                        <option value="">Pilih Project</option>
-                        <?php foreach ($project as $us) { ?>
-                          <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?></option>
-                        <?php } ?>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label class='col-xs-3'>Nominal</label>
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">Rp</span>
-                        </div>
-                        <input type="text" name="nominal" autocomplete="off" required class="form-control uang">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="control-label col-xs-3">Termin ke</label>
-                      <div class="col-xs-8">
-                        <input name="termin_ke" class="form-control" type="number" required>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class='col-xs-3'>Note</label>
-                      <div class='col-xs-8'><textarea class="form-control" rows="3" name="note"></textarea></div>
-                    </div>
-                    <br>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary"><i class="icon-checkmark-circle2"></i> Simpan</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-          <?php if (is_array($data_pencairan) || is_object($data_pencairan)) {
-            foreach ($data_pencairan as $i) :
-              $id = $i['id'];
-              $pengajuan_id = $i['pengajuan_id'];
-              $jumlah_approval = $i['jumlah_approval'];
-
-          ?>
-              <div class="modal fade" id="pencairan<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header bg-primary">
-                      <h3 class="modal-title" id="myModalLabel">Kirim Biaya</h3>
-                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                    </div>
-                    <form class="form-horizontal" method="post" action="<?php echo site_url('kirimpencairan'); ?>">
-                      <div class="modal-body">
-                        <div class="form-group">
-                          <div class="col-xs-8">
-                            <input name="pengajuan_approval_id" value="<?php echo $id; ?>" class="form-control" type="hidden" readonly>
-                            <input name="pengajuan_id" value="<?php echo $pengajuan_id; ?>" class="form-control" type="hidden" readonly>
-                            <input type="hidden" name="is_approved" value="1">
-                            <input type="hidden" name="msg" value="Approve">
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label>Destination</label>
-                          <select class="form-control disabled destination_id" name="destination_id" id="destination<?php echo $id; ?>" required>
-                            <option value="2">Project</option>
-                            <option value="1">Office</option>
-                            <option value="2">Project</option>
-                          </select>
-                        </div>
-                        <div class="form-group">
-                          <label>Project / Office </label>
-                          <select class="form-control project_office_id" name="project_office_id" id="project_office_id<?php echo $id; ?>" required>
-                            <option value="">---Select List---</option>
-                          </select>
-                        </div>
-                        <div class="form-group">
-                          <div class="col-xs-8">
-                            <input name="jumlah_uang" value="<?php echo $jumlah_approval; ?>" class="form-control" type="hidden" placeholder="Masukan Jumlah Approval.." required>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-                        <button class="btn btn-info">Kirim</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-          <?php endforeach;
-          } ?>
+          <!-- /.card -->
         </div>
-        <!-- /.card -->
+        <!-- /.col -->
       </div>
-      <!-- /.col -->
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
   </div>
-  <!-- /.row -->
-  </section>
-  <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
+  <!-- /.content-wrapper -->
 </div>
 <!-- ./wrapper -->
 
@@ -454,17 +342,6 @@
       "ordering": true,
       "info": true,
       "autoWidth": true,
-    });
-    $('#example7').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "fixedHeader": true,
-      // "scrollX": true,
-      // "scrollXInner": "100%",
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
     });
 
     table.columns.adjust().draw();

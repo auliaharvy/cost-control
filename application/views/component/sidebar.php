@@ -62,6 +62,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item ">
+            <a href="<?php echo base_url('termin') ?>" class="nav-link">
+              <i class="nav-icon fas fa-newspaper"></i>
+              <p>
+                TERMIN
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             <a href="<?php echo base_url('kas') ?>" class="nav-link">
               <i class="nav-icon fas fa-cash-register"></i>
@@ -110,6 +118,14 @@
               <i class="nav-icon fas fa-file-alt"></i>
               <p>
                 PENCAIRAN
+              </p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a href="<?php echo base_url('termin') ?>" class="nav-link">
+              <i class="nav-icon fas fa-newspaper"></i>
+              <p>
+                TERMIN
               </p>
             </a>
           </li>

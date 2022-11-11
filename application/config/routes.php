@@ -64,7 +64,6 @@ $route['confirmrap'] = 'C_project/confirmrap';
 
 $route['project/add_termin'] = 'C_project/create_penerimaan_termin';
 $route['transaksi'] = 'C_transaksi/index';
-$route['termin/add'] = 'C_transaksi/tambahtermin';
 
 $route['createpengajuan'] = 'C_project/generatepengajuan';
 $route['pengajuan/(:num)'] = 'C_project/detail_pengajuan/$1';
@@ -75,6 +74,9 @@ $route['approvedpengajuan'] = 'C_pengajuan/approved';
 $route['unapprovedpengajuan'] = 'C_pengajuan/unapproved';
 
 $route['office'] = 'C_office';
+
+$route['termin'] = 'C_termin';
+$route['termin/add'] = 'C_termin/add';
 
 $route['pencairan'] = 'C_pencairan/index';
 $route['list_pencairan'] = 'C_pencairan/list_pencairan';

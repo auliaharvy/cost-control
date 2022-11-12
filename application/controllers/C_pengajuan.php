@@ -267,16 +267,13 @@ class C_pengajuan extends CI_Controller
         $date = date('Y-m-d H:i:s');
         $project_id = $_POST['project_id'];
         if ($this->form_validation->run() == FALSE) {
-
             $this->flashdata_failed_rap();
             redirect('pengajuan/' . $project_id);
         } else {
-
             $data = array(
                 "pengajuan_id" => $_POST['pengajuan_id'],
                 "rap_biaya_id" => $_POST['rap_biaya_id'],
                 "jumlah_pengajuan" => $_POST['jumlah_pengajuan'],
-
                 "last_updated_by" => $this->session->userdata('id'),
                 "created_at" => $date,
             );
@@ -289,26 +286,24 @@ class C_pengajuan extends CI_Controller
     public function updatepengajuan()
     {
         $id = $this->input->post('pengajuan_biaya_id');
-
         $get = $this->M_data->GetData2("akk_pengajuan_biaya ", "where id = '$id'")->row();
         $where = array('id' => $id);
         $date = date('Y-m-d H:i:s');
         $project_id = $_POST['project_id'];
         $data = array(
             'jumlah_pengajuan' => $_POST['jumlah_pengajuan'],
-
             "last_updated_by" => $this->session->userdata('id'),
             "updated_at" => $date,
-
         );
-
         $res = $this->M_data->UpdateData('akk_pengajuan_biaya', $data, $where);
         if ($res >= 1) {
-            $this->flashdata_succeed_rap();
-            redirect('pengajuan/' . $project_id);
+            $pesan = " Update Pengajuan Berhasil";
+            $this->flashdata_succeed1($pesan);
+            redirect('pengajuan');
         } else {
-            $$this->flashdata_failed_rap();
-            redirect('pengajuan/' . $project_id);
+            $pesan = " Update Pengajuan Gagal";
+            $$this->flashdata_failed1($pesan);
+            redirect('pengajuan');
         }
     }
 

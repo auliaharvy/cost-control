@@ -103,6 +103,7 @@
                 <thead>
                   <tr>
                     <th>No</th>
+                    <th>Action</th>
                     <th>Project</th>
                     <th>Lokasi Project</th>
                     <th>Deadline</th>
@@ -111,7 +112,6 @@
                     <th>Total Pengeluaran</th>
                     <th>%</th>
                     <th>Finish At</th>
-                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -122,6 +122,9 @@
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
                         <td><?php echo $nomor++; ?></td>
+                        <td align="center">
+                          <a href="<?php echo base_url() . "laporan_detail/" . $d['id']; ?>"><button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button></a>
+                        </td>
                         <td class="text"><span><?php echo $d['project_name']; ?></span></td>
                         <td class="text"><span><?php echo $d['project_location']; ?></span></td>
                         <td><?php echo $d['project_deadline_v']; ?></td>
@@ -130,9 +133,6 @@
                         <td class="text"><span>Rp. <?php echo $d['total_pengeluaran_v']; ?></span></td>
                         <td><?php echo $d['persentase_v'];  ?></td>
                         <td><?php echo $d['finish_at_v']; ?></td>
-                        <td align="center">
-                          <a href="<?php echo base_url() . "laporan_detail/" . $d['id']; ?>"><button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button>
-                        </td>
                       </tr>
                   <?php
                     }
@@ -186,7 +186,7 @@
             </div>
           </div>
           <?php
-          foreach ($data as $i) :
+          foreach ($databelum as $i) :
             $id = $i['id'];
             $project_name = $i['project_name'];
             $project_location = $i['project_location'];

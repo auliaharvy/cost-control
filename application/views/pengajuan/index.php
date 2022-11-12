@@ -55,12 +55,12 @@
                       <tr class="odd gradeX">
                         <td><?php echo $nomor++; ?></td>
                         <td align="center">
-                          <a data-toggle="modal" data-target="#editpengajuan" <?php echo $id; ?>"><button class="btn btn-warning btn-circle btn-sm"><i class="fa fa-edit" data-popup="tooltip" data-placement="top" title="Edit Data"></i></button></a>
+                          <a data-toggle="modal" data-target="#editpengajuan<?php echo $id; ?>"><button class="btn btn-warning btn-circle btn-sm"><i class="fa fa-edit" data-popup="tooltip" data-placement="top" title="Edit Data"></i></button></a>
                         </td>
                         <td><?php echo $d['project_name']; ?></td>
                         <td><?php echo $d['nama_pekerjaan']; ?></td>
                         <td><?php echo $d['tanggal_pengajuan']; ?></td>
-                        <td>Rp. <?php echo $d['jumlah_pengajuan_v']; ?></td>
+                        <td>Rp. <?php echo $d['jumlah_pengajuan']; ?></td>
                         <td><?php echo $d['keterangan']; ?></td>
                       </tr>
                   <?php
@@ -97,7 +97,7 @@
                         <td style="width: 25%;"><?php echo $d['project_name']; ?></td>
                         <td style="width: 25%;"><?php echo $d['nama_pekerjaan']; ?></td>
                         <td style="width: 20%;" class="text-center"><?php echo $d['tanggal_approve']; ?></td>
-                        <td style="width: 15%;" class="text-center">Rp. <?php echo $d['jumlah_pengajuan_v']; ?></td>
+                        <td style="width: 15%;" class="text-center">Rp. <?php echo $d['jumlah_pengajuan']; ?></td>
                         <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_approval_v']; ?></td>
                       </tr>
                   <?php
@@ -160,42 +160,49 @@
           <?php if (is_array($data) || is_object($data)) {
             foreach ($data as $i) :
               $id = $i['id'];
-              $qty = $i['qty'];
+              $jumlah_pengajuan = $i['jumlah_pengajuan'];
+              $project_id = $i['project_id'];
+              $note = $i['keterangan'];
           ?>
               <div class="modal fade" id="editpengajuan<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header bg-primary">
-                      <h3 class="modal-title" id="myModalLabel">Tambah Qty</h3>
+                      <h3 class="modal-title" id="myModalLabel">Edit Pengajuan</h3>
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                     </div>
-                    <form class="form-horizontal form-inventory" method="post" action="<?php echo base_url() . 'editmaterial' ?>">
+                    <form class="form-horizontal" method="post" action="<?php echo base_url() . 'C_pengajuan/updatepengajuan' ?>">
                       <div class="modal-body">
                         <div class="form-group">
                           <div class="col-xs-8">
-                            <input name="inventory_id" value="<?php echo $id; ?>" class="form-control" type="hidden" readonly>
+                            <input name="pengajuan_biaya_id" value="<?php echo $id; ?>" class="form-control" type="hidden" readonly>
+                            <input name="project_id" value="<?php echo $project_id; ?>" class="form-control" type="hidden" readonly>
                           </div>
                         </div>
                         <div class="form-group">
-                          <p><input type="radio" name="tag" value="0">Tambah Qty</input></p>
-                          <p><input type="radio" name="tag" value="1">Kurang Qty</input></p>
+                          <label class="control-label col-xs-3">Jumlah Pengajuan</label>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">Rp</span>
+                            </div>
+                            <input name="jumlah_pengajuan" value="<?php echo $jumlah_pengajuan; ?>" class="form-control uang" type="text" required>
+                          </div>
                         </div>
                         <div class="form-group">
-                          <label class="control-label col-xs-3">Qty</label>
-                          <div class="col-xs-8">
-                            <input name="qty" class="form-control" type="number" required>
-                            <span id="qty_error" class="text-danger"></span>
+                          <label class='col-xs-3'>Note</label>
+                          <div class='col-xs-8'><textarea class="form-control" rows="3" name="note"><?php echo $note; ?></textarea>
                           </div>
                         </div>
                       </div>
                       <div class="modal-footer">
                         <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-                        <button class="btn btn-info">Edit</button>
+                        <button class="btn btn-info">Update</button>
                       </div>
                     </form>
                   </div>
                 </div>
               </div>
+              <!-- /.card -->
           <?php endforeach;
           } ?>
           <!-- /.card -->

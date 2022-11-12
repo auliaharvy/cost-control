@@ -62,7 +62,9 @@
                   <?php if ($project_status == 0) {
                     if (($this->session->userdata('role')) == 4) { ?>
                       <?php if ($is_rap_confirm == 0) { ?>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah-rap"><i class="fa fa-plus-circle"></i> Biaya </button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah-rap"><i class="fa fa-plus-circle"></i> Tambah Biaya RAP </button>
+                        <br><br>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah"><i class="fa fa-plus-circle"></i> Tambah Material </button>
                         <br><br>
                         <form action="<?php echo site_url('confirmrap'); ?>" method="post">
                           <input type="hidden" name="is_rap_confirm" value="1">
@@ -71,12 +73,8 @@
                           <input type="hidden" name="msg" value="Confirm">
                           <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i> Confirm RAP</button>
                         </form>
-                        <br>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah"><i class="fa fa-plus-circle"></i> Tambah Material </button>
                       <?php } ?>
                       <?php if ($is_rap_confirm == 1) { ?>
-                        <button type="button" class="btn btn-primary disabled"><i class="fa fa-plus-circle"></i> Biaya </button>
-                        <br><br>
                         <form action="<?php echo site_url('createpengajuan'); ?>" method="post">
                           <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
                           <button type="submit" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Pengajuan</button>
@@ -88,8 +86,10 @@
                           <input type="hidden" name="msg" value="Unconfirm">
                           <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i> Unconfirm RAP</button>
                         </form><br>
-                        <button data-toggle="modal" data-target="#updateprogress" class="btn btn-primary" data-popup="tooltip" data-placement="top" title="Progress Project"><i class="fa fa-edit"></i>Update Progress</button><br><br>
-                        <button data-toggle="modal" data-target="#projectselesai" class="btn btn-success" data-popup="tooltip" data-placement="top" title="Selesaikan"><i class="fa fa-edit"></i> Selesaikan Project</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateprogress" title="Progress Project"><i class="fa fa-edit"></i> Update Progress </button><br><br>
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#projectselesai" title="Selesai Project"><i class="fa fa-edit"></i> Selesaikan Project </button>
+                        <!-- <a data-toggle="modal" data-target="#updateprogress" class="btn btn-primary" data-popup="tooltip" data-placement="top" title="Progress Project"><i class="fa fa-edit"></i>Update Progress</a><br><br> -->
+                        <!-- <a data-toggle="modal" data-target="#projectselesai" class="btn btn-success" data-popup="tooltip" data-placement="top" title="Selesaikan"><i class="fa fa-edit"></i> Selesaikan Project</a> -->
                       <?php } ?>
                       <br>
                       <br>
@@ -316,12 +316,13 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary"><i class="icon-checkmark-circle2"></i> Simpan</button>
                   </div>
+                </div>
               </form>
             </div>
           </div>
           <div id="updateprogress" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
             <div class="modal-dialog">
-              <form action="<?php echo base_url() . 'C_project/update_progress' ?>" method="post">
+              <form action="<?php echo site_url() . 'C_project/update_progress' ?>" method="post">
                 <div class="modal-content">
                   <div class="modal-header bg-primary">
                     <h4 class="modal-title">Update Progress</h4>
@@ -339,12 +340,13 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary"><i class="icon-checkmark-circle2"></i> Simpan</button>
                   </div>
+                </div>
               </form>
             </div>
           </div>
           <div id="projectselesai" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
             <div class="modal-dialog">
-              <form action="<?php echo base_url() . 'C_project/finishing_project' ?>" method="post">
+              <form action="<?php echo site_url() . 'C_project/finishing_project' ?>" method="post">
                 <div class="modal-content">
                   <div class="modal-header bg-primary">
                     <h4 class="modal-title">Finish Project</h4>
@@ -361,11 +363,12 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary"><i class="icon-checkmark-circle2"></i> Simpan</button>
                   </div>
+                </div>
               </form>
             </div>
           </div>
-          <?php if (is_array($datarapformedit) || is_object($datarapformedit)) {
-            foreach ($datarapformedit as $i) :
+          <?php if (is_array($data_rap_biaya) || is_object($data_rap_biaya)) {
+            foreach ($data_rap_biaya as $i) :
               $id = $i['id'];
               $nama_jenis = $i['nama_jenis'];
               $kategori_biaya_id = $i['kategori_biaya_id'];

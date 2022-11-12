@@ -33,7 +33,12 @@
               <h3 class="card-title">Pembelian ( Belum Belanja )</h3>
             </div>
             <div class="card-body">
-              <a href="" data-toggle="modal" style="width: 120px;" data-target="#belanja" class="btn btn-success btn-circle" data-popup="tooltip" data-placement="top" title="Belanja"><i class="fa fa-shopping-cart"></i> BELANJA</a><br><br>
+              <a href="" data-toggle="modal" style="width: 120px;" data-target="#belanja" class="btn btn-success btn-circle" data-popup="tooltip" data-placement="top" title="Belanja"><i class="fa fa-shopping-cart"></i> BELANJA</a>
+              <br>
+              <span>
+                <h6>( Tanpa Pengajuan )</h6>
+              </span>
+              <br>
               <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>

@@ -50,7 +50,6 @@ class C_project extends CI_Controller
 
         );
         $this->load->view('project/v_project_finished', $show);
-        // $this->load->view('data');
     }
 
     // public function rap() {
@@ -122,8 +121,6 @@ class C_project extends CI_Controller
         $a = $_POST['rab_project'];
         $rab_projec = str_replace('.', '', $a); //ubah format rupiah ke integer
         $rab_project = intval($rab_projec);
-
-
         if ($now >= $deadline) {
             $pesan = "Input waktu deadline dengan tanggal yang benar";
             $this->flashdata_failed1($pesan);
@@ -134,21 +131,22 @@ class C_project extends CI_Controller
             $date = date('Y-m-d H:i:s');
             $data = array(
                 'project_name' => $_POST['project_name'],
-
                 'project_location' => $_POST['project_location'],
                 'project_deadline' => $_POST['project_deadline'],
                 'rab_project' => $rab_project,
-
                 "last_updated_by" => $this->session->userdata('id'),
                 "updated_at" => $date,
-
             );
 
             $res = $this->M_data->UpdateData('mst_project', $data, $where);
             if ($res >= 1) {
-                $this->flashdata_succeed();
+                $pesan = "Edit Project Sukses";
+                $this->flashdata_succeed1($pesan);
+                redirect('project_on');
             } else {
-                $this->flashdata_failed();
+                $pesan = "Edit Project Gagal";
+                $this->flashdata_failed1($pesan);
+                redirect('project_on');
             }
         }
     }
@@ -230,11 +228,9 @@ class C_project extends CI_Controller
     public function create_rap_project()
     {
         $this->form_validation->set_rules('nama_jenis_rap', 'Jenis Rap', 'required');
-
         $a = $_POST['jumlah_biaya'];
         $b = str_replace('.', '', $a); //ubah format rupiah ke integer
         $jumlah_biaya = intval($b);
-
         $date = date('Y-m-d H:i:s');
         $project_id = $_POST['project_id'];
         if ($this->form_validation->run() == FALSE) {
@@ -272,10 +268,12 @@ class C_project extends CI_Controller
             // $this->M_data->UpdateData('akk_rap',$data_updt_rap,$where);
             $this->db->trans_complete();
             if ($this->db->trans_status() === TRUE) {
-                $this->flashdata_succeed_rap();
+                $pesan = "Tambah Biaya RAP Sukses";
+                $this->flashdata_succeed1($pesan);
                 redirect('project_detail/' . $project_id);
             } else {
-                $this->flashdata_failed_rap();
+                $pesan = "Tambah Biaya RAP Gagal";
+                $this->flashdata_failed1($pesan);
                 redirect('project_detail/' . $project_id);
             }
         }
@@ -284,53 +282,47 @@ class C_project extends CI_Controller
     public function update_rap()
     {
         $this->form_validation->set_rules('nama_jenis_rap', 'Jenis Rap', 'required');
-
         $a = $_POST['jumlah_biaya'];
         $b = str_replace('.', '', $a); //ubah format rupiah ke integer
         $jumlah_biaya = intval($b);
-
         $date = date('Y-m-d H:i:s');
         $project_id = $_POST['project_id'];
         if ($this->form_validation->run() == FALSE) {
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
-            redirect('rap/' . $project_id);
+            redirect('project_detail/' . $project_id);
         } else {
             $id = $_POST['rap_item_id'];
             // $get = $this->M_data->GetData("akk_rap ","where id = '$rap_id'");
             // $total_rap_now = $get[0]['total_biaya'];
             // $jumlah_biaya = $_POST['jumlah_biaya'];
             // $total_rap_current = $total_rap_now + $jumlah_biaya;
-
             $where = array('id' => $id);
-
             // $data_updt_rap = array(
             //     "total_biaya" => $total_rap_current,
             //     "last_updated_by" => $this->session->userdata('id'),
             //     "updated_at" => $date,
             // );
-
             $data = array(
-
                 "kategori_biaya_id" => $_POST['kategori_biaya_id'],
                 "jenis_biaya_id" => $_POST['jenis_biaya_id'],
                 "nama_jenis_rap" => $_POST['nama_jenis_rap'],
                 "nama_pekerjaan" => $_POST['nama_pekerjaan'],
                 "jumlah_biaya" => $jumlah_biaya,
-
                 "last_update_by" => $this->session->userdata('id'),
                 "updated_at" => $date,
             );
             $this->db->trans_start();
-
             $this->M_data->UpdateData('akk_rap_biaya', $data, $where);
             $this->db->trans_complete();
             if ($this->db->trans_status() === TRUE) {
-                $this->flashdata_succeed_rap();
-                redirect('rap/' . $project_id);
+                $pesan = "Update RAP Sukses";
+                $this->flashdata_succeed1($pesan);
+                redirect('project_detail/' . $project_id);
             } else {
-                $this->flashdata_failed_rap();
-                redirect('rap/' . $project_id);
+                $pesan = "Update RAP Sukses";
+                $this->flashdata_failed1($pesan);
+                redirect('project_detail/' . $project_id);
             }
         }
     }
@@ -594,7 +586,7 @@ class C_project extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
-            redirect('project_detail/' . $project_id);
+            redirect('project_on');
         } else {
             $where = array('id' => $id);
             $project_progress = $_POST['project_progress'];
@@ -615,11 +607,11 @@ class C_project extends CI_Controller
             if ($res >= 1) {
                 $pesan = "Update Project Progress Berhasil";
                 $this->flashdata_succeed1($pesan);
-                redirect('project_detail/' . $project_id);
+                redirect('project_on');
             } else {
                 $pesan = "Update Project Progress Gagal";
-                $this->flashdata_failed($pesan);
-                redirect('project_detail/' . $project_id);
+                $this->flashdata_failed1($pesan);
+                redirect('project_on');
             }
         }
     }
@@ -683,11 +675,11 @@ class C_project extends CI_Controller
         if ($this->db->trans_status() === TRUE) {
             $pesan = "Penyelesaian Project Sukses";
             $this->flashdata_succeed1($pesan);
-            redirect('project_detail/' . $project_id);
+            redirect('project_on');
         } else {
             $pesan = "Penyelesaian Project Gagal";
             $this->flashdata_failed1($pesan);
-            redirect('project_detail/' . $project_id);
+            redirect('project_on');
         }
     }
 

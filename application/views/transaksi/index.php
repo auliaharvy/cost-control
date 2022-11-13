@@ -71,7 +71,7 @@
                               <td style="width: 20%;"><?php echo $d['project_name']; ?></td>
                               <td style="width: 20%;"><?php echo $d['nama_pekerjaan']; ?></td>
                               <td style="width: 20%;" class="text-center"><?php echo $d['tanggal_pengajuan']; ?></td>
-                              <td style="width: 15%;" class="text-center">Rp <?php echo $d['jumlah_pengajuan_v']; ?></td>
+                              <td style="width: 15%;" class="text-center">Rp. <?php echo $d['jumlah_pengajuan']; ?></td>
                               <td style="width: 20%;"><?php echo $d['keterangan']; ?></td>
                             </tr>
                         <?php
@@ -109,8 +109,8 @@
                               <td style="width: 20%;"><?php echo $d['project_name']; ?></td>
                               <td style="width: 15%;"><?php echo $d['nama_pekerjaan']; ?></td>
                               <td style="width: 15%;" class="text-center"><?php echo $d['tanggal_approve']; ?></td>
-                              <td style="width: 15%;" class="text-center">Rp <?php echo $d['jumlah_pengajuan_v']; ?></td>
-                              <td style="width: 10%;" class="text-center">Rp <?php echo $d['jumlah_approval_v']; ?></td>
+                              <td style="width: 15%;" class="text-center">Rp. <?php echo $d['jumlah_pengajuan']; ?></td>
+                              <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_approval_v']; ?></td>
                               <td style="width: 20%;"><?php echo $d['keterangan']; ?></td>
                             </tr>
                         <?php
@@ -182,7 +182,7 @@
                               <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
                               <td style="width: 45%;"><?php echo $d['project_name']; ?></td>
                               <td style="width: 20%;" class="text-center"><?php echo $d['pay_at']; ?></td>
-                              <td style="width: 20%;" class="text-center">Rp <?php echo $d['nominal']; ?></td>
+                              <td style="width: 20%;" class="text-center">Rp. <?php echo $d['nominal']; ?></td>
                               <td style="width: 10%;" class="text-center">Terbayar</td>
                             </tr>
                         <?php
@@ -220,7 +220,7 @@
                               <td class="text"><?php echo $d['project_name']; ?></td>
                               <td class="text"><?php echo $d['nama_jenis_rap']; ?></td>
                               <td><?php echo $d['nama_pekerjaan']; ?></td>
-                              <td>Rp <?php echo $d['jumlah_approval']; ?></td>
+                              <td>Rp. <?php echo $d['jumlah_approval']; ?></td>
                               <td><?php echo $d['keterangan']; ?></td>
                             </tr>
                         <?php
@@ -259,7 +259,7 @@
                               <td style="width: 20%;"><?php echo $d['nama_pekerjaan']; ?></td>
                               <td style="width: 10%;"><?php echo $d['organization_name']; ?></td>
                               <td style="width: 20%;"><?php echo $d['pro_office']; ?></td>
-                              <td style="width: 10%;" class="text-center">Rp <?php echo $d['jumlah_uang']; ?></td>
+                              <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_uang']; ?></td>
                             </tr>
                         <?php
                           }

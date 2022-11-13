@@ -14,6 +14,7 @@ class M_approval extends CI_Model
 		$this->db->select('
         a.*, c.project_name, d.nama_pekerjaan, DATE_FORMAT(a.created_at,"%d %M %Y") as tanggal_pengajuan,
 		FORMAT(b.jumlah_pengajuan,0,"de_DE") as jumlah_pengajuan_v, b.note as keterangan,a.id as pengajuan_id,b.id,
+		d.nama_pekerjaan,d.nama_jenis_rap
         ');
 		$this->db->from('akk_pengajuan as a');
 		$this->db->join('akk_pengajuan_biaya as b', 'a.id = b.pengajuan_id');
@@ -34,7 +35,8 @@ class M_approval extends CI_Model
 		$this->db->select('
         a.*, c.project_name, d.nama_pekerjaan, DATE_FORMAT(e.updated_at,"%d %M %Y") as tanggal_approve,
 		FORMAT(b.jumlah_pengajuan,0,"de_DE") as jumlah_pengajuan_v, FORMAT(e.jumlah_approval,0,"de_DE") as jumlah_approval_v,
-		e.note_app as keterangan, b.id as pengajuan_biaya_id
+		e.note_app as keterangan, b.id as pengajuan_biaya_id,d.nama_pekerjaan,d.nama_jenis_rap
+
         ');
 		$this->db->from('akk_pengajuan as a');
 		$this->db->join('akk_pengajuan_biaya as b', 'a.id = b.pengajuan_id');

@@ -21,7 +21,7 @@ class M_laporan extends CI_Model
 		$user_id = $this->session->userdata('id');
 		if ($role == 4) {
 			$data = $this->db->query("SELECT a.*, IF((c.persentase-a.project_progress)>5,'bg-danger text-white','') as background_text, FORMAT(c.total_biaya,0,'de_DE') as total_biaya_v,FORMAT(c.total_pengeluaran,0,'de_DE') as total_pengeluaran_v, a.project_name,FORMAT(a.cash_in_hand,0,'de_DE') as cash_in_hand
-			, a.project_location, a.project_deadline,FORMAT(a.rab_project,0,'de_DE') as rab_project_v,DATE_FORMAT(a.project_deadline,'%d %M %Y') as project_deadline_v,DATE_FORMAT(a.finish_at,'%d %M %Y') as finish_at_v, CONCAT(c.persentase,'%') as persentase_v FROM akk_rap as b 
+			, a.project_location, a.project_deadline,FORMAT(a.rab_project,0,'de_DE') as rab_project_v,DATE_FORMAT(a.project_deadline,'%d %M %Y') as project_deadline_v,DATE_FORMAT(a.finish_at,'%d %M %Y') as finish_at_v, CONCAT(c.persentase,'%') as persentase_v FROM akk_rap as b ,
 			RIGHT JOIN (SELECT rap_id,SUM(jumlah_biaya) AS total_biaya, SUM(jumlah_aktual) AS total_pengeluaran,ROUND((SUM(jumlah_aktual) / SUM(jumlah_biaya) * 100),2) as persentase FROM akk_rap_biaya GROUP BY rap_id) as c 
 			ON b.id = c.rap_id 
 			RIGHT JOIN mst_project as a ON b.project_id = a.id WHERE a.created_by = $user_id");
@@ -89,8 +89,8 @@ class M_laporan extends CI_Model
 		$this->db->join('akk_pengajuan_biaya as c', 'a.id = c.pengajuan_id');
 		$this->db->join('akk_rap_biaya as d', 'c.rap_biaya_id = d.id');
 		$this->db->join('akk_pengajuan_approval as e', 'c.id = e.pengajuan_biaya_id', 'left');
-		$this->db->join('trx_pengiriman_uang as f', 'e.id = f.pengajuan_approval_id');
-		$this->db->join('trx_pembelian_barang as g', 'f.id = g.pengiriman_uang_id');
+		$this->db->join('trx_pengiriman_uang as f', 'e.id = f.pengajuan_approval_id', 'left');
+		$this->db->join('trx_pembelian_barang as g', 'f.id = g.pengiriman_uang_id', 'left');
 		$this->db->where('a.project_id', $id);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {

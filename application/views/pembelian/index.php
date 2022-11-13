@@ -123,26 +123,23 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
                   <div class="modal-body">
-                    <input name="project_id" autocomplete="off" value="<?php echo $project_id; ?>" required class="form-control">
+                    <input name="cash_in_hand" autocomplete="off" value="<?php echo $cash_in_hand; ?>" required class="form-control">
                     <input name="pengajuan_id" autocomplete="off" value="<?php echo $pengajuan_id; ?>" required class="form-control">
                     <input name="destination_id" autocomplete="off" value="<?php echo $destination_id; ?>" required class="form-control">
                     <input name="project_office_id" autocomplete="off" value="<?php echo $project_office_id; ?>" required class="form-control">
                     <div class="form-group">
                       <label>Project</label>
                       <select class="form-control project_id" name="project_id" required>
-                        <option value="">Pilih Project</option>
+                        <option value="">Nama Project (Cash in Hand Project)</option>
                         <?php foreach ($project as $us) { ?>
-                          <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?></option>
+                          <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?> (Rp <?php echo $us['cash_in_hand']; ?>)</option>
                         <?php } ?>
                       </select>
                     </div>
                     <div class="form-group">
                       <label>RAP Item List</label>
-                      <select class="form-control js-states" id="single" style="width:100%;" name="rap_biaya_id" required>
+                      <select class="form-control js-states rap_biaya_id" id="single" style="width:100%;" name="rap_biaya_id" required>
                         <option value="">---Select List---</option>
-                        <?php foreach ($data_rap_biaya as $dk) { ?>
-                          <option value="<?php echo $dk['id']; ?>"><?php echo $dk['nama_jenis']; ?>--<?php echo $dk['nama_jenis_rap']; ?>--RAP : <?php echo $dk['jumlah_biaya']; ?> </option>
-                        <?php } ?>
                       </select>
                     </div>
                     <div class="form-group">
@@ -254,7 +251,7 @@
       var id = $(this).val();
       var project_id = $('input[name="project_id"]').val();
       $.ajax({
-        url: "<?php echo base_url(); ?>C_pembelian/getListBiayaRap/" + id,
+        url: "<?php echo base_url(); ?>C_pengajuan/getListBiayaRap/" + id,
         method: "POST",
         data: {
           id: id

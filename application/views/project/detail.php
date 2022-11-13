@@ -332,7 +332,7 @@
                     <input type="hidden" name="id_project" value="<?php echo $project_id; ?>" autocomplete="off" required class="form-control">
                     <div class="form-group">
                       <label class='col-xs-3'>Progress (%)</label>
-                      <div class='col-xs-8'><input type="number" name="project_progress" autocomplete="off" required placeholder="%" class="form-control"></div>
+                      <div class='col-xs-8'><input type="number" name="project_progress" value="<?php echo $project_progress; ?>" autocomplete="off" required placeholder="%" class="form-control"></div>
                     </div>
                     <br>
                   </div>

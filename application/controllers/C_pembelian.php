@@ -42,17 +42,6 @@ class C_pembelian extends CI_Controller
         $this->load->view('pembelian/index', $show);
     }
 
-    public function getListBiayaRap($id)
-    {
-        //  $id=$this->input->post('id');
-
-        $get = $this->M_data->GetData("mst_project ", "where id = '$id'");
-        $data_rap_biaya = $this->M_laporan->getBiayaRap($get[0]['id'], 1);
-
-
-        echo json_encode($data_rap_biaya);
-    }
-
 
     public function getRap($project_id)
     {

@@ -558,6 +558,7 @@ class C_project extends CI_Controller
             'project_name' => $get[0]['project_name'],
             'project_location' => $get[0]['project_location'],
             'project_status' => $get[0]['project_status'],
+            'project_progress' => $get[0]['project_progress'],
             'datakategori' => $datakategori,
             'project_deadline' => $deadline,
             'rab_project' => $rab_biaya,

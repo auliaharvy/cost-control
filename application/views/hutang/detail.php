@@ -94,16 +94,11 @@
                     }
                   } ?>
                 </tbody>
-
               </table>
-
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
-
-
           </div>
-
           <!-- /.card -->
         </div>
         <!-- /.col -->
@@ -113,31 +108,31 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+</div>
+<!-- ./wrapper -->
 
-  <!-- ./wrapper -->
+<!-- jQuery -->
 
-  <!-- jQuery -->
-
-  <?php echo $footer; ?>
-  <!-- page script -->
-  <script>
-    $(function() {
-      $("#example1").DataTable();
-      var table = $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": true,
-        "scrollX": true,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": true,
-      });
-
-      table.columns.adjust().draw();
-
+<?php echo $footer; ?>
+<!-- page script -->
+<script>
+  $(function() {
+    $("#example1").DataTable();
+    var table = $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "scrollX": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true,
     });
-  </script>
 
-  </body>
+    table.columns.adjust().draw();
 
-  </html>
+  });
+</script>
+
+</body>
+
+</html>

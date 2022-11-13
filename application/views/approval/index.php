@@ -39,6 +39,8 @@
                     <th class="text-center">No</th>
                     <th class="text-center">Action</th>
                     <th class="text-center">Nama Project</th>
+                    <th class="text-center">Nama Jenis</th>
+                    <th class="text-center">Nama Pekerjaan</th>
                     <th class="text-center">Tanggal Pengajuan</th>
                     <th class="text-center">Jumlah Pengajuan</th>
                     <th class="text-center">Keterangan</th>
@@ -59,6 +61,8 @@
                         <?php } ?>
                       </td>
                       <td style="width: 25%;"><?php echo $d['project_name']; ?></td>
+                      <td style="width: 25%;"><?php echo $d['nama_jenis_rap']; ?></td>
+                      <td style="width: 25%;"><?php echo $d['nama_pekerjaan']; ?></td>
                       <td style="width: 20%;" class="text-center"><?php echo $d['tanggal_pengajuan']; ?></td>
                       <td style="width: 20%;" class="text-center">Rp <?php echo $d['jumlah_pengajuan_v']; ?></td>
                       <td style="width: 30%;" class="text-center"><?php echo $d['keterangan']; ?></td>
@@ -80,6 +84,8 @@
                   <tr>
                     <th class="text-center">No</th>
                     <th class="text-center">Nama Project</th>
+                    <th class="text-center">Nama Jenis</th>
+                    <th class="text-center">Nama Pekerjaan</th>
                     <th class="text-center">Tanggal Approval</th>
                     <th class="text-center">Jumlah Pengajuan</th>
                     <th class="text-center">Jumlah Approval</th>
@@ -94,6 +100,8 @@
                     <tr class="odd gradeX">
                       <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
                       <td style="width: 25%;"><?php echo $d['project_name']; ?></td>
+                      <td style="width: 25%;"><?php echo $d['nama_jenis_rap']; ?></td>
+                      <td style="width: 25%;"><?php echo $d['nama_pekerjaan']; ?></td>
                       <td style="width: 25%;"><?php echo $d['tanggal_approve']; ?></td>
                       <td style="width: 20%;" class="text-center">Rp <?php echo $d['jumlah_pengajuan_v']; ?></td>
                       <td style="width: 15%;">Rp <?php echo $d['jumlah_approval_v']; ?></td>

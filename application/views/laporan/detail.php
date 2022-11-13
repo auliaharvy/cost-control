@@ -14,7 +14,8 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1><b>DETAIL</b> LAPORAN</h1>
+              <h1><b>DETAIL</b> LAPORAN <h3>( <?php echo $project_name; ?> )</h3>
+              </h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -102,10 +103,26 @@
                         <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
                         <td style="width: 15%;"><?php echo $d['nama_jenis_rap']; ?></td>
                         <td style="width: 20%;"><?php echo $d['nama_pekerjaan']; ?></td>
-                        <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_pengajuan_v']; ?></td>
-                        <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_approval_v']; ?></td>
-                        <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_pencairan_v']; ?></td>
-                        <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_pembelian_v']; ?></td>
+                        <?php if ($d['jumlah_pengajuan_v'] == null) { ?>
+                          <td style="width: 10%;" class="text-center">Rp. 0</td>
+                        <?php } else { ?>
+                          <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_pengajuan_v']; ?></td>
+                        <?php } ?>
+                        <?php if ($d['jumlah_approval_v'] == null) { ?>
+                          <td style="width: 10%;" class="text-center">Rp. 0</td>
+                        <?php } else { ?>
+                          <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_approval_v']; ?></td>
+                        <?php } ?>
+                        <?php if ($d['jumlah_pencairan_v'] == null) { ?>
+                          <td style="width: 10%;" class="text-center">Rp. 0</td>
+                        <?php } else { ?>
+                          <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_pencairan_v']; ?></td>
+                        <?php } ?>
+                        <?php if ($d['jumlah_pembelian_v'] == null) { ?>
+                          <td style="width: 10%;" class="text-center">Rp. 0</td>
+                        <?php } else { ?>
+                          <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_pembelian_v']; ?></td>
+                        <?php } ?>
                         <td style="width: 10%;" class="text-center"><?php echo $d['approval_date']; ?></td>
                         <td style="width: 30%;"><?php echo $d['note_app']; ?></td>
                       </tr>

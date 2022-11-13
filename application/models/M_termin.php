@@ -89,7 +89,7 @@ class M_termin extends CI_Model
 		// }else{
 		// 	return false;
 		// }
-		$data = $this->db->query('SELECT a.*, FORMAT(b.termin_terbayar,0,"de_DE") as termin_terbayar, FORMAT(a.rab_project,0,"de_DE") as rab_project_v,
+		$data = $this->db->query('SELECT a.*, FORMAT(b.termin_terbayar,0,"de_DE") as termin_terbayar, FORMAT(a.rab_project,0,"de_DE") as rab_project_v,DATE_FORMAT(a.project_deadline,"%d %M %Y") as project_deadline,
 		FORMAT(ROUND((a.rab_project - b.termin_terbayar),0),0,"de_DE") as sisa_termin FROM mst_project as a 
 		JOIN (SELECT SUM(nominal) AS termin_terbayar,project_id FROM akk_penerimaan_project GROUP BY project_id) as b 
 		ON a.id = b.project_id ');

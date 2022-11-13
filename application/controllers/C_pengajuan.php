@@ -285,15 +285,17 @@ class C_pengajuan extends CI_Controller
 
     public function updatepengajuan()
     {
-        $id = $this->input->post('pengajuan_biaya_id');
-        $get = $this->M_data->GetData2("akk_pengajuan_biaya ", "where id = '$id'")->row();
+        $id = $this->input->post('akk_pengajuan_biaya_id');
         $where = array('id' => $id);
         $date = date('Y-m-d H:i:s');
-        $project_id = $_POST['project_id'];
+        $a = $_POST['jumlah_pengajuan'];
+        $b = str_replace('.', '', $a); //ubah format rupiah ke integer
+        $jumlah = intval($b);
         $data = array(
-            'jumlah_pengajuan' => $_POST['jumlah_pengajuan'],
+            'jumlah_pengajuan' => $jumlah,
             "last_updated_by" => $this->session->userdata('id'),
             "updated_at" => $date,
+            "note" => $_POST['note'],
         );
         $res = $this->M_data->UpdateData('akk_pengajuan_biaya', $data, $where);
         if ($res >= 1) {

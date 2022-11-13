@@ -160,6 +160,7 @@
           <?php if (is_array($data) || is_object($data)) {
             foreach ($data as $i) :
               $id = $i['id'];
+              $akk_pengajuan_biaya_id = $i['akk_pengajuan_biaya_id'];
               $jumlah_pengajuan = $i['jumlah_pengajuan'];
               $project_id = $i['project_id'];
               $note = $i['keterangan'];
@@ -175,7 +176,7 @@
                       <div class="modal-body">
                         <div class="form-group">
                           <div class="col-xs-8">
-                            <input name="pengajuan_biaya_id" value="<?php echo $id; ?>" class="form-control" type="hidden" readonly>
+                            <input name="akk_pengajuan_biaya_id" value="<?php echo $akk_pengajuan_biaya_id; ?>" class="form-control" type="hidden" readonly>
                             <input name="project_id" value="<?php echo $project_id; ?>" class="form-control" type="hidden" readonly>
                           </div>
                         </div>

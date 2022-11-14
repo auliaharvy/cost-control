@@ -201,6 +201,12 @@
                             <input name="jumlah_uang_pembelian" class="form-control uang " type="text" placeholder="Masukan Jumlah Pembelian.." required>
                           </div>
                         </div>
+                        <div class="form-group">
+                          <label class='col-xs-3'>Note</label>
+                          <div class='col-xs-8'><textarea class="form-control" rows="3" name="note"></textarea>
+                          </div>
+                          <br>
+                        </div>
                       </div>
                       <div class="modal-footer">
                         <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>

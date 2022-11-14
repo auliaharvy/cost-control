@@ -82,7 +82,10 @@ class M_laporan extends CI_Model
 		$this->db->select('
         a.*,d.nama_jenis_rap,d.nama_pekerjaan,FORMAT(c.jumlah_pengajuan,0,"de_DE") as jumlah_pengajuan_v,
 		FORMAT(e.jumlah_approval,0,"de_DE") as jumlah_approval_v,FORMAT(f.jumlah_uang,0,"de_DE") as jumlah_pencairan_v,
-		FORMAT(g.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian_v
+		FORMAT(g.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian_v,c.is_approved,e.is_send_cash,f.is_buy,
+		c.note as note1,e.note_app as note2,g.note as note3,
+		DATE_FORMAT(c.created_at,"%d %M %Y") as created_at1,DATE_FORMAT(e.created_at,"%d %M %Y") as created_at2,
+		DATE_FORMAT(f.created_at,"%d %M %Y") as created_at3,DATE_FORMAT(g.created_at,"%d %M %Y") as created_at4
         ');
 		$this->db->from('akk_pengajuan as a');
 		$this->db->join('mst_project as b', 'a.project_id = b.id');

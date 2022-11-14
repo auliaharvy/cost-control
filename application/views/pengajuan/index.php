@@ -84,6 +84,7 @@
                     <th class="text-center">Tanggal Approval</th>
                     <th class="text-center">Jumlah Pengajuan</th>
                     <th class="text-center">Jumlah Approval</th>
+                    <th class="text-center">Keterangan</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -99,6 +100,7 @@
                         <td style="width: 20%;" class="text-center"><?php echo $d['tanggal_approve']; ?></td>
                         <td style="width: 15%;" class="text-center">Rp. <?php echo $d['jumlah_pengajuan']; ?></td>
                         <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_approval_v']; ?></td>
+                        <td style="width: 20%;"><?php echo $d['keterangan']; ?></td>
                       </tr>
                   <?php
                     }

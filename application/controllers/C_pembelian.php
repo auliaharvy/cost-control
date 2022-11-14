@@ -162,7 +162,7 @@ class C_pembelian extends CI_Controller
         if ($jumlah_uang_pembelian > $uang_pencairan) {
             $pesan = "Jumlah Pembelian yang diinput tidak boleh melebihi jumlah yang ada";
             $this->flashdata_failed1($pesan);
-            redirect('pembelian/' . $pengajuan_id);
+            redirect('pembelian');
         } else {
             $remaining_pembelian = $uang_pencairan - $jumlah_uang_pembelian;
             if ($remaining_pembelian > 0) {
@@ -181,7 +181,6 @@ class C_pembelian extends CI_Controller
                 $cash = $getcash[0]['cash_in_hand'];
                 $total_cash = $cash - $jumlah_uang_pembelian;
             }
-
             $datapembelian = array(
                 "pengiriman_uang_id" => $pengiriman_uang_id,
                 "destination_id" => $destination_id,
@@ -189,6 +188,7 @@ class C_pembelian extends CI_Controller
                 "jumlah_uang_pembelian" => $jumlah_uang_pembelian,
                 "created_at" => $date,
                 "last_updated_by" => $user_id,
+                "note" => $_POST['note'],
             );
 
             $wheresource = array('id' => $proj_off_id);
@@ -238,11 +238,13 @@ class C_pembelian extends CI_Controller
             $this->M_data->InsertData('trx_pembelian_barang', $datapembelian);
             $this->db->trans_complete();
             if ($this->db->trans_status() === TRUE) {
-                $this->flashdata_succeed_rap();
-                redirect('pembelian/');
+                $msg = 'Pembelian Berhasil';
+                $this->flashdata_succeed1($msg);
+                redirect('pembelian');
             } else {
-                $this->flashdata_failed_rap();
-                redirect('pembelian/');
+                $msg = 'Pembelian Gagal';
+                $this->flashdata_failed1($msg);
+                redirect('pembelian');
             }
         }
     }
@@ -280,7 +282,7 @@ class C_pembelian extends CI_Controller
         if ($jumlah_uang_pembelian > $data_remaining[0]['cash_remaining']) {
             $pesan = "Jumlah Pembelian yang diinput tidak boleh melebihi jumlah yang ada";
             $this->flashdata_failed1($pesan);
-            redirect('pembelian_detail/' . $pengajuan_id);
+            redirect('pembelian');
         } else {
             $where_trx_remaining = array("id" => $id_trx_cash_remaining);
             $data_trx_remaining = array(
@@ -321,12 +323,11 @@ class C_pembelian extends CI_Controller
             if ($this->db->trans_status() === TRUE) {
                 $msg = 'Pembelian Sisa Pengajuan Berhasil';
                 $this->flashdata_succeed1($msg);
-
-                redirect('pembelian_detail/' . $pengajuan_id);
+                redirect('pembelian');
             } else {
                 $msg = 'Pembelian Sisa Pengajuan Gagal';
                 $this->flashdata_failed1($msg);
-                redirect('pembelian_detail/' . $pengajuan_id);
+                redirect('pembelian');
             }
         }
     }

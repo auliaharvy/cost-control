@@ -14,7 +14,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1><b>DETAIL</b> LAPORAN <h3>( <?php echo $project_name; ?> )</h3>
+              <h1 class="title"><b>DETAIL</b> LAPORAN <h3 class="subtitle">( <?php echo $project_name; ?> )</h3>
               </h1>
             </div>
             <div class="col-sm-6">
@@ -123,8 +123,25 @@
                         <?php } else { ?>
                           <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_pembelian_v']; ?></td>
                         <?php } ?>
-                        <td style="width: 10%;" class="text-center"><?php echo $d['approval_date']; ?></td>
-                        <td style="width: 30%;"><?php echo $d['note_app']; ?></td>
+                        <?php if (($d['is_approved'] == 0) && ($d['is_send_cash'] == 0) && ($d['is_buy'] == 0)) { ?>
+                          <td style="width: 30%;"><?php echo $d['created_at1']; ?></td>
+                        <?php } elseif (($d['is_approved'] == 1) && ($d['is_send_cash'] == 0) && ($d['is_buy'] == 0)) { ?>
+                          <td style="width: 30%;"><?php echo $d['created_at2']; ?></td>
+                        <?php } elseif (($d['is_approved'] == 1) && ($d['is_send_cash'] == 1) && ($d['is_buy'] == 0)) { ?>
+                          <td style="width: 30%;"><?php echo $d['created_at3']; ?></td>
+                        <?php } elseif (($d['is_approved'] == 1) && ($d['is_send_cash'] == 1) && ($d['is_buy'] == 1)) { ?>
+                          <td style="width: 30%;"><?php echo $d['created_at4']; ?></td>
+                        <?php
+                        } ?> <?php if (($d['is_approved'] == 0) && ($d['is_send_cash'] == 0) && ($d['is_buy'] == 0)) { ?>
+                          <td style="width: 30%;"><?php echo $d['note1']; ?></td>
+                        <?php } elseif (($d['is_approved'] == 1) && ($d['is_send_cash'] == 0) && ($d['is_buy'] == 0)) { ?>
+                          <td style="width: 30%;"><?php echo $d['note2']; ?></td>
+                        <?php } elseif (($d['is_approved'] == 1) && ($d['is_send_cash'] == 1) && ($d['is_buy'] == 0)) { ?>
+                          <td style="width: 30%;"><?php echo $d['note2']; ?></td>
+                        <?php } elseif (($d['is_approved'] == 1) && ($d['is_send_cash'] == 1) && ($d['is_buy'] == 1)) { ?>
+                          <td style="width: 30%;"><?php echo $d['note3']; ?></td>
+                        <?php
+                              } ?>
                       </tr>
                     <?php
                     } ?>

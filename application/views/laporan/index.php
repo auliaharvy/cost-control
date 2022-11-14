@@ -41,8 +41,8 @@
                     <th class="text-center">Project</th>
                     <th class="text-center">Total RAB</th>
                     <th class="text-center">Total RAP</th>
-                    <th class="text-center">Sisa Termin</th>
                     <th class="text-center">Termin Terbayar</th>
+                    <th class="text-center">Sisa Termin</th>
                     <th class="text-center">Cash In Hand</th>
                     <th class="text-center">Total Pengeluaran</th>
                     <th class="text-center">Total Hutang</th>
@@ -78,12 +78,12 @@
                         <?php if ($d['sisa_termin'] == null) { ?>
                           <td style="width: 10%;" class="text-center">Rp. 0</td>
                         <?php } else { ?>
-                          <td style="width: 10%;" class="text-center">Rp. <?php echo $d['sisa_termin']; ?></td>
+                          <td style="width: 10%;" class="text-center">Rp. <?php echo $d['termin_terbayar']; ?></td>
                         <?php } ?>
                         <?php if ($d['termin_terbayar'] == null) { ?>
                           <td style="width: 10%;" class="text-center">Rp. 0</td>
                         <?php } else { ?>
-                          <td style="width: 10%;" class="text-center">Rp. <?php echo $d['termin_terbayar']; ?></td>
+                          <td style="width: 10%;" class="text-center">Rp. <?php echo $d['sisa_termin']; ?></td>
                         <?php } ?>
                         <td style="width: 10%;" class="text-center">Rp. <?php echo $d['cash_in_hand']; ?></td>
                         <?php if ($d['total_pengeluaran_v'] == null) { ?>

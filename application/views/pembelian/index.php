@@ -123,10 +123,10 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
                   <div class="modal-body">
-                    <input name="cash_in_hand" autocomplete="off" value="<?php echo $cash_in_hand; ?>" required class="form-control">
-                    <input name="pengajuan_id" autocomplete="off" value="<?php echo $pengajuan_id; ?>" required class="form-control">
-                    <input name="destination_id" autocomplete="off" value="<?php echo $destination_id; ?>" required class="form-control">
-                    <input name="project_office_id" autocomplete="off" value="<?php echo $project_office_id; ?>" required class="form-control">
+                    <input type="hidden" name="cash_in_hand" autocomplete="off" value="<?php echo $cash_in_hand; ?>" required class="form-control">
+                    <input type="hidden" name="pengajuan_id" autocomplete="off" value="<?php echo $pengajuan_id; ?>" required class="form-control">
+                    <input type="hidden" name="destination_id" autocomplete="off" value="<?php echo $destination_id; ?>" required class="form-control">
+                    <input type="hidden" name="project_office_id" autocomplete="off" value="<?php echo $project_office_id; ?>" required class="form-control">
                     <div class="form-group">
                       <label>Project</label>
                       <select class="form-control project_id" name="project_id" required>

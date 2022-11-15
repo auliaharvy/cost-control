@@ -36,13 +36,13 @@
               <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>No</th>
-                    <th>Action</th>
-                    <th>Nama Project</th>
-                    <th>Nama Jenis</th>
-                    <th>Nama Pekerjaan</th>
-                    <th>Jumlah Approval</th>
-                    <th>Keterangan</th>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Action</th>
+                    <th class="text-center">Nama Project</th>
+                    <th class="text-center">Nama Jenis</th>
+                    <th class="text-center">Nama Pekerjaan</th>
+                    <th class="text-center">Jumlah Approval</th>
+                    <th class="text-center">Keterangan</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -51,8 +51,8 @@
                     foreach ($data as $d) {
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
-                        <td><?php echo $nomor++; ?></td>
-                        <td align="center">
+                        <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                        <td style="width: 15%;" align="center">
                           <?php if ($d['is_send_cash'] == 0) { ?>
                             <a href="" data-toggle="modal" style="width: 120px;" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-success btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i>KIRIM BIAYA</a>
                           <?php } ?>
@@ -60,11 +60,11 @@
                             <a href="" data-toggle="modal" style="width: 120px;" class="btn btn-primary btn-circle disabled" data-popup="tooltip" data-placement="top" title="Edit Data">BIAYA TERKIRIM</a>
                           <?php } ?>
                         </td>
-                        <td class="text"><?php echo $d['project_name']; ?></td>
-                        <td class="text"><?php echo $d['nama_jenis_rap']; ?></td>
-                        <td><?php echo $d['nama_pekerjaan']; ?></td>
-                        <td>Rp <?php echo $d['jumlah_approval']; ?></td>
-                        <td><?php echo $d['keterangan']; ?></td>
+                        <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                        <td style="width: 10%;" class="text"><span><?php echo $d['nama_jenis_rap']; ?></span></td>
+                        <td style="width: 20%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
+                        <td style="width: 10%;" class="text"><span>Rp. <?php echo $d['jumlah_approval']; ?></span></td>
+                        <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
                       </tr>
                   <?php }
                   } ?>
@@ -97,13 +97,13 @@
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
                         <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                        <td style="width: 15%;"><?php echo $d['project_name']; ?></td>
-                        <td style="width: 10%;"><?php echo $d['nama_jenis_rap']; ?></td>
-                        <td style="width: 15%;"><?php echo $d['nama_pekerjaan']; ?></td>
-                        <td style="width: 10%;"><?php echo $d['organization_name']; ?></td>
-                        <td style="width: 15%;"><?php echo $d['project_name']; ?></td>
-                        <td style="width: 10%;" class="text-center">Rp <?php echo $d['jumlah_uang']; ?></td>
-                        <td style="width: 20%;"><?php echo $d['keterangan']; ?></td>
+                        <td style="width: 15%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                        <td style="width: 10%;" class="text"><span><?php echo $d['nama_jenis_rap']; ?></span></td>
+                        <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
+                        <td style="width: 10%;" class="text"><span><?php echo $d['organization_name']; ?></span></td>
+                        <td style="width: 15%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span>Rp <?php echo $d['jumlah_uang']; ?></span></td>
+                        <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
                       </tr>
                   <?php
                     }

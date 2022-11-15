@@ -58,11 +58,11 @@
                             <a href="<?php echo site_url('bayarhutang/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Membayar Hutang <?= $d['project_name']; ?> ?');" style="width: 120px;" class="btn btn-success btn-circle " data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fas fa-edit"></i>BAYAR</a>
                           <?php } ?>
                         </td>
-                        <td style="width: 25%;"><?php echo $d['project_name']; ?></td>
-                        <td style="width: 20%;" class="text-center">Rp. <?php echo $d['cash_in_hand']; ?></td>
-                        <td style="width: 15%;" class="text-center"><?php echo $d['created_at']; ?></td>
-                        <td style="width: 15%;" class="text-center">Rp. <?php echo $d['nominal']; ?></td>
-                        <td style="width: 10%;"><?php echo $d['note']; ?></td>
+                        <td style="width: 25%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                        <td style="width: 20%;" class="text text-center"><span><?php echo $d['cash_in_hand']; ?></span></td>
+                        <td style="width: 15%;" class="text text-center"><span><?php echo $d['created_at']; ?></span></td>
+                        <td style="width: 15%;" class="text text-center"><span>Rp. <?php echo $d['nominal']; ?></span></td>
+                        <td style="width: 10%;" class="text"><span><?php echo $d['note']; ?></span></td>
                       </tr>
                   <?php
                     }
@@ -93,10 +93,10 @@
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
                         <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                        <td style="width: 45%;"><?php echo $d['project_name']; ?></td>
-                        <td style="width: 20%;" class="text-center"><?php echo $d['pay_at']; ?></td>
-                        <td style="width: 20%;" class="text-center">Rp <?php echo $d['nominal']; ?></td>
-                        <td style="width: 10%;" class="text-center">Terbayar</td>
+                        <td style="width: 45%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                        <td style="width: 20%;" class="text text-center"><span><?php echo $d['pay_at']; ?></span></td>
+                        <td style="width: 20%;" class="text text-center"><span>Rp. <?php echo $d['nominal']; ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span>Terbayar</span></td>
                       </tr>
                   <?php
                     }

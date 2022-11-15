@@ -21,7 +21,7 @@ class M_laporan extends CI_Model
 		$user_id = $this->session->userdata('id');
 		if ($role == 4) {
 			$data = $this->db->query("SELECT a.*, IF((c.persentase-a.project_progress)>5,'bg-danger text-white','') as background_text, FORMAT(c.total_biaya,0,'de_DE') as total_biaya_v,FORMAT(c.total_pengeluaran,0,'de_DE') as total_pengeluaran_v, a.project_name,FORMAT(a.cash_in_hand,0,'de_DE') as cash_in_hand
-			, a.project_location, a.project_deadline,FORMAT(a.rab_project,0,'de_DE') as rab_project_v,DATE_FORMAT(a.project_deadline,'%d %M %Y') as project_deadline_v,DATE_FORMAT(a.finish_at,'%d %M %Y') as finish_at_v, CONCAT(c.persentase,'%') as persentase_v FROM akk_rap as b ,
+			, a.project_location, a.project_deadline,FORMAT(a.rab_project,0,'de_DE') as rab_project_v,DATE_FORMAT(a.project_deadline,'%d %M %Y') as project_deadline_v,DATE_FORMAT(a.finish_at,'%d %M %Y') as finish_at_v, CONCAT(c.persentase,'%') as persentase_v FROM akk_rap as b
 			RIGHT JOIN (SELECT rap_id,SUM(jumlah_biaya) AS total_biaya, SUM(jumlah_aktual) AS total_pengeluaran,ROUND((SUM(jumlah_aktual) / SUM(jumlah_biaya) * 100),2) as persentase FROM akk_rap_biaya GROUP BY rap_id) as c 
 			ON b.id = c.rap_id 
 			RIGHT JOIN mst_project as a ON b.project_id = a.id WHERE a.created_by = $user_id");
@@ -103,19 +103,16 @@ class M_laporan extends CI_Model
 		}
 	}
 
-	public function showuangdetail1($id)
+	public function showuangdetailremaining($id)
 	{
 		$this->db->select('
-        a.*,b.nama_jenis_rap,b.nama_pekerjaan,c.note_app,c.jumlah_approval,c.is_send_cash,FORMAT(c.jumlah_approval,0,"de_DE") as jumlah_approval_v,
-        FORMAT(a.jumlah_pengajuan,0,"de_DE") as jumlah_pengajuan_v,
-        DATE_FORMAT(c.created_at,"%d %M %Y") as approval_date
+        c.nama_jenis_rap,c.nama_pekerjaan,FORMAT(a.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian_v,a.note as note1,
+		DATE_FORMAT(a.created_at,"%d %M %Y") as created_at1
         ');
-		$this->db->from('akk_pengajuan_biaya as a');
-		$this->db->join('akk_pengajuan as d', 'a.pengajuan_id = d.id');
-		$this->db->join('mst_project as e', 'd.project_id = e.id');
-		$this->db->join('akk_rap_biaya as b', 'a.rap_biaya_id = b.id');
-		$this->db->join('akk_pengajuan_approval as c', 'a.id = c.pengajuan_biaya_id', 'left');
-		$this->db->where('d.project_id', $id);
+		$this->db->from('trx_pembelian_barang_remaining as a');
+		$this->db->join('mst_project as b', 'a.project_id = b.id');
+		$this->db->join('akk_rap_biaya as c', 'a.rap_biaya_id = c.id');
+		$this->db->where('a.project_id', $id);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();

@@ -39,20 +39,20 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah"><i class="fa fa-plus-circle"></i> Tambah Project </button><br>
               <?php } ?>
               <br>
-              <table style="width: 150%;" id="example1" class="table table-bordered table-striped">
+              <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th style="width: 5%;">No</th>
-                    <th>Action</th>
-                    <th style="width: 30%;">Project</th>
-                    <th>Location</th>
-                    <th>Deadline</th>
-                    <th style="width: 108px;">Cash In Hand</th>
-                    <th style="width: 108px;">Total RAB</th>
-                    <th style="width: 108px;">Total RAP</th>
-                    <th style="width: 108px;">Total Pengeluaran</th>
-                    <th style="width: 50px;">Pengeluaran (%)</th>
-                    <th>Progress (%)</th>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Action</th>
+                    <th class="text-center">Project</th>
+                    <th class="text-center">Location</th>
+                    <th class="text-center">Deadline</th>
+                    <th class="text-center">Cash In Hand</th>
+                    <th class="text-center">Total RAB</th>
+                    <th class="text-center">Total RAP</th>
+                    <th class="text-center">Total Pengeluaran</th>
+                    <th class="text-center">Pengeluaran (%)</th>
+                    <th class="text-center">Progress (%)</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -62,30 +62,30 @@
                     foreach ($databelum as $d) {
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
-                        <td><?php echo $nomor++; ?></td>
-                        <td align="center">
+                        <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                        <td style="width: 5%;" align="center">
                           <a href="<?php echo base_url() . "project_detail/" . $d['id']; ?>"><button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button>
                             <?php if (($this->session->userdata('role')) == 4) { ?>
                               <a data-toggle="modal" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></a>
                             <?php } ?>
                         </td>
-                        <td class="text"><span><?php echo $d['project_name']; ?></span></td>
-                        <td class="text"><span><?php echo $d['project_location']; ?></span></td>
-                        <td><?php echo $d['project_deadline_v']; ?></td>
-                        <td class="text"><span>Rp. <?php echo $d['cash_in_hand']; ?></span></td>
-                        <td class="text"><span>Rp. <?php echo $d['rab_project_v']; ?></span></td>
+                        <td style="width: 10%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                        <td style="width: 10%;" class="text"><span><?php echo $d['project_location']; ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span><?php echo $d['project_deadline_v']; ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['cash_in_hand']; ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['rab_project_v']; ?></span></td>
                         <?php if ($d['total_biaya_v'] == null) { ?>
-                          <td>Rp. 0</td>
+                          <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
                         <?php } else { ?>
-                          <td class="text"><span>Rp. <?php echo $d['total_biaya_v']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_biaya_v']; ?></span></td>
                         <?php } ?>
                         <?php if ($d['total_pengeluaran_v'] == null) { ?>
-                          <td>Rp. 0</td>
+                          <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
                         <?php } else { ?>
-                          <td class="text"><span>Rp. <?php echo $d['total_pengeluaran_v']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_pengeluaran_v']; ?></span></td>
                         <?php } ?>
-                        <td><?php echo $d['persentase_v'];  ?></td>
-                        <td><?php echo $d['project_progress'];  ?>%</td>
+                        <td style="width: 10%;" class="text text-center"><span><?php echo $d['persentase_v'];  ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span><?php echo $d['project_progress'];  ?>%</span></td>
                       </tr>
                   <?php
                     }
@@ -102,16 +102,16 @@
               <table id="example2" class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>No</th>
-                    <th>Action</th>
-                    <th>Project</th>
-                    <th>Lokasi Project</th>
-                    <th>Deadline</th>
-                    <th>Total RAB</th>
-                    <th>Total RAP</th>
-                    <th>Total Pengeluaran</th>
-                    <th>%</th>
-                    <th>Finish At</th>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Action</th>
+                    <th class="text-center">Project</th>
+                    <th class="text-center">Lokasi Project</th>
+                    <th class="text-center">Deadline</th>
+                    <th class="text-center">Total RAB</th>
+                    <th class="text-center">Total RAP</th>
+                    <th class="text-center">Total Pengeluaran</th>
+                    <th class="text-center">%</th>
+                    <th class="text-center">Finish At</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -121,18 +121,18 @@
                     foreach ($datasudah as $d) {
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
-                        <td><?php echo $nomor++; ?></td>
+                        <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
                         <td align="center">
                           <a href="<?php echo base_url() . "laporan_detail/" . $d['id']; ?>"><button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button></a>
                         </td>
-                        <td class="text"><span><?php echo $d['project_name']; ?></span></td>
-                        <td class="text"><span><?php echo $d['project_location']; ?></span></td>
-                        <td><?php echo $d['project_deadline_v']; ?></td>
-                        <td class="text"><span>Rp. <?php echo $d['rab_project_v']; ?></span></td>
-                        <td class="text"><span>Rp. <?php echo $d['total_biaya_v']; ?></span></td>
-                        <td class="text"><span>Rp. <?php echo $d['total_pengeluaran_v']; ?></span></td>
-                        <td><?php echo $d['persentase_v'];  ?></td>
-                        <td><?php echo $d['finish_at_v']; ?></td>
+                        <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                        <td style="width: 15%;" class="text"><span><?php echo $d['project_location']; ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span><?php echo $d['project_deadline_v']; ?></td>
+                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['rab_project_v']; ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_biaya_v']; ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_pengeluaran_v']; ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span><?php echo $d['persentase_v']; ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span><?php echo $d['finish_at_v']; ?></span></td>
                       </tr>
                   <?php
                     }

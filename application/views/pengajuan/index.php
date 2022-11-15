@@ -37,13 +37,13 @@
               <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>No</th>
-                    <th>Action</th>
-                    <th>Nama Project</th>
-                    <th>Nama Pekerjaan</th>
-                    <th>Tanggal Pengajuan</th>
-                    <th>Jumlah Pengajuan</th>
-                    <th>Keterangan</th>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Action</th>
+                    <th class="text-center">Nama Project</th>
+                    <th class="text-center">Nama Pekerjaan</th>
+                    <th class="text-center">Tanggal Pengajuan</th>
+                    <th class="text-center">Jumlah Pengajuan</th>
+                    <th class="text-center">Keterangan</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -53,15 +53,15 @@
                     foreach ($data as $d) {
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
-                        <td><?php echo $nomor++; ?></td>
-                        <td align="center">
+                        <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                        <td style="width: 15%;" align="center">
                           <a data-toggle="modal" data-target="#editpengajuan<?php echo $id; ?>"><button class="btn btn-warning btn-circle btn-sm"><i class="fa fa-edit" data-popup="tooltip" data-placement="top" title="Edit Data"></i></button></a>
                         </td>
-                        <td><?php echo $d['project_name']; ?></td>
-                        <td><?php echo $d['nama_pekerjaan']; ?></td>
-                        <td><?php echo $d['tanggal_pengajuan']; ?></td>
-                        <td>Rp. <?php echo $d['jumlah_pengajuan']; ?></td>
-                        <td><?php echo $d['keterangan']; ?></td>
+                        <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                        <td style="width: 20%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span><?php echo $d['tanggal_pengajuan']; ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pengajuan']; ?></span></td>
+                        <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
                       </tr>
                   <?php
                     }
@@ -95,12 +95,12 @@
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
                         <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                        <td style="width: 25%;"><?php echo $d['project_name']; ?></td>
-                        <td style="width: 25%;"><?php echo $d['nama_pekerjaan']; ?></td>
-                        <td style="width: 20%;" class="text-center"><?php echo $d['tanggal_approve']; ?></td>
-                        <td style="width: 15%;" class="text-center">Rp. <?php echo $d['jumlah_pengajuan']; ?></td>
-                        <td style="width: 10%;" class="text-center">Rp. <?php echo $d['jumlah_approval_v']; ?></td>
-                        <td style="width: 20%;"><?php echo $d['keterangan']; ?></td>
+                        <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                        <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
+                        <td style="width: 20%;" class="text text-center"><span><?php echo $d['tanggal_approve']; ?></span></td>
+                        <td style="width: 15%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pengajuan']; ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_approval_v']; ?></span></td>
+                        <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
                       </tr>
                   <?php
                     }

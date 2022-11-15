@@ -32,7 +32,6 @@
             <div class="card-header">
               <h3 class="card-title">Inventory</h3>
             </div>
-            <!-- /.card-header -->
             <div class="card-body">
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmaterial" title="Tambah Material"><i class="fa fa-plus-circle"></i> Tambah Material </button>
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#transfermaterial" title="Transfer Material"><i class="fa fa-plus-circle"></i> Transfer Material </button><br><br>
@@ -57,9 +56,9 @@
                         <td style="width: 10%;" align="center">
                           <button data-toggle="modal" data-target="#editmaterial<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Material"><i class="fas fa-edit"></i></button>
                         </td>
-                        <td style="width: 40%;"><?php echo $d['material_name']; ?></td>
-                        <td style="width: 20%;" class="text-center"><?php echo $d['qty']; ?></td>
-                        <td style="width: 25%;"><?php echo $d['unit']; ?></td>
+                        <td style="width: 40%;" class="text"><span><?php echo $d['material_name']; ?></span></td>
+                        <td style="width: 20%;" class="text text-center"><span><?php echo $d['qty']; ?></span></td>
+                        <td style="width: 25%;" class="text"><span><?php echo $d['unit']; ?></span></td>
                       </tr>
                   <?php
                     }
@@ -106,11 +105,11 @@
                     $id = $d['id']; ?>
                     <tr class="odd gradeX">
                       <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                      <td style="width: 15;"><?php echo $d['material_name']; ?></td>
-                      <td style="width: 15%;" class="text-center"><?php echo $d['qty']; ?></td>
-                      <td style="width: 20%;"><?php echo $d['project_name']; ?></td>
-                      <td style="width: 30%;"><?php echo $d['note']; ?></td>
-                      <td style="width: 15%;" class="text-center"><?php echo $d['created_at_v']; ?></td>
+                      <td style="width: 15;" class="text"><span><?php echo $d['material_name']; ?></span></td>
+                      <td style="width: 15%;" class="text text-center"><span><?php echo $d['qty']; ?></span></td>
+                      <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                      <td style="width: 30%;" class="text"><span><?php echo $d['note']; ?></span></td>
+                      <td style="width: 15%;" class="text text-center"><span><?php echo $d['created_at_v']; ?></span></td>
                     </tr>
                   <?php
                   } ?>
@@ -118,8 +117,6 @@
               </table>
             </div>
           </div>
-          <!-- /.card-body -->
-          <!-- /.card -->
           <?php if (is_array($datainventory) || is_object($datainventory)) {
             foreach ($datainventory as $i) :
               $id = $i['id'];

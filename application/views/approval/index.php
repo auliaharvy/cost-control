@@ -53,27 +53,25 @@
                     $id = $d['id']; ?>
                     <tr class="odd gradeX">
                       <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                      <td align="center">
+                      <td style="width: 15%;" align="center">
                         <?php if ($d['is_approved'] == 0) {  ?>
                           <button data-toggle="modal" style="width: 120px;" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-primary btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i>Approve</button>
                         <?php } else { ?>
                           <button type="submit" class="btn btn-primary disabled"><i class="fa fa-edit"></i> Approve</button>
                         <?php } ?>
                       </td>
-                      <td style="width: 25%;"><?php echo $d['project_name']; ?></td>
-                      <td style="width: 25%;"><?php echo $d['nama_jenis_rap']; ?></td>
-                      <td style="width: 25%;"><?php echo $d['nama_pekerjaan']; ?></td>
-                      <td style="width: 20%;" class="text-center"><?php echo $d['tanggal_pengajuan']; ?></td>
-                      <td style="width: 20%;" class="text-center">Rp <?php echo $d['jumlah_pengajuan_v']; ?></td>
-                      <td style="width: 30%;" class="text-center"><?php echo $d['keterangan']; ?></td>
+                      <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?><span></td>
+                      <td style="width: 10%;" class="text"><span><?php echo $d['nama_jenis_rap']; ?></td>
+                      <td style="width: 10%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></td>
+                      <td style="width: 10%;" class="text text-center"><span><?php echo $d['tanggal_pengajuan']; ?></span></td>
+                      <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pengajuan_v']; ?></span></td>
+                      <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
                     </tr>
                   <?php } ?>
                 </tbody>
               </table>
             </div>
-            <!-- /.card-body -->
           </div>
-          <!-- /.card -->
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Pengajuan ( Sudah Approve )</h3>
@@ -99,19 +97,18 @@
                     $id = $d['id']; ?>
                     <tr class="odd gradeX">
                       <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                      <td style="width: 25%;"><?php echo $d['project_name']; ?></td>
-                      <td style="width: 25%;"><?php echo $d['nama_jenis_rap']; ?></td>
-                      <td style="width: 25%;"><?php echo $d['nama_pekerjaan']; ?></td>
-                      <td style="width: 25%;"><?php echo $d['tanggal_approve']; ?></td>
-                      <td style="width: 20%;" class="text-center">Rp <?php echo $d['jumlah_pengajuan_v']; ?></td>
-                      <td style="width: 15%;">Rp <?php echo $d['jumlah_approval_v']; ?></td>
-                      <td style="width: 25%;" class="text-center"><?php echo $d['keterangan']; ?></td>
+                      <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                      <td style="width: 10%;" class="text"><span><?php echo $d['nama_jenis_rap']; ?></span></td>
+                      <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
+                      <td style="width: 10%;" class="text"><span><?php echo $d['tanggal_approve']; ?></span></td>
+                      <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pengajuan_v']; ?></span></td>
+                      <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_approval_v']; ?></span></td>
+                      <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
                     </tr>
                   <?php
                   } ?>
                 </tbody>
               </table>
-              <!-- /.card -->
             </div>
           </div>
           <?php
@@ -157,14 +154,10 @@
             </div>
           <?php endforeach; ?>
         </div>
-        <!-- /.col -->
       </div>
-      <!-- /.row -->
     </section>
-    <!-- /.content -->
   </div>
 </div>
-<!-- /.content-wrapper -->
 <?php echo $footer; ?>
 <!-- page script -->
 <script>

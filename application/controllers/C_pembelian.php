@@ -256,7 +256,7 @@ class C_pembelian extends CI_Controller
         $user_id = $this->session->userdata('id');
         $project_id = $_POST['project_id'];
         $pengajuan_id = $_POST['pengajuan_id'];
-        $destination_id = $_POST['destination_id'];
+        $destination_id = 2;
         $project_office_id = $_POST['project_office_id'];
         $rap_biaya_id = $_POST['rap_biaya_id'];
         $a = $_POST['jumlah_uang_pembelian'];

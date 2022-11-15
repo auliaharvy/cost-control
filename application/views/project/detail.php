@@ -88,8 +88,6 @@
                         </form><br>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateprogress" title="Progress Project"><i class="fa fa-edit"></i> Update Progress </button><br><br>
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#projectselesai" title="Selesai Project"><i class="fa fa-edit"></i> Selesaikan Project </button>
-                        <!-- <a data-toggle="modal" data-target="#updateprogress" class="btn btn-primary" data-popup="tooltip" data-placement="top" title="Progress Project"><i class="fa fa-edit"></i>Update Progress</a><br><br> -->
-                        <!-- <a data-toggle="modal" data-target="#projectselesai" class="btn btn-success" data-popup="tooltip" data-placement="top" title="Selesaikan"><i class="fa fa-edit"></i> Selesaikan Project</a> -->
                       <?php } ?>
                       <br>
                       <br>
@@ -133,13 +131,13 @@
                             <button type="button" class="btn btn-warning btn-circle btn-sm disabled"><i class="fas fa-edit"></i></button>
                           <?php } ?>
                         </td>
-                        <td style="width: 10%;"><?php echo $d['nama_jenis']; ?></td>
-                        <td style="width: 15%;"><?php echo $d['nama_pekerjaan']; ?></td>
-                        <td style="width: 10%;"><?php echo $d['nama_kategori']; ?></td>
-                        <td style="width: 10%;" class="text-center">Rp <?php echo $d['jumlah_biaya_v']; ?></td>
-                        <td style="width: 10%;" class="text-center">Rp <?php echo $d['jumlah_aktual_v']; ?></td>
-                        <td style="width: 5%;"><?php echo $d['presentase']; ?> %</td>
-                        <td style="width: 15%;"><?php echo $d['note']; ?></td>
+                        <td style="width: 10%;" class="text"><span><?php echo $d['nama_jenis']; ?></span></td>
+                        <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
+                        <td style="width: 10%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span>Rp <?php echo $d['jumlah_biaya_v']; ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span>Rp <?php echo $d['jumlah_aktual_v']; ?></span></td>
+                        <td style="width: 5%;" class="text text-center"><span><?php echo $d['presentase']; ?> %</span></td>
+                        <td style="width: 15%;" class="text"><span><?php echo $d['note']; ?></span></td>
                       </tr>
                   <?php
                     }
@@ -156,11 +154,11 @@
               <table id="example2" class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>No</th>
-                    <th>Action</th>
-                    <th>Nama Material</th>
-                    <th>Qty</th>
-                    <th>Unit</th>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Action</th>
+                    <th class="text-center">Nama Material</th>
+                    <th class="text-center">Qty</th>
+                    <th class="text-center">Unit</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -170,13 +168,13 @@
                     foreach ($data_inventory as $d) {
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
-                        <td><?php echo $nomor; ?></td>
+                        <td style="width: 5%;" class="text-center"><?php echo $nomor; ?></td>
                         <td style="width: 10%;" align="center">
                           <a data-toggle="modal" data-target="#editmaterial<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Material"><i class="fas fa-edit"></i></a>
                         </td>
-                        <td><?php echo $d['material_name']; ?></td>
-                        <td><?php echo $d['qty']; ?></td>
-                        <td><?php echo $d['unit']; ?></td>
+                        <td style="width: 40;" class="text"><span><?php echo $d['material_name']; ?></span></td>
+                        <td style="width: 20;" class="text text-center"><span><?php echo $d['qty']; ?></span></td>
+                        <td style="width: 25;" class="text"><span><?php echo $d['unit']; ?></span></td>
                       </tr>
                   <?php
                       $nomor = $nomor + 1;

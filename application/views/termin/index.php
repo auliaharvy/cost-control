@@ -55,12 +55,12 @@
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
                         <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                        <td style="width: 20%;"><?php echo $d['project_name']; ?></td>
-                        <td style="width: 15%;"><?php echo $d['project_location']; ?></td>
-                        <td style="width: 15%;" class="text-center"><?php echo $d['project_deadline']; ?></td>
-                        <td style="width: 15%;" class="text-center">Rp <?php echo $d['rab_project_v']; ?></td>
-                        <td style="width: 15%;" class="text-center">Rp <?php echo $d['termin_terbayar']; ?></td>
-                        <td style="width: 15%;" class="text-center">Rp <?php echo $d['sisa_termin']; ?></td>
+                        <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                        <td style="width: 15%;" class="text"><span><?php echo $d['project_location']; ?></span></td>
+                        <td style="width: 15%;" class="text text-center"><span><?php echo $d['project_deadline']; ?></span></td>
+                        <td style="width: 15%;" class="text text-center"><span>Rp <?php echo $d['rab_project_v']; ?></span></td>
+                        <td style="width: 15%;" class="text text-center"><span>Rp <?php echo $d['termin_terbayar']; ?></span></td>
+                        <td style="width: 15%;" class="text text-center"><span>Rp <?php echo $d['sisa_termin']; ?></span></td>
                       </tr>
                   <?php
                     }

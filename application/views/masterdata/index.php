@@ -71,9 +71,9 @@
                                 <button data-toggle="modal" data-target="#edituser<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit User"><i class="fas fa-edit"></i></button>
                                 <button data-toggle="modal" data-target="#editpassuser<?php echo $id; ?>" class="btn btn-success btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Password"><i class="fas fa-lock"></i> Ubah Password</button>
                               </td>
-                              <td style="width: 25%;"><?php echo $d['fullname']; ?></td>
-                              <td style="width: 20%;"><?php echo $d['username']; ?></td>
-                              <td style="width: 20%;"><?php echo $d['role_name']; ?></td>
+                              <td style="width: 25%;" class="text"><span><?php echo $d['fullname']; ?></span></td>
+                              <td style="width: 20%;" class="text"><span><?php echo $d['username']; ?></span></td>
+                              <td style="width: 20%;" class="text"><span><?php echo $d['role_name']; ?></span></td>
                               <td style="width: 10%;" align="center">
                                 <p class="<?php echo $d['background_text']; ?>"><?php echo $d['is_active_v']; ?></p>
                               </td>
@@ -114,8 +114,8 @@
                               <td style="width: 10%;" align="center">
                                 <button data-toggle="modal" data-target="#editmaterial<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Material"><i class="fas fa-edit"></i></button>
                               </td>
-                              <td style="width: 55%;"><?php echo $d['material_name']; ?></td>
-                              <td style="width: 30%;"><?php echo $d['unit']; ?></td>
+                              <td style="width: 55%;" class="text"><span><?php echo $d['material_name']; ?></span></td>
+                              <td style="width: 30%;" class="text"><span><?php echo $d['unit']; ?></span></td>
                             </tr>
                         <?php
                           }

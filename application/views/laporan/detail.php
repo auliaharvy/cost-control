@@ -127,7 +127,7 @@
                           <td style="width: 10%;" class="text"><span><?php echo $d['created_at1']; ?></span></td>
                         <?php } elseif (($d['is_approved'] == 1) && ($d['is_send_cash'] == 0) && ($d['is_buy'] == 0)) { ?>
                           <td style="width: 10%;" class="text"><span><?php echo $d['created_at2']; ?></span></td>
-                        <?php } elseif (($d['is_approved'] == 1) && ($d['is_send_cash'] == 1) && ($d['is_buy'] == 0)) { ?>
+                        <?php } elseif (($d['is_approved'] == 1) && ($d['is_send_cash'] == 1) && ($d['is_buy'] == 2)) { ?>
                           <td style="width: 10%;" class="text"><span><?php echo $d['created_at3']; ?></span></td>
                         <?php } elseif (($d['is_approved'] == 1) && ($d['is_send_cash'] == 1) && ($d['is_buy'] == 1)) { ?>
                           <td style="width: 10%;" class="text"><span><?php echo $d['created_at4']; ?></span></td>
@@ -136,8 +136,8 @@
                           <td style="width: 15%;" class="text"><span><?php echo $d['note1']; ?></span></td>
                         <?php } elseif (($d['is_approved'] == 1) && ($d['is_send_cash'] == 0) && ($d['is_buy'] == 0)) { ?>
                           <td style="width: 15%;" class="text"><span><?php echo $d['note2']; ?></span></td>
-                        <?php } elseif (($d['is_approved'] == 1) && ($d['is_send_cash'] == 1) && ($d['is_buy'] == 0)) { ?>
-                          <td style="width: 15%;" class="text"><span><?php echo $d['note2']; ?></span></td>
+                        <?php } elseif (($d['is_approved'] == 1) && ($d['is_send_cash'] == 1) && ($d['is_buy'] == 2)) { ?>
+                          <td style="width: 15%;" class="text"><span><?php echo $d['note3']; ?></span></td>
                         <?php } elseif (($d['is_approved'] == 1) && ($d['is_send_cash'] == 1) && ($d['is_buy'] == 1)) { ?>
                           <td style="width: 15%;" class="text"><span><?php echo $d['note3']; ?></span></td>
                         <?php

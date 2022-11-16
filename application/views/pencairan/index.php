@@ -63,7 +63,7 @@
                         <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
                         <td style="width: 10%;" class="text"><span><?php echo $d['nama_jenis_rap']; ?></span></td>
                         <td style="width: 20%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
-                        <td style="width: 10%;" class="text"><span>Rp. <?php echo $d['jumlah_approval']; ?></span></td>
+                        <td style="width: 10%;" class="text"><span>Rp. <?php echo $d['jumlah_approval_v']; ?></span></td>
                         <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
                       </tr>
                   <?php }

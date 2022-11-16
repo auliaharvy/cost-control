@@ -301,6 +301,7 @@ class C_pembelian extends CI_Controller
                 "jumlah_uang_pembelian" => $jumlah_uang_pembelian,
                 "created_at" => $date,
                 "last_updated_by" => $user_id,
+                "note" => $_POST['note'],
             );
             $wheresource = array('id' => $project_office_id);
             $datasource = array(

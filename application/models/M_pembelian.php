@@ -23,7 +23,7 @@ class M_pembelian extends CI_Model
 		$this->db->select('
           a.*,d.project_name,d.project_location,b.note_app as keterangan,
           d.project_deadline,c.id as pengajuan_id,FORMAT(a.jumlah_uang,0,"de_DE") as jumlah_uang, g.nama_pekerjaan,
-		  c.id as pengajuan_id,d.id as project_id
+		  c.id as pengajuan_id,d.id as project_id,FORMAT(h.cash_remaining,0,"de_DE") as sisa_uang 
       ');
 		$this->db->from('trx_pengiriman_uang as a');
 		$this->db->join('akk_pengajuan_approval as b', 'a.pengajuan_approval_id = b.id');
@@ -32,6 +32,7 @@ class M_pembelian extends CI_Model
 		$this->db->join('trx_pembelian_barang as e', 'e.pengiriman_uang_id = a.id', 'left');
 		$this->db->join('akk_rap as f', 'c.rap_id = f.id');
 		$this->db->join('akk_rap_biaya as g', 'f.id = g.rap_id', 'inner');
+		$this->db->join('trx_cash_remaining as h', 'd.id = h.project_id');
 		$this->db->where('a.is_buy', 0);
 		$this->db->where('d.project_status', 0);
 		$this->db->where('d.created_by', $user_id);
@@ -279,6 +280,24 @@ class M_pembelian extends CI_Model
       ');
 		$this->db->from('akk_pengajuan as a');
 		$this->db->join('mst_project as b', 'a.project_id = b.id');
+		$this->db->where('a.id', $id);
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
+
+	public function getProjectcash($id)
+	{
+		$this->db->select('
+          a.*,b.project_name, b.project_location, b.project_deadline, b.rab_project, b.id as project_id, a.id as pengajuan_id,
+		  FORMAT(c.cash_remaining,0,"de_DE") as sisa_uang
+      ');
+		$this->db->from('akk_pengajuan as a');
+		$this->db->join('mst_project as b', 'a.project_id = b.id');
+		$this->db->join('trx_cash_remaining as c', 'b.id = c.project_id');
 		$this->db->where('a.id', $id);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {

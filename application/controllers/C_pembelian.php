@@ -20,9 +20,10 @@ class C_pembelian extends CI_Controller
     {
         $databelum = $this->M_pembelian->showPembelianbelum(); //show pembelian data
         $datasudah = $this->M_pembelian->showPembeliansudah(); //show pembelian data
-        // $data_pembelian = $this->M_pembelian->getPengajuan($id);
         $project = $this->M_transaksi->getProject(0);
-        // $get = $this->M_pembelian->getPengajuan(0);
+        $pengajuan = $this->M_pembelian->showPencairan(0);
+        $project_id = $project[0]['id'];
+        $pengajuan_id = $pengajuan[0]['pengajuan_id'];
         $destination_id = 2;
         // $project_id = $get[0]['id'];
         $show = array(
@@ -33,7 +34,9 @@ class C_pembelian extends CI_Controller
             'databelum' => $databelum,
             'datasudah' => $datasudah,
             'project' => $project,
-            // 'project_id' => $project_id,
+            'project_id' => $project_id,
+            'project_office_id' => $project_id,
+            'pengajuan_id' => $pengajuan_id,
             'destination_id' => $destination_id,
             // 'data_pembelian' => $data_pembelian,
 

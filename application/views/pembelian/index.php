@@ -123,16 +123,16 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
                   <div class="modal-body">
-                    <input type="hidden" name="cash_in_hand" autocomplete="off" value="<?php echo $cash_in_hand; ?>" required class="form-control">
-                    <input type="hidden" name="pengajuan_id" autocomplete="off" value="<?php echo $pengajuan_id; ?>" required class="form-control">
-                    <input type="hidden" name="destination_id" autocomplete="off" value="<?php echo $destination_id; ?>" required class="form-control">
-                    <input type="hidden" name="project_office_id" autocomplete="off" value="<?php echo $project_office_id; ?>" required class="form-control">
+                    <input name="project_id" autocomplete="off" value="<?php echo $project_id; ?>" required class="form-control">
+                    <input name="pengajuan_id" autocomplete="off" value="<?php echo $pengajuan_id; ?>" required class="form-control">
+                    <input name="destination_id" autocomplete="off" value="<?php echo $destination_id; ?>" required class="form-control">
+                    <input name="project_office_id" autocomplete="off" value="<?php echo $project_office_id; ?>" required class="form-control">
                     <div class="form-group">
                       <label>Project</label>
                       <select class="form-control project_id" name="project_id" required>
-                        <option value="">Nama Project (Cash_Remaining)</option>
+                        <option value="">Nama Project (Cash Remaining)</option>
                         <?php foreach ($project as $us) { ?>
-                          <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?> (Rp <?php echo $us['cash_in_hand']; ?>)</option>
+                          <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?> (Rp <?php echo $sisa_uang; ?>)</option>
                         <?php } ?>
                       </select>
                     </div>
@@ -171,6 +171,7 @@
               $pengiriman_uang_id = $i['id'];
               $destination_id = $i['destination_id'];
               $project_office_id = $i['project_office_id'];
+              $project_id = $i['project_office_id'];
               $jumlah_uang = $i['jumlah_uang'];
           ?>
               <div class="modal fade" id="belanja-pengajuan<?php echo $pengiriman_uang_id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
@@ -184,10 +185,10 @@
                       <div class="modal-body">
                         <div class="form-group">
                           <div class="col-xs-8">
-                            <input name="pengiriman_uang_id" value="<?php echo $pengiriman_uang_id; ?>" class="form-control" readonly>
-                            <input name="destination_id" value="<?php echo $destination_id; ?>" class="form-control" readonly>
-                            <input name="project_office_id" value="<?php echo $project_office_id; ?>" class="form-control" readonly>
-                            <input name="project_id" value="<?php echo $project_id; ?>" class="form-control" readonly>
+                            <input name="pengiriman_uang_id" value="<?php echo $pengiriman_uang_id; ?>" class="form-control" type="hidden" readonly>
+                            <input name="destination_id" value="<?php echo $destination_id; ?>" class="form-control" type="hidden" readonly>
+                            <input name="project_office_id" value="<?php echo $project_office_id; ?>" class="form-control" type="hidden" readonly>
+                            <input name="project_id" value="<?php echo $project_id; ?>" class="form-control" type="hidden" readonly>
                             <input type="hidden" name="is_buy" value="1">
                             <input type="hidden" name="msg" value="Pembelian">
                           </div>

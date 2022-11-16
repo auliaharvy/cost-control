@@ -281,6 +281,26 @@ JOIN mst_project as c ON a.project_id = c.id WHERE c.project_status=0');
 		}
 	}
 
+	public function getprojectcashremaining($status)
+	{
+		$user_id = $this->session->userdata('id');
+		$this->db->select('
+          a.*,FORMAT(c.total_biaya,0,"de_DE") as total_biaya_v,FORMAT(c.total_pengeluaran,0,"de_DE") as total_pengeluaran_v,
+		  c.rap_id,SUM(c.jumlah_biaya) AS total_biaya, SUM(c.jumlah_aktual) AS total_pengeluaran,ROUND((SUM(c.jumlah_aktual) / SUM(c.jumlah_biaya) * 100),2) as persentase
+      ');
+		$this->db->from('mst_project as a');
+		$this->db->join('akk_rap as b', 'a.id = b.project_id', 'left');
+		$this->db->join('akk_rap_biaya as c', 'b.id = c.rap_id', 'left');
+		$this->db->where('a.project_status', $status);
+		$this->db->where('a.created_by', $user_id);
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
+
 	public function getOffice()
 	{
 		$this->db->select('

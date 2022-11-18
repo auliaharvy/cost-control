@@ -75,12 +75,12 @@
                         <?php } else { ?>
                           <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_biaya_v']; ?></span></td>
                         <?php } ?>
-                        <?php if ($d['sisa_termin'] == null) { ?>
+                        <?php if ($d['termin_terbayar'] == null) { ?>
                           <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
                         <?php } else { ?>
                           <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['termin_terbayar']; ?></span></td>
                         <?php } ?>
-                        <?php if ($d['termin_terbayar'] == null) { ?>
+                        <?php if ($d['sisa_termin'] == null) { ?>
                           <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
                         <?php } else { ?>
                           <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['sisa_termin']; ?></span></td>
@@ -91,10 +91,10 @@
                         <?php } else { ?>
                           <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_pengeluaran_v']; ?></span></td>
                         <?php } ?>
-                        <?php if ($d['jumlah_hutang'] == null) { ?>
+                        <?php if ($d['total_hutang'] == null) { ?>
                           <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
                         <?php } else { ?>
-                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_hutang']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_hutang']; ?></span></td>
                         <?php } ?>
                         <td style="width: 5%;" class="text text-center"><span><?php echo $d['persentase_v'];  ?></span></td>
                         <td style="width: 5%;" class="text text-center">

@@ -12,6 +12,8 @@ class C_dashboard extends CI_Controller
         }
         date_default_timezone_set('Asia/Jakarta');
         $this->load->model("M_project");
+        $this->load->model("M_laporan");
+        $this->load->model("M_transaksi");
         $this->load->helper('form');
         $this->load->library('Lharby');
     }
@@ -28,14 +30,19 @@ class C_dashboard extends CI_Controller
             $get = $this->M_data->GetJumlahKas(); //barchart total
             $titlekas = 'TOTAL MODAL YANG DISETOR ';
         }
-        $data = $this->M_data->GetPie();
-        $get_kas = $this->M_data->Total_cash();
+        $project = $this->M_transaksi->getProject(0);
+        $data = $this->M_data->GetPie1();
+        $get_kas = $this->M_data->masterkas();
         $datapengajuan = $this->M_data->getTotalPengajuan();
         $pengajuan = $this->M_data->TotalPengajuan();
         $datapengajuanapproval = $this->M_data->getTotalPengajuanApproval();
         $pengajuanapproval = $this->M_data->TotalPengajuanApproval();
         $datapembelian = $this->M_data->getPembelian();
         $pembelian = $this->M_data->TotalPembelian();
+        $totaluang1 = $this->M_data->totaluang1();
+        $totaluang2 = $this->M_data->totaluang2();
+        $totaluang3 = $this->M_data->totaluang3();
+        $totaluang9 = array_merge($totaluang1, $totaluang2, $totaluang3);
         $datapembelianremaining = $this->M_data->getPembelianRemaining();
         $pembelianremaining = $this->M_data->TotalPembelianRemaining();
         $totalpengajuan = $this->lharby->formatRupiah($pengajuan[0]['totalpengajuan']);
@@ -43,11 +50,13 @@ class C_dashboard extends CI_Controller
         $totalpengajuanapproval = $this->lharby->formatRupiah($pengajuanapproval[0]['total_approval']);
         $titlepengajuanapproval = $totalpengajuanapproval;
         $totalpembelian = $this->lharby->formatRupiah($pembelian[0]['total_pembelian']);
+        $totaluangall = $this->lharby->formatRupiah($totaluang9[0]['total_uang']);
         $titlepembelian = $totalpembelian;
+        $titleuang = $totaluangall;
         $totalpembelianremaining = $this->lharby->formatRupiah($pembelianremaining[0]['total_pembelian']);
         $titlepembelianremaining = $totalpembelianremaining;
         $totalkaschart = $this->lharby->formatRupiah($get[0]['total_kas']);
-        $total_kas = $this->lharby->formatRupiah($get_kas[0]['total']); //pie chart total
+        $total_kas = $this->lharby->formatRupiah($get_kas[0]['cash_in_hand']); //pie chart total
         $title = $total_kas;
         $titlebarchart = $titlekas . ' ' . $totalkaschart;
         $show = array(
@@ -65,12 +74,13 @@ class C_dashboard extends CI_Controller
             'titlepengajuanapproval' => $titlepengajuanapproval,
             'datapembelian' => $datapembelian,
             'titlepembelian' => $titlepembelian,
+            'titleuang' => $titleuang,
             'datapembelianremaining' => $datapembelianremaining,
             'titlepembelianremaining' => $titlepembelianremaining,
+            'project' => $project,
 
         );
         $this->load->view('dashboard/index', $show);
-        // $this->load->view('data');
     }
 
 

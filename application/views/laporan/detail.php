@@ -185,60 +185,7 @@
       "info": true,
       "autoWidth": false,
     });
-    $('#example3').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "scrollX": true,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-    });
-    $('#example4').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "scrollX": true,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-    });
-    $('#example5').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "scrollX": true,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-    });
-    $('#example6').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "scrollX": true,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-    });
-    $('#example7').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "scrollX": true,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-    });
-    $('#example8').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "scrollX": true,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-    });
+
   });
 </script>
 </body>

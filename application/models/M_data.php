@@ -159,7 +159,7 @@ class M_data extends CI_Model
 
 	public function getPembelian()
 	{
-		$data = $this->db->query("select c.pengajuan_id,e.project_name,sum(a.jumlah_uang_pembelian) as total_pembelian 
+		$data = $this->db->query("select c.pengajuan_id,e.project_name,e.cash_in_hand,sum(a.jumlah_uang_pembelian) as total_pembelian 
 	    from trx_pembelian_barang as a JOIN trx_pengiriman_uang as b on a.pengiriman_uang_id = b.id 
 	    JOIN akk_pengajuan_approval as c on b.pengajuan_approval_id = c.id JOIN akk_pengajuan as d on c.pengajuan_id = d.id 
 	    JOIN mst_project as e on d.project_id = e.id group by c.pengajuan_id");
@@ -173,6 +173,48 @@ class M_data extends CI_Model
 	    JOIN akk_pengajuan_approval as c on b.pengajuan_approval_id = c.id JOIN akk_pengajuan as d on c.pengajuan_id = d.id 
 	    JOIN mst_project as e on d.project_id = e.id group by c.pengajuan_id) as bb");
 		return $data->result_array();
+	}
+
+	public function totaluang1()
+	{
+		$this->db->select('
+        sum(a.cash_in_hand) as total_uang
+        ');
+		$this->db->from('mst_organization as a');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
+
+	public function totaluang2()
+	{
+		$this->db->select('
+        sum(a.cash_in_hand) as total_uang
+        ');
+		$this->db->from('mst_project as a');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
+
+	public function totaluang3()
+	{
+		$this->db->select('
+        sum(a.nominal) as total_uang
+        ');
+		$this->db->from('akk_hutang as a');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
 	}
 
 	public function getPembelianRemaining()
@@ -213,12 +255,25 @@ class M_data extends CI_Model
 	}
 
 
+	public function GetPie1()
+	{
+		$data = $this->db->query("SELECT project_name as kas_name,cash_in_hand FROM mst_project WHERE cash_In_hand > 0
+		
+		
+		");
+		if ($data->num_rows() > 0) {
+			return $data;
+		} else {
+			return false;
+		}
+	}
+
 	public function GetPie()
 	{
-
-
-		$data = $this->db->query("SELECT project_name as kas_name,cash_in_hand FROM mst_project WHERE cash_In_hand > 0");
-
+		$data = $this->db->query("SELECT project_name as kas_name,cash_in_hand FROM mst_project as a 
+		LEFT JOIN (SELECT SUM(nominal) as total_hutang,project_id FROM akk_hutang GROUP BY project_id) as b ON b.project_id = a.id 
+		
+		");
 		if ($data->num_rows() > 0) {
 			return $data;
 		} else {
@@ -231,6 +286,20 @@ class M_data extends CI_Model
 		$data = $this->db->query("SELECT SUM(jumlah_kas.cash_in_hand) as total FROM (
 SELECT project_name as kas_name,cash_in_hand FROM mst_project WHERE cash_In_hand > 0) AS jumlah_kas;");
 
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
+
+	public function masterkas()
+	{
+		$this->db->select('
+          a.cash_in_hand
+      ');
+		$this->db->from('mst_organization as a');
+		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
 		} else {

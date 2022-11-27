@@ -35,7 +35,7 @@
             <div class="col-12">
               <div class="card card-success">
                 <div class="card-header">
-                  <h3 class="card-title">Total Uang</h3>
+                  <h3 class="card-title">Master Kas</h3>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                     </button>
@@ -43,7 +43,7 @@
                 </div>
                 <div class="card-body">
                   <div class="chart">
-                    <canvas id="barChartUang" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    <canvas id="barChartMaster" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                   </div>
                 </div>
               </div>
@@ -84,7 +84,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-12">
               <div class="card card-success">
                 <div class="card-header">
                   <h3 class="card-title">Detail Per Project</h3>
@@ -103,10 +103,48 @@
                   </div>
                 </div>
                 <div class="card-body">
-                  <h3>DETAIL PROJECT</h3>
-                  <h3><?php echo $titlepembelianremaining; ?></h3>
-                  <div class="pie">
-                    <canvas id="pieChartProject" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                  <div class="row">
+                    <div class="col-6">
+                      <h3>DETAIL PROJECT</h3>
+                      <h3><?php echo $titlepembelianremaining; ?></h3>
+                      <div class="pie">
+                        <canvas id="pieChartProject" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="card">
+                        <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
+                          <thead>
+                            <tr>
+                              <th class="text-center">Nama</th>
+                              <th class="text-center">Jumlah</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="odd gradeX">
+                              <td style="width: 50%;" class="text">Pengajuan</td>
+                              <td style="width: 50%;" class="text text-center">Rp <?php echo $d['jumlah_pengajuan']; ?></td>
+                            </tr>
+                            <tr class="odd gradeX">
+                              <td style="width: 50%;" class="text">Approval</td>
+                              <td style="width: 50%;" class="text text-center">Rp <?php echo $d['jumlah_approval']; ?></td>
+                            </tr>
+                            <tr class="odd gradeX">
+                              <td style="width: 50%;" class="text">Pencairan</td>
+                              <td style="width: 50%;" class="text text-center">Rp <?php echo $d['jumlah_pencairan']; ?></td>
+                            </tr>
+                            <tr class="odd gradeX">
+                              <td style="width: 50%;" class="text">Pembelian</td>
+                              <td style="width: 50%;" class="text text-center">Rp <?php echo $d['jumlah_pembelian']; ?></td>
+                            </tr>
+                            <tr class="odd gradeX">
+                              <td style="width: 50%;" class="text">Pembelian ( Tanpa Pengajuan )</td>
+                              <td style="width: 50%;" class="text text-center">Rp <?php echo $d['jumlah_pembelian_tanpa']; ?></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -131,23 +169,13 @@
 <script>
   $(function() {
     $("#example1").DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "scrollX": true,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": true,
-    });
-
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "scrollX": true,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": true,
+      // "paging": true,
+      // "lengthChange": true,
+      // "scrollX": true,
+      // "searching": true,
+      // "ordering": true,
+      // "info": true,
+      // "autoWidth": true,
     });
     table.columns.adjust().draw();
     $('.uang').mask('000.000.000', {
@@ -186,13 +214,13 @@
         ]
       }, {
         label: 'Total Cash In Hand',
-        backgroundColor: 'rgba(30,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
+        backgroundColor: 'rgba(30,233,222,0.9)',
+        borderColor: 'rgba(30,233,222,0.8)',
         pointRadius: false,
-        pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointColor: '#ffffff',
+        pointStrokeColor: 'rgba(30,233,222,1)',
         pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
+        pointHighlightStroke: 'rgba(30,233,222,1)',
         data: [
           <?php
           foreach ($datapembelian->result_array() as $row1) {
@@ -202,7 +230,7 @@
         ]
       }, ]
     }
-    var barChartCanvas = $('#barChartUang').get(0).getContext('2d')
+    var barChartCanvas = $('#barChartMaster').get(0).getContext('2d')
     var barChartData = jQuery.extend(true, {}, areaChartDataCash)
     var temp0 = areaChartDataCash.datasets[0]
     barChartData.datasets[0] = temp0

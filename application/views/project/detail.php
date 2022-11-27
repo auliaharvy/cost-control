@@ -107,9 +107,8 @@
                   <tr>
                     <th class="text-center">No</th>
                     <th class="text-center">Action</th>
-                    <th class="text-center">Jenis</th>
-                    <th class="text-center">Nama Pekerjaan</th>
                     <th class="text-center">Kategori</th>
+                    <th class="text-center">Nama Pekerjaan</th>
                     <th class="text-center">Jumlah RAP</th>
                     <th class="text-center">Jumlah Aktual</th>
                     <th class="text-center">%</th>
@@ -124,20 +123,19 @@
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
                         <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                        <td align="center">
+                        <td style="width: 5%;" align="center">
                           <?php if ($is_rap_confirm == 0) { ?>
                             <a data-toggle="modal" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></a>
                           <?php } else { ?>
                             <button type="button" class="btn btn-warning btn-circle btn-sm disabled"><i class="fas fa-edit"></i></button>
                           <?php } ?>
                         </td>
-                        <td style="width: 10%;" class="text"><span><?php echo $d['nama_jenis']; ?></span></td>
-                        <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
-                        <td style="width: 10%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
+                        <td style="width: 20%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
+                        <td style="width: 20%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
                         <td style="width: 10%;" class="text text-center"><span>Rp <?php echo $d['jumlah_biaya_v']; ?></span></td>
                         <td style="width: 10%;" class="text text-center"><span>Rp <?php echo $d['jumlah_aktual_v']; ?></span></td>
-                        <td style="width: 5%;" class="text text-center"><span><?php echo $d['presentase']; ?> %</span></td>
-                        <td style="width: 15%;" class="text"><span><?php echo $d['note']; ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span><?php echo $d['presentase']; ?> %</span></td>
+                        <td style="width: 20%;" class="text"><span><?php echo $d['note']; ?></span></td>
                       </tr>
                   <?php
                     }
@@ -247,16 +245,6 @@
                           <option value="<?php echo $dk['id']; ?>"><?php echo $dk['nama_kategori']; ?></option>
                         <?php } ?>
                       </select>
-                    </div>
-                    <div class="form-group">
-                      <label>Jenis</label>
-                      <select class="form-control jenis_biaya_id" name="jenis_biaya_id" required>
-                        <option value="">---Select Jenis---</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label class='col-xs-3'>Nama Jenis</label>
-                      <div class='col-xs-8'><input type="text" name="nama_jenis_rap" autocomplete="off" required placeholder="Masukkan Nama Jenis Item" class="form-control"></div>
                     </div>
                     <div class="form-group">
                       <label class='col-xs-3'>Nama Pekerjaan</label>

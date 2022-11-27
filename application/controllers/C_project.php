@@ -255,8 +255,6 @@ class C_project extends CI_Controller
             $data = array(
                 "rap_id" => $rap_id,
                 "kategori_biaya_id" => $_POST['kategori_biaya_id'],
-                "jenis_biaya_id" => $_POST['jenis_biaya_id'],
-                "nama_jenis_rap" => $_POST['nama_jenis_rap'],
                 "nama_pekerjaan" => $_POST['nama_pekerjaan'],
                 "jumlah_biaya" => $jumlah_biaya,
                 "note" => $_POST['note'],
@@ -265,7 +263,6 @@ class C_project extends CI_Controller
             );
             $this->db->trans_start();
             $this->db->insert('akk_rap_biaya', $data);
-            // $this->M_data->UpdateData('akk_rap',$data_updt_rap,$where);
             $this->db->trans_complete();
             if ($this->db->trans_status() === TRUE) {
                 $pesan = "Tambah Biaya RAP Sukses";

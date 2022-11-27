@@ -31,7 +31,7 @@ class M_pembelian extends CI_Model
 		$this->db->join('mst_project as d', 'c.project_id = d.id');
 		$this->db->join('trx_pembelian_barang as e', 'e.pengiriman_uang_id = a.id', 'left');
 		$this->db->join('akk_rap as f', 'c.rap_id = f.id');
-		$this->db->join('akk_rap_biaya as g', 'f.id = g.rap_id', 'inner');
+		$this->db->join('akk_rap_biaya as g', 'f.id = g.rap_id', 'left');
 		$this->db->join('trx_cash_remaining as h', 'd.id = h.project_id');
 		$this->db->where('a.is_buy', 0);
 		$this->db->where('d.project_status', 0);

@@ -22,7 +22,6 @@ class C_project extends CI_Controller
 
         $databelum = $this->M_project->getProject(0);
         $datasudah = $this->M_project->getProject(1);
-
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
@@ -30,47 +29,26 @@ class C_project extends CI_Controller
             'footer' => $this->footer(),
             'databelum' => $databelum,
             'datasudah' => $datasudah,
-
         );
         $this->load->view('project/index', $show);
-        // $this->load->view('data');
     }
 
     public function project_finished() //project on progress
     {
         $status = 1; //on progress
         $data = $this->M_project->getProject($status);
-        // $data = $this->M_data->showdata("mst_project");
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
             'sidebar' => $this->sidebar(),
             'footer' => $this->footer(),
             'data' => $data,
-
         );
         $this->load->view('project/v_project_finished', $show);
     }
-
-    // public function rap() {
-    //     $id = $this->uri->segment(3);
-    //     $get = $this->M_data->GetData2("mst_project ","where id = '$id'")->row();
-
-    //     $kirim['id'] = $get->id;
-    //     $kirim['nama'] = $get->project_name;
-    //     $kirim['alamat'] = $get->description;
-
-    //     $this->output
-    //             ->set_content_type('application/json')
-    //             ->set_output(json_encode($kirim));
-    // }
-
-
     public function add()
     {
         $this->form_validation->set_rules('project_name', 'Project Name', 'required|regex_match[/^[][a-zA-Z0-9@# ,().]+$/]');
-        // $this->form_validation->set_rules('rab_project', 'Total RAB', 'required|numeric|greater_than[0]');
-
         $date = date('Y-m-d H:i:s');
         $now = strtotime($date);
         $deadline = strtotime($_POST['project_deadline']);
@@ -103,7 +81,6 @@ class C_project extends CI_Controller
                 "last_updated_by" => $this->session->userdata('id'),
             );
             $this->db->insert('akk_rap', $dataRap);
-
             $this->flashdata_succeed1($pesan);
             redirect('project_on');
         }
@@ -137,7 +114,6 @@ class C_project extends CI_Controller
                 "last_updated_by" => $this->session->userdata('id'),
                 "updated_at" => $date,
             );
-
             $res = $this->M_data->UpdateData('mst_project', $data, $where);
             if ($res >= 1) {
                 $pesan = "Edit Project Sukses";
@@ -154,7 +130,6 @@ class C_project extends CI_Controller
 
     public function create_pengajuan_biaya()
     {
-
         $this->form_validation->set_rules('rap_biaya_id', 'Rap Item', 'required');
         $this->form_validation->set_rules('jumlah_pengajuan', 'Jumlah Pengajuan', 'required');
         $rap_biaya_id = $_POST['rap_biaya_id'];
@@ -168,7 +143,6 @@ class C_project extends CI_Controller
             $this->flashdata_failed1($pesan);
             redirect('pengajuan');
         } else {
-
             $data = array(
                 "pengajuan_id" => $_POST['pengajuan_id'],
                 "rap_biaya_id" => $_POST['rap_biaya_id'],
@@ -188,11 +162,9 @@ class C_project extends CI_Controller
     {
         $id = $this->input->post('pengajuan_biaya_id');
         $project_id = $_POST['project_id'];
-
         $a = $_POST['jumlah_pengajuan'];
         $b = str_replace('.', '', $a); //ubah format rupiah ke integer
         $jumlah_pengajuan = intval($b);
-
         $this->form_validation->set_rules('jumlah_pengajuan', 'Jumlah Pengajuan', 'required');
         if ($this->form_validation->run() == FALSE) {
             $pesan = validation_errors();
@@ -202,16 +174,12 @@ class C_project extends CI_Controller
             $get = $this->M_data->GetData2("akk_pengajuan_biaya ", "where id = '$id'")->row();
             $where = array('id' => $id);
             $date = date('Y-m-d H:i:s');
-
             $data = array(
                 'jumlah_pengajuan' => $jumlah_pengajuan,
                 'note' => $_POST['note'],
-
                 "last_updated_by" => $this->session->userdata('id'),
                 "updated_at" => $date,
-
             );
-
             $res = $this->M_data->UpdateData('akk_pengajuan_biaya', $data, $where);
             if ($res >= 1) {
                 $pesan = "Update Pengajuan Sukses";
@@ -227,100 +195,73 @@ class C_project extends CI_Controller
 
     public function create_rap_project()
     {
-        $this->form_validation->set_rules('nama_jenis_rap', 'Jenis Rap', 'required');
         $a = $_POST['jumlah_biaya'];
         $b = str_replace('.', '', $a); //ubah format rupiah ke integer
         $jumlah_biaya = intval($b);
         $date = date('Y-m-d H:i:s');
         $project_id = $_POST['project_id'];
-        if ($this->form_validation->run() == FALSE) {
-            $pesan = validation_errors();
-            $this->flashdata_failed1($pesan);
+        $rap_id = $_POST['rap_id'];
+        $data = array(
+            "rap_id" => $rap_id,
+            "kategori_biaya_id" => $_POST['kategori_biaya_id'],
+            "nama_pekerjaan" => $_POST['nama_pekerjaan'],
+            "jumlah_biaya" => $jumlah_biaya,
+            "note" => $_POST['note'],
+            "last_update_by" => $this->session->userdata('id'),
+            "created_at" => $date,
+        );
+        $this->db->trans_start();
+        $this->db->insert('akk_rap_biaya', $data);
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === TRUE) {
+            $pesan = "Tambah Biaya RAP Sukses";
+            $this->flashdata_succeed1($pesan);
             redirect('project_detail/' . $project_id);
         } else {
-            $rap_id = $_POST['rap_id'];
-            // $get = $this->M_data->GetData("akk_rap ","where id = '$rap_id'");
-            // $total_rap_now = $get[0]['total_biaya'];
-            // $jumlah_biaya = $_POST['jumlah_biaya'];
-            // $total_rap_current = $total_rap_now + $jumlah_biaya;
-
-            // $where = array('id' => $rap_id);
-
-            // $data_updt_rap = array(
-            //     "total_biaya" => $total_rap_current,
-            //     "last_updated_by" => $this->session->userdata('id'),
-            //     "updated_at" => $date,
-            // );
-
-            $data = array(
-                "rap_id" => $rap_id,
-                "kategori_biaya_id" => $_POST['kategori_biaya_id'],
-                "nama_pekerjaan" => $_POST['nama_pekerjaan'],
-                "jumlah_biaya" => $jumlah_biaya,
-                "note" => $_POST['note'],
-                "last_update_by" => $this->session->userdata('id'),
-                "created_at" => $date,
-            );
-            $this->db->trans_start();
-            $this->db->insert('akk_rap_biaya', $data);
-            $this->db->trans_complete();
-            if ($this->db->trans_status() === TRUE) {
-                $pesan = "Tambah Biaya RAP Sukses";
-                $this->flashdata_succeed1($pesan);
-                redirect('project_detail/' . $project_id);
-            } else {
-                $pesan = "Tambah Biaya RAP Gagal";
-                $this->flashdata_failed1($pesan);
-                redirect('project_detail/' . $project_id);
-            }
+            $pesan = "Tambah Biaya RAP Gagal";
+            $this->flashdata_failed1($pesan);
+            redirect('project_detail/' . $project_id);
         }
     }
 
     public function update_rap()
     {
-        $this->form_validation->set_rules('nama_jenis_rap', 'Jenis Rap', 'required');
         $a = $_POST['jumlah_biaya'];
         $b = str_replace('.', '', $a); //ubah format rupiah ke integer
         $jumlah_biaya = intval($b);
         $date = date('Y-m-d H:i:s');
         $project_id = $_POST['project_id'];
-        if ($this->form_validation->run() == FALSE) {
-            $pesan = validation_errors();
-            $this->flashdata_failed1($pesan);
+        $id = $_POST['rap_item_id'];
+        // $get = $this->M_data->GetData("akk_rap ","where id = '$rap_id'");
+        // $total_rap_now = $get[0]['total_biaya'];
+        // $jumlah_biaya = $_POST['jumlah_biaya'];
+        // $total_rap_current = $total_rap_now + $jumlah_biaya;
+        $where = array('id' => $id);
+        // $data_updt_rap = array(
+        //     "total_biaya" => $total_rap_current,
+        //     "last_updated_by" => $this->session->userdata('id'),
+        //     "updated_at" => $date,
+        // );
+        $data = array(
+            "kategori_biaya_id" => $_POST['kategori_biaya_id'],
+            "jenis_biaya_id" => $_POST['jenis_biaya_id'],
+            "nama_jenis_rap" => $_POST['nama_jenis_rap'],
+            "nama_pekerjaan" => $_POST['nama_pekerjaan'],
+            "jumlah_biaya" => $jumlah_biaya,
+            "last_update_by" => $this->session->userdata('id'),
+            "updated_at" => $date,
+        );
+        $this->db->trans_start();
+        $this->M_data->UpdateData('akk_rap_biaya', $data, $where);
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === TRUE) {
+            $pesan = "Update RAP Sukses";
+            $this->flashdata_succeed1($pesan);
             redirect('project_detail/' . $project_id);
         } else {
-            $id = $_POST['rap_item_id'];
-            // $get = $this->M_data->GetData("akk_rap ","where id = '$rap_id'");
-            // $total_rap_now = $get[0]['total_biaya'];
-            // $jumlah_biaya = $_POST['jumlah_biaya'];
-            // $total_rap_current = $total_rap_now + $jumlah_biaya;
-            $where = array('id' => $id);
-            // $data_updt_rap = array(
-            //     "total_biaya" => $total_rap_current,
-            //     "last_updated_by" => $this->session->userdata('id'),
-            //     "updated_at" => $date,
-            // );
-            $data = array(
-                "kategori_biaya_id" => $_POST['kategori_biaya_id'],
-                "jenis_biaya_id" => $_POST['jenis_biaya_id'],
-                "nama_jenis_rap" => $_POST['nama_jenis_rap'],
-                "nama_pekerjaan" => $_POST['nama_pekerjaan'],
-                "jumlah_biaya" => $jumlah_biaya,
-                "last_update_by" => $this->session->userdata('id'),
-                "updated_at" => $date,
-            );
-            $this->db->trans_start();
-            $this->M_data->UpdateData('akk_rap_biaya', $data, $where);
-            $this->db->trans_complete();
-            if ($this->db->trans_status() === TRUE) {
-                $pesan = "Update RAP Sukses";
-                $this->flashdata_succeed1($pesan);
-                redirect('project_detail/' . $project_id);
-            } else {
-                $pesan = "Update RAP Sukses";
-                $this->flashdata_failed1($pesan);
-                redirect('project_detail/' . $project_id);
-            }
+            $pesan = "Update RAP Sukses";
+            $this->flashdata_failed1($pesan);
+            redirect('project_detail/' . $project_id);
         }
     }
 
@@ -457,7 +398,6 @@ class C_project extends CI_Controller
 
     public function confirmrap()
     {
-        $is_rap_confirm = $_POST['is_rap_confirm'];
         $rap_id = $_POST['rap_id'];
         $project_id = $_POST['project_id'];
         $msg = $_POST['msg'];
@@ -477,6 +417,30 @@ class C_project extends CI_Controller
             $pesan = "" . $msg . " RAP Gagal";
             $this->flashdata_failed1($pesan);
             redirect('project_detail/' . $project_id);
+        }
+    }
+
+    public function unconfirmrap()
+    {
+        $rap_id = $_POST['rap_id'];
+        $project_id = $_POST['project_id'];
+        $msg = $_POST['msg'];
+        $where = array('id' => $rap_id);
+        $date = date('Y-m-d H:i:s');
+        $data = array(
+            'is_rap_confirm' => $_POST['is_rap_confirm'],
+            "last_updated_by" => $this->session->userdata('id'),
+            "updated_at" => $date,
+        );
+        $res = $this->M_data->UpdateData('akk_rap', $data, $where);
+        if ($res >= 1) {
+            $pesan = "" . $msg . " RAP Sukses";
+            $this->flashdata_succeed1($pesan);
+            redirect('laporan_detail/' . $project_id);
+        } else {
+            $pesan = "" . $msg . " RAP Gagal";
+            $this->flashdata_failed1($pesan);
+            redirect('laporan_detail/' . $project_id);
         }
     }
 
@@ -548,7 +512,7 @@ class C_project extends CI_Controller
         $rab_biaya = $this->lharby->formatRupiah($rab);
         $rap = $totalRap[0]['total_biaya_v'];
         $rap_biaya = $this->lharby->formatRupiah($rap);
-        $data_mst_material = $this->M_data->showData("mst_material");
+        $data_mst_material = $this->M_data->showdata("mst_material");
         $data = array(
             'id' => $id,
             'project_id' => $id,
@@ -722,24 +686,19 @@ class C_project extends CI_Controller
 
     public function create_penerimaan_termin()
     {
-
         $this->form_validation->set_rules('project_id', 'Project', 'required');
         $this->form_validation->set_rules('nominal', 'Nominal', 'required');
         $this->form_validation->set_rules('termin', 'Termin', 'required');
         $project_id = $_POST['project_id'];
-
         $a = $_POST['nominal'];
         $b = str_replace('.', '', $a); //ubah format rupiah ke integer
         $nominal = intval($b);
-
         $date = date('Y-m-d H:i:s');
-
         if ($this->form_validation->run() == FALSE) {
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
             redirect('termin/' . $project_id);
         } else {
-
             $data = array(
                 "project_id" => $project_id,
                 "nominal" => $nominal,
@@ -767,19 +726,15 @@ class C_project extends CI_Controller
         $this->form_validation->set_rules('project_id', 'Project', 'required');
         $this->form_validation->set_rules('nominal', 'Nominal', 'required');
         $project_id = $_POST['project_id'];
-
         $a = $_POST['nominal'];
         $b = str_replace('.', '', $a); //ubah format rupiah ke integer
         $nominal = intval($b);
-
         $date = date('Y-m-d H:i:s');
-
         if ($this->form_validation->run() == FALSE) {
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
             redirect('pengajuan/' . $project_id);
         } else {
-
             $data = array(
                 "project_id" => $project_id,
                 "nominal" => $nominal,

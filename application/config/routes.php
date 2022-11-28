@@ -61,6 +61,7 @@ $route['rap/(:num)'] = 'C_project/detail_rap/$1';
 $route['rap/create'] = 'C_project/create_rap_project';
 $route['createrap'] = 'C_project/generaterap';
 $route['confirmrap'] = 'C_project/confirmrap';
+$route['unconfirmrap'] = 'C_project/unconfirmrap';
 
 $route['project/add_termin'] = 'C_project/create_penerimaan_termin';
 $route['transaksi'] = 'C_transaksi/index';

@@ -32,21 +32,24 @@ class C_laporan extends CI_Controller
             'sidebar' => $this->sidebar(),
             'footer' => $this->footer(),
             'data' => $data,
-
         );
         $this->load->view('laporan/index', $show);
     }
 
-
-
     public function detail($id) //detail
     {
+        $cekrap = $this->M_data->GetData("akk_rap ", "where project_id = '$id'");
         $get = $this->M_laporan->getRap($id);
         $stat = $get[0]['project_status'];
         if ($stat == 1) {
             $status = 'SELESAI';
         } else {
             $status = ' ON PROCCESS';
+        }
+        if ($cekrap) { //jika project sudah punya rap
+            $is_rap_confirm = $cekrap[0]['is_rap_confirm'];
+        } else { //jika project belum ada rap
+            $is_rap_confirm = 0;
         }
         $tgl = $get[0]['project_deadline'];
         $deadline = $this->convert_date($tgl);
@@ -72,9 +75,9 @@ class C_laporan extends CI_Controller
             'rab_project' => $rab_project,
             'data_rap_biaya' => $data_rap_biaya,
             'data_uang' => $data_uang,
+            'is_rap_confirm' => $is_rap_confirm,
         );
         $this->load->view('laporan/detail', $show);
-        // $this->load->view('data');
     }
 
     public function export($id)

@@ -79,13 +79,6 @@
                           <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
                           <button type="submit" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Pengajuan</button>
                         </form><br>
-                        <form action="<?php echo site_url('confirmrap'); ?>" method="post">
-                          <input type="hidden" name="is_rap_confirm" value="0">
-                          <input type="hidden" name="rap_id" value="<?php echo $rap_id; ?>">
-                          <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
-                          <input type="hidden" name="msg" value="Unconfirm">
-                          <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i> Unconfirm RAP</button>
-                        </form><br>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateprogress" title="Progress Project"><i class="fa fa-edit"></i> Update Progress </button><br><br>
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#projectselesai" title="Selesai Project"><i class="fa fa-edit"></i> Selesaikan Project </button>
                       <?php } ?>
@@ -288,7 +281,7 @@
                       <select class="form-control js-states" id="single" style="width:100%;" name="material_id" required>
                         <option value="">---Select List---</option>
                         <?php foreach ($data_mst_material as $dk) { ?>
-                          <option value="<?php echo $dk['id']; ?>"><?php echo $dk['material_name']; ?></option>
+                          <option value="<?php echo $dk['id']; ?>"><?php echo $dk['material_name']; ?> ( <?php echo $dk['unit']; ?> )</option>
                         <?php } ?>
                       </select>
                     </div>
@@ -392,16 +385,175 @@
                             <?php } ?>
                           </select>
                         </div>
-                        <div class="form-group">
-                          <label>Jenis</label>
-                          <select class="form-control jenis_biaya_id" name="jenis_biaya_id" required>
-                            <option value="<?php echo $jenis_biaya_id; ?>"><?php echo $nama_jenis; ?></option>
-                          </select>
-                        </div>
-                        <div class="form-group">
-                          <label class='col-xs-3'>Nama Jenis</label>
-                          <div class='col-xs-8'><input type="text" value="<?php echo $nama_jenis_rap; ?>" name="nama_jenis_rap" autocomplete="off" required placeholder="Masukkan Nama Jenis Item" class="form-control"></div>
-                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        \
                         <div class="form-group">
                           <label class='col-xs-3'>Nama Pekerjaan</label>
                           <div class='col-xs-8'><input type="text" value="<?php echo $nama_pekerjaan; ?>" name="nama_pekerjaan" autocomplete="off" required placeholder="Masukkan Nama Jenis Item" class="form-control"></div>

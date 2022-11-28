@@ -23,7 +23,7 @@ class M_pembelian extends CI_Model
 		$this->db->select('
           a.*,d.project_name,d.project_location,b.note_app as keterangan,
           d.project_deadline,c.id as pengajuan_id,FORMAT(a.jumlah_uang,0,"de_DE") as jumlah_uang, g.nama_pekerjaan,
-		  c.id as pengajuan_id,d.id as project_id,FORMAT(h.cash_remaining,0,"de_DE") as sisa_uang 
+		  d.id as project_id,FORMAT(h.cash_remaining,0,"de_DE") as sisa_uang 
       ');
 		$this->db->from('trx_pengiriman_uang as a');
 		$this->db->join('akk_pengajuan_approval as b', 'a.pengajuan_approval_id = b.id');
@@ -44,6 +44,34 @@ class M_pembelian extends CI_Model
 			return false;
 		}
 	}
+
+	public function showPembelianbelum1()
+	{
+		$user_id = $this->session->userdata('id');
+		$this->db->select('
+          a.*,d.project_name,b.note_app as keterangan,FORMAT(a.jumlah_uang,0,"de_DE") as jumlah_uang,
+		  c.id as pengajuan_id, d.id as project_id,f.nama_pekerjaan
+      ');
+		$this->db->from('trx_pengiriman_uang as a');
+		$this->db->join('akk_pengajuan_approval as b', 'a.pengajuan_approval_id = b.id');
+		$this->db->join('akk_pengajuan as c', 'b.pengajuan_id = c.id');
+		$this->db->join('mst_project as d', 'c.project_id = d.id');
+		$this->db->join('akk_rap as e', 'c.rap_id = e.id');
+		$this->db->join('akk_rap_biaya as f', 'e.id = f.rap_id', 'left');
+		$this->db->join('trx_cash_remaining as g', 'd.id = g.project_id', 'left');
+		$this->db->where('a.is_buy', 0);
+		$this->db->where('d.project_status', 0);
+		$this->db->where('d.created_by', $user_id);
+		$this->db->group_by('a.id');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
+
+
 
 	public function showPembeliansudah()
 	{
@@ -73,27 +101,7 @@ class M_pembelian extends CI_Model
 		}
 	}
 
-	public function showPembelianbelum1()
-	{
-		$user_id = $this->session->userdata('id');
-		$this->db->select('
-          a.*,c.project_name,e.nama_pekerjaan,a.note_app as keterangan,FORMAT(a.jumlah_approval,0,"de_DE") as jumlah_approval,
-		  b.id
-      ');
-		$this->db->from('akk_pengajuan_approval as a');
-		$this->db->join('akk_pengajuan as b', 'a.pengajuan_id = b.id');
-		$this->db->join('mst_project as c', 'b.project_id = c.id');
-		$this->db->join('akk_rap as d', 'c.id = d.project_id');
-		$this->db->join('akk_rap_biaya as e', 'd.id = e.rap_id');
-		$this->db->where('c.project_status', 0);
-		$this->db->where('c.created_by', $user_id);
-		$data = $this->db->get();
-		if ($data->num_rows() > 0) {
-			return $data->result_array();
-		} else {
-			return false;
-		}
-	}
+
 
 	public function showPembeliansudah1()
 	{

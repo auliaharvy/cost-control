@@ -37,6 +37,17 @@
               </div>
               <div class="card-body">
                 <a href="<?php echo base_url() . "report/export/" . $project_id; ?>"><button class="btn btn-primary btn-circle btn-md"><i class="fa fa-download" data-popup="tooltip" data-placement="top" title="Detail Data"></i> EXPORT EXCEL</button></a><br><br>
+                <?php if ($is_rap_confirm == 1) {
+                  if (($this->session->userdata('role')) == 4) { ?>
+                    <form action="<?php echo site_url('unconfirmrap'); ?>" method="post">
+                      <input type="hidden" name="is_rap_confirm" value="0">
+                      <input type="hidden" name="rap_id" value="<?php echo $rap_id; ?>">
+                      <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
+                      <input type="hidden" name="msg" value="Unconfirm">
+                      <button type="submit" class="btn btn-primary disabled"><i class="fa fa-edit"></i> Unconfirm RAP</button>
+                    </form>
+                <?php }
+                } ?>
                 <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                   <thead>
                     <tr>

@@ -19,7 +19,7 @@ class M_inventory extends CI_Model
 	public function showInventory()
 	{
 		$this->db->select('
-          a.*,b.material_name, b.unit
+          a.*,b.material_name, b.unit,FORMAT(a.qty,0,"de_DE") as qty
       ');
 		$this->db->from('akk_inventory as a');
 		$this->db->join('mst_material as b', 'a.material_id = b.id');
@@ -34,7 +34,7 @@ class M_inventory extends CI_Model
 	public function showLogMaterial()
 	{
 		$this->db->select('
-          a.*,DATE_FORMAT(a.created_at,"%d %M %Y") as created_at_v,b.project_name,c.material_name
+          a.*,DATE_FORMAT(a.created_at,"%d %M %Y") as created_at_v,b.project_name,c.material_name,FORMAT(a.qty,0,"de_DE") as qty,c.unit
       ');
 		$this->db->from('log_inventory_organization as a');
 		$this->db->join('mst_project as b', 'a.project_id = b.id', 'left');

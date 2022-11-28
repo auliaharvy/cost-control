@@ -75,6 +75,7 @@
                         </form>
                       <?php } ?>
                       <?php if ($is_rap_confirm == 1) { ?>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah"><i class="fa fa-plus-circle"></i> Tambah Material </button><br><br>
                         <form action="<?php echo site_url('createpengajuan'); ?>" method="post">
                           <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
                           <button type="submit" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Pengajuan</button>

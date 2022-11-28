@@ -32,7 +32,7 @@ class M_project extends CI_Model
 	public function showInventory($id)
 	{
 
-		$this->db->select('a.*,b.material_name, b.unit');
+		$this->db->select('a.*,b.material_name,FORMAT(a.qty,0,"de_DE") as qty,b.unit');
 		$this->db->from('akk_inventory_project as a');
 		$this->db->join('mst_material as b', 'a.material_id = b.id');
 		$this->db->where('a.project_id', $id);

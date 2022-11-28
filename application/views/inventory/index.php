@@ -92,7 +92,7 @@
                   <tr>
                     <th class="text-center">No</th>
                     <th class="text-center">Material</th>
-                    <th class="text-center">Qty</th>
+                    <th class="text-center">Qty/Unit</th>
                     <th class="text-center">Tujuan Project</th>
                     <th class="text-center">Note</th>
                     <th class="text-center">Tanggal</th>
@@ -106,7 +106,7 @@
                     <tr class="odd gradeX">
                       <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
                       <td style="width: 15;" class="text"><span><?php echo $d['material_name']; ?></span></td>
-                      <td style="width: 15%;" class="text text-center"><span><?php echo $d['qty']; ?></span></td>
+                      <td style="width: 15%;" class="text text-center"><span><?php echo $d['qty']; ?> <?php echo $d['unit']; ?></span></td>
                       <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
                       <td style="width: 30%;" class="text"><span><?php echo $d['note']; ?></span></td>
                       <td style="width: 15%;" class="text text-center"><span><?php echo $d['created_at_v']; ?></span></td>
@@ -172,7 +172,7 @@
                       <select class="form-control js-states" id="single" style="width:100%;" name="material_id" required>
                         <option value="">---Select List---</option>
                         <?php foreach ($data_mst_material as $dk) { ?>
-                          <option value="<?php echo $dk['id']; ?>"><?php echo $dk['material_name']; ?></option>
+                          <option value="<?php echo $dk['id']; ?>"><?php echo $dk['material_name']; ?> ( <?php echo $dk['unit']; ?> ) </option>
                         <?php } ?>
                       </select>
                     </div>
@@ -213,7 +213,7 @@
                       <select class="form-control js-states" id="single" style="width:100%;" name="material_id" required>
                         <option value="">---Select List---</option>
                         <?php foreach ($data_mst_material as $dk) { ?>
-                          <option value="<?php echo $dk['id']; ?>"><?php echo $dk['material_name']; ?></option>
+                          <option value="<?php echo $dk['id']; ?>"><?php echo $dk['material_name']; ?> ( <?php echo $dk['material_name']; ?> )</option>
                         <?php } ?>
                       </select>
                     </div>

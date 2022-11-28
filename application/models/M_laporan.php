@@ -72,7 +72,6 @@ class M_laporan extends CI_Model
       ");
 		$this->db->from('akk_rap as a');
 		$this->db->join('mst_project as b', 'a.project_id = b.id');
-
 		$this->db->where('b.id', $id);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
@@ -82,24 +81,13 @@ class M_laporan extends CI_Model
 		}
 	}
 
-	public function showuangdetail($id)
+	public function showuangdetail()
 	{
 		$this->db->select('
-        a.*,d.nama_jenis_rap,d.nama_pekerjaan,FORMAT(c.jumlah_pengajuan,0,"de_DE") as jumlah_pengajuan_v,
-		FORMAT(e.jumlah_approval,0,"de_DE") as jumlah_approval_v,FORMAT(f.jumlah_uang,0,"de_DE") as jumlah_pencairan_v,
-		FORMAT(g.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian_v,c.is_approved,e.is_send_cash,f.is_buy,
-		c.note as note1,e.note_app as note2,g.note as note3,
-		DATE_FORMAT(c.created_at,"%d %M %Y") as created_at1,DATE_FORMAT(e.created_at,"%d %M %Y") as created_at2,
-		DATE_FORMAT(f.created_at,"%d %M %Y") as created_at3,DATE_FORMAT(g.created_at,"%d %M %Y") as created_at4
+        a.*,
         ');
-		$this->db->from('akk_pengajuan as a');
-		$this->db->join('mst_project as b', 'a.project_id = b.id');
-		$this->db->join('akk_pengajuan_biaya as c', 'a.id = c.pengajuan_id');
-		$this->db->join('akk_rap_biaya as d', 'c.rap_biaya_id = d.id');
-		$this->db->join('akk_pengajuan_approval as e', 'c.id = e.pengajuan_biaya_id', 'left');
-		$this->db->join('trx_pengiriman_uang as f', 'e.id = f.pengajuan_approval_id', 'left');
-		$this->db->join('trx_pembelian_barang as g', 'f.id = g.pengiriman_uang_id', 'left');
-		$this->db->where('a.project_id', $id);
+		$this->db->from('trx_pembelian_barang as a');
+
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
@@ -144,7 +132,6 @@ class M_laporan extends CI_Model
 
 	public function dataPencairan($id)
 	{
-
 		$this->db->select('a.*,IF (a.destination_id = 1, concat(q.nama_type," ",r.fullname), c.project_name) AS pro_office,b.organization_name,
 		FORMAT(a.jumlah_uang,0,"de_DE") as jumlah_uang,
 		DATE_FORMAT(a.created_at,"%d %M %Y") as tanggal_pencairan,

@@ -23,15 +23,15 @@ class M_pembelian extends CI_Model
 		$this->db->select('
           a.*,d.project_name,d.project_location,b.note_app as keterangan,
           d.project_deadline,c.id as pengajuan_id,FORMAT(a.jumlah_uang,0,"de_DE") as jumlah_uang,
-		  d.id as project_id,g.nama_kategori
+		  d.id as project_id,g.nama_kategori,f.nama_pekerjaan
       ');
 		$this->db->from('trx_pengiriman_uang as a');
-		$this->db->join('akk_pengajuan_approval as b', 'a.pengajuan_approval_id = b.id', 'left');
-		$this->db->join('akk_pengajuan as c', 'b.pengajuan_id = c.id', 'left');
-		$this->db->join('mst_project as d', 'c.project_id = d.id', 'left');
-		$this->db->join('akk_rap as e', 'd.id = e.project_id', 'left');
-		$this->db->join('akk_rap_biaya as f', 'e.id = f.rap_id', 'left');
-		$this->db->join('mst_kategori_biaya as g', 'f.kategori_biaya_id = g.id', 'left');
+		$this->db->join('akk_pengajuan_approval as b', 'a.pengajuan_approval_id = b.id');
+		$this->db->join('akk_pengajuan as c', 'b.pengajuan_id = c.id');
+		$this->db->join('mst_project as d', 'c.project_id = d.id');
+		$this->db->join('akk_rap as e', 'd.id = e.project_id');
+		$this->db->join('akk_rap_biaya as f', 'e.id = f.rap_id');
+		$this->db->join('mst_kategori_biaya as g', 'f.kategori_biaya_id = g.id');
 		$this->db->where('a.is_buy', 0);
 		$this->db->where('d.project_status', 0);
 		$this->db->where('d.created_by', $user_id);
@@ -64,7 +64,7 @@ class M_pembelian extends CI_Model
 		$this->db->where('a.is_buy !=', 0);
 		$this->db->where('d.project_status', 0);
 		$this->db->where('d.created_by', $user_id);
-		$this->db->group_by('a.id');
+		// $this->db->group_by('a.id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
@@ -99,7 +99,6 @@ class M_pembelian extends CI_Model
           a.*,c.nama_jenis_rap,c.nama_pekerjaan,FORMAT(a.jumlah_uang,0,"de_DE") as jumlah_uang_v,IFNULL(FORMAT(g.jumlah_uang_pembelian,0,"de_DE"),0) as jumlah_uang_pembelian_v
       ');
 		$this->db->from('trx_pengiriman_uang as a');
-
 		$this->db->join('akk_pengajuan_approval as d', 'a.pengajuan_approval_id = d.id');
 		$this->db->join('akk_pengajuan_biaya as b', 'd.pengajuan_biaya_id = b.id');
 		$this->db->join('akk_rap_biaya as c', 'b.rap_biaya_id = c.id');
@@ -124,7 +123,6 @@ class M_pembelian extends CI_Model
           SUM(remaining_pembelian) as remaining_pembelian,FORMAT(SUM(remaining_pembelian),0,"de_DE") as remaining_pembelian_v,c.nama_jenis_rap,c.nama_pekerjaan,FORMAT(a.jumlah_uang,0,"de_DE") as jumlah_uang_v
       ');
 		$this->db->from('trx_pengiriman_uang as a');
-
 		$this->db->join('akk_pengajuan_approval as d', 'a.pengajuan_approval_id = d.id');
 		$this->db->join('akk_pengajuan_biaya as b', 'd.pengajuan_biaya_id = b.id');
 		$this->db->join('akk_rap_biaya as c', 'b.rap_biaya_id = c.id');
@@ -150,7 +148,6 @@ class M_pembelian extends CI_Model
 		$this->db->from('trx_cash_remaining as a');
 		$this->db->join('mst_office as b', 'a.project_office_id = b.id');
 		$this->db->join('mst_users as c', 'b.user_id = c.id');
-
 		$this->db->where('a.project_id', $project_id);
 		$this->db->where('a.destination_id', $destination_id);
 		$this->db->where('c.id', $user_id);
@@ -187,7 +184,6 @@ class M_pembelian extends CI_Model
           a.remaining_pembelian
       ');
 		$this->db->from('trx_pengiriman_uang as a');
-
 		$this->db->join('akk_pengajuan_approval as d', 'a.pengajuan_approval_id = d.id');
 		$this->db->join('akk_pengajuan_biaya as b', 'd.pengajuan_biaya_id = b.id');
 		$this->db->join('akk_rap_biaya as c', 'b.rap_biaya_id = c.id');

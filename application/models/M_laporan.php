@@ -92,7 +92,8 @@ class M_laporan extends CI_Model
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
 		} else {
-			return false;
+			return [];
+			// return false;
 		}
 	}
 
@@ -110,7 +111,8 @@ class M_laporan extends CI_Model
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
 		} else {
-			return false;
+			return [];
+			// return false;
 		}
 	}
 

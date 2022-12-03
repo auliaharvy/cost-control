@@ -19,6 +19,7 @@ class C_laporan extends CI_Controller
         }
         date_default_timezone_set('Asia/Jakarta');
         $this->load->model("M_laporan");
+        $this->load->model("M_data");
         $this->load->helper('form');
         $this->load->library('Lharby');
     }

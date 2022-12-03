@@ -39,7 +39,7 @@
                     <th class="text-center">No</th>
                     <th class="text-center">Action</th>
                     <th class="text-center">Nama Project</th>
-                    <th class="text-center">Nama Jenis</th>
+                    <th class="text-center">Kategori</th>
                     <th class="text-center">Nama Pekerjaan</th>
                     <th class="text-center">Jumlah Approval</th>
                     <th class="text-center">Keterangan</th>
@@ -61,7 +61,7 @@
                           <?php } ?>
                         </td>
                         <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
-                        <td style="width: 10%;" class="text"><span><?php echo $d['nama_jenis_rap']; ?></span></td>
+                        <td style="width: 10%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
                         <td style="width: 20%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
                         <td style="width: 10%;" class="text"><span>Rp. <?php echo $d['jumlah_approval_v']; ?></span></td>
                         <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
@@ -82,7 +82,7 @@
                   <tr>
                     <th class="text-center">No</th>
                     <th class="text-center">Nama Project</th>
-                    <th class="text-center">Nama Jenis</th>
+                    <th class="text-center">Kategori</th>
                     <th class="text-center">Nama Pekerjaan</th>
                     <th class="text-center">Sumber Dana</th>
                     <th class="text-center">Tujuan Dana</th>
@@ -98,7 +98,7 @@
                       <tr class="odd gradeX">
                         <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
                         <td style="width: 15%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
-                        <td style="width: 10%;" class="text"><span><?php echo $d['nama_jenis_rap']; ?></span></td>
+                        <td style="width: 10%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
                         <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
                         <td style="width: 10%;" class="text"><span><?php echo $d['organization_name']; ?></span></td>
                         <td style="width: 15%;" class="text"><span><?php echo $d['project_name']; ?></span></td>

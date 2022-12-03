@@ -39,7 +39,7 @@ class M_pencairan extends CI_Model
 		$this->db->select('
         a.*,c.nama_jenis_rap,c.nama_pekerjaan,FORMAT(a.jumlah_approval,0,"de_DE") as jumlah_approval_v,
         IF(d.created_at is NOT NULL,DATE_FORMAT(d.created_at,"%d %M %Y"),"-") as tanggal_pencairan,f.project_name,
-	    a.note_app as keterangan, f.id as project_id 
+	    a.note_app as keterangan, f.id as project_id ,g.nama_kategori
         ');
 		$this->db->from('akk_pengajuan_approval as a');
 		$this->db->join('trx_pengiriman_uang as d', 'd.pengajuan_approval_id = a.id', 'left');
@@ -47,6 +47,7 @@ class M_pencairan extends CI_Model
 		$this->db->join('akk_rap_biaya as c', 'b.rap_biaya_id = c.id');
 		$this->db->join('akk_pengajuan as e', 'b.pengajuan_id = e.id');
 		$this->db->join('mst_project as f', 'e.project_id = f.id');
+		$this->db->join('mst_kategori_biaya as g', 'c.kategori_biaya_id = g.id');
 		$this->db->where('a.is_send_cash', 0);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
@@ -145,7 +146,7 @@ class M_pencairan extends CI_Model
 	{
 		$this->db->select('
 		a.*,IF (a.destination_id = 1, concat(q.nama_type," ",r.fullname), c.project_name) AS pro_office,b.organization_name,FORMAT(a.jumlah_uang,0,"de_DE") as jumlah_uang,
-		g.nama_jenis_rap,g.nama_pekerjaan,h.project_name,d.note_app as keterangan
+		g.nama_jenis_rap,g.nama_pekerjaan,h.project_name,d.note_app as keterangan,i.nama_kategori
 		');
 		$this->db->order_by('id', 'desc');
 		$this->db->from('trx_pengiriman_uang as a');
@@ -159,6 +160,7 @@ class M_pencairan extends CI_Model
 		$this->db->join('mst_office as p', 'a.project_office_id = p.id', 'left');
 		$this->db->join('mst_office_type as q', 'p.type_office_id = q.id', 'left');
 		$this->db->join('mst_users as r', 'p.user_id = r.id', 'left');
+		$this->db->join('mst_kategori_biaya as i', 'g.kategori_biaya_id = i.id');
 		$this->db->where('d.is_send_cash', 1);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {

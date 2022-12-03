@@ -32,7 +32,6 @@ class C_pencairan extends CI_Controller
             'footer' => $this->footer(),
             'data' => $data_pencairan,
             'datalogpencairan' => $datalogpencairan,
-            // 'data_pencairan' => $data_pencairan,
             'project' => $project,
 
         );

@@ -61,7 +61,6 @@ class M_hutang extends CI_Model
       ');
 		$this->db->from('akk_hutang as a');
 		$this->db->join('mst_project as b', 'a.project_id = b.id');
-
 		$this->db->where('a.project_id', $id);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {

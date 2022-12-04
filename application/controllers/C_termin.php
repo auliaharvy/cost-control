@@ -34,6 +34,18 @@ class C_termin extends CI_Controller
         // $this->load->view('data');
     }
 
+    public function detail() //detail
+    {
+
+        $show = array(
+            'nav' => $this->header(),
+            'navbar' => $this->navbar(),
+            'sidebar' => $this->sidebar(),
+            'footer' => $this->footer(),
+        );
+        $this->load->view('termin/detail', $show);
+    }
+
     public function add()
     {
         $this->form_validation->set_rules('project_id', 'Project Name', 'required');
@@ -82,16 +94,11 @@ class C_termin extends CI_Controller
         }
     }
 
-
-
-
     function convert_date($tgl)
     {
         $tanggal = date('d F Y', strtotime($tgl));
         return $tanggal;
     }
-
-
 
     public function header()
     {

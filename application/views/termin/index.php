@@ -39,6 +39,7 @@
                 <thead>
                   <tr>
                     <th class="text-center">No</th>
+                    <th class="text-center">Action</th>
                     <th class="text-center">Nama Project</th>
                     <th class="text-center">Lokasi Project</th>
                     <th class="text-center">Deadline Project</th>
@@ -55,9 +56,13 @@
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
                         <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                        <td style="width: 5%;" align="center">
+                          <a href="<?php echo base_url() . "termin_detail/" . $d['id']; ?>">
+                            <button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button>
+                        </td>
                         <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
                         <td style="width: 15%;" class="text"><span><?php echo $d['project_location']; ?></span></td>
-                        <td style="width: 15%;" class="text text-center"><span><?php echo $d['project_deadline']; ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span><?php echo $d['project_deadline']; ?></span></td>
                         <td style="width: 15%;" class="text text-center"><span>Rp <?php echo $d['rab_project_v']; ?></span></td>
                         <td style="width: 15%;" class="text text-center"><span>Rp <?php echo $d['termin_terbayar']; ?></span></td>
                         <td style="width: 15%;" class="text text-center"><span>Rp <?php echo $d['sisa_termin']; ?></span></td>

@@ -63,7 +63,6 @@ class M_termin extends CI_Model
       ');
 		$this->db->from('akk_pengajuan as a');
 		$this->db->join('mst_project as b', 'a.project_id = b.id');
-
 		$this->db->where('a.id', $id);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
@@ -73,7 +72,21 @@ class M_termin extends CI_Model
 		}
 	}
 
-
+	public function getTermin($id)
+	{
+		$this->db->select('
+          a.*,b.project_name, b.project_location, b.project_deadline, b.rab_project, b.id, a.id as termin_id, b.cash_in_hand
+      ');
+		$this->db->from('akk_penerimaan_project as a');
+		$this->db->join('mst_project as b', 'a.project_id = b.id');
+		$this->db->where('a.project_id', $id);
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
 
 	public function showTermin()
 	{

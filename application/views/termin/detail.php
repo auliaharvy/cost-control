@@ -59,7 +59,7 @@
                 </table>
               </div>
               <br>
-              <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
+              <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th>No</th>
@@ -70,9 +70,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php if (is_array($datahutang) || is_object($datahutang)) {
+                  <?php if (is_array($datatermin) || is_object($datatermin)) {
                     $nomor = 1;
-                    foreach ($datahutang as $d) {
+                    foreach ($datatermin as $d) {
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
                         <td><?php echo $nomor; ?></td>
@@ -116,8 +116,17 @@
 <!-- page script -->
 <script>
   $(function() {
-    $("#example1").DataTable();
-    var table = $('#example2').DataTable({
+    $("#example1").DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "scrollX": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true,
+    });
+
+    $('#example2').DataTable({
       "paging": true,
       "lengthChange": true,
       "scrollX": true,

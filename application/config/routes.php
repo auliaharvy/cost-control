@@ -78,6 +78,7 @@ $route['office'] = 'C_office';
 
 $route['termin'] = 'C_termin';
 $route['termin/add'] = 'C_termin/add';
+$route['termin_detail/(:num)'] = 'C_termin/detail/$1';
 
 $route['pencairan'] = 'C_pencairan/index';
 $route['list_pencairan'] = 'C_pencairan/list_pencairan';

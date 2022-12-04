@@ -113,31 +113,14 @@
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
                         <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                        <?php if (($d['is_approved'] == 0) && ($d['is_send_cash'] == 0) && ($d['is_buy'] == 0)) { ?>
-                          <td style="width: 15%;" class="text"><span><?php echo $d['created_at1']; ?></span></td>
-                        <?php } elseif (($d['is_approved'] == 1) && ($d['is_send_cash'] == 0) && ($d['is_buy'] == 0)) { ?>
-                          <td style="width: 15%;" class="text"><span><?php echo $d['created_at2']; ?></span></td>
-                        <?php } elseif (($d['is_approved'] == 1) && ($d['is_send_cash'] == 1) && ($d['is_buy'] == 2)) { ?>
-                          <td style="width: 15%;" class="text"><span><?php echo $d['created_at3']; ?></span></td>
-                        <?php } elseif (($d['is_approved'] == 1) && ($d['is_send_cash'] == 1) && ($d['is_buy'] == 1)) { ?>
-                          <td style="width: 15%;" class="text"><span><?php echo $d['created_at4']; ?></span></td>
-                        <?php } ?>
-                        <?php if (($d['is_approved'] == 0) && ($d['is_send_cash'] == 0) && ($d['is_buy'] == 0)) { ?>
-                          <td style="width: 45%;" class="text"><span><?php echo $d['note1']; ?></span></td>
-                        <?php } elseif (($d['is_approved'] == 1) && ($d['is_send_cash'] == 0) && ($d['is_buy'] == 0)) { ?>
-                          <td style="width: 45%;" class="text"><span><?php echo $d['note2']; ?></span></td>
-                        <?php } elseif (($d['is_approved'] == 1) && ($d['is_send_cash'] == 1) && ($d['is_buy'] == 2)) { ?>
-                          <td style="width: 45%;" class="text"><span><?php echo $d['note3']; ?></span></td>
-                        <?php } elseif (($d['is_approved'] == 1) && ($d['is_send_cash'] == 1) && ($d['is_buy'] == 1)) { ?>
-                          <td style="width: 45%;" class="text"><span><?php echo $d['note3']; ?></span></td>
-                        <?php
-                        } ?>
+                        <td style="width: 15%;" class="text"><span><?php echo $d['created_at']; ?></td>
+                        <td style="width: 45%;" class="text"><span><?php echo $d['keterangan']; ?></td>
                         <?php if ($d['jumlah_pembelian_v'] == null) { ?>
                           <td style="width: 15%;" class="text text-center"><span>Rp. 0</span></td>
                         <?php } else { ?>
                           <td style="width: 15%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pembelian_v']; ?></span></td>
                         <?php } ?>
-                        <td style="width: 20%;" class="text"><span><?php echo $d['kategori']; ?></td>
+                        <td style="width: 20%;" class="text"><span><?php echo $d['nama_kategori']; ?></td>
                       </tr>
                     <?php
                     } ?>

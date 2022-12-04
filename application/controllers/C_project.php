@@ -243,8 +243,8 @@ class C_project extends CI_Controller
         //     "updated_at" => $date,
         // );
         $data = array(
-            "kategori_biaya_id" => $_POST['kategori_biaya_id'],
-            "jenis_biaya_id" => $_POST['jenis_biaya_id'],
+            "kategori_biaya_id" => $_POST['katesgori_biaya_id'],
+            "jenis_biaya_id" => 1,
             "nama_jenis_rap" => $_POST['nama_jenis_rap'],
             "nama_pekerjaan" => $_POST['nama_pekerjaan'],
             "jumlah_biaya" => $jumlah_biaya,

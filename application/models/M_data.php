@@ -144,6 +144,25 @@ class M_data extends CI_Model
 		$this->db->from('mst_project as a');
 		$this->db->join('akk_rap as b', 'a.id = b.project_id');
 		$this->db->join('akk_rap_biaya as c', 'b.id = c.rap_id');
+		$this->db->group_by('c.rap_id');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data;
+		} else {
+			return false;
+		}
+	}
+
+	public function getProject2()
+	{
+		$this->db->select("
+          a.project_name,SUM(c.jumlah_biaya) as total_biaya,SUM(c.jumlah_aktual) as total_pengeluaran,a.rab_project,d.cash_in_hand as total_kas,
+		  a.cash_in_hand
+      ");
+		$this->db->from('mst_project as a');
+		$this->db->join('akk_rap as b', 'a.id = b.project_id');
+		$this->db->join('akk_rap_biaya as c', 'b.id = c.rap_id');
+		$this->db->join('mst_organization as d', 'a.organization_id = d.id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data;

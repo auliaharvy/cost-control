@@ -31,20 +31,11 @@ class C_dashboard extends CI_Controller
             $titlekas = 'TOTAL MODAL YANG DISETOR ';
         }
         $project = $this->M_transaksi->getProject(0);
-        $data = $this->M_data->GetPie1();
+        $data = $this->M_data->getProject2();
         $datapengajuan = $this->M_data->getTotalPengajuan();
         $datapengeluaran = $this->M_data->getProject1();
-        $pengajuan = $this->M_data->TotalPengajuan();
-        $totalpengajuan = $this->lharby->formatRupiah($pengajuan[0]['totalpengajuan']);
-        $titlepengajuan = $totalpengajuan;
         $datapengajuanapproval = $this->M_data->getTotalPengajuanApproval();
-        $pengajuanapproval = $this->M_data->TotalPengajuanApproval();
-        $totalpengajuanapproval = $this->lharby->formatRupiah($pengajuanapproval[0]['total_approval']);
-        $titlepengajuanapproval = $totalpengajuanapproval;
         $datapembelian = $this->M_data->getPembelian();
-        $pembelian = $this->M_data->TotalPembelian();
-        $totalpembelian = $this->lharby->formatRupiah($pembelian[0]['total_pembelian']);
-        $titlepembelian = $totalpembelian;
         $datapembelianremaining = $this->M_data->getPembelianRemaining();
         $pembelianremaining = $this->M_data->TotalPembelianRemaining();
         $totalpembelianremaining = $this->lharby->formatRupiah($pembelianremaining[0]['total_pembelian']);
@@ -65,11 +56,8 @@ class C_dashboard extends CI_Controller
             'titlebarchart' => $titlebarchart,
             'datapengajuan' => $datapengajuan,
             'datapengeluaran' => $datapengeluaran,
-            'titlepengajuan' => $titlepengajuan,
             'datapengajuanapproval' => $datapengajuanapproval,
-            'titlepengajuanapproval' => $titlepengajuanapproval,
             'datapembelian' => $datapembelian,
-            'titlepembelian' => $titlepembelian,
             'datapembelianremaining' => $datapembelianremaining,
             'titlepembelianremaining' => $titlepembelianremaining,
             'project' => $project,

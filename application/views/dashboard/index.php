@@ -302,11 +302,59 @@
         <?php
         foreach ($data->result_array() as $row1) {
           extract($row1);
-          echo "['{$kas_name}'],";
+          echo "['{$project_name}'],";
         } ?>
       ],
       datasets: [{
-        label: '',
+        label: 'Total Kas',
+        backgroundColor: 'rgba(60,141,188,0.9)',
+        borderColor: 'rgba(60,141,188,0.8)',
+        pointRadius: false,
+        pointColor: '#3b8bba',
+        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointHighlightFill: '#ffff',
+        pointHighlightStroke: 'rgba(60,141,188,1)',
+        data: [
+          <?php
+          foreach ($data->result_array() as $row1) {
+            extract($row1);
+            echo "'{$total_kas}',";
+          } ?>
+        ]
+      }, {
+        label: 'Total Hutang',
+        backgroundColor: 'rgba(60,141,188,0.9)',
+        borderColor: 'rgba(60,141,188,0.8)',
+        pointRadius: false,
+        pointColor: '#3b8bba',
+        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointHighlightFill: '#ffff',
+        pointHighlightStroke: 'rgba(60,141,188,1)',
+        data: [
+          <?php
+          foreach ($data->result_array() as $row1) {
+            extract($row1);
+            echo "'{$total_hutang}',";
+          } ?>
+        ]
+      }, {
+        label: 'Total Piutang',
+        backgroundColor: 'rgba(60,141,188,0.9)',
+        borderColor: 'rgba(60,141,188,0.8)',
+        pointRadius: false,
+        pointColor: '#3b8bba',
+        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointHighlightFill: '#ffff',
+        pointHighlightStroke: 'rgba(60,141,188,1)',
+        data: [
+          <?php
+          foreach ($data->result_array() as $row1) {
+            extract($row1);
+            echo "'{$total_piutang}',";
+          } ?>
+        ]
+      }, {
+        label: 'Total Cash In Hand',
         backgroundColor: 'rgba(60,141,188,0.9)',
         borderColor: 'rgba(60,141,188,0.8)',
         pointRadius: false,

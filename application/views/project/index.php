@@ -33,8 +33,6 @@
               <h3 class="card-title">On Progress</h3>
             </div>
             <div class="card-body">
-              <div class="col-md-6">
-              </div>
               <?php if (($this->session->userdata('role')) == 4) { ?>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah"><i class="fa fa-plus-circle"></i> Tambah Project </button><br>
               <?php } ?>
@@ -200,7 +198,7 @@
                     <div class="modal-body">
                       <div class="form-group">
                         <div class="col-xs-8">
-                          <input name="project_id" value="<?php echo $id; ?>" class="form-control" type="hidden" placeholder="Kode Barang..." readonly>
+                          <input name="project_id" value="<?php echo $id; ?>" class="form-control" type="hidden" readonly>
                         </div>
                       </div>
                       <div class="form-group">
@@ -212,7 +210,7 @@
                       <div class="form-group">
                         <label class="control-label col-xs-3">Location</label>
                         <div class="col-xs-8">
-                          <textarea required class="form-control" rows="3" name="project_location"><?php echo $project_location; ?></textarea>
+                          <textarea required class="form-control" rows="2" name="project_location"><?php echo $project_location; ?></textarea>
                         </div>
                       </div>
                       <div class="form-group">

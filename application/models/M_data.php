@@ -127,6 +127,30 @@ class M_data extends CI_Model
 		return $data->result_array();
 	}
 
+	public function getProject()
+	{
+		$data = $this->db->query("SELECT a.*, a.project_name, a.project_location FROM akk_rap as b 
+		JOIN (SELECT rap_id,SUM(jumlah_biaya) AS total_biaya, SUM(jumlah_aktual) AS total_pengeluaran FROM akk_rap_biaya GROUP BY rap_id) as c 
+		ON b.id = c.rap_id JOIN mst_project as a ON b.project_id = a.id");
+		return $data;
+	}
+
+
+	public function getProject1()
+	{
+		$this->db->select("
+          a.project_name,SUM(c.jumlah_biaya) as total_biaya,SUM(c.jumlah_aktual) as total_pengeluaran,a.rab_project
+      ");
+		$this->db->from('mst_project as a');
+		$this->db->join('akk_rap as b', 'a.id = b.project_id');
+		$this->db->join('akk_rap_biaya as c', 'b.id = c.rap_id');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data;
+		} else {
+			return false;
+		}
+	}
 	public function getTotalPengajuan()
 	{
 		$data = $this->db->query("select a.pengajuan_id,c.project_name,sum(a.jumlah_pengajuan) as total_pengajuan from akk_pengajuan_biaya as a 
@@ -175,47 +199,6 @@ class M_data extends CI_Model
 		return $data->result_array();
 	}
 
-	public function totaluang1()
-	{
-		$this->db->select('
-        sum(a.cash_in_hand) as total_uang
-        ');
-		$this->db->from('mst_organization as a');
-		$data = $this->db->get();
-		if ($data->num_rows() > 0) {
-			return $data->result_array();
-		} else {
-			return false;
-		}
-	}
-
-	public function totaluang2()
-	{
-		$this->db->select('
-        sum(a.cash_in_hand) as total_cash_in_hand
-        ');
-		$this->db->from('mst_project as a');
-		$data = $this->db->get();
-		if ($data->num_rows() > 0) {
-			return $data->result_array();
-		} else {
-			return false;
-		}
-	}
-
-	public function totaluang3()
-	{
-		$this->db->select('
-        sum(a.nominal) as total_hutang
-        ');
-		$this->db->from('akk_hutang as a');
-		$data = $this->db->get();
-		if ($data->num_rows() > 0) {
-			return $data->result_array();
-		} else {
-			return false;
-		}
-	}
 
 	public function getPembelianRemaining()
 	{

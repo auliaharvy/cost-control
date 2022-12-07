@@ -76,8 +76,6 @@
                   </div>
                 </div>
                 <div class="card-body">
-                  <h3>TOTAL RAB RAP DAN PEMBELIAN</h3>
-                  <h3><?php echo $titlepengajuan; ?></h3>
                   <div class="chart">
                     <canvas id="barChartPengeluaran" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                   </div>
@@ -368,16 +366,16 @@
     //-------------
     //- BAR CHART -
     //-------------
-    var areaChartDataPengajuan = {
+    var areaChartDataPengeluaran = {
       labels: [
         <?php
-        foreach ($datapengajuan->result_array() as $row1) {
+        foreach ($datapengeluaran->result_array() as $row1) {
           extract($row1);
           echo "['{$project_name}'],";
         } ?>
       ],
       datasets: [{
-        label: '',
+        label: 'Total RAB',
         backgroundColor: 'rgba(60,141,188,0.9)',
         borderColor: 'rgba(60,141,188,0.8)',
         pointRadius: false,
@@ -387,16 +385,48 @@
         pointHighlightStroke: 'rgba(60,141,188,1)',
         data: [
           <?php
-          foreach ($datapengajuan->result_array() as $row1) {
+          foreach ($datapengeluaran->result_array() as $row1) {
             extract($row1);
-            echo "'{$total_pengajuan}',";
+            echo "'{$rab_project}',";
+          } ?>
+        ]
+      }, {
+        label: 'Total RAP',
+        backgroundColor: 'rgba(60,141,188,0.9)',
+        borderColor: 'rgba(60,141,188,0.8)',
+        pointRadius: false,
+        pointColor: '#3b8bba',
+        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(60,141,188,1)',
+        data: [
+          <?php
+          foreach ($datapengeluaran->result_array() as $row2) {
+            extract($row2);
+            echo "'{$total_biaya}',";
+          } ?>
+        ]
+      }, {
+        label: 'Total Pembelian',
+        backgroundColor: 'rgba(60,141,188,0.9)',
+        borderColor: 'rgba(60,141,188,0.8)',
+        pointRadius: false,
+        pointColor: '#3b8bba',
+        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(60,141,188,1)',
+        data: [
+          <?php
+          foreach ($datapengeluaran->result_array() as $row3) {
+            extract($row3);
+            echo "'{$total_pengeluaran}',";
           } ?>
         ]
       }, ]
     }
     var barChartCanvas = $('#barChartPengeluaran').get(0).getContext('2d')
-    var barChartData = jQuery.extend(true, {}, areaChartDataPengajuan)
-    var temp0 = areaChartDataPengajuan.datasets[0]
+    var barChartData = jQuery.extend(true, {}, areaChartDataPengeluaran)
+    var temp0 = areaChartDataPengeluaran.datasets[0]
     barChartData.datasets[0] = temp0
     var barChartOptions = {
       responsive: true,

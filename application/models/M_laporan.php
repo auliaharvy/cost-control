@@ -86,6 +86,7 @@ class M_laporan extends CI_Model
 		$this->db->select('
         a.*,FORMAT(a.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian_v,DATE_FORMAT(a.created_at,"%d %M %Y") as created_at,
 		a.note as keterangan
+		
         ');
 		$this->db->from('trx_pembelian_barang as a');
 		$this->db->join('mst_project as b', 'a.project_office_id = b.id', 'left');

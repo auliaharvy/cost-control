@@ -90,22 +90,26 @@ class M_termin extends CI_Model
 
 	public function showTermin()
 	{
-
-		// $this->db->select('
-		//   a.*
-		// ');
-		// $this->db->order_by('id', 'desc');
-		// $this->db->from('mst_project as a');
-		// $data = $this->db->get();
-		// if($data->num_rows() > 0){
-		// 	return $data->result_array();
-		// }else{
-		// 	return false;
-		// }
 		$data = $this->db->query('SELECT a.*, FORMAT(b.termin_terbayar,0,"de_DE") as termin_terbayar, FORMAT(a.rab_project,0,"de_DE") as rab_project_v,DATE_FORMAT(a.project_deadline,"%d %M %Y") as project_deadline,
 		FORMAT(ROUND((a.rab_project - b.termin_terbayar),0),0,"de_DE") as sisa_termin FROM mst_project as a 
 		JOIN (SELECT SUM(nominal) AS termin_terbayar,project_id FROM akk_penerimaan_project GROUP BY project_id) as b 
 		ON a.id = b.project_id ');
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
+
+	public function showTerminlog()
+	{
+		$this->db->select('
+          a.*,b.project_name,FORMAT(a.nominal,0,"de_DE") as nominal
+      ');
+		$this->db->from('akk_penerimaan_project as a');
+		$this->db->join('mst_project as b', 'a.project_id = b.id');
+		$this->db->where('b.project_status', 0);
+		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
 		} else {

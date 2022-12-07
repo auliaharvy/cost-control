@@ -20,6 +20,7 @@ class C_termin extends CI_Controller
     public function index() //termin
     {
         $data = $this->M_termin->showTermin();
+        $datalogtermin = $this->M_termin->showTerminlog();
         $status = 0; //on progress
         $project = $this->M_project->getProject($status);
         $show = array(
@@ -28,6 +29,7 @@ class C_termin extends CI_Controller
             'sidebar' => $this->sidebar(),
             'footer' => $this->footer(),
             'data' => $data,
+            'datalogtermin' => $datalogtermin,
             'project' => $project,
         );
         $this->load->view('termin/index', $show);

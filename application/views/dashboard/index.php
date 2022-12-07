@@ -189,13 +189,7 @@
     //- BAR CHART -
     //-------------
     var areaChartDataCash = {
-      labels: [
-        <?php
-        foreach ($datapembelian->result_array() as $row1) {
-          extract($row1);
-          echo "['{$project_name}'],";
-        } ?>
-      ],
+      labels: ['Total Uang'],
       datasets: [{
         label: 'Total Kas Master',
         backgroundColor: 'rgba(60,141,188,0.9)',
@@ -209,7 +203,7 @@
           <?php
           foreach ($datapembelian->result_array() as $row1) {
             extract($row1);
-            echo "'{$total_pembelian}',";
+            echo "'{$total_uang}',";
           } ?>
         ]
       }, {
@@ -223,12 +217,44 @@
         pointHighlightStroke: 'rgba(30,233,222,1)',
         data: [
           <?php
-          foreach ($datapembelian->result_array() as $row1) {
-            extract($row1);
+          foreach ($datapembelian->result_array() as $row2) {
+            extract($row2);
+            echo "'{$total_cash_in_hand}',";
+          } ?>
+        ]
+      }, {
+        label: 'Total Hutang',
+        backgroundColor: 'rgba(14,44,22,0.9)',
+        borderColor: 'rgba(14,44,22,0.8)',
+        pointRadius: false,
+        pointColor: '#ffffff',
+        pointStrokeColor: 'rgba(14,44,22,1)',
+        pointHighlightFill: '#ffff',
+        pointHighlightStroke: 'rgba(14,44,22,1)',
+        data: [
+          <?php
+          foreach ($datapembelian->result_array() as $row3) {
+            extract($row3);
+            echo "'{$total_hutang}',";
+          } ?>
+        ]
+      }, {
+        label: 'Total Piutang',
+        backgroundColor: 'rgba(244,24,24,0.9)',
+        borderColor: 'rgba(244,24,24,0.8)',
+        pointRadius: false,
+        pointColor: '#ffffff',
+        pointStrokeColor: 'rgba(244,24,24,1)',
+        pointHighlightFill: '#ffff',
+        pointHighlightStroke: 'rgba(244,24,24,1)',
+        data: [
+          <?php
+          foreach ($datapembelian->result_array() as $row4) {
+            extract($row4);
             echo "'{$cash_in_hand}',";
           } ?>
         ]
-      }, ]
+      }]
     }
     var barChartCanvas = $('#barChartMaster').get(0).getContext('2d')
     var barChartData = jQuery.extend(true, {}, areaChartDataCash)

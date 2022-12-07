@@ -192,7 +192,7 @@ class M_data extends CI_Model
 	public function totaluang2()
 	{
 		$this->db->select('
-        sum(a.cash_in_hand) as total_uang
+        sum(a.cash_in_hand) as total_cash_in_hand
         ');
 		$this->db->from('mst_project as a');
 		$data = $this->db->get();
@@ -206,7 +206,7 @@ class M_data extends CI_Model
 	public function totaluang3()
 	{
 		$this->db->select('
-        sum(a.nominal) as total_uang
+        sum(a.nominal) as total_hutang
         ');
 		$this->db->from('akk_hutang as a');
 		$data = $this->db->get();

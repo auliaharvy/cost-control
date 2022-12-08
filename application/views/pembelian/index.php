@@ -135,7 +135,7 @@
                       <select class="form-control project_id" name="project_id" required>
                         <option value="">Nama Project (Cash Remaining)</option>
                         <?php foreach ($project as $us) { ?>
-                          <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?> (Rp <?php echo $sisa_uang; ?>)</option>
+                          <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?> (Rp <?php echo $us['cash_remaining']; ?>)</option>
                         <?php } ?>
                       </select>
                     </div>

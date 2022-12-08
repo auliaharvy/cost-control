@@ -25,7 +25,6 @@ class C_pembelian extends CI_Controller
         $project_id = $project[0]['id'];
         $pengajuan_id = $pengajuan[0]['pengajuan_id'];
         $destination_id = 2;
-        // $project_id = $get[0]['id'];
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
@@ -38,9 +37,6 @@ class C_pembelian extends CI_Controller
             'project_office_id' => $project_id,
             'pengajuan_id' => $pengajuan_id,
             'destination_id' => $destination_id,
-            // 'data_pembelian' => $data_pembelian,
-
-
         );
         $this->load->view('pembelian/index', $show);
     }

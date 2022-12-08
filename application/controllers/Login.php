@@ -13,15 +13,13 @@ class Login extends CI_Controller
 
 	public function index()
 	{
-
 		$this->load->helper('html');
 		$show = array(
 			'header' => $this->header(),
-
 		);
-
 		$this->load->view('V_login', $show);
 	}
+
 	public function auth()
 	{
 		$data = array(
@@ -57,11 +55,9 @@ class Login extends CI_Controller
 		$this->session->unset_userdata('username');
 		$this->session->unset_userdata('fullname');
 		$this->session->unset_userdata('role');
-
 		session_destroy();
 		redirect('Login');
 	}
-
 
 	public function header()
 	{

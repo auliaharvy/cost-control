@@ -58,105 +58,65 @@
                   </div>
                 </div>
                 <div class="card-body">
-                  <h3>TOTAL MASTER KAS</h3>
-                  <h3><?php echo $title; ?></h3>
-                  <div class="chart">
-                    <canvas id="barChartKas" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                  </div>
+                  <canvas id="barChartKas" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                 </div>
               </div>
             </div>
-            <div class="col-12">
-              <div class="card card-success">
-                <div class="card-header">
-                  <h3 class="card-title">Total RAB RAP dan Pembelian</h3>
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                    </button>
-                  </div>
+          </div>
+          <div class="col-12">
+            <div class="card card-success">
+              <div class="card-header">
+                <h3 class="card-title">Total RAB RAP dan Pembelian</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                  </button>
                 </div>
-                <div class="card-body">
-                  <div class="chart">
-                    <canvas id="barChartPengeluaran" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                  </div>
+              </div>
+              <div class="card-body">
+                <div class="chart">
+                  <canvas id="barChartPengeluaran" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                 </div>
               </div>
             </div>
-            <div class="col-12">
-              <div class="card card-success">
-                <div class="card-header">
-                  <h3 class="card-title">Detail Per Project</h3>
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                    </button>
-                  </div>
-                  <br>
-                  <div class="form-group">
-                    <select class="form-control project_id" name="project_id" required>
-                      <option value="">Pilih Project</option>
-                      <?php foreach ($project as $us) { ?>
-                        <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?></option>
-                      <?php } ?>
-                    </select>
-                  </div>
+          </div>
+          <div class="col-12">
+            <div class="card card-success">
+              <div class="card-header">
+                <h3 class="card-title">Detail Per Project</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                  </button>
                 </div>
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-6">
-                      <h3>DETAIL PROJECT</h3>
-                      <h3><?php echo $titlepembelianremaining; ?></h3>
-                      <div class="pie">
-                        <canvas id="pieChartProject" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="card">
-                        <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
-                          <thead>
-                            <tr>
-                              <th class="text-center">Nama</th>
-                              <th class="text-center">Jumlah</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr class="odd gradeX">
-                              <td style="width: 50%;" class="text">Pengajuan</td>
-                              <td style="width: 50%;" class="text text-center">Rp <?php echo $d['jumlah_pengajuan']; ?></td>
-                            </tr>
-                            <tr class="odd gradeX">
-                              <td style="width: 50%;" class="text">Approval</td>
-                              <td style="width: 50%;" class="text text-center">Rp <?php echo $d['jumlah_approval']; ?></td>
-                            </tr>
-                            <tr class="odd gradeX">
-                              <td style="width: 50%;" class="text">Pencairan</td>
-                              <td style="width: 50%;" class="text text-center">Rp <?php echo $d['jumlah_pencairan']; ?></td>
-                            </tr>
-                            <tr class="odd gradeX">
-                              <td style="width: 50%;" class="text">Pembelian</td>
-                              <td style="width: 50%;" class="text text-center">Rp <?php echo $d['jumlah_pembelian']; ?></td>
-                            </tr>
-                            <tr class="odd gradeX">
-                              <td style="width: 50%;" class="text">Pembelian ( Tanpa Pengajuan )</td>
-                              <td style="width: 50%;" class="text text-center">Rp <?php echo $d['jumlah_pembelian_tanpa']; ?></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
+                <br>
+                <div class="form-group">
+                  <select class="form-control project_id" name="project_id" required>
+                    <option value="">Pilih Project</option>
+                    <?php foreach ($project as $us) { ?>
+                      <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <canvas id="pieChartProject" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <!-- /.card -->
         </div>
-        <!-- /.col -->
       </div>
-      <!-- /.row -->
-    </section>
-    <!-- /.content -->
+      <!-- /.card -->
   </div>
-  <!-- /.content-wrapper -->
+  <!-- /.col -->
+</div>
+<!-- /.row -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
 </div>
 <!-- ./wrapper -->
 
@@ -306,7 +266,7 @@
         } ?>
       ],
       datasets: [{
-        label: 'Total Kas',
+        label: 'Total Cash In Hand',
         backgroundColor: 'rgba(60,141,188,0.9)',
         borderColor: 'rgba(60,141,188,0.8)',
         pointRadius: false,
@@ -351,22 +311,6 @@
           foreach ($data->result_array() as $row1) {
             extract($row1);
             echo "'{$total_piutang}',";
-          } ?>
-        ]
-      }, {
-        label: 'Total Cash In Hand',
-        backgroundColor: 'rgba(60,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
-        pointRadius: false,
-        pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,188,1)',
-        pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
-        data: [
-          <?php
-          foreach ($data->result_array() as $row1) {
-            extract($row1);
-            echo "'{$cash_in_hand}',";
           } ?>
         ]
       }, ]
@@ -516,15 +460,9 @@
     //- BAR CHART -
     //-------------
     var areaChartData = {
-      labels: [
-        <?php
-        foreach ($datapembelianremaining->result_array() as $row1) {
-          extract($row1);
-          echo "['{$project_name}'],";
-        } ?>
-      ],
+      labels: ['Jumlah Uang per Project'],
       datasets: [{
-        label: '',
+        label: 'Jumlah Pengajuan',
         backgroundColor: 'rgba(60,141,188,0.9)',
         borderColor: 'rgba(60,141,188,0.8)',
         pointRadius: false,
@@ -536,7 +474,71 @@
           <?php
           foreach ($datapembelianremaining->result_array() as $row1) {
             extract($row1);
-            echo "'{$total_pembelian}',";
+            echo "'{$jumlah_pengajuan1}',";
+          } ?>
+        ]
+      }, {
+        label: 'Jumlah Approval',
+        backgroundColor: 'rgba(60,141,188,0.9)',
+        borderColor: 'rgba(60,141,188,0.8)',
+        pointRadius: false,
+        pointColor: '#3b8bba',
+        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(60,141,188,1)',
+        data: [
+          <?php
+          foreach ($datapembelianremaining->result_array() as $row1) {
+            extract($row1);
+            echo "'{$jumlah_approval1}',";
+          } ?>
+        ]
+      }, {
+        label: 'Jumlah Pencairan',
+        backgroundColor: 'rgba(60,141,188,0.9)',
+        borderColor: 'rgba(60,141,188,0.8)',
+        pointRadius: false,
+        pointColor: '#3b8bba',
+        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(60,141,188,1)',
+        data: [
+          <?php
+          foreach ($datapembelianremaining->result_array() as $row1) {
+            extract($row1);
+            echo "'{$jumlah_pencairan1}',";
+          } ?>
+        ]
+      }, {
+        label: 'Jumlah Pembelian',
+        backgroundColor: 'rgba(60,141,188,0.9)',
+        borderColor: 'rgba(60,141,188,0.8)',
+        pointRadius: false,
+        pointColor: '#3b8bba',
+        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(60,141,188,1)',
+        data: [
+          <?php
+          foreach ($datapembelianremaining->result_array() as $row1) {
+            extract($row1);
+            echo "'{$jumlah_pembelian1}',";
+          } ?>
+        ]
+      }, {
+        label: 'Pembelian Tanpa Pengajuan',
+        backgroundColor: 'rgba(60,141,188,0.9)',
+        borderColor: 'rgba(60,141,188,0.8)',
+        pointRadius: false,
+        pointColor: '#3b8bba',
+        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(60,141,188,1)',
+        data: [
+          <?php
+          foreach ($datapembelianremaining->result_array() as $row1) {
+            extract($row1);
+            echo "'{$jumlah_tanpa_pengajuan}',";
           } ?>
         ]
       }, ]

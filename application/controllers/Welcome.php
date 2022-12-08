@@ -9,7 +9,6 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 // End load library phpspreadsheet
 
-
 class Welcome extends CI_Controller
 {
 
@@ -42,20 +41,16 @@ class Welcome extends CI_Controller
         $provinsi = $this->M_data->showData("mst_organization");
         // Create new Spreadsheet object
         $spreadsheet = new Spreadsheet();
-
         // Set document properties
         $spreadsheet->getProperties()->setCreator('Surya Microsystem - HA')
-
             ->setTitle('Office 2007 XLSX Test Document')
             ->setSubject('Office 2007 XLSX Test Document')
             ->setDescription('Document for Office 2007 XLSX, generated using PHP classes.')
             ->setKeywords('office 2007 openxml php');
-
         // Add some data
         $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A1', 'Organization Name')
             ->setCellValue('B1', 'Cash In Hand');
-
         // Miscellaneous glyphs, UTF-8
         $i = 2;
         foreach ($provinsi as $d) {
@@ -100,7 +95,6 @@ class Welcome extends CI_Controller
             $data = $this->M_data->showLogKas();
             $title = 'LOG KAS ';
         }
-
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
@@ -108,7 +102,6 @@ class Welcome extends CI_Controller
             'footer' => $this->footer(),
             'data' => $data,
             'title' => $title,
-
         );
         $this->load->view('kas/V_historycash', $show);
         // $this->load->view('data');
@@ -124,7 +117,6 @@ class Welcome extends CI_Controller
             $data = $this->M_data->showLogMaterial();
             $title = 'LOG TRANSFER MATERIAL';
         }
-
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
@@ -349,8 +341,6 @@ class Welcome extends CI_Controller
         }
     }
 
-
-
     public function delete($id)
     {
         $where = array('id' => $id);
@@ -361,8 +351,6 @@ class Welcome extends CI_Controller
             $this->flashdata_failed();
         }
     }
-
-
 
     public function tambah_kas()
     {
@@ -407,8 +395,6 @@ class Welcome extends CI_Controller
         }
     }
 
-
-
     public function header()
     {
         $data = array();
@@ -423,7 +409,6 @@ class Welcome extends CI_Controller
         return $show;
     }
 
-
     public function sidebar()
     {
         $data = array();
@@ -437,9 +422,6 @@ class Welcome extends CI_Controller
         $show = $this->load->view('component/footer', $data, TRUE);
         return $show;
     }
-
-
-
 
     public function flashdata_succeed()
     {

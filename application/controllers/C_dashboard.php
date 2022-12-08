@@ -36,7 +36,7 @@ class C_dashboard extends CI_Controller
         $datapengeluaran = $this->M_data->getProject1();
         $datapengajuanapproval = $this->M_data->getTotalPengajuanApproval();
         $datapembelian = $this->M_data->getPembelian();
-        $datapembelianremaining = $this->M_data->getPembelianRemaining();
+        $datapembelianremaining = $this->M_data->getProject3();
         $pembelianremaining = $this->M_data->TotalPembelianRemaining();
         $totalpembelianremaining = $this->lharby->formatRupiah($pembelianremaining[0]['total_pembelian']);
         $titlepembelianremaining = $totalpembelianremaining;
@@ -61,20 +61,15 @@ class C_dashboard extends CI_Controller
             'datapembelianremaining' => $datapembelianremaining,
             'titlepembelianremaining' => $titlepembelianremaining,
             'project' => $project,
-
         );
         $this->load->view('dashboard/index', $show);
     }
-
-
 
     function convert_date($tgl)
     {
         $tanggal = date('d F Y', strtotime($tgl));
         return $tanggal;
     }
-
-
 
     public function header()
     {
@@ -90,7 +85,6 @@ class C_dashboard extends CI_Controller
         return $show;
     }
 
-
     public function sidebar()
     {
         $data = array();
@@ -104,7 +98,6 @@ class C_dashboard extends CI_Controller
         $show = $this->load->view('component/footer', $data, TRUE);
         return $show;
     }
-
 
     public function flashdata_succeed()
     {

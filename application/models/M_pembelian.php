@@ -69,7 +69,6 @@ class M_pembelian extends CI_Model
 		// $this->db->group_by('h.nama_kategori');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
-			echo $data->result_array();
 			return $data->result_array();
 		} else {
 			return false;

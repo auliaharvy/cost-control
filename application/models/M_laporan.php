@@ -85,14 +85,14 @@ class M_laporan extends CI_Model
 	{
 		$this->db->select('
         a.*,FORMAT(a.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian_v,DATE_FORMAT(a.created_at,"%d %M %Y") as created_at,
-		a.note as keterangan
+		a.note as keterangan,e.nama_kategori
 		
         ');
 		$this->db->from('trx_pembelian_barang as a');
 		$this->db->join('mst_project as b', 'a.project_office_id = b.id', 'left');
 		$this->db->join('akk_rap as c', 'b.id = c.project_id', 'left');
 		$this->db->join('akk_rap_biaya as d', 'c.id = d.rap_id', 'left');
-		// $this->db->join('mst_kategori_biaya as e', 'd.kategori_biaya_id = e.id', 'left');
+		$this->db->join('mst_kategori_biaya as e', 'd.kategori_biaya_id = e.id', 'left');
 		$this->db->group_by('a.pengiriman_uang_id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
@@ -112,6 +112,7 @@ class M_laporan extends CI_Model
 		$this->db->from('trx_pembelian_barang_remaining as a');
 		$this->db->join('mst_project as b', 'a.project_id = b.id');
 		$this->db->join('akk_rap_biaya as c', 'a.rap_biaya_id = c.id');
+		$this->db->join('mst_kategori_biaya as d', 'c.kategori_biaya_id = d.id', 'left');
 		$this->db->where('a.project_id', $id);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {

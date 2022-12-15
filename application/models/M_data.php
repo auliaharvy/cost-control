@@ -144,7 +144,7 @@ class M_data extends CI_Model
 		$this->db->from('mst_project as a');
 		$this->db->join('akk_rap as b', 'a.id = b.project_id');
 		$this->db->join('akk_rap_biaya as c', 'b.id = c.rap_id');
-		$this->db->group_by('c.rap_id');
+		$this->db->group_by('a.id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data;
@@ -157,13 +157,13 @@ class M_data extends CI_Model
 	{
 
 		$this->db->select("
-    	a.project_name,a.rab_project,a.cash_in_hand as total_kas,
-		sum(e.nominal) as total_hutang,a.rab_project - sum(f.nominal) as total_piutang, 
+    	a.project_name,a.rab_project,a.cash_in_hand as total_kas,sum(b.nominal) as total_hutang,
+		a.rab_project - sum(c.nominal) as total_piutang
 		");
 		$this->db->from('mst_project as a');
-		$this->db->join('akk_hutang as e', 'a.id = e.project_id');
-		$this->db->join('akk_penerimaan_project as f', 'f.project_id = a.id');
-		$this->db->group_by('f.project_id');
+		$this->db->join('akk_penerimaan_project as c', 'a.id = c.project_id', 'left');
+		$this->db->join('akk_hutang as b', 'a.id = b.project_id', 'left');
+		$this->db->group_by('a.id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data;
@@ -175,16 +175,17 @@ class M_data extends CI_Model
 	public function getProject3()
 	{
 		$this->db->select("
-        a.project_name,sum(c.jumlah_pengajuan) as jumlah_pengajuan,sum(d.jumlah_approval) as jumlah_approval,sum(e.jumlah_uang) as jumlah_pencairan,
-		sum(f.jumlah_uang_pembelian) as jumlah_pembelian,sum(g.jumlah_uang_pembelian) as jumlah_tanpa_pengajuan
+		a.*,sum(b.jumlah_pengajuan) as jumlah_pengajuan,sum(c.jumlah_approval) as jumlah_approval,
+		sum(d.jumlah_uang) as jumlah_pencairan,sum(e.jumlah_uang_pembelian) as jumlah_pembelian,
+		sum(g.jumlah_uang_pembelian) as jumlah_tanpa_pengajuan
         ");
-		$this->db->from('mst_project as a');
-		$this->db->join('trx_pembelian_barang_remaining as g', 'a.id = g.project_id');
-		$this->db->join('akk_pengajuan as b', 'a.id = b.project_id');
-		$this->db->join('akk_pengajuan_biaya as c', 'b.id = c.pengajuan_id');
-		$this->db->join('akk_pengajuan_approval as d', 'c.id = d.pengajuan_biaya_id');
-		$this->db->join('trx_pengiriman_uang as e', 'd.id = e.pengajuan_approval_id');
-		$this->db->join('trx_pembelian_barang as f', 'e.id = f.pengiriman_uang_id');
+		$this->db->from('akk_pengajuan as a');
+		$this->db->join('akk_pengajuan_biaya as b', 'a.id = b.pengajuan_id');
+		$this->db->join('akk_pengajuan_approval as c', 'b.id = c.pengajuan_biaya_id');
+		$this->db->join('trx_pengiriman_uang as d', 'c.id = d.pengajuan_approval_id');
+		$this->db->join('trx_pembelian_barang as e', 'd.id = e.pengiriman_uang_id');
+		$this->db->join('mst_project as f', 'a.project_id = f.id', 'left');
+		$this->db->join('trx_pembelian_barang_remaining as g', 'f.id = g.project_id', 'left');
 		$this->db->group_by('a.id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {

@@ -89,7 +89,6 @@
                   <br>
                   <div class="form-group">
                     <select class="form-control project_id" name="project_id" required>
-                      <option value="">Pilih Project</option>
                       <?php foreach ($project as $us) { ?>
                         <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?></option>
                       <?php } ?>
@@ -504,7 +503,7 @@
           <?php
           foreach ($datapembelianremaining->result_array() as $row1) {
             extract($row1);
-            echo "'{$jumlah_pengajuan1}',";
+            echo "'{$jumlah_pengajuan}',";
           } ?>
         ]
       }, {
@@ -520,7 +519,7 @@
           <?php
           foreach ($datapembelianremaining->result_array() as $row1) {
             extract($row1);
-            echo "'{$jumlah_approval1}',";
+            echo "'{$jumlah_approval}',";
           } ?>
         ]
       }, {
@@ -536,7 +535,7 @@
           <?php
           foreach ($datapembelianremaining->result_array() as $row1) {
             extract($row1);
-            echo "'{$jumlah_pencairan1}',";
+            echo "'{$jumlah_pencairan}',";
           } ?>
         ]
       }, {
@@ -552,7 +551,7 @@
           <?php
           foreach ($datapembelianremaining->result_array() as $row1) {
             extract($row1);
-            echo "'{$jumlah_pembelian1}',";
+            echo "'{$jumlah_pembelian}',";
           } ?>
         ]
       }, {

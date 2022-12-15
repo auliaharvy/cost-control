@@ -51,7 +51,7 @@
             <div class="col-12">
               <div class="card card-success">
                 <div class="card-header">
-                  <h3 class="card-title">Total Kas Utang dan Piutang ( cash in hand )</h3>
+                  <h3 class="card-title">Total Cash In Hand Utang dan Piutang ( Per Project )</h3>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                     </button>
@@ -65,7 +65,7 @@
             <div class="col-12">
               <div class="card card-success">
                 <div class="card-header">
-                  <h3 class="card-title">Total RAB RAP dan Pembelian</h3>
+                  <h3 class="card-title">Total RAB RAP dan Pembelian ( Per Project )</h3>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                     </button>

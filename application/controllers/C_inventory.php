@@ -61,11 +61,11 @@ class C_inventory extends CI_Controller
             if ($tag == 0) { //plus
                 $qtyakhir = $qty_awal + $qty;
                 $msg = "Penambahan Material ";
-                $note = "Penambahan inventory melalui Inventory";
+                $note = "Penambahan Material melalui Inventory";
             } else {
                 $qtyakhir = $qty_awal - $qty;
                 $msg = "Pengurangan Material ";
-                $note = "Pengurangan inventory melalui Inventory";
+                $note = "Pengurangan Material melalui Inventory";
             }
             $where = array('id' => $id);
             $date = date('Y-m-d H:i:s');

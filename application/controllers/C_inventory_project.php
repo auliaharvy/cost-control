@@ -20,6 +20,14 @@ class C_inventory_project extends CI_Controller
 
     public function index()
     {
+        if ($this->input->server('REQUEST_METHOD') == 'POST') {
+            $range = $_POST['range'];
+            $title = 'LOG TRANSFER MATERIAL DALAM ' . $range . ' BULAN TERAKHIR';
+            $datalogmaterial = $this->M_inventory->showLogMaterialRange($range);
+        } else {
+            $datalogmaterial = $this->M_inventory->showLogMaterial();
+            $title = '';
+        }
         $project = $this->M_transaksi->getProject(0);
         $data_inventory = $this->M_project->showInventory();
         $data_project = $this->M_inventory->GetData("mst_project ", "where project_status=0");
@@ -33,7 +41,8 @@ class C_inventory_project extends CI_Controller
             'data_mst_material' => $data_mst_material,
             'data_project' => $data_project,
             'project' => $project,
-
+            'datalogmaterial' => $datalogmaterial,
+            'title' => $title,
         );
         $this->load->view('inventory_project/index', $show);
     }
@@ -46,20 +55,20 @@ class C_inventory_project extends CI_Controller
             $this->flashdata_failed1($pesan);
             redirect('/');
         } else {
-            $id = $_POST['inventory_id'];
+            $id = $_POST['project_id'];
             $tag = $_POST['tag'];
             $qty = $_POST['qty'];
-            $get = $this->M_data->GetData("akk_inventory ", "where id = '$id'");
+            $get = $this->M_data->GetData("akk_inventory_project", "where id = '$id'");
             $material_id = $get[0]['material_id'];
             $qty_awal = $get[0]['qty'];
             if ($tag == 0) { //plus
                 $qtyakhir = $qty_awal + $qty;
                 $msg = "Penambahan Material ";
-                $note = "Penambahan inventory melalui Inventory";
+                $note = "Penambahan inventory melalui Project";
             } else {
                 $qtyakhir = $qty_awal - $qty;
                 $msg = "Pengurangan Material ";
-                $note = "Pengurangan inventory melalui Inventory";
+                $note = "Pengurangan inventory melalui Project";
             }
             $where = array('id' => $id);
             $date = date('Y-m-d H:i:s');
@@ -77,14 +86,14 @@ class C_inventory_project extends CI_Controller
             );
             $this->db->trans_start();
             $this->M_data->InsertData('log_inventory_organization', $data_log);
-            $this->M_data->UpdateData('akk_inventory', $data, $where);
+            $this->M_data->UpdateData('akk_inventory_project', $data, $where);
             $this->db->trans_complete();
             if ($this->db->trans_status() === TRUE) {
                 $this->flashdata_succeed1($msg);
-                redirect('inventory');
+                redirect('inventory_project');
             } else {
                 $this->flashdata_failed1($msg);
-                redirect('inventory');
+                redirect('inventory_project');
             }
         }
     }

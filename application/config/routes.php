@@ -130,6 +130,8 @@ $route['tambahpengajuan'] = 'C_pengajuan/tambahpengajuan';
 
 $route['inventory_project'] = 'C_inventory_project/index';
 $route['tambahmaterialpro'] = 'C_inventory_project/tambahmaterial';
+$route['editmaterialpro'] = 'C_inventory_project/editmaterial';
+
 
 
 

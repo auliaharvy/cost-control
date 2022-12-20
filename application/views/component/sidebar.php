@@ -197,7 +197,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?php echo base_url('hutang') ?>" class="nav-link">
+            <!-- <a href="<?php echo base_url('hutang') ?>" class="nav-link"> -->
+            <a href="" onclick="return confirm('Sedang dalam development');" class="nav-link">
               <i class="nav-icon fas fa-dollar-sign"></i>
               <p>HUTANG</p>
             </a>

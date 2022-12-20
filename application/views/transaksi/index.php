@@ -296,7 +296,7 @@
     $("#example1").DataTable({
       "paging": true,
       "lengthChange": true,
-      // "scrollX": true,
+      "scrollX": true,
       "searching": true,
       "ordering": true,
       "info": true,
@@ -305,7 +305,7 @@
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": true,
-      // "scrollX": true,
+      "scrollX": true,
       "searching": true,
       "ordering": true,
       "info": true,
@@ -314,7 +314,7 @@
     $('#example3').DataTable({
       "paging": true,
       "lengthChange": true,
-      // "scrollX": true,
+      "scrollX": true,
       "searching": true,
       "ordering": true,
       "info": true,
@@ -323,7 +323,7 @@
     $('#example4').DataTable({
       "paging": true,
       "lengthChange": true,
-      // "scrollX": true,
+      "scrollX": true,
       "searching": true,
       "ordering": true,
       "info": true,
@@ -332,7 +332,7 @@
     $('#example5').DataTable({
       "paging": true,
       "lengthChange": true,
-      // "scrollX": true,
+      "scrollX": true,
       "searching": true,
       "ordering": true,
       "info": true,
@@ -341,7 +341,7 @@
     $('#example6').DataTable({
       "paging": true,
       "lengthChange": true,
-      // "scrollX": true,
+      "scrollX": true,
       "searching": true,
       "ordering": true,
       "info": true,

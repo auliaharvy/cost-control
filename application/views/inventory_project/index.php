@@ -68,56 +68,6 @@
               </table>
             </div>
           </div>
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Log Inventory Material</h3>
-            </div>
-            <div class="card-body">
-              <form action="<?php echo base_url('inventory') ?>" method="POST" class="form-inline">
-                <div class="form-group">
-                  <select class="form-control" name="range">
-                    <option value="">---Pilih Jangka Waktu---</option>
-                    <option value="1">1 Bulan Terakhir</option>
-                    <option value="3">3 Bulan Terakhir</option>
-                    <option value="6">6 Bulan Terakhir</option>
-                    <option value="12">1 Tahun Terakhir</option>
-                  </select>
-                </div>
-                <button type="submit" class="btn btn-primary" title="Search">Search</button>
-              </form>
-              <br>
-              <h3 class="card-title"><i><?php echo $title; ?></i></h3>
-              <br><br>
-              <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th class="text-center">No</th>
-                    <th class="text-center">Material</th>
-                    <th class="text-center">Qty/Unit</th>
-                    <th class="text-center">Tujuan Project</th>
-                    <th class="text-center">Note</th>
-                    <th class="text-center">Tanggal</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  $nomor = 1;
-                  foreach ($datalogmaterial as $d) {
-                    $id = $d['id']; ?>
-                    <tr class="odd gradeX">
-                      <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                      <td style="width: 15;" class="text"><span><?php echo $d['material_name']; ?></span></td>
-                      <td style="width: 15%;" class="text text-center"><span><?php echo $d['qty']; ?> <?php echo $d['unit']; ?></span></td>
-                      <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
-                      <td style="width: 30%;" class="text"><span><?php echo $d['note']; ?></span></td>
-                      <td style="width: 15%;" class="text text-center"><span><?php echo $d['created_at_v']; ?></span></td>
-                    </tr>
-                  <?php
-                  } ?>
-                </tbody>
-              </table>
-            </div>
-          </div>
           <?php if (is_array($datainventory) || is_object($datainventory)) {
             foreach ($datainventory as $i) :
               $id = $i['id'];
@@ -134,7 +84,7 @@
                       <div class="modal-body">
                         <div class="form-group">
                           <div class="col-xs-8">
-                            <input name="project_id" value="<?php echo $id; ?>" class="form-control" type="hidden" readonly>
+                            <input name="inventory_id" value="<?php echo $id; ?>" class="form-control" type="hidden" readonly>
                           </div>
                         </div>
                         <div class="form-group">

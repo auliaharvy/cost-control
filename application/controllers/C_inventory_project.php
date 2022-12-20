@@ -50,25 +50,23 @@ class C_inventory_project extends CI_Controller
     public function editmaterial()
     {
         $this->form_validation->set_rules('qty', 'Quantity', 'required|greater_than[0]');
+        $project_id = $_POST['project_id'];
         if ($this->form_validation->run() == FALSE) {
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
-            redirect('/');
+            redirect('project_detail/' . $project_id);
         } else {
-            $id = $_POST['project_id'];
+            $id = $_POST['inventory_id'];
             $tag = $_POST['tag'];
             $qty = $_POST['qty'];
-            $get = $this->M_data->GetData("akk_inventory_project", "where id = '$id'");
-            $material_id = $get[0]['material_id'];
+            $get = $this->M_data->GetData("akk_inventory_project ", "where id = '$id'");
             $qty_awal = $get[0]['qty'];
             if ($tag == 0) { //plus
                 $qtyakhir = $qty_awal + $qty;
-                $msg = "Penambahan Material ";
-                $note = "Penambahan inventory melalui Project";
+                $msg = "Penambahan Material dalam Project Berhasil ";
             } else {
                 $qtyakhir = $qty_awal - $qty;
-                $msg = "Pengurangan Material ";
-                $note = "Pengurangan inventory melalui Project";
+                $msg = "Pengurangan Material dalam Project Berhasil ";
             }
             $where = array('id' => $id);
             $date = date('Y-m-d H:i:s');
@@ -77,18 +75,8 @@ class C_inventory_project extends CI_Controller
                 "last_updated_by" => $this->session->userdata('id'),
                 "updated_at" => $date,
             );
-            $data_log = array(
-                "material_id" => $material_id,
-                "qty" => $_POST['qty'],
-                "created_by" => $this->session->userdata('id'),
-                "created_at" => $date,
-                "note" => $note,
-            );
-            $this->db->trans_start();
-            $this->M_data->InsertData('log_inventory_organization', $data_log);
-            $this->M_data->UpdateData('akk_inventory_project', $data, $where);
-            $this->db->trans_complete();
-            if ($this->db->trans_status() === TRUE) {
+            $res = $this->M_data->UpdateData('akk_inventory_project', $data, $where);
+            if ($res >= 1) {
                 $this->flashdata_succeed1($msg);
                 redirect('inventory_project');
             } else {

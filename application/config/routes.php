@@ -128,6 +128,11 @@ $route['pengajuan'] = 'C_pengajuan/index';
 $route['tambahpengajuan'] = 'C_pengajuan/tambahpengajuan';
 
 
+$route['inventory_project'] = 'C_inventory_project/index';
+$route['tambahmaterialpro'] = 'C_inventory_project/tambahmaterial';
+
+
+
 // $route['user'] = 'C_pengguna';
 // $route['user/add'] = 'C_pengguna/add';
 // $route['user/update'] = 'C_pengguna/do_update';

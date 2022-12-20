@@ -169,6 +169,28 @@
       reverse: true
     });
   });
+  $('.project_id').change(function() {
+    var id = $(this).val();
+    var project_id = $('input[name="project_id"]').val();
+    $.ajax({
+      url: "<?php echo base_url(); ?>C_pengajuan/getListBiayaRap/" + id,
+      method: "POST",
+      data: {
+        id: id
+      },
+      async: false,
+      dataType: 'json',
+      success: function(data) {
+        var html = '';
+        var i;
+        for (i = 0; i < data.length; i++) {
+          html += '<option value="' + data[i].id + '">' + data[i].nama_pekerjaan + " > " + data[i].jumlah_biaya_v + '</option>';
+        }
+        $('.rap_biaya_id').html(html);
+
+      }
+    });
+  });
 </script>
 <script>
   $(function() {

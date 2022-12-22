@@ -54,7 +54,7 @@
                         <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
                         <td style="width: 15%;" align="center">
                           <?php if ($d['is_send_cash'] == 0) { ?>
-                            <a href="" data-toggle="modal" style="width: 120px;" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-success btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i>KIRIM BIAYA</a>
+                            <a href="" data-toggle="modal" style="width: 120px;" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-success btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i>KIRIM UANG</a>
                           <?php } ?>
                           <?php if ($d['is_send_cash'] == 1) { ?>
                             <a href="" data-toggle="modal" style="width: 120px;" class="btn btn-primary btn-circle disabled" data-popup="tooltip" data-placement="top" title="Edit Data">BIAYA TERKIRIM</a>
@@ -139,21 +139,24 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label>Destination</label>
-                        <select class="form-control disabled destination_id" name="destination_id" id="destination<?php echo $id; ?>" required>
-                          <option value="2">Project</option>
-                        </select>
+                        <div class="col-xs-8">
+                          <input class="form-control disabled destination_id" type="hidden" name="destination_id" id="destination<?php echo $id; ?>" value="2" required>
+                          </input>
+                        </div>
                       </div>
                       <div class="form-group">
-                        <label>Nama Project</label>
-                        <select class="form-control project_office_id" name="project_office_id" id="project_office_id<?php echo $project_id; ?>" required>
-                          <option value="<?php echo $project_id; ?>"><?php echo $project_name; ?></option>
-                        </select>
+                        <div class="col-xs-8">
+                          <input class="form-control project_office_id" type="hidden" name="project_office_id" id="project_office_id<?php echo $project_id; ?>" value="<?php echo $project_id; ?>" required>
+                          </input>
+                        </div>
                       </div>
                       <div class="form-group">
                         <div class="col-xs-8">
                           <input name="jumlah_uang" value="<?php echo $jumlah_approval; ?>" class="form-control" type="hidden" placeholder="Masukan Jumlah Approval.." required>
                         </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Anda akan mengirim uang ke Project <?php echo $project_name; ?> !</label>
                       </div>
                     </div>
                     <div class="modal-footer">

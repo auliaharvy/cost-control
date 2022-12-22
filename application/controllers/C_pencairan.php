@@ -113,7 +113,7 @@ class C_pencairan extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
-            redirect('pengajuan/');
+            redirect('pencairan');
         } else {
             $data = array(
                 "organization_id" => $organization_id, //default 
@@ -163,16 +163,16 @@ class C_pencairan extends CI_Controller
             $this->M_data->UpdateData($table, $data_update_off_proj, $where_off_proj);
             $this->db->trans_complete();
             if ($this->db->trans_status() === TRUE) {
-                $this->flashdata_succeed_rap();
-                redirect('pencairan/');
+                $msg = "Pengiriman Uang Berhasil";
+                $this->flashdata_succeed1($msg);
+                redirect('pencairan');
             } else {
-                $this->flashdata_failed_rap();
-                redirect('pencairan/');
+                $msg = "Pengiriman Uang Gagal";
+                $this->flashdata_failed1($msg);
+                redirect('pencairan');
             }
         }
     }
-
-
 
 
     function convert_date($tgl)

@@ -119,6 +119,7 @@
                   </div>
                   <div class="modal-body">
                     <div class="form-group">
+                      <label>Nama Project</label>
                       <select class="form-control project_id" name="project_id" required>
                         <?php foreach ($project as $us) { ?>
                           <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?></option>

@@ -81,56 +81,29 @@
             <div class="col-12">
               <div class="card card-success">
                 <div class="card-header">
-                  <h3 class="card-title">Detail Per Project</h3>
+                  <h3 class="card-title">Detail Per Project <?php echo $project_name; ?></h3>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                     </button>
                   </div>
                   <br>
-                  <div class="form-group">
-                    <select class="form-control project_id" name="project_id" required>
-                      <?php foreach ($project as $us) { ?>
-                        <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?></option>
-                      <?php } ?>
-                    </select>
-                  </div>
                 </div>
                 <div class="card-body">
-                  <div class="row">
-                    <div class="col-6">
-                      <canvas id="pieChartProject" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                    </div>
-                    <div class="col-6">
+                  <div class="form-group">
+                    <form action="<?php echo base_url('dashboard') ?>" method="POST" class="form-inline">
                       <div class="form-group">
-                        <select class="form-control" name="pilih_transaksi" required>
-                          <option value="">Pengajuan</option>
-                          <option value="">Approval</option>
-                          <option value="">Pencairan</option>
-                          <option value="">Pembelian</option>
-                          <option value="">Pembelian ( Tanpa Pengajuan )</option>
+                        <select class="form-control project_id" value="<?php echo set_value('project_id'); ?>" name="project_id" required>
+                          <?php foreach ($project as $us) { ?>
+                            <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?></option>
+                          <?php } ?>
                         </select>
                       </div>
-                      <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
-                        <thead>
-                          <tr>
-                            <th class="text-center">No</th>
-                            <th class="text-center">Jumlah Uang</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <?php if (is_array($datatransaksi) || is_object($datatransaksi)) {
-                            $nomor = 1;
-                            foreach ($datatransaksi as $d) {
-                              $id = $d['id']; ?>
-                              <tr class="odd gradeX">
-                                <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                                <td style="width: 95%;" class="text"><span><?php echo $d['jumlah_uang']; ?></span></td>
-                              </tr>
-                          <?php
-                            }
-                          } ?>
-                        </tbody>
-                      </table>
+                      <button type="submit" class="btn btn-primary">Search</button>
+                    </form>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <canvas id="pieChartProject" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
                   </div>
                 </div>
@@ -173,7 +146,7 @@
     var id = $(this).val();
     var project_id = $('input[name="project_id"]').val();
     $.ajax({
-      url: "<?php echo base_url(); ?>C_pengajuan/getListBiayaRap/" + id,
+      url: "<?php echo base_url(); ?>C_dashboard/getpengajuan/" + id,
       method: "POST",
       data: {
         id: id
@@ -183,11 +156,7 @@
       success: function(data) {
         var html = '';
         var i;
-        for (i = 0; i < data.length; i++) {
-          html += '<option value="' + data[i].id + '">' + data[i].nama_pekerjaan + " > " + data[i].jumlah_biaya_v + '</option>';
-        }
-        $('.rap_biaya_id').html(html);
-
+        $('.pieChartProject').html(html);
       }
     });
   });

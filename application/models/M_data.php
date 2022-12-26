@@ -90,6 +90,20 @@ class M_data extends CI_Model
 		}
 	}
 
+	public function getpengajuan()
+	{
+		$this->db->select('
+		FORMAT(a.jumlah_pengajuan,0,"de_DE") as jumlah_uang,
+		');
+		$this->db->from('akk_pengajuan_biaya as a');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
+
 	public function GetData($tableName, $where = "")
 	{
 		$data = $this->db->query('select * from ' . $tableName . $where);
@@ -172,7 +186,7 @@ class M_data extends CI_Model
 		}
 	}
 
-	public function getProject3()
+	public function getProject3($project_id)
 	{
 		$this->db->select("
 		a.*,sum(b.jumlah_pengajuan) as jumlah_pengajuan,sum(c.jumlah_approval) as jumlah_approval,
@@ -186,6 +200,7 @@ class M_data extends CI_Model
 		$this->db->join('trx_pembelian_barang as e', 'd.id = e.pengiriman_uang_id');
 		$this->db->join('mst_project as f', 'a.project_id = f.id', 'left');
 		$this->db->join('trx_pembelian_barang_remaining as g', 'f.id = g.project_id', 'left');
+		$this->db->where('f.id', $project_id);
 		$this->db->group_by('a.id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {

@@ -133,7 +133,17 @@ $route['tambahmaterialpro'] = 'C_inventory_project/tambahmaterial';
 $route['editmaterialpro'] = 'C_inventory_project/editmaterial';
 
 
+// public function getDetailPerProjectTable($project_id)
+//     {
+//         //  $id=$this->input->post('id');
+//         if ($_POST['tipe_detail'] == 'pengajuan') {
+//             $data = $this->M_data->GetData("akk_pengajuan", "where id = '$project_id'");
+//         } elseif ($_POST['tipe_detail'] == 'approval') {
+//             $data = $this->M_data->GetData("akk_pengajuan", "where id = '$project_id'");
+//         }
 
+//         echo json_encode($data);
+//     }
 
 // $route['user'] = 'C_pengguna';
 // $route['user/add'] = 'C_pengguna/add';

@@ -20,40 +20,51 @@ class C_dashboard extends CI_Controller
 
     public function index() //project on progress
     {
-        if ($this->input->server('REQUEST_METHOD') == 'POST') {
-            $range = $_POST['range'];
-            $master_kas = $this->M_data->GetKasRange($range);
-            $get = $this->M_data->GetJumlahKasRange($range); //barchart total
-            $titlekas = 'TOTAL MODAL YANG DISETOR DALAM ' . $range . ' BULAN ';
-        } else {
-            $master_kas = $this->M_data->GetKas();
-            $get = $this->M_data->GetJumlahKas(); //barchart total
-            $titlekas = 'TOTAL MODAL YANG DISETOR ';
-        }
         $project = $this->M_transaksi->getProject(0);
-        $data = $this->M_data->getProject2();
-        $datapengajuan = $this->M_data->getTotalPengajuan();
-        $datapengeluaran = $this->M_data->getProject1();
-        $datapengajuanapproval = $this->M_data->getTotalPengajuanApproval();
-        $datapembelian = $this->M_data->getPembelian();
-        $datapembelianremaining = $this->M_data->getProject3();
-        $pembelianremaining = $this->M_data->TotalPembelianRemaining();
-        $totalpembelianremaining = $this->lharby->formatRupiah($pembelianremaining[0]['total_pembelian']);
-        $titlepembelianremaining = $totalpembelianremaining;
-        $get_kas = $this->M_data->masterkas();
-        $total_kas = $this->lharby->formatRupiah($get_kas[0]['cash_in_hand']); //pie chart total
-        $title = $total_kas;
-        $totalkaschart = $this->lharby->formatRupiah($get[0]['total_kas']);
-        $titlebarchart = $titlekas . ' ' . $totalkaschart;
+        if ($this->input->server('REQUEST_METHOD') == 'POST') {
+            $data = $this->M_data->getProject2();
+            $datapengajuan = $this->M_data->getTotalPengajuan();
+            $datapengeluaran = $this->M_data->getProject1();
+            $datapengajuanapproval = $this->M_data->getTotalPengajuanApproval();
+            $datapembelian = $this->M_data->getPembelian();
+            $pembelianremaining = $this->M_data->TotalPembelianRemaining();
+            $totalpembelianremaining = $this->lharby->formatRupiah($pembelianremaining[0]['total_pembelian']);
+            $titlepembelianremaining = $totalpembelianremaining;
+            $get_kas = $this->M_data->masterkas();
+            $total_kas = $this->lharby->formatRupiah($get_kas[0]['cash_in_hand']); //pie chart total
+            $title = $total_kas;
+            $datapembelianremaining = $this->M_data->getProject3($_POST['project_id']);
+            foreach ($project as $element) {
+                if ($_POST['project_id'] == $element['id']) {
+                    $project_name = $element['project_name'];
+                    $project_id = $element['id'];
+                }
+            }
+        } else {
+            $project_name = $project['0']['project_name'];
+            $project_id = $project['0']['id'];
+            $datapembelianremaining = $this->M_data->getProject3($project['0']['id']);
+            $data = $this->M_data->getProject2();
+            $datapengajuan = $this->M_data->getTotalPengajuan();
+            $datapengeluaran = $this->M_data->getProject1();
+            $datapengajuanapproval = $this->M_data->getTotalPengajuanApproval();
+            $datapembelian = $this->M_data->getPembelian();
+            $pembelianremaining = $this->M_data->TotalPembelianRemaining();
+            $totalpembelianremaining = $this->lharby->formatRupiah($pembelianremaining[0]['total_pembelian']);
+            $titlepembelianremaining = $totalpembelianremaining;
+            $get_kas = $this->M_data->masterkas();
+            $total_kas = $this->lharby->formatRupiah($get_kas[0]['cash_in_hand']); //pie chart total
+            $title = $total_kas;
+        }
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
             'sidebar' => $this->sidebar(),
             'footer' => $this->footer(),
             'data' => $data,
-            'master_kas' => $master_kas,
             'title' => $title,
-            'titlebarchart' => $titlebarchart,
+            // 'data_detail_table' => $this->getDetailPerProjectTable($project_id),
+            'project_name' => $project_name,
             'datapengajuan' => $datapengajuan,
             'datapengeluaran' => $datapengeluaran,
             'datapengajuanapproval' => $datapengajuanapproval,
@@ -63,6 +74,24 @@ class C_dashboard extends CI_Controller
             'project' => $project,
         );
         $this->load->view('dashboard/index', $show);
+    }
+
+    public function getDetailPerProjectTable($project_id)
+    {
+        //  $id=$this->input->post('id');
+        if ($_POST['tipe_detail'] == 'pengajuan') {
+            $dataproject = $this->M_data->getpengajuan("akk_pengajuan_biaya", "where id = '$project_id'");
+        } elseif ($_POST['tipe_detail'] == 'approval') {
+            $dataproject = $this->M_data->GetData("akk_pengajuan_approval", "where id = '$project_id'");
+        } elseif ($_POST['tipe_detail'] == 'pencairan') {
+            $dataproject = $this->M_data->GetData("trx_pengiriman_uang", "where id = '$project_id'");
+        } elseif ($_POST['tipe_detail'] == 'pembelian') {
+            $dataproject = $this->M_data->GetData("trx_pembelian_barang", "where id = '$project_id'");
+        } elseif ($_POST['tipe_detail'] == 'pembelian_tanpa') {
+            $dataproject = $this->M_data->GetData("trx_pembelian_barang_remaining", "where id = '$project_id'");
+        }
+
+        echo json_encode($dataproject);
     }
 
     function convert_date($tgl)

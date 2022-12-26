@@ -329,6 +329,18 @@ class C_pengajuan extends CI_Controller
         echo $get[0]['pengajuan_id'];
     }
 
+    public function getDetailPerProjectTable($project_id)
+    {
+        //  $id=$this->input->post('id');
+        if ($_POST['tipe_detail'] == 'pengajuan') {
+            $data = $this->M_data->GetData("akk_pengajuan", "where id = '$project_id'");
+        } elseif ($_POST['tipe_detail'] == 'approval') {
+            $data = $this->M_data->GetData("akk_pengajuan", "where id = '$project_id'");
+        }
+
+        echo json_encode($data);
+    }
+
 
     function convert_date($tgl)
     {

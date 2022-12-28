@@ -40,13 +40,10 @@ class M_pengajuan extends CI_Model
 		$this->db->select('
           a.*,c.nama_jenis_rap,c.nama_pekerjaan,
       ');
-
 		$this->db->from('akk_pengajuan_approval as a');
 		$this->db->join('akk_pengajuan_biaya as b', 'a.pengajuan_biaya_id = b.id');
 		$this->db->join('akk_rap_biaya as c', 'b.rap_biaya_id = c.id');
-
 		$this->db->where('b.pengajuan_id', $id);
-
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();

@@ -30,11 +30,39 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Detail Project</h3>
+              <h3 class="card-title">Detail Project</h3><br>
             </div>
             <div class="card-body">
               <div class="row col-md-12">
                 <div class="col-md-6">
+                  <div class="row">
+                    <?php if (($this->session->userdata('role')) == 4) { ?>
+                      <button style="margin-right: 10px; border-radius: 5px;" type="button" data-toggle="modal" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-warning btn-sm" data-popup="tooltip" data-placement="top" title="Edit Project"><i class="fas fa-edit"></i>Edit Project</button>
+                    <?php } ?>
+                    <?php if ($project_status == 0) {
+                      if (($this->session->userdata('role')) == 4) { ?>
+                        <?php if ($is_rap_confirm == 0) { ?>
+                          <button style="margin-right: 5px; border-radius: 5px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah-rap"><i class="fa fa-plus-circle"></i> Tambah Biaya RAP </button>
+                          <form action="<?php echo site_url('confirmrap'); ?>" method="post">
+                            <input type="hidden" name="is_rap_confirm" value="1">
+                            <input type="hidden" name="rap_id" value="<?php echo $rap_id; ?>">
+                            <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
+                            <input type="hidden" name="msg" value="Confirm">
+                            <button style="margin-left: 5px; border-radius: 5px;" type="submit" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Confirm RAP</button>
+                          </form>
+                        <?php } ?>
+                        <?php if ($is_rap_confirm == 1) { ?>
+                          <form action="<?php echo site_url('createpengajuan'); ?>" method="post">
+                            <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
+                          </form>
+                          <button style="margin-right: 5px; border-radius: 5px;" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#updateprogress" title="Progress Project"><i class="fa fa-edit"></i> Update Progress </button><br>
+                          <button style="margin-left: 5px; border-radius: 5px;" type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#projectselesai" title="Selesai Project"><i class="fa fa-edit"></i> Selesaikan Project </button>
+                        <?php } ?>
+                        <br>
+                        <br>
+                    <?php }
+                    } ?>
+                  </div><br>
                   <table class="table ttable-condensed">
                     <tr>
                       <th>Project Name</th>
@@ -57,33 +85,6 @@
                       <td><?php echo $cash_in_hand; ?></td>
                     </tr>
                   </table>
-                </div>
-                <div class="col-md-4" style="margin-left: 10px;">
-                  <?php if ($project_status == 0) {
-                    if (($this->session->userdata('role')) == 4) { ?>
-                      <?php if ($is_rap_confirm == 0) { ?>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah-rap"><i class="fa fa-plus-circle"></i> Tambah Biaya RAP </button>
-                        <br><br>
-                        <form action="<?php echo site_url('confirmrap'); ?>" method="post">
-                          <input type="hidden" name="is_rap_confirm" value="1">
-                          <input type="hidden" name="rap_id" value="<?php echo $rap_id; ?>">
-                          <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
-                          <input type="hidden" name="msg" value="Confirm">
-                          <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i> Confirm RAP</button>
-                        </form>
-                      <?php } ?>
-                      <?php if ($is_rap_confirm == 1) { ?>
-                        <form action="<?php echo site_url('createpengajuan'); ?>" method="post">
-                          <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
-                          <button type="submit" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Pengajuan</button>
-                        </form><br>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateprogress" title="Progress Project"><i class="fa fa-edit"></i> Update Progress </button><br><br>
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#projectselesai" title="Selesai Project"><i class="fa fa-edit"></i> Selesaikan Project </button>
-                      <?php } ?>
-                      <br>
-                      <br>
-                  <?php }
-                  } ?>
                 </div>
               </div>
             </div>
@@ -229,6 +230,69 @@
               </form>
             </div>
           </div>
+          <?php
+          foreach ($databelum as $i) :
+            $id = $i['id'];
+            $project_name = $i['project_name'];
+            $project_location = $i['project_location'];
+            $project_deadline = $i['project_deadline'];
+            $rab_project = $i['rab_project_v'];
+          ?>
+            <div class="modal fade" id="modal-edit<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header bg-primary">
+                    <h3 class="modal-title" id="myModalLabel">Edit Project</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                  </div>
+                  <form class="form-horizontal" method="post" action="<?php echo base_url() . 'C_project/do_update' ?>">
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <div class="col-xs-8">
+                          <input name="project_id" value="<?php echo $id; ?>" class="form-control" type="hidden" readonly>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-xs-3">Nama Project</label>
+                        <div class="col-xs-8">
+                          <input name="project_name" value="<?php echo $project_name; ?>" class="form-control" type="text" required>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-xs-3">Location</label>
+                        <div class="col-xs-8">
+                          <textarea required class="form-control" rows="2" name="project_location"><?php echo $project_location; ?></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-xs-3">Deadline</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                          </div>
+                          <input name="project_deadline" value="<?php echo $project_deadline; ?>" class="form-control" type="date" required>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-xs-3">RAB</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Rp</span>
+                          </div>
+                          <input type="text" name="rab_project" value="<?php echo $rab_project; ?>" autocomplete="off" required class="form-control uang">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                      <button class="btn btn-info">Update</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!-- /.card -->
+          <?php endforeach; ?>
           <?php if (is_array($data_rap_biaya) || is_object($data_rap_biaya)) {
             foreach ($data_rap_biaya as $i) :
               $id = $i['id'];

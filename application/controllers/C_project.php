@@ -88,12 +88,13 @@ class C_project extends CI_Controller
 
     public function do_update()
     {
+        $project_id = $_POST['project_id'];
         $id = $this->input->post('project_id');
         $this->form_validation->set_rules('project_name', 'Project Name', 'required|regex_match[/^[][a-zA-Z0-9@# ,().]+$/]');
         $this->form_validation->set_rules('rab_project', 'Total RAB', 'required|numeric|greater_than[0]');
         $date = date('Y-m-d H:i:s');
         $get = $this->M_data->GetData("mst_project ", "where id = '$id'");
-        $now = $get[0]['project_deadline'];
+        $now = strtotime($date);
         $deadline = strtotime($_POST['project_deadline']);
         $a = $_POST['rab_project'];
         $rab_projec = str_replace('.', '', $a); //ubah format rupiah ke integer
@@ -101,7 +102,7 @@ class C_project extends CI_Controller
         if ($now >= $deadline) {
             $pesan = "Input waktu deadline dengan tanggal yang benar";
             $this->flashdata_failed1($pesan);
-            redirect('project_on');
+            redirect('project_detail/' . $project_id);
         } else {
             $get = $this->M_data->GetData2("mst_project ", "where id = '$id'")->row();
             $where = array('id' => $id);
@@ -118,11 +119,11 @@ class C_project extends CI_Controller
             if ($res >= 1) {
                 $pesan = "Edit Project Sukses";
                 $this->flashdata_succeed1($pesan);
-                redirect('project_on');
+                redirect('project_detail/' . $project_id);
             } else {
                 $pesan = "Edit Project Gagal";
                 $this->flashdata_failed1($pesan);
-                redirect('project_on');
+                redirect('project_detail/' . $project_id);
             }
         }
     }
@@ -292,7 +293,6 @@ class C_project extends CI_Controller
         $project_id = $_POST['project_id'];
         $cekpengajuan = $this->M_project->GetData("akk_pengajuan ", "where project_id = '$project_id'");
         $cekrap = $this->M_project->GetData("akk_rap ", "where project_id = '$project_id'");
-
         if ($cekpengajuan) {
             redirect('pengajuan');
         } else {
@@ -503,6 +503,7 @@ class C_project extends CI_Controller
         } else { //jika project belum ada rap
             $is_rap_confirm = 0;
         }
+        $databelum = $this->M_project->getProject(0);
         $datakategori = $this->M_data->showdata("mst_kategori_biaya");
         $getRap = $this->M_project->getRap($id);
         $data_inventory = $this->M_project->showInventory($id);
@@ -526,6 +527,7 @@ class C_project extends CI_Controller
             'rap_project' => $rap_biaya,
             'cash_in_hand' => $cash_in_hand,
             'rap_id' => $getRap[0]['id'],
+            'databelum' => $databelum,
             'is_rap_confirm' => $is_rap_confirm,
             'data_inventory' => $data_inventory,
             'data_mst_material' => $data_mst_material,

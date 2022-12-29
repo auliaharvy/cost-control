@@ -37,7 +37,7 @@
                 <thead>
                   <tr>
                     <th class="text-center">No</th>
-                    <th class="text-center">Detail</th>
+                    <!-- <th class="text-center">Detail</th> -->
                     <th class="text-center">Project</th>
                     <th class="text-center">Total RAB</th>
                     <th class="text-center">Total RAP</th>
@@ -64,11 +64,11 @@
                       <?php } ?>
                       <tr class="odd gradeX">
                         <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                        <td style="width: 5%;" align="center">
+                        <!-- <td style="width: 5%;" align="center">
                           <a href="<?php echo base_url() . "laporan_detail/" . $d['id']; ?>">
                             <button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button>
-                        </td>
-                        <td style="width: 10%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                        </td> -->
+                        <td style="width: 15%;" class="text"><span><a href="<?php echo base_url() . "laporan_detail/" . $d['id']; ?>"><?php echo $d['project_name']; ?></a></span></td>
                         <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['rab_project_v']; ?></span></td>
                         <?php if ($d['total_biaya_v'] == null) { ?>
                           <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>

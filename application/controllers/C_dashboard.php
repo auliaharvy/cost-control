@@ -20,7 +20,7 @@ class C_dashboard extends CI_Controller
 
     public function index() //project on progress
     {
-        $project = $this->M_transaksi->getProject(0);
+        $project = $this->M_laporan->getProjectAll(0);
         if ($this->input->server('REQUEST_METHOD') == 'POST') {
             $data = $this->M_data->getProject2();
             $datapengajuan = $this->M_data->getTotalPengajuan();

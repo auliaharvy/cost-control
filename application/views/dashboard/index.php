@@ -186,13 +186,13 @@
         ]
       }, {
         label: 'Total Cash In Hand',
-        backgroundColor: 'rgba(30,233,222,0.9)',
-        borderColor: 'rgba(30,233,222,0.8)',
+        backgroundColor: 'rgba(60,131,148,0.9)',
+        borderColor: 'rgba(60,131,148,0.8)',
         pointRadius: false,
         pointColor: '#ffffff',
-        pointStrokeColor: 'rgba(30,233,222,1)',
+        pointStrokeColor: 'rgba(60,131,148,1)',
         pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(30,233,222,1)',
+        pointHighlightStroke: 'rgba(60,131,148,1)',
         data: [
           <?php
           foreach ($datapembelian->result_array() as $row2) {
@@ -202,13 +202,13 @@
         ]
       }, {
         label: 'Total Hutang',
-        backgroundColor: 'rgba(14,44,22,0.9)',
-        borderColor: 'rgba(14,44,22,0.8)',
+        backgroundColor: 'rgba(60,121,108,0.9)',
+        borderColor: 'rgba(60,121,108,0.8)',
         pointRadius: false,
         pointColor: '#ffffff',
-        pointStrokeColor: 'rgba(14,44,22,1)',
+        pointStrokeColor: 'rgba(60,121,108,1)',
         pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(14,44,22,1)',
+        pointHighlightStroke: 'rgba(60,121,108,1)',
         data: [
           <?php
           foreach ($datapembelian->result_array() as $row3) {
@@ -218,13 +218,13 @@
         ]
       }, {
         label: 'Total Piutang',
-        backgroundColor: 'rgba(244,24,24,0.9)',
-        borderColor: 'rgba(244,24,24,0.8)',
+        backgroundColor: 'rgba(60,111,68,0.9)',
+        borderColor: 'rgba(60,111,68,0.8)',
         pointRadius: false,
         pointColor: '#ffffff',
-        pointStrokeColor: 'rgba(244,24,24,1)',
+        pointStrokeColor: 'rgba(60,111,68,1)',
         pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(244,24,24,1)',
+        pointHighlightStroke: 'rgba(60,111,68,1)',
         data: [
           <?php
           foreach ($datapembelian->result_array() as $row4) {
@@ -303,13 +303,13 @@
         ]
       }, {
         label: 'Total Hutang',
-        backgroundColor: 'rgba(60,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
+        backgroundColor: 'rgba(60,141,128,0.9)',
+        borderColor: 'rgba(60,141,128,0.8)',
         pointRadius: false,
         pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointStrokeColor: 'rgba(60,141,128,1)',
         pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
+        pointHighlightStroke: 'rgba(60,141,128,1)',
         data: [
           <?php
           foreach ($data->result_array() as $row1) {
@@ -319,13 +319,13 @@
         ]
       }, {
         label: 'Total Piutang',
-        backgroundColor: 'rgba(60,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
+        backgroundColor: 'rgba(60,141,68,0.9)',
+        borderColor: 'rgba(60,141,68,0.8)',
         pointRadius: false,
         pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointStrokeColor: 'rgba(60,141,68,1)',
         pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
+        pointHighlightStroke: 'rgba(60,141,68,1)',
         data: [
           <?php
           foreach ($data->result_array() as $row1) {
@@ -404,13 +404,13 @@
         ]
       }, {
         label: 'Total RAP',
-        backgroundColor: 'rgba(60,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
+        backgroundColor: 'rgba(60,141,128,0.9)',
+        borderColor: 'rgba(60,141,128,0.8)',
         pointRadius: false,
         pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointStrokeColor: 'rgba(60,141,128,1)',
         pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
+        pointHighlightStroke: 'rgba(60,141,128,1)',
         data: [
           <?php
           foreach ($datapengeluaran->result_array() as $row2) {
@@ -420,13 +420,13 @@
         ]
       }, {
         label: 'Total Pembelian',
-        backgroundColor: 'rgba(60,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
+        backgroundColor: 'rgba(60,141,68,0.9)',
+        borderColor: 'rgba(60,141,68,0.8)',
         pointRadius: false,
         pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointStrokeColor: 'rgba(60,141,68,1)',
         pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
+        pointHighlightStroke: 'rgba(60,141,68,1)',
         data: [
           <?php
           foreach ($datapengeluaran->result_array() as $row3) {
@@ -499,13 +499,13 @@
         ]
       }, {
         label: 'Jumlah Approval',
-        backgroundColor: 'rgba(60,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
+        backgroundColor: 'rgba(60,131,148,0.9)',
+        borderColor: 'rgba(60,131,148,0.8)',
         pointRadius: false,
         pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointStrokeColor: 'rgba(60,131,148,1)',
         pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
+        pointHighlightStroke: 'rgba(60,131,148,1)',
         data: [
           <?php
           foreach ($datapembelianremaining->result_array() as $row1) {
@@ -515,13 +515,13 @@
         ]
       }, {
         label: 'Jumlah Pencairan',
-        backgroundColor: 'rgba(60,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
+        backgroundColor: 'rgba(60,121,108,0.9)',
+        borderColor: 'rgba(60,121,108,0.8)',
         pointRadius: false,
         pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointStrokeColor: 'rgba(60,121,108,1)',
         pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
+        pointHighlightStroke: 'rgba(60,121,108,1)',
         data: [
           <?php
           foreach ($datapembelianremaining->result_array() as $row1) {
@@ -531,13 +531,13 @@
         ]
       }, {
         label: 'Jumlah Pembelian',
-        backgroundColor: 'rgba(60,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
+        backgroundColor: 'rgba(60,111,68,0.9)',
+        borderColor: 'rgba(60,111,68,0.8)',
         pointRadius: false,
         pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointStrokeColor: 'rgba(60,111,68,1)',
         pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
+        pointHighlightStroke: 'rgba(60,111,68,1)',
         data: [
           <?php
           foreach ($datapembelianremaining->result_array() as $row1) {
@@ -547,13 +547,13 @@
         ]
       }, {
         label: 'Pembelian Tanpa Pengajuan',
-        backgroundColor: 'rgba(60,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
+        backgroundColor: 'rgba(60,101,28,0.9)',
+        borderColor: 'rgba(60,101,28,0.8)',
         pointRadius: false,
         pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointStrokeColor: 'rgba(60,101,28,1)',
         pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
+        pointHighlightStroke: 'rgba(60,101,28,1)',
         data: [
           <?php
           foreach ($datapembelianremaining->result_array() as $row1) {

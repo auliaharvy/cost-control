@@ -99,7 +99,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table id="example2" class="table table-bordered table-striped">
+                <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
                   <thead>
                     <tr>
                       <th class="text-center">No</th>
@@ -267,16 +267,16 @@
       "lengthChange": true,
       "scrollX": true,
       "searching": true,
-      "ordering": true,
+      "ordering": false,
       "info": true,
       "autoWidth": true,
     });
     var table = $('#example2').DataTable({
       "paging": true,
       "lengthChange": true,
-      "scrollX": true,
+      // "scrollX": true,
       "searching": true,
-      "ordering": true,
+      "ordering": false,
       "info": true,
       "autoWidth": true,
     });

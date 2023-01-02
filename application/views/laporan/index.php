@@ -133,7 +133,7 @@
       "lengthChange": true,
       "scrollX": true,
       "searching": true,
-      "ordering": true,
+      "ordering": false,
       "info": true,
       "autoWidth": true,
     });

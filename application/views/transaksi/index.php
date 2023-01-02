@@ -308,54 +308,54 @@
     $("#example1").DataTable({
       "paging": true,
       "lengthChange": true,
-      "scrollX": true,
+      // "scrollX": true,
       "searching": true,
-      "ordering": true,
+      "ordering": false,
       "info": true,
       "autoWidth": false,
     });
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": true,
-      "scrollX": true,
+      // "scrollX": true,
       "searching": true,
-      "ordering": true,
+      "ordering": false,
       "info": true,
       "autoWidth": true,
     });
     $('#example3').DataTable({
       "paging": true,
       "lengthChange": true,
-      "scrollX": true,
+      // "scrollX": true,
       "searching": true,
-      "ordering": true,
+      "ordering": false,
       "info": true,
       "autoWidth": true,
     });
     $('#example4').DataTable({
       "paging": true,
       "lengthChange": true,
-      "scrollX": true,
+      // "scrollX": true,
       "searching": true,
-      "ordering": true,
+      "ordering": false,
       "info": true,
       "autoWidth": true,
     });
     $('#example5').DataTable({
       "paging": true,
       "lengthChange": true,
-      "scrollX": true,
+      // "scrollX": true,
       "searching": true,
-      "ordering": true,
+      "ordering": false,
       "info": true,
       "autoWidth": true,
     });
     $('#example6').DataTable({
       "paging": true,
       "lengthChange": true,
-      "scrollX": true,
+      // "scrollX": true,
       "searching": true,
-      "ordering": true,
+      "ordering": false,
       "info": true,
       "autoWidth": true,
     });

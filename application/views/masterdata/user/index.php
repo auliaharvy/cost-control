@@ -33,44 +33,46 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah"><i class="fa fa-plus-circle"></i> Tambah User </button><br>
-              <br>
-              <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Nama Lengkap</th>
-                    <th>Username</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  if (is_array($data) || is_object($data)) {
-                    $nomor = 1;
-                    foreach ($data as $d) {
-                      $id = $d['id']; ?>
-                      <tr class="odd gradeX">
-                        <td><?php echo $nomor; ?></td>
-                        <td class="text"><span><?php echo $d['fullname']; ?></span></td>
-                        <td><?php echo $d['username']; ?></td>
-                        <td class="text"><span><?php echo $d['role_name']; ?></span></td>
-                        <td align="center">
-                          <p class="<?php echo $d['background_text']; ?>"><?php echo $d['is_active_v'];  ?></p>
-                        </td>
-                        <td align="center">
-                          <a data-toggle="modal" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></a>
-                          <a data-toggle="modal" data-target="#modal-editpass<?php echo $id; ?>" class="btn btn-success btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Password"><i class="fas fa-lock"></i>Ubah Password</a>
-                        </td>
-                      </tr>
-                  <?php
-                      $nomor = $nomor + 1;
-                    }
-                  } ?>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah"><i class="fa fa-plus-circle"></i> Tambah User </button><br>
+                <br>
+                <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Nama Lengkap</th>
+                      <th>Username</th>
+                      <th>Role</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    if (is_array($data) || is_object($data)) {
+                      $nomor = 1;
+                      foreach ($data as $d) {
+                        $id = $d['id']; ?>
+                        <tr class="odd gradeX">
+                          <td><?php echo $nomor; ?></td>
+                          <td class="text"><span><?php echo $d['fullname']; ?></span></td>
+                          <td><?php echo $d['username']; ?></td>
+                          <td class="text"><span><?php echo $d['role_name']; ?></span></td>
+                          <td align="center">
+                            <p class="<?php echo $d['background_text']; ?>"><?php echo $d['is_active_v'];  ?></p>
+                          </td>
+                          <td align="center">
+                            <a data-toggle="modal" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></a>
+                            <a data-toggle="modal" data-target="#modal-editpass<?php echo $id; ?>" class="btn btn-success btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Password"><i class="fas fa-lock"></i>Ubah Password</a>
+                          </td>
+                        </tr>
+                    <?php
+                        $nomor = $nomor + 1;
+                      }
+                    } ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
             <!-- /.card-body -->
           </div>

@@ -49,38 +49,40 @@
                     <h3 class="card-title">Pengajuan ( Belum Approve )</h3>
                   </div>
                   <div class="card-body">
-                    <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
-                      <thead>
-                        <tr>
-                          <th class="text-center">No</th>
-                          <th class="text-center">Nama Project</th>
-                          <th class="text-center">Kategori</th>
-                          <th class="text-center">Nama Pekerjaan</th>
-                          <th class="text-center">Tanggal Pengajuan</th>
-                          <th class="text-center">Jumlah Pengajuan</th>
-                          <th class="text-center">Keterangan</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        if (is_array($datapengajuanbelumapprove) || is_object($datapengajuanbelumapprove)) {
-                          $nomor = 1;
-                          foreach ($datapengajuanbelumapprove as $d) {
-                            $id = $d['id']; ?>
-                            <tr class="odd gradeX">
-                              <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                              <td style="width: 15%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
-                              <td style="width: 15%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
-                              <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
-                              <td style="width: 15%;" class="text text-center"><span><?php echo $d['tanggal_pengajuan']; ?></span></td>
-                              <td style="width: 15%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pengajuan']; ?></span></td>
-                              <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
-                            </tr>
-                        <?php
-                          }
-                        } ?>
-                      </tbody>
-                    </table>
+                    <div class="table-responsive">
+                      <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
+                        <thead>
+                          <tr>
+                            <th class="text-center">No</th>
+                            <th class="text-center">Nama Project</th>
+                            <th class="text-center">Kategori</th>
+                            <th class="text-center">Nama Pekerjaan</th>
+                            <th class="text-center">Tanggal Pengajuan</th>
+                            <th class="text-center">Jumlah Pengajuan</th>
+                            <th class="text-center">Keterangan</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+                          if (is_array($datapengajuanbelumapprove) || is_object($datapengajuanbelumapprove)) {
+                            $nomor = 1;
+                            foreach ($datapengajuanbelumapprove as $d) {
+                              $id = $d['id']; ?>
+                              <tr class="odd gradeX">
+                                <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                                <td style="width: 15%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                                <td style="width: 15%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
+                                <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
+                                <td style="width: 15%;" class="text text-center"><span><?php echo $d['tanggal_pengajuan']; ?></span></td>
+                                <td style="width: 15%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pengajuan']; ?></span></td>
+                                <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
+                              </tr>
+                          <?php
+                            }
+                          } ?>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
                 <div class="card">
@@ -88,40 +90,42 @@
                     <h3 class="card-title">Pengajuan ( Sudah Approve )</h3>
                   </div>
                   <div class="card-body">
-                    <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
-                      <thead>
-                        <tr>
-                          <th class="text-center">No</th>
-                          <th class="text-center">Nama Project</th>
-                          <th class="text-center">Kategori</th>
-                          <th class="text-center">Nama Pekerjaan</th>
-                          <th class="text-center">Tanggal Approval</th>
-                          <th class="text-center">Jumlah Pengajuan</th>
-                          <th class="text-center">Jumlah Approval</th>
-                          <th class="text-center">Keterangan</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        if (is_array($datapengajuansudahapprove) || is_object($datapengajuansudahapprove)) {
-                          $nomor = 1;
-                          foreach ($datapengajuansudahapprove as $d) {
-                            $id = $d['id']; ?>
-                            <tr class="odd gradeX">
-                              <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                              <td style="width: 15%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
-                              <td style="width: 15%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
-                              <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
-                              <td style="width: 10%;" class="text text-center"><span><?php echo $d['tanggal_approve']; ?></span></td>
-                              <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pengajuan']; ?></span></td>
-                              <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_approval_v']; ?></span></td>
-                              <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
-                            </tr>
-                        <?php
-                          }
-                        } ?>
-                      </tbody>
-                    </table>
+                    <div class="table-responsive">
+                      <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
+                        <thead>
+                          <tr>
+                            <th class="text-center">No</th>
+                            <th class="text-center">Nama Project</th>
+                            <th class="text-center">Kategori</th>
+                            <th class="text-center">Nama Pekerjaan</th>
+                            <th class="text-center">Tanggal Approval</th>
+                            <th class="text-center">Jumlah Pengajuan</th>
+                            <th class="text-center">Jumlah Approval</th>
+                            <th class="text-center">Keterangan</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+                          if (is_array($datapengajuansudahapprove) || is_object($datapengajuansudahapprove)) {
+                            $nomor = 1;
+                            foreach ($datapengajuansudahapprove as $d) {
+                              $id = $d['id']; ?>
+                              <tr class="odd gradeX">
+                                <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                                <td style="width: 15%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                                <td style="width: 15%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
+                                <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
+                                <td style="width: 10%;" class="text text-center"><span><?php echo $d['tanggal_approve']; ?></span></td>
+                                <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pengajuan']; ?></span></td>
+                                <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_approval_v']; ?></span></td>
+                                <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
+                              </tr>
+                          <?php
+                            }
+                          } ?>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -131,35 +135,37 @@
                     <h3 class="card-title">Hutang ( Belum Bayar )</h3>
                   </div>
                   <div class="card-body">
-                    <table style="width: 100%;" id="example3" class="table table-bordered table-striped">
-                      <thead>
-                        <tr>
-                          <th class="text-center">No</th>
-                          <th class="text-center">Nama Project</th>
-                          <th class="text-center">Cash In Hand</th>
-                          <th class="text-center">Tanggal Pengajuan</th>
-                          <th class="text-center">Jumlah Hutang</th>
-                          <th class="text-center">Keterangan</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php if (is_array($datahutangbelum) || is_object($datahutangbelum)) {
-                          $nomor = 1;
-                          foreach ($datahutangbelum as $d) {
-                            $id = $d['id']; ?>
-                            <tr class="odd gradeX">
-                              <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                              <td style="width: 25%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
-                              <td style="width: 20%;" class="text text-center"><span>Rp. <?php echo $d['cash_in_hand']; ?></span></td>
-                              <td style="width: 10%;" class="text text-center"><span><?php echo $d['created_at']; ?></span></td>
-                              <td style="width: 15%;" class="text text-center"><span>Rp. <?php echo $d['nominal']; ?></span></td>
-                              <td style="width: 25%;" class="text"><span><?php echo $d['note']; ?></span></td>
-                            </tr>
-                        <?php
-                          }
-                        } ?>
-                      </tbody>
-                    </table>
+                    <div class="table-responsive">
+                      <table style="width: 100%;" id="example3" class="table table-bordered table-striped">
+                        <thead>
+                          <tr>
+                            <th class="text-center">No</th>
+                            <th class="text-center">Nama Project</th>
+                            <th class="text-center">Cash In Hand</th>
+                            <th class="text-center">Tanggal Pengajuan</th>
+                            <th class="text-center">Jumlah Hutang</th>
+                            <th class="text-center">Keterangan</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php if (is_array($datahutangbelum) || is_object($datahutangbelum)) {
+                            $nomor = 1;
+                            foreach ($datahutangbelum as $d) {
+                              $id = $d['id']; ?>
+                              <tr class="odd gradeX">
+                                <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                                <td style="width: 25%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                                <td style="width: 20%;" class="text text-center"><span>Rp. <?php echo $d['cash_in_hand']; ?></span></td>
+                                <td style="width: 10%;" class="text text-center"><span><?php echo $d['created_at']; ?></span></td>
+                                <td style="width: 15%;" class="text text-center"><span>Rp. <?php echo $d['nominal']; ?></span></td>
+                                <td style="width: 25%;" class="text"><span><?php echo $d['note']; ?></span></td>
+                              </tr>
+                          <?php
+                            }
+                          } ?>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
                 <div class="card">
@@ -167,33 +173,35 @@
                     <h3 class="card-title">Hutang ( Sudah Bayar )</h3>
                   </div>
                   <div class="card-body">
-                    <table style="width: 100%;" id="example4" class="table table-bordered table-striped">
-                      <thead>
-                        <tr>
-                          <th class="text-center">No</th>
-                          <th class="text-center">Nama Project</th>
-                          <th class="text-center">Tanggal Pembayaran</th>
-                          <th class="text-center">Jumlah Hutang</th>
-                          <th class="text-center">Keterangan</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php if (is_array($datahutangsudah) || is_object($datahutangsudah)) {
-                          $nomor = 1;
-                          foreach ($datahutangsudah as $d) {
-                            $id = $d['id']; ?>
-                            <tr class="odd gradeX">
-                              <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                              <td style="width: 45%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
-                              <td style="width: 20%;" class="text text-center"><span><?php echo $d['pay_at']; ?></span></td>
-                              <td style="width: 20%;" class="text text-center"><span>Rp. <?php echo $d['nominal']; ?></span></td>
-                              <td style="width: 10%;" class="text text-center">Terbayar</td>
-                            </tr>
-                        <?php
-                          }
-                        } ?>
-                      </tbody>
-                    </table>
+                    <div class="table-responsive">
+                      <table style="width: 100%;" id="example4" class="table table-bordered table-striped">
+                        <thead>
+                          <tr>
+                            <th class="text-center">No</th>
+                            <th class="text-center">Nama Project</th>
+                            <th class="text-center">Tanggal Pembayaran</th>
+                            <th class="text-center">Jumlah Hutang</th>
+                            <th class="text-center">Keterangan</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php if (is_array($datahutangsudah) || is_object($datahutangsudah)) {
+                            $nomor = 1;
+                            foreach ($datahutangsudah as $d) {
+                              $id = $d['id']; ?>
+                              <tr class="odd gradeX">
+                                <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                                <td style="width: 45%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                                <td style="width: 20%;" class="text text-center"><span><?php echo $d['pay_at']; ?></span></td>
+                                <td style="width: 20%;" class="text text-center"><span>Rp. <?php echo $d['nominal']; ?></span></td>
+                                <td style="width: 10%;" class="text text-center">Terbayar</td>
+                              </tr>
+                          <?php
+                            }
+                          } ?>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -203,35 +211,37 @@
                     <h3 class="card-title">Pencairan ( Belum di Kirim )</h3>
                   </div>
                   <div class="card-body">
-                    <table style="width: 100%;" id="example5" class="table table-bordered table-striped">
-                      <thead>
-                        <tr>
-                          <th class="text-center">No</th>
-                          <th class="text-center">Nama Project</th>
-                          <th class="text-center">Kategori</th>
-                          <th class="text-center">Nama Pekerjaan</th>
-                          <th class="text-center">Jumlah Approval</th>
-                          <th class="text-center">Keterangan</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php if (is_array($datapencairan) || is_object($datapencairan)) {
-                          $nomor = 1;
-                          foreach ($datapencairan as $d) {
-                            $id = $d['id']; ?>
-                            <tr class="odd gradeX">
-                              <td style="width: 5%;"><?php echo $nomor++; ?></td>
-                              <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
-                              <td style="width: 20%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
-                              <td style="width: 20%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
-                              <td style="width: 15%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_approval']; ?></span></td>
-                              <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
-                            </tr>
-                        <?php
-                          }
-                        } ?>
-                      </tbody>
-                    </table>
+                    <div class="table-responsive">
+                      <table style="width: 100%;" id="example5" class="table table-bordered table-striped">
+                        <thead>
+                          <tr>
+                            <th class="text-center">No</th>
+                            <th class="text-center">Nama Project</th>
+                            <th class="text-center">Kategori</th>
+                            <th class="text-center">Nama Pekerjaan</th>
+                            <th class="text-center">Jumlah Approval</th>
+                            <th class="text-center">Keterangan</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php if (is_array($datapencairan) || is_object($datapencairan)) {
+                            $nomor = 1;
+                            foreach ($datapencairan as $d) {
+                              $id = $d['id']; ?>
+                              <tr class="odd gradeX">
+                                <td style="width: 5%;"><?php echo $nomor++; ?></td>
+                                <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                                <td style="width: 20%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
+                                <td style="width: 20%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
+                                <td style="width: 15%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_approval']; ?></span></td>
+                                <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
+                              </tr>
+                          <?php
+                            }
+                          } ?>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
                 <div class="card">
@@ -239,37 +249,39 @@
                     <h3 class="card-title">Pencairan ( Sudah di Kirim )</h3>
                   </div>
                   <div class="card-body">
-                    <table style="width: 100%;" id="example6" class="table table-bordered table-striped">
-                      <thead>
-                        <tr>
-                          <th class="text-center">No</th>
-                          <th class="text-center">Project</th>
-                          <th class="text-center">Kategori</th>
-                          <th class="text-center">Nama Pekerjaan</th>
-                          <th class="text-center">Sumber Dana</th>
-                          <th class="text-center">Tujuan Dana</th>
-                          <th class="text-center">Jumlah Dana</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php if (is_array($datalogpencairan) || is_object($datalogpencairan)) {
-                          $nomor = 1;
-                          foreach ($datalogpencairan as $d) {
-                            $id = $d['id']; ?>
-                            <tr class="odd gradeX">
-                              <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                              <td style="width: 25%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
-                              <td style="width: 10%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
-                              <td style="width: 20%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
-                              <td style="width: 10%;" class="text"><span><?php echo $d['organization_name']; ?></span></td>
-                              <td style="width: 20%;" class="text"><span><?php echo $d['pro_office']; ?></span></td>
-                              <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_uang']; ?></span></td>
-                            </tr>
-                        <?php
-                          }
-                        } ?>
-                      </tbody>
-                    </table>
+                    <div class="table-responsive">
+                      <table style="width: 100%;" id="example6" class="table table-bordered table-striped">
+                        <thead>
+                          <tr>
+                            <th class="text-center">No</th>
+                            <th class="text-center">Project</th>
+                            <th class="text-center">Kategori</th>
+                            <th class="text-center">Nama Pekerjaan</th>
+                            <th class="text-center">Sumber Dana</th>
+                            <th class="text-center">Tujuan Dana</th>
+                            <th class="text-center">Jumlah Dana</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php if (is_array($datalogpencairan) || is_object($datalogpencairan)) {
+                            $nomor = 1;
+                            foreach ($datalogpencairan as $d) {
+                              $id = $d['id']; ?>
+                              <tr class="odd gradeX">
+                                <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                                <td style="width: 25%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                                <td style="width: 10%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
+                                <td style="width: 20%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
+                                <td style="width: 10%;" class="text"><span><?php echo $d['organization_name']; ?></span></td>
+                                <td style="width: 20%;" class="text"><span><?php echo $d['pro_office']; ?></span></td>
+                                <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_uang']; ?></span></td>
+                              </tr>
+                          <?php
+                            }
+                          } ?>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>

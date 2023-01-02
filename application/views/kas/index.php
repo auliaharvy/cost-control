@@ -33,39 +33,41 @@
               <h3 class="card-title">Master Kas</h3>
             </div>
             <div class="card-body">
-              <a href="<?php echo base_url('Welcome/export'); ?>">Export Data</a>
-              <br>
-              <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th class="text-center">No</th>
-                    <th class="text-center">Action</th>
-                    <th class="text-center">Nama Organisasi</th>
-                    <th class="text-center">Cash in hand</th>
-                    <th class="text-center">Alamat</th>
-                    <th class="text-center">No. Telepon</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  $nomor = 1;
-                  foreach ($datakas as $d) {
-                    $id = $d['id']; ?>
-                    <tr class="odd gradeX">
-                      <?php $cash = number_format($d['cash_in_hand'], '0', ',', '.'); ?>
-                      <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                      <td style="width: 10%;" align="center">
-                        <a data-toggle="modal" data-target="#editkas<?php echo $id; ?>" class="btn btn-sm btn-warning btn-circle" data-popup="tooltip" data-placement="top" title="Edit Kas"><i class="fas fas fa-edit"></i></a>
-                      </td>
-                      <td style="width: 25%;" class="text"><span><?php echo $d['organization_name']; ?></span></td>
-                      <td style="width: 20%;" class="text text-center"><span>Rp. <?php echo $cash; ?></span></td>
-                      <td style="width: 25%;" class="text"><span><?php echo $d['organization_address']; ?></span></td>
-                      <td style="width: 15%;" class="text text-center"><span><?php echo $d['phone_number']; ?></span></td>
+              <div class="table-responsive">
+                <a href="<?php echo base_url('Welcome/export'); ?>">Export Data</a>
+                <br>
+                <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th class="text-center">No</th>
+                      <th class="text-center">Action</th>
+                      <th class="text-center">Nama Organisasi</th>
+                      <th class="text-center">Cash in hand</th>
+                      <th class="text-center">Alamat</th>
+                      <th class="text-center">No. Telepon</th>
                     </tr>
-                  <?php
-                  } ?>
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    <?php
+                    $nomor = 1;
+                    foreach ($datakas as $d) {
+                      $id = $d['id']; ?>
+                      <tr class="odd gradeX">
+                        <?php $cash = number_format($d['cash_in_hand'], '0', ',', '.'); ?>
+                        <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                        <td style="width: 10%;" align="center">
+                          <a data-toggle="modal" data-target="#editkas<?php echo $id; ?>" class="btn btn-sm btn-warning btn-circle" data-popup="tooltip" data-placement="top" title="Edit Kas"><i class="fas fas fa-edit"></i></a>
+                        </td>
+                        <td style="width: 25%;" class="text"><span><?php echo $d['organization_name']; ?></span></td>
+                        <td style="width: 20%;" class="text text-center"><span>Rp. <?php echo $cash; ?></span></td>
+                        <td style="width: 25%;" class="text"><span><?php echo $d['organization_address']; ?></span></td>
+                        <td style="width: 15%;" class="text text-center"><span><?php echo $d['phone_number']; ?></span></td>
+                      </tr>
+                    <?php
+                    } ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
           <div class="card">
@@ -73,45 +75,47 @@
               <h3 class="card-title">Log Kas</h3>
             </div>
             <div class="card-body">
-              <form action="<?php echo base_url('kas') ?>" method="POST" class="form-inline">
-                <div class="form-group">
-                  <select class="form-control" name="range">
-                    <option value="">---Pilih Jangka Waktu---</option>
-                    <option value="1">1 Bulan Terakhir</option>
-                    <option value="3">3 Bulan Terakhir</option>
-                    <option value="6">6 Bulan Terakhir</option>
-                    <option value="12">1 Tahun Terakhir</option>
-                  </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Search</button>
-              </form><br>
-              <h3 class="card-title"><i><?php echo $title; ?></i></h3>
-              <br><br>
-              <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th class="text-center">No</th>
-                    <th class="text-center">Jumlah Kas</th>
-                    <th class="text-center">Note</th>
-                    <th class="text-center">Tanggal</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  $nomor = 1;
-                  foreach ($datalog as $d) {
-                    $id = $d['id']; ?>
-                    <tr class="odd gradeX">
-                      <?php $cash = number_format($d['cash_additional'], '0', ',', '.'); ?>
-                      <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                      <td style="width: 30%;" class="text text-center"><span>Rp. <?php echo $cash; ?></span></td>
-                      <td style="width: 50%;" class="text"><span><?php echo $d['note']; ?></span></td>
-                      <td style="width: 15%;" class="text text-center"><span><?php echo $d['created_at_v']; ?></span></td>
+              <div class="table-responsive">
+                <form action="<?php echo base_url('kas') ?>" method="POST" class="form-inline">
+                  <div class="form-group">
+                    <select class="form-control" name="range">
+                      <option value="">---Pilih Jangka Waktu---</option>
+                      <option value="1">1 Bulan Terakhir</option>
+                      <option value="3">3 Bulan Terakhir</option>
+                      <option value="6">6 Bulan Terakhir</option>
+                      <option value="12">1 Tahun Terakhir</option>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Search</button>
+                </form><br>
+                <h3 class="card-title"><i><?php echo $title; ?></i></h3>
+                <br><br>
+                <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th class="text-center">No</th>
+                      <th class="text-center">Jumlah Kas</th>
+                      <th class="text-center">Note</th>
+                      <th class="text-center">Tanggal</th>
                     </tr>
-                  <?php
-                  } ?>
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    <?php
+                    $nomor = 1;
+                    foreach ($datalog as $d) {
+                      $id = $d['id']; ?>
+                      <tr class="odd gradeX">
+                        <?php $cash = number_format($d['cash_additional'], '0', ',', '.'); ?>
+                        <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                        <td style="width: 30%;" class="text text-center"><span>Rp. <?php echo $cash; ?></span></td>
+                        <td style="width: 50%;" class="text"><span><?php echo $d['note']; ?></span></td>
+                        <td style="width: 15%;" class="text text-center"><span><?php echo $d['created_at_v']; ?></span></td>
+                      </tr>
+                    <?php
+                    } ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
           <?php

@@ -33,39 +33,41 @@
               <h3 class="card-title">Inventory Project</h3>
             </div>
             <div class="card-body">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmaterial" title="Tambah Material"><i class="fa fa-plus-circle"></i> Tambah Material </button><br><br>
-              <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th class="text-center">No</th>
-                    <th class="text-center">Action</th>
-                    <th class="text-center">Project</th>
-                    <th class="text-center">Nama Material</th>
-                    <th class="text-center">Qty</th>
-                    <th class="text-center">Unit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  if (is_array($datainventory) || is_object($datainventory)) {
-                    $nomor = 1;
-                    foreach ($datainventory as $d) {
-                      $id = $d['id']; ?>
-                      <tr class="odd gradeX">
-                        <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                        <td style="width: 10%;" align="center">
-                          <button data-toggle="modal" data-target="#editmaterial<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Material"><i class="fas fa-edit"></i></button>
-                        </td>
-                        <td style="width: 25%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
-                        <td style="width: 20%;" class="text"><span><?php echo $d['material_name']; ?></span></td>
-                        <td style="width: 20%;" class="text text-center"><span><?php echo $d['qty']; ?></span></td>
-                        <td style="width: 20%;" class="text"><span><?php echo $d['unit']; ?></span></td>
-                      </tr>
-                  <?php
-                    }
-                  } ?>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmaterial" title="Tambah Material"><i class="fa fa-plus-circle"></i> Tambah Material </button><br><br>
+                <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th class="text-center">No</th>
+                      <th class="text-center">Action</th>
+                      <th class="text-center">Project</th>
+                      <th class="text-center">Nama Material</th>
+                      <th class="text-center">Qty</th>
+                      <th class="text-center">Unit</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    if (is_array($datainventory) || is_object($datainventory)) {
+                      $nomor = 1;
+                      foreach ($datainventory as $d) {
+                        $id = $d['id']; ?>
+                        <tr class="odd gradeX">
+                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                          <td style="width: 10%;" align="center">
+                            <button data-toggle="modal" data-target="#editmaterial<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Material"><i class="fas fa-edit"></i></button>
+                          </td>
+                          <td style="width: 25%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                          <td style="width: 20%;" class="text"><span><?php echo $d['material_name']; ?></span></td>
+                          <td style="width: 20%;" class="text text-center"><span><?php echo $d['qty']; ?></span></td>
+                          <td style="width: 20%;" class="text"><span><?php echo $d['unit']; ?></span></td>
+                        </tr>
+                    <?php
+                      }
+                    } ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
           <?php if (is_array($datainventory) || is_object($datainventory)) {

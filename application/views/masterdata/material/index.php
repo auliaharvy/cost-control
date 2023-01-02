@@ -33,38 +33,40 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah"><i class="fa fa-plus-circle"></i> Tambah </button><br>
-              <br>
-              <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Material</th>
-                    <th>Unit</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  if (is_array($data) || is_object($data)) {
-                    $nomor = 1;
-                    foreach ($data as $d) {
-                      $id = $d['id']; ?>
-                      <tr class="odd gradeX">
-                        <td><?php echo $nomor++; ?></td>
-                        <td><?php echo $d['material_name']; ?></td>
-                        <td><?php echo $d['unit']; ?></td>
-                        <td align="center">
-                          <!-- belum di edit- -->
-                          <!--<a href="<?php echo base_url() . "project_detail/" . $d['id']; ?>"><button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button>-->
-                          <a data-toggle="modal" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></a>
-                        </td>
-                      </tr>
-                  <?php
-                    }
-                  } ?>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah"><i class="fa fa-plus-circle"></i> Tambah </button><br>
+                <br>
+                <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Material</th>
+                      <th>Unit</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    if (is_array($data) || is_object($data)) {
+                      $nomor = 1;
+                      foreach ($data as $d) {
+                        $id = $d['id']; ?>
+                        <tr class="odd gradeX">
+                          <td><?php echo $nomor++; ?></td>
+                          <td><?php echo $d['material_name']; ?></td>
+                          <td><?php echo $d['unit']; ?></td>
+                          <td align="center">
+                            <!-- belum di edit- -->
+                            <!--<a href="<?php echo base_url() . "project_detail/" . $d['id']; ?>"><button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button>-->
+                            <a data-toggle="modal" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></a>
+                          </td>
+                        </tr>
+                    <?php
+                      }
+                    } ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
             <!-- /.card-body -->
           </div>

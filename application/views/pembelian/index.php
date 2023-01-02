@@ -33,49 +33,51 @@
               <h3 class="card-title">Pembelian ( Belum Belanja )</h3>
             </div>
             <div class="card-body">
-              <a href="" data-toggle="modal" style="width: 120px;" data-target="#belanja" class="btn btn-success btn-circle" data-popup="tooltip" data-placement="top" title="Belanja"><i class="fa fa-shopping-cart"></i> BELANJA</a>
-              <br>
-              <span>
-                <h6>( Tanpa Pengajuan )</h6>
-              </span>
-              <br>
-              <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th class="text-center">No</th>
-                    <th class="text-center">Action</th>
-                    <th class="text-center">Nama Project</th>
-                    <th class="text-center">Kategori</th>
-                    <th class="text-center">Nama Pekerjaan</th>
-                    <th class="text-center">Jumlah Approval</th>
-                    <th class="text-center">Keterangan</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php if (is_array($databelum) || is_object($databelum)) {
-                    $nomor = 1;
-                    foreach ($databelum as $d) {
-                      $id = $d['id']; ?>
-                      <tr class="odd gradeX">
-                        <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                        <td style="width: 15%;" align="center">
-                          <?php if ($d['is_buy'] == 0) { ?>
-                            <a href="" data-toggle="modal" style="width: 120px;" data-target="#belanja-pengajuan<?php echo $id; ?>" class="btn btn-danger btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fa fa-shopping-cart"></i>BELANJA</a>
-                          <?php } else { ?>
-                            <a><button class="btn btn-success btn-circle disabled text-white"><i class="fa fa-check"></i></button></a>
-                          <?php } ?>
-                        </td>
-                        <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
-                        <td style="width: 15%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
-                        <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
-                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_uang']; ?></span></td>
-                        <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
-                      </tr>
-                  <?php
-                    }
-                  } ?>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <a href="" data-toggle="modal" style="width: 120px;" data-target="#belanja" class="btn btn-success btn-circle" data-popup="tooltip" data-placement="top" title="Belanja"><i class="fa fa-shopping-cart"></i> BELANJA</a>
+                <br>
+                <span>
+                  <h6>( Tanpa Pengajuan )</h6>
+                </span>
+                <br>
+                <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th class="text-center">No</th>
+                      <th class="text-center">Action</th>
+                      <th class="text-center">Nama Project</th>
+                      <th class="text-center">Kategori</th>
+                      <th class="text-center">Nama Pekerjaan</th>
+                      <th class="text-center">Jumlah Approval</th>
+                      <th class="text-center">Keterangan</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php if (is_array($databelum) || is_object($databelum)) {
+                      $nomor = 1;
+                      foreach ($databelum as $d) {
+                        $id = $d['id']; ?>
+                        <tr class="odd gradeX">
+                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                          <td style="width: 15%;" align="center">
+                            <?php if ($d['is_buy'] == 0) { ?>
+                              <a href="" data-toggle="modal" style="width: 120px;" data-target="#belanja-pengajuan<?php echo $id; ?>" class="btn btn-danger btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fa fa-shopping-cart"></i>BELANJA</a>
+                            <?php } else { ?>
+                              <a><button class="btn btn-success btn-circle disabled text-white"><i class="fa fa-check"></i></button></a>
+                            <?php } ?>
+                          </td>
+                          <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                          <td style="width: 15%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
+                          <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_uang']; ?></span></td>
+                          <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
+                        </tr>
+                    <?php
+                      }
+                    } ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
           <div class="card">
@@ -83,39 +85,41 @@
               <h3 class="card-title">Pembelian ( Sudah Belanja )</h3>
             </div>
             <div class="card-body">
-              <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th class="text-center">No</th>
-                    <th class="text-center">Nama Project</th>
-                    <th class="text-center">Kategori</th>
-                    <th class="text-center">Nama Pekerjaan</th>
-                    <th class="text-center">Jumlah Approval</th>
-                    <th class="text-center">Jumlah Pembelian</th>
-                    <th class="text-center">Tanggal Pembelian</th>
-                    <th class="text-center">Keterangan</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php if (is_array($datasudah) || is_object($datasudah)) {
-                    $nomor = 1;
-                    foreach ($datasudah as $d) {
-                      $id = $d['id']; ?>
-                      <tr class="odd gradeX">
-                        <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                        <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
-                        <td style="width: 15%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
-                        <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
-                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_uang']; ?></span></td>
-                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pembelian']; ?></span></td>
-                        <td style="width: 10%;" class="text text-center"><span><?php echo $d['tanggal_pembelian']; ?></span></td>
-                        <td style="width: 15%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
-                      </tr>
-                  <?php
-                    }
-                  } ?>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th class="text-center">No</th>
+                      <th class="text-center">Nama Project</th>
+                      <th class="text-center">Kategori</th>
+                      <th class="text-center">Nama Pekerjaan</th>
+                      <th class="text-center">Jumlah Approval</th>
+                      <th class="text-center">Jumlah Pembelian</th>
+                      <th class="text-center">Tanggal Pembelian</th>
+                      <th class="text-center">Keterangan</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php if (is_array($datasudah) || is_object($datasudah)) {
+                      $nomor = 1;
+                      foreach ($datasudah as $d) {
+                        $id = $d['id']; ?>
+                        <tr class="odd gradeX">
+                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                          <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                          <td style="width: 15%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
+                          <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_uang']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pembelian']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center"><span><?php echo $d['tanggal_pembelian']; ?></span></td>
+                          <td style="width: 15%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
+                        </tr>
+                    <?php
+                      }
+                    } ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
           <div id="belanja" class="modal fade">

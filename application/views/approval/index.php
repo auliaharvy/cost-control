@@ -33,43 +33,45 @@
               <h3 class="card-title">Pengajuan ( Belum Approve )</h3>
             </div>
             <div class="card-body">
-              <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th class="text-center">No</th>
-                    <th class="text-center">Action</th>
-                    <th class="text-center">Nama Project</th>
-                    <th class="text-center">Kategori</th>
-                    <th class="text-center">Nama Pekerjaan</th>
-                    <th class="text-center">Tanggal Pengajuan</th>
-                    <th class="text-center">Jumlah Pengajuan</th>
-                    <th class="text-center">Keterangan</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  $nomor = 1;
-                  foreach ($datapengajuanbelumapprove as $d) {
-                    $id = $d['id']; ?>
-                    <tr class="odd gradeX">
-                      <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                      <td style="width: 15%;" align="center">
-                        <?php if ($d['is_approved'] == 0) {  ?>
-                          <button data-toggle="modal" style="width: 120px;" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-primary btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i>Approve</button>
-                        <?php } else { ?>
-                          <button type="submit" class="btn btn-primary disabled"><i class="fa fa-edit"></i> Approve</button>
-                        <?php } ?>
-                      </td>
-                      <td style="width: 15%;" class="text"><span><?php echo $d['project_name']; ?><span></td>
-                      <td style="width: 15%;" class="text"><span><?php echo $d['nama_kategori']; ?></td>
-                      <td style="width: 10%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></td>
-                      <td style="width: 10%;" class="text text-center"><span><?php echo $d['tanggal_pengajuan']; ?></span></td>
-                      <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pengajuan_v']; ?></span></td>
-                      <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
+              <div class="table-responsive">
+                <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th class="text-center">No</th>
+                      <th class="text-center">Action</th>
+                      <th class="text-center">Nama Project</th>
+                      <th class="text-center">Kategori</th>
+                      <th class="text-center">Nama Pekerjaan</th>
+                      <th class="text-center">Tanggal Pengajuan</th>
+                      <th class="text-center">Jumlah Pengajuan</th>
+                      <th class="text-center">Keterangan</th>
                     </tr>
-                  <?php } ?>
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    <?php
+                    $nomor = 1;
+                    foreach ($datapengajuanbelumapprove as $d) {
+                      $id = $d['id']; ?>
+                      <tr class="odd gradeX">
+                        <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                        <td style="width: 15%;" align="center">
+                          <?php if ($d['is_approved'] == 0) {  ?>
+                            <button data-toggle="modal" style="width: 120px;" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-primary btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i>Approve</button>
+                          <?php } else { ?>
+                            <button type="submit" class="btn btn-primary disabled"><i class="fa fa-edit"></i> Approve</button>
+                          <?php } ?>
+                        </td>
+                        <td style="width: 15%;" class="text"><span><?php echo $d['project_name']; ?><span></td>
+                        <td style="width: 15%;" class="text"><span><?php echo $d['nama_kategori']; ?></td>
+                        <td style="width: 10%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></td>
+                        <td style="width: 10%;" class="text text-center"><span><?php echo $d['tanggal_pengajuan']; ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pengajuan_v']; ?></span></td>
+                        <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
+                      </tr>
+                    <?php } ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
           <div class="card">
@@ -77,38 +79,40 @@
               <h3 class="card-title">Pengajuan ( Sudah Approve )</h3>
             </div>
             <div class="card-body">
-              <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th class="text-center">No</th>
-                    <th class="text-center">Nama Project</th>
-                    <th class="text-center">Kategori</th>
-                    <th class="text-center">Nama Pekerjaan</th>
-                    <th class="text-center">Tanggal Approval</th>
-                    <th class="text-center">Jumlah Pengajuan</th>
-                    <th class="text-center">Jumlah Approval</th>
-                    <th class="text-center">Keterangan</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  $nomor = 1;
-                  foreach ($datapengajuansudahapprove as $d) {
-                    $id = $d['id']; ?>
-                    <tr class="odd gradeX">
-                      <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                      <td style="width: 15%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
-                      <td style="width: 15%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
-                      <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
-                      <td style="width: 10%;" class="text"><span><?php echo $d['tanggal_approve']; ?></span></td>
-                      <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pengajuan_v']; ?></span></td>
-                      <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_approval_v']; ?></span></td>
-                      <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
+              <div class="table-responsive">
+                <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th class="text-center">No</th>
+                      <th class="text-center">Nama Project</th>
+                      <th class="text-center">Kategori</th>
+                      <th class="text-center">Nama Pekerjaan</th>
+                      <th class="text-center">Tanggal Approval</th>
+                      <th class="text-center">Jumlah Pengajuan</th>
+                      <th class="text-center">Jumlah Approval</th>
+                      <th class="text-center">Keterangan</th>
                     </tr>
-                  <?php
-                  } ?>
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    <?php
+                    $nomor = 1;
+                    foreach ($datapengajuansudahapprove as $d) {
+                      $id = $d['id']; ?>
+                      <tr class="odd gradeX">
+                        <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                        <td style="width: 15%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                        <td style="width: 15%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
+                        <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
+                        <td style="width: 10%;" class="text"><span><?php echo $d['tanggal_approve']; ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pengajuan_v']; ?></span></td>
+                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_approval_v']; ?></span></td>
+                        <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
+                      </tr>
+                    <?php
+                    } ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
           <?php

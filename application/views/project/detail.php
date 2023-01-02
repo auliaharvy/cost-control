@@ -94,46 +94,48 @@
               <h3 class="card-title">RAP Project</h3>
             </div>
             <div class="card-body">
-              <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th class="text-center">No</th>
-                    <th class="text-center">Action</th>
-                    <th class="text-center">Kategori</th>
-                    <th class="text-center">Nama Pekerjaan</th>
-                    <th class="text-center">Jumlah RAP</th>
-                    <th class="text-center">Jumlah Aktual</th>
-                    <th class="text-center">%</th>
-                    <th class="text-center">Keterangan</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  if (is_array($data_rap_biaya) || is_object($data_rap_biaya)) {
-                    $nomor = 1;
-                    foreach ($data_rap_biaya as $d) {
-                      $id = $d['id']; ?>
-                      <tr class="odd gradeX">
-                        <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                        <td style="width: 5%;" align="center">
-                          <?php if ($is_rap_confirm == 0) { ?>
-                            <a data-toggle="modal" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></a>
-                          <?php } else { ?>
-                            <button type="button" class="btn btn-warning btn-circle btn-sm disabled"><i class="fas fa-edit"></i></button>
-                          <?php } ?>
-                        </td>
-                        <td style="width: 20%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
-                        <td style="width: 20%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
-                        <td style="width: 10%;" class="text text-center"><span>Rp <?php echo $d['jumlah_biaya_v']; ?></span></td>
-                        <td style="width: 10%;" class="text text-center"><span>Rp <?php echo $d['jumlah_aktual_v']; ?></span></td>
-                        <td style="width: 10%;" class="text text-center"><span><?php echo $d['presentase']; ?> %</span></td>
-                        <td style="width: 20%;" class="text"><span><?php echo $d['note']; ?></span></td>
-                      </tr>
-                  <?php
-                    }
-                  } ?>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th class="text-center">No</th>
+                      <th class="text-center">Action</th>
+                      <th class="text-center">Kategori</th>
+                      <th class="text-center">Nama Pekerjaan</th>
+                      <th class="text-center">Jumlah RAP</th>
+                      <th class="text-center">Jumlah Aktual</th>
+                      <th class="text-center">%</th>
+                      <th class="text-center">Keterangan</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    if (is_array($data_rap_biaya) || is_object($data_rap_biaya)) {
+                      $nomor = 1;
+                      foreach ($data_rap_biaya as $d) {
+                        $id = $d['id']; ?>
+                        <tr class="odd gradeX">
+                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                          <td style="width: 5%;" align="center">
+                            <?php if ($is_rap_confirm == 0) { ?>
+                              <a data-toggle="modal" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></a>
+                            <?php } else { ?>
+                              <button type="button" class="btn btn-warning btn-circle btn-sm disabled"><i class="fas fa-edit"></i></button>
+                            <?php } ?>
+                          </td>
+                          <td style="width: 20%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
+                          <td style="width: 20%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center"><span>Rp <?php echo $d['jumlah_biaya_v']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center"><span>Rp <?php echo $d['jumlah_aktual_v']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center"><span><?php echo $d['presentase']; ?> %</span></td>
+                          <td style="width: 20%;" class="text"><span><?php echo $d['note']; ?></span></td>
+                        </tr>
+                    <?php
+                      }
+                    } ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
           <div id="modal-tambah-rap" class="modal fade">

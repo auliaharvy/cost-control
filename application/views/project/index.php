@@ -33,62 +33,64 @@
               <h3 class="card-title">On Progress</h3>
             </div>
             <div class="card-body">
-              <?php if (($this->session->userdata('role')) == 4) { ?>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah"><i class="fa fa-plus-circle"></i> Tambah Project </button><br>
-              <?php } ?>
-              <br>
-              <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th class="text-center">No</th>
-                    <!-- <th class="text-center">Action</th> -->
-                    <th class="text-center">Project</th>
-                    <th class="text-center">Location</th>
-                    <th class="text-center">Deadline</th>
-                    <th class="text-center">Cash In Hand</th>
-                    <th class="text-center">Total RAB</th>
-                    <th class="text-center">Total RAP</th>
-                    <th class="text-center">Total Pengeluaran</th>
-                    <th class="text-center">Pengeluaran (%)</th>
-                    <th class="text-center">Progress (%)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  if (is_array($databelum) || is_object($databelum)) {
-                    $nomor = 1;
-                    foreach ($databelum as $d) {
-                      $id = $d['id']; ?>
-                      <tr class="odd gradeX">
-                        <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                        <!-- <td style="width: 5%;" align="center">
+              <div class="table-responsive">
+                <?php if (($this->session->userdata('role')) == 4) { ?>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah"><i class="fa fa-plus-circle"></i> Tambah Project </button><br>
+                <?php } ?>
+                <br>
+                <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th class="text-center">No</th>
+                      <!-- <th class="text-center">Action</th> -->
+                      <th class="text-center">Project</th>
+                      <th class="text-center">Location</th>
+                      <th class="text-center">Deadline</th>
+                      <th class="text-center">Cash In Hand</th>
+                      <th class="text-center">Total RAB</th>
+                      <th class="text-center">Total RAP</th>
+                      <th class="text-center">Total Pengeluaran</th>
+                      <th class="text-center">Pengeluaran (%)</th>
+                      <th class="text-center">Progress (%)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    if (is_array($databelum) || is_object($databelum)) {
+                      $nomor = 1;
+                      foreach ($databelum as $d) {
+                        $id = $d['id']; ?>
+                        <tr class="odd gradeX">
+                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                          <!-- <td style="width: 5%;" align="center">
                           <?php if (($this->session->userdata('role')) == 4) { ?>
                             <a data-toggle="modal" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></a>
                           <?php } ?>
                         </td> -->
-                        <td style="width: 15%;" class="text"><span><a href="<?php echo base_url() . "project_detail/" . $d['id']; ?>"><?php echo $d['project_name']; ?></a></span></td>
-                        <td style="width: 10%;" class="text"><span><?php echo $d['project_location']; ?></span></td>
-                        <td style="width: 10%;" class="text text-center"><span><?php echo $d['project_deadline_v']; ?></span></td>
-                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['cash_in_hand']; ?></span></td>
-                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['rab_project_v']; ?></span></td>
-                        <?php if ($d['total_biaya_v'] == null) { ?>
-                          <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
-                        <?php } else { ?>
-                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_biaya_v']; ?></span></td>
-                        <?php } ?>
-                        <?php if ($d['total_pengeluaran_v'] == null) { ?>
-                          <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
-                        <?php } else { ?>
-                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_pengeluaran_v']; ?></span></td>
-                        <?php } ?>
-                        <td style="width: 10%;" class="text text-center"><span><?php echo $d['persentase_v'];  ?></span></td>
-                        <td style="width: 10%;" class="text text-center"><span><?php echo $d['project_progress'];  ?>%</span></td>
-                      </tr>
-                  <?php
-                    }
-                  } ?>
-                </tbody>
-              </table>
+                          <td style="width: 15%;" class="text"><span><a href="<?php echo base_url() . "project_detail/" . $d['id']; ?>"><?php echo $d['project_name']; ?></a></span></td>
+                          <td style="width: 10%;" class="text"><span><?php echo $d['project_location']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center"><span><?php echo $d['project_deadline_v']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['cash_in_hand']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['rab_project_v']; ?></span></td>
+                          <?php if ($d['total_biaya_v'] == null) { ?>
+                            <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
+                          <?php } else { ?>
+                            <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_biaya_v']; ?></span></td>
+                          <?php } ?>
+                          <?php if ($d['total_pengeluaran_v'] == null) { ?>
+                            <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
+                          <?php } else { ?>
+                            <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_pengeluaran_v']; ?></span></td>
+                          <?php } ?>
+                          <td style="width: 10%;" class="text text-center"><span><?php echo $d['persentase_v'];  ?></span></td>
+                          <td style="width: 10%;" class="text text-center"><span><?php echo $d['project_progress'];  ?>%</span></td>
+                        </tr>
+                    <?php
+                      }
+                    } ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
           <div class="card">
@@ -96,42 +98,44 @@
               <h3 class="card-title">Progress Selesai</h3>
             </div>
             <div class="card-body">
-              <table id="example2" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th class="text-center">No</th>
-                    <th class="text-center">Project</th>
-                    <th class="text-center">Lokasi Project</th>
-                    <th class="text-center">Deadline</th>
-                    <th class="text-center">Total RAB</th>
-                    <th class="text-center">Total RAP</th>
-                    <th class="text-center">Total Pengeluaran</th>
-                    <th class="text-center">%</th>
-                    <th class="text-center">Finish At</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  if (is_array($datasudah) || is_object($datasudah)) {
-                    $nomor = 1;
-                    foreach ($datasudah as $d) {
-                      $id = $d['id']; ?>
-                      <tr class="odd gradeX">
-                        <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                        <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
-                        <td style="width: 15%;" class="text"><span><?php echo $d['project_location']; ?></span></td>
-                        <td style="width: 10%;" class="text text-center"><span><?php echo $d['project_deadline_v']; ?></td>
-                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['rab_project_v']; ?></span></td>
-                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_biaya_v']; ?></span></td>
-                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_pengeluaran_v']; ?></span></td>
-                        <td style="width: 10%;" class="text text-center"><span><?php echo $d['persentase_v']; ?></span></td>
-                        <td style="width: 10%;" class="text text-center"><span><?php echo $d['finish_at_v']; ?></span></td>
-                      </tr>
-                  <?php
-                    }
-                  } ?>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <table id="example2" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th class="text-center">No</th>
+                      <th class="text-center">Project</th>
+                      <th class="text-center">Lokasi Project</th>
+                      <th class="text-center">Deadline</th>
+                      <th class="text-center">Total RAB</th>
+                      <th class="text-center">Total RAP</th>
+                      <th class="text-center">Total Pengeluaran</th>
+                      <th class="text-center">%</th>
+                      <th class="text-center">Finish At</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    if (is_array($datasudah) || is_object($datasudah)) {
+                      $nomor = 1;
+                      foreach ($datasudah as $d) {
+                        $id = $d['id']; ?>
+                        <tr class="odd gradeX">
+                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                          <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                          <td style="width: 15%;" class="text"><span><?php echo $d['project_location']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center"><span><?php echo $d['project_deadline_v']; ?></td>
+                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['rab_project_v']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_biaya_v']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_pengeluaran_v']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center"><span><?php echo $d['persentase_v']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center"><span><?php echo $d['finish_at_v']; ?></span></td>
+                        </tr>
+                    <?php
+                      }
+                    } ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
           <div id="modal-tambah" class="modal fade">

@@ -33,8 +33,8 @@
               <h3 class="card-title">Hutang ( Belum Bayar )</h3>
             </div>
             <div class="card-body">
+              <a href="" data-toggle="modal" data-target="#tambahhutang" class="btn btn-primary" data-popup="tooltip" data-placement="top" title="Tambah Hutang"><i class="fa fa-edit"></i>Tambah Hutang</a><br><br>
               <div class="table-responsive">
-                <a href="" data-toggle="modal" data-target="#tambahhutang" class="btn btn-primary" data-popup="tooltip" data-placement="top" title="Tambah Hutang"><i class="fa fa-edit"></i>Tambah Hutang</a><br><br>
                 <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                   <thead>
                     <tr>

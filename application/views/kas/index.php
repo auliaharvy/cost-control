@@ -33,9 +33,9 @@
               <h3 class="card-title">Master Kas</h3>
             </div>
             <div class="card-body">
+              <a href="<?php echo base_url('Welcome/export'); ?>">Export Data</a>
+              <br>
               <div class="table-responsive">
-                <a href="<?php echo base_url('Welcome/export'); ?>">Export Data</a>
-                <br>
                 <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                   <thead>
                     <tr>
@@ -75,21 +75,21 @@
               <h3 class="card-title">Log Kas</h3>
             </div>
             <div class="card-body">
+              <form action="<?php echo base_url('kas') ?>" method="POST" class="form-inline">
+                <div class="form-group">
+                  <select class="form-control" name="range">
+                    <option value="">---Pilih Jangka Waktu---</option>
+                    <option value="1">1 Bulan Terakhir</option>
+                    <option value="3">3 Bulan Terakhir</option>
+                    <option value="6">6 Bulan Terakhir</option>
+                    <option value="12">1 Tahun Terakhir</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+              </form><br>
+              <h3 class="card-title"><i><?php echo $title; ?></i></h3>
+              <br><br>
               <div class="table-responsive">
-                <form action="<?php echo base_url('kas') ?>" method="POST" class="form-inline">
-                  <div class="form-group">
-                    <select class="form-control" name="range">
-                      <option value="">---Pilih Jangka Waktu---</option>
-                      <option value="1">1 Bulan Terakhir</option>
-                      <option value="3">3 Bulan Terakhir</option>
-                      <option value="6">6 Bulan Terakhir</option>
-                      <option value="12">1 Tahun Terakhir</option>
-                    </select>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Search</button>
-                </form><br>
-                <h3 class="card-title"><i><?php echo $title; ?></i></h3>
-                <br><br>
                 <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
                   <thead>
                     <tr>

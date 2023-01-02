@@ -33,11 +33,11 @@
               <h3 class="card-title">On Progress</h3>
             </div>
             <div class="card-body">
+              <?php if (($this->session->userdata('role')) == 4) { ?>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah"><i class="fa fa-plus-circle"></i> Tambah Project </button><br>
+              <?php } ?>
+              <br>
               <div class="table-responsive">
-                <?php if (($this->session->userdata('role')) == 4) { ?>
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah"><i class="fa fa-plus-circle"></i> Tambah Project </button><br>
-                <?php } ?>
-                <br>
                 <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                   <thead>
                     <tr>
@@ -265,7 +265,7 @@
     $("#example1").DataTable({
       "paging": true,
       "lengthChange": true,
-      "scrollX": true,
+      // "scrollX": true,
       "searching": true,
       "ordering": false,
       "info": true,

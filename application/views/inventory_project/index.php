@@ -33,8 +33,8 @@
               <h3 class="card-title">Inventory Project</h3>
             </div>
             <div class="card-body">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmaterial" title="Tambah Material"><i class="fa fa-plus-circle"></i> Tambah Material </button><br><br>
               <div class="table-responsive">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmaterial" title="Tambah Material"><i class="fa fa-plus-circle"></i> Tambah Material </button><br><br>
                 <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                   <thead>
                     <tr>

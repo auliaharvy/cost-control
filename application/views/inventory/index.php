@@ -33,9 +33,9 @@
               <h3 class="card-title">Inventory</h3>
             </div>
             <div class="card-body">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmaterial" title="Tambah Material"><i class="fa fa-plus-circle"></i> Tambah Material </button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#transfermaterial" title="Transfer Material"><i class="fa fa-plus-circle"></i> Transfer Material </button><br><br>
               <div class="table-responsive">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmaterial" title="Tambah Material"><i class="fa fa-plus-circle"></i> Tambah Material </button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#transfermaterial" title="Transfer Material"><i class="fa fa-plus-circle"></i> Transfer Material </button><br><br>
                 <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                   <thead>
                     <tr>
@@ -74,22 +74,22 @@
               <h3 class="card-title">Log Transfer Material</h3>
             </div>
             <div class="card-body">
+              <form action="<?php echo base_url('inventory') ?>" method="POST" class="form-inline">
+                <div class="form-group">
+                  <select class="form-control" name="range">
+                    <option value="">---Pilih Jangka Waktu---</option>
+                    <option value="1">1 Bulan Terakhir</option>
+                    <option value="3">3 Bulan Terakhir</option>
+                    <option value="6">6 Bulan Terakhir</option>
+                    <option value="12">1 Tahun Terakhir</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary" title="Search">Search</button>
+              </form>
+              <br>
+              <h3 class="card-title"><i><?php echo $title; ?></i></h3>
+              <br><br>
               <div class="table-responsive">
-                <form action="<?php echo base_url('inventory') ?>" method="POST" class="form-inline">
-                  <div class="form-group">
-                    <select class="form-control" name="range">
-                      <option value="">---Pilih Jangka Waktu---</option>
-                      <option value="1">1 Bulan Terakhir</option>
-                      <option value="3">3 Bulan Terakhir</option>
-                      <option value="6">6 Bulan Terakhir</option>
-                      <option value="12">1 Tahun Terakhir</option>
-                    </select>
-                  </div>
-                  <button type="submit" class="btn btn-primary" title="Search">Search</button>
-                </form>
-                <br>
-                <h3 class="card-title"><i><?php echo $title; ?></i></h3>
-                <br><br>
                 <table style="width: 100%;" id="example2" class="table table-bordered table-striped">
                   <thead>
                     <tr>

@@ -49,7 +49,6 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahuser"><i class="fa fa-plus-circle"></i> Tambah User </button><br>
                     <br>
                     <div class="table-responsive">
-
                       <table style="width: 100%;" id="example1" class="table table-bordered table-striped">
                         <thead>
                           <tr>

@@ -107,6 +107,7 @@
                         <th class="text-center">Keterangan</th>
                         <th class="text-center">Jumlah Pembelian</th>
                         <th class="text-center">Kategori</th>
+                        <th class="text-center">File</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -117,13 +118,15 @@
                         <tr class="odd gradeX">
                           <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
                           <td style="width: 15%;" class="text"><span><?php echo $d['created_at']; ?></td>
-                          <td style="width: 45%;" class="text"><span><?php echo $d['keterangan']; ?></td>
+                          <td style="width: 25%;" class="text"><span><?php echo $d['keterangan']; ?></td>
                           <?php if ($d['jumlah_pembelian_v'] == null) { ?>
                             <td style="width: 15%;" class="text text-center"><span>Rp. 0</span></td>
                           <?php } else { ?>
                             <td style="width: 15%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pembelian_v']; ?></span></td>
                           <?php } ?>
                           <td style="width: 20%;" class="text"><span><?php echo $d['nama_kategori']; ?></td>
+                          <td style="width: 20%;" class="text"><a href="<?php echo base_url('/upload/pembelian/' . $d['upload_file']); ?>" target="_blank">
+                              <img src="<?php echo base_url('/upload/pembelian/' . $d['upload_file']); ?>" height="125px;" width="80px;" /></a></td>
                         </tr>
                       <?php
                       } ?>

@@ -188,7 +188,7 @@
                       <h3 class="modal-title" id="myModalLabel">Pembelian</h3>
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                     </div>
-                    <form class="form-horizontal" method="post" action="<?php echo site_url('create_belanja'); ?>">
+                    <form class="form-horizontal" method="post" action="<?php echo site_url('create_belanja'); ?>" enctype="multipart/form-data">
                       <div class="modal-body">
                         <div class="form-group">
                           <div class="col-xs-8">
@@ -211,9 +211,13 @@
                         </div>
                         <div class="form-group">
                           <label class='col-xs-3'>Note</label>
-                          <div class='col-xs-8'><textarea class="form-control" rows="3" name="note"></textarea>
+                          <div class='col-xs-8'><textarea class="form-control" type="text" rows="3" name="note"></textarea>
                           </div>
-                          <br>
+                        </div>
+                        <div class="form-group">
+                          <label>Foto</label>
+                          <input type="file" name="foto">
+                          <p class="help-block">Format File Harus .jpg atau .png</p>
                         </div>
                       </div>
                       <div class="modal-footer">

@@ -14,6 +14,7 @@ class C_pembelian extends CI_Controller
         $this->load->model("M_pembelian");
         $this->load->model("M_transaksi");
         $this->load->library('Lharby');
+        $this->load->library('upload');
     }
 
     public function index() //project on progress
@@ -119,6 +120,44 @@ class C_pembelian extends CI_Controller
         $this->load->view('pembelian/detail', $data);
     }
 
+    public function upload()
+    {
+        $this->load->model('profile_model');
+        $data['current_user'] = $this->auth_model->current_user();
+
+        if ($this->input->method() === 'post') {
+            // the user id contain dot, so we must remove it
+            $file_name = str_replace('.', '', $data['current_user']->id);
+            $config['upload_path']          = './upload/pembelian';
+            $config['allowed_types']        = 'gif|jpg|jpeg|png';
+            $config['file_name']            = $file_name;
+            $config['overwrite']            = true;
+            $config['max_size']             = 3072; // 1MB
+            $config['max_width']            = 1080;
+            $config['max_height']           = 1080;
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('avatar')) {
+                $data['error'] = $this->upload->display_errors();
+            } else {
+                $uploaded_data = $this->upload->data();
+
+                $new_data = [
+                    'id' => $data['current_user']->id,
+                    'avatar' => $uploaded_data['file_name'],
+                ];
+
+                if ($this->profile_model->update($new_data)) {
+                    $this->session->set_flashdata('message', 'Avatar updated!');
+                    redirect(site_url('admin/setting'));
+                }
+            }
+        }
+
+        $this->load->view('pembelian', $data);
+    }
+
     public function getProjectOfficeId($pengajuan_id)
     {
         $id = $this->input->post('id');
@@ -136,6 +175,7 @@ class C_pembelian extends CI_Controller
 
     public function create_belanja()
     {
+        $upload = $_POST['upload'];
         $date = date('Y-m-d H:i:s');
         $user_id = $this->session->userdata('id');
         $pengiriman_uang_id = $_POST['pengiriman_uang_id'];
@@ -180,70 +220,89 @@ class C_pembelian extends CI_Controller
                 $cash = $getcash[0]['cash_in_hand'];
                 $total_cash = $cash - $jumlah_uang_pembelian;
             }
-            $datapembelian = array(
-                "pengiriman_uang_id" => $pengiriman_uang_id,
-                "destination_id" => $destination_id,
-                "project_office_id" => $proj_off_id,
-                "jumlah_uang_pembelian" => $jumlah_uang_pembelian,
-                "created_at" => $date,
-                "last_updated_by" => $user_id,
-                "note" => $_POST['note'],
-            );
+            $config['upload_path']          = './upload/pembelian/';
+            $config['allowed_types']        = 'gif|jpg|png';
+            $config['max_size']             = '5000';
+            $config['max_width']              = '5000';
+            $config['encrypt_name']    = TRUE;
+            $config['max_height']           = '5000';
 
-            $wheresource = array('id' => $proj_off_id);
-            $datasource = array(
-                "cash_in_hand" => $total_cash,
-                "last_updated_by" => $user_id,
-                "updated_at" => $date,
-            );
-            $where = array('id' => $pengiriman_uang_id);
-            $data = array(
-                "remaining_pembelian" => $remaining_pembelian,
-                "is_buy" => $is_buy,
-                "last_updated_by" => $user_id,
-                "updated_at" => $date,
-                "buy_created_at" => $date,
-            );
-            $this->db->trans_start();
-            /*Trx Cash Remaining */
-            $where_cash = "where project_id = '$project_id' and destination_id = '$destination_id' and project_office_id = '$proj_off_id'";
-            $getCashRemaining = $this->M_pembelian->GetData("trx_cash_remaining ", $where_cash); //cek ada cash remaining utk project dan destination tsb
-            if ($getCashRemaining) {
-                $id_cash_remaining = $getCashRemaining[0]['id'];
-                $cash_remaining = ($getCashRemaining[0]['cash_remaining']) + $remaining_pembelian;
-                $where_cash_remaining = array(
-                    "id" => $id_cash_remaining,
-                );
-                $data_update_cash = array(
-                    "cash_remaining" => $cash_remaining,
-                    "updated_at" => $date,
-                    "last_updated_by" => $user_id,
-                );
-                $this->M_data->UpdateData('trx_cash_remaining', $data_update_cash, $where_cash_remaining);
-            } else { //jika sebelumnya tidak ada sisa pembelanjaan di project dan destination tsb
-                $data_insert_cash = array(
-                    "project_id" => $project_id,
-                    "destination_id" => $destination_id,
-                    "project_office_id" => $proj_off_id,
-                    "cash_remaining" => $remaining_pembelian,
-                    "created_at" => $date,
-                    "last_updated_by" => $user_id,
-                );
-                $this->M_data->InsertData('trx_cash_remaining', $data_insert_cash);
-            }
-            $this->M_data->UpdateData('trx_pengiriman_uang', $data, $where); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
-            $this->M_data->UpdateData($table, $datasource, $wheresource); //update cash in hand source (office ' project')
-            $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
-            $this->M_data->InsertData('trx_pembelian_barang', $datapembelian);
-            $this->db->trans_complete();
-            if ($this->db->trans_status() === TRUE) {
-                $msg = 'Pembelian Berhasil';
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+
+            if (!$this->upload->do_upload('foto')) {
+                $error = array('error' => $this->upload->display_errors());
+                $msg = $error['error'];
                 $this->flashdata_succeed1($msg);
                 redirect('pembelian');
             } else {
-                $msg = 'Pembelian Gagal';
-                $this->flashdata_failed1($msg);
-                redirect('pembelian');
+                $data1 = $this->upload->data();
+                $datapembelian = array(
+                    "pengiriman_uang_id" => $pengiriman_uang_id,
+                    "destination_id" => $destination_id,
+                    "project_office_id" => $proj_off_id,
+                    "jumlah_uang_pembelian" => $jumlah_uang_pembelian,
+                    "created_at" => $date,
+                    "last_updated_by" => $user_id,
+                    "note" => $_POST['note'],
+                    "upload_file" => $data1['file_name'],
+                );
+
+                $wheresource = array('id' => $proj_off_id);
+                $datasource = array(
+                    "cash_in_hand" => $total_cash,
+                    "last_updated_by" => $user_id,
+                    "updated_at" => $date,
+                );
+                $where = array('id' => $pengiriman_uang_id);
+                $data = array(
+                    "remaining_pembelian" => $remaining_pembelian,
+                    "is_buy" => $is_buy,
+                    "last_updated_by" => $user_id,
+                    "updated_at" => $date,
+                    "buy_created_at" => $date,
+                );
+                $this->db->trans_start();
+                /*Trx Cash Remaining */
+                $where_cash = "where project_id = '$project_id' and destination_id = '$destination_id' and project_office_id = '$proj_off_id'";
+                $getCashRemaining = $this->M_pembelian->GetData("trx_cash_remaining ", $where_cash); //cek ada cash remaining utk project dan destination tsb
+                if ($getCashRemaining) {
+                    $id_cash_remaining = $getCashRemaining[0]['id'];
+                    $cash_remaining = ($getCashRemaining[0]['cash_remaining']) + $remaining_pembelian;
+                    $where_cash_remaining = array(
+                        "id" => $id_cash_remaining,
+                    );
+                    $data_update_cash = array(
+                        "cash_remaining" => $cash_remaining,
+                        "updated_at" => $date,
+                        "last_updated_by" => $user_id,
+                    );
+                    $this->M_data->UpdateData('trx_cash_remaining', $data_update_cash, $where_cash_remaining);
+                } else { //jika sebelumnya tidak ada sisa pembelanjaan di project dan destination tsb
+                    $data_insert_cash = array(
+                        "project_id" => $project_id,
+                        "destination_id" => $destination_id,
+                        "project_office_id" => $proj_off_id,
+                        "cash_remaining" => $remaining_pembelian,
+                        "created_at" => $date,
+                        "last_updated_by" => $user_id,
+                    );
+                    $this->M_data->InsertData('trx_cash_remaining', $data_insert_cash);
+                }
+                $this->M_data->UpdateData('trx_pengiriman_uang', $data, $where); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
+                $this->M_data->UpdateData($table, $datasource, $wheresource); //update cash in hand source (office ' project')
+                $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
+                $this->M_data->InsertData('trx_pembelian_barang', $datapembelian);
+                $this->db->trans_complete();
+                if ($this->db->trans_status() === TRUE) {
+                    $msg = 'Pembelian Berhasil';
+                    $this->flashdata_succeed1($msg);
+                    redirect('pembelian');
+                } else {
+                    $msg = 'Pembelian Gagal';
+                    $this->flashdata_failed1($msg);
+                    redirect('pembelian');
+                }
             }
         }
     }

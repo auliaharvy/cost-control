@@ -36,14 +36,12 @@
               <div class="row col-md-12">
                 <div class="col-md-6">
                   <div class="row">
-                    <?php if (($this->session->userdata('role')) == 4) { ?>
-                      <button style="margin-right: 10px; border-radius: 5px;" type="button" data-toggle="modal" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-warning btn-sm" data-popup="tooltip" data-placement="top" title="Edit Project"><i class="fas fa-edit"></i>Edit Project</button>
-                    <?php } ?>
                     <?php if ($project_status == 0) {
                       if (($this->session->userdata('role')) == 4) { ?>
                         <?php if ($is_rap_confirm == 0) { ?>
-                          <button style="margin-right: 5px; border-radius: 5px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah-rap"><i class="fa fa-plus-circle"></i> Tambah Biaya RAP </button>
-                          <form action="<?php echo site_url('confirmrap'); ?>" method="post">
+                          <button style="margin-right: 10px; border-radius: 5px;" type="button" data-toggle="modal" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-warning btn-sm" data-popup="tooltip" data-placement="top" title="Edit Project"><i class="fas fa-edit"></i>Edit Project</button>
+                          <button style="margin-right: 5px; border-radius: 5px;" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-tambah-rap"><i class="fa fa-plus-circle"></i> Tambah Biaya RAP </button>
+                          <form action="<?php echo site_url('confirmrap'); ?>" method="post" class="row col-md-4">
                             <input type="hidden" name="is_rap_confirm" value="1">
                             <input type="hidden" name="rap_id" value="<?php echo $rap_id; ?>">
                             <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">

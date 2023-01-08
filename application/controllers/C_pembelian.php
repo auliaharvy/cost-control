@@ -21,7 +21,7 @@ class C_pembelian extends CI_Controller
     {
         $databelum = $this->M_pembelian->showPembelianbelum(); //show pembelian data
         $datasudah = $this->M_pembelian->showPembeliansudah(); //show pembelian data
-        $project = $this->M_transaksi->getProjectPembelian(0);
+        $project = $this->M_transaksi->getProject(0);
         $pengajuan = $this->M_pembelian->showPencairan(0);
         $project_id = $project[0]['id'];
         $pengajuan_id = $pengajuan[0]['pengajuan_id'];
@@ -346,6 +346,7 @@ class C_pembelian extends CI_Controller
 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
+
         if ($jumlah_uang_pembelian > $data_remaining[0]['cash_remaining']) {
             $pesan = "Jumlah Pembelian yang diinput tidak boleh melebihi jumlah yang ada";
             $this->flashdata_failed1($pesan);

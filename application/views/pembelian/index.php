@@ -124,7 +124,7 @@
           </div>
           <div id="belanja" class="modal fade">
             <div class="modal-dialog">
-              <form action="<?php echo site_url('pembelian/create_remaining'); ?>" method="post">
+              <form action="<?php echo site_url('pembelian/create_remaining'); ?>" method="post" enctype="multipart/form-data">
                 <div class="modal-content">
                   <div class="modal-header bg-primary">
                     <h4 class="modal-title">Pembelian Tanpa Pengajuan</h4>
@@ -135,15 +135,16 @@
                     <input type="hidden" name="destination_id" autocomplete="off" value="<?php echo $destination_id; ?>" required class="form-control">
                     <input type="hidden" name="project_office_id" autocomplete="off" value="<?php echo $project_office_id; ?>" required class="form-control">
                     <div class="form-group">
-                      <label>Project</label>
+                      <label>Project (Cash in Hand)</label>
                       <select class="form-control project_id" name="project_id" required>
+                        <option value=""></option>
                         <?php foreach ($project as $us) { ?>
-                          <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?> (Rp <?php echo $us['sisa_duit']; ?>)</option>
+                          <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?> (Rp <?php echo $us['cash_in_hand']; ?>)</option>
                         <?php } ?>
                       </select>
                     </div>
                     <div class="form-group">
-                      <label>RAP Item List</label>
+                      <label>RAP Item List (Sisa budget)</label>
                       <select class="form-control js-states rap_biaya_id" id="single" style="width:100%;" name="rap_biaya_id" required>
                         <option value=""></option>
                       </select>
@@ -284,7 +285,7 @@
           var html = '';
           var i;
           for (i = 0; i < data.length; i++) {
-            html += '<option value="' + data[i].id + '">' + data[i].nama_pekerjaan + " > " + data[i].jumlah_biaya_v + '</option>';
+            html += '<option value="' + data[i].id + '">' + data[i].nama_pekerjaan + " ( " + "Rp. " + data[i].sisa_budget_v + " ) " + '</option>';
           }
           $('.rap_biaya_id').html(html);
 

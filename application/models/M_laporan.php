@@ -48,7 +48,7 @@ class M_laporan extends CI_Model
 	public function getBiayaRap($id)
 	{
 		$this->db->select('
-          a.*, c.nama_kategori,FORMAT(a.jumlah_biaya,0,"de_DE") as jumlah_biaya_v,IF(a.jumlah_aktual is NULL,0,FORMAT(a.jumlah_aktual,0,"de_DE")) as jumlah_aktual_v,
+          a.*, c.nama_kategori,FORMAT(a.jumlah_biaya,0,"de_DE") as jumlah_biaya_v, FORMAT((a.jumlah_biaya - a.jumlah_aktual),0,"de_DE") as sisa_budget_v ,IF(a.jumlah_aktual is NULL,0,FORMAT(a.jumlah_aktual,0,"de_DE")) as jumlah_aktual_v,
           IF(a.jumlah_aktual is NULL,0,ROUND(((jumlah_aktual) / (jumlah_biaya) * 100),2)) as presentase,IF(a.jumlah_aktual is NULL,0,a.jumlah_aktual) as jumlah_aktual_f
       ');
 		$this->db->from('akk_rap_biaya as a');

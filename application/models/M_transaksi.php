@@ -262,6 +262,31 @@ JOIN mst_project as c ON a.project_id = c.id WHERE c.project_status=0');
 		}
 	}
 
+	public function getProjectPembelian($status)
+	{
+		$role = $this->session->userdata('role');
+		$user_id = $this->session->userdata('id');
+		if ($role == 4) {
+			$data = $this->db->query("SELECT a.*, z.sisa_duit as sisa_duit,FORMAT(c.total_biaya,0,'de_DE') as total_biaya_v,FORMAT(c.total_pengeluaran,0,'de_DE') as total_pengeluaran_v, a.project_name,FORMAT(a.cash_in_hand,0,'de_DE') as cash_in_hand, a.project_location, a.project_deadline,FORMAT(a.rab_project,0,'de_DE') as rab_project_v,DATE_FORMAT(a.project_deadline,'%d %M %Y') as project_deadline_v,DATE_FORMAT(a.finish_at,'%d %M %Y') as finish_at_v, CONCAT(c.persentase,'%') as persentase_v FROM akk_rap as b 
+			RIGHT JOIN (SELECT rap_id,SUM(jumlah_biaya) AS total_biaya, SUM(jumlah_aktual) AS total_pengeluaran,ROUND((SUM(jumlah_aktual) / SUM(jumlah_biaya) * 100),2) as persentase FROM akk_rap_biaya GROUP BY rap_id) as c 
+			ON b.id = c.rap_id 
+			RIGHT JOIN mst_project as a ON b.project_id = a.id
+			RIGHT JOIN (SELECT SUM(cash_remaining) AS sisa_duit FROM trx_cash_remaining GROUP BY project_id)  as z
+			ON a.id = z.project_id
+			WHERE a.project_status = $status AND a.created_by = $user_id");
+		} else {
+			$data = $this->db->query("SELECT a.*, FORMAT(c.total_biaya,0,'de_DE') as total_biaya_v,FORMAT(c.total_pengeluaran,0,'de_DE') as total_pengeluaran_v, a.project_name,FORMAT(a.cash_in_hand,0,'de_DE') as cash_in_hand, a.project_location, a.project_deadline,FORMAT(a.rab_project,0,'de_DE') as rab_project_v,DATE_FORMAT(a.project_deadline,'%d %M %Y') as project_deadline_v,DATE_FORMAT(a.finish_at,'%d %M %Y') as finish_at_v, CONCAT(c.persentase,'%') as persentase_v FROM akk_rap as b 
+			RIGHT JOIN (SELECT rap_id,SUM(jumlah_biaya) AS total_biaya, SUM(jumlah_aktual) AS total_pengeluaran,ROUND((SUM(jumlah_aktual) / SUM(jumlah_biaya) * 100),2) as persentase FROM akk_rap_biaya GROUP BY rap_id) as c 
+			ON b.id = c.rap_id RIGHT JOIN mst_project as a ON b.project_id = a.id
+			WHERE a.project_status = $status");
+		}
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
+
 	public function getProject($status)
 	{
 		$role = $this->session->userdata('role');

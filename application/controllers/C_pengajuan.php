@@ -157,7 +157,7 @@ class C_pengajuan extends CI_Controller
         $project_id = $_POST['project_id'];
         $cekrap = $this->M_project->GetData("akk_rap ", "where project_id = '$project_id'");
         if ($cekrap) {
-            redirect('rap/' . $project_id);
+            redirect('project_detail//' . $project_id);
         } else {
             $data = array(
                 "project_id" => $project_id,
@@ -165,7 +165,7 @@ class C_pengajuan extends CI_Controller
             );
             $res = $this->db->insert('akk_rap', $data);
             if ($res > 0) {
-                redirect('rap/' . $project_id);
+                redirect('project_detail//' . $project_id);
             } else {
                 $this->flashdata_failed_rap();
                 redirect('project_detail/' . $project_id);

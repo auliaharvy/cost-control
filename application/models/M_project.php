@@ -16,6 +16,15 @@ class M_project extends CI_Model
 		}
 	}
 
+	public function generateRapPengajuan($dataRap, $dataPengajuan)
+	{
+
+		$res = $this->db->insert('akk_rap', $dataRap);
+		$rest = $this->db->insert('akk_pengajuan', $dataPengajuan);
+
+		return 'success';
+	}
+
 
 	public function showproject($table, $status)
 	{

@@ -137,16 +137,15 @@
                     <div class="form-group">
                       <label>Project</label>
                       <select class="form-control project_id" name="project_id" required>
-                        <option value="">Nama Project (Cash Remaining)</option>
                         <?php foreach ($project as $us) { ?>
-                          <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?> (Rp <?php echo $us['cash_remaining']; ?>)</option>
+                          <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?> (Rp <?php echo $us['sisa_duit']; ?>)</option>
                         <?php } ?>
                       </select>
                     </div>
                     <div class="form-group">
                       <label>RAP Item List</label>
                       <select class="form-control js-states rap_biaya_id" id="single" style="width:100%;" name="rap_biaya_id" required>
-                        <option value="">---Select List---</option>
+                        <option value=""></option>
                       </select>
                     </div>
                     <div class="form-group">
@@ -163,6 +162,11 @@
                       <div class='col-xs-8'><textarea class="form-control" rows="3" name="note"></textarea>
                       </div>
                       <br>
+                    </div>
+                    <div class="form-group">
+                      <label>Foto</label>
+                      <input type="file" name="foto_tanpa">
+                      <p class="help-block">Format File Harus .jpg atau .png</p>
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -269,7 +273,7 @@
       var id = $(this).val();
       var project_id = $('input[name="project_id"]').val();
       $.ajax({
-        url: "<?php echo base_url(); ?>C_pengajuan/getListBiayaRap/" + id,
+        url: "<?php echo base_url(); ?>C_pengajuan/getListBiayaRap/" + project_id,
         method: "POST",
         data: {
           id: id

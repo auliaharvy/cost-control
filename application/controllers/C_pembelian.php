@@ -21,7 +21,7 @@ class C_pembelian extends CI_Controller
     {
         $databelum = $this->M_pembelian->showPembelianbelum(); //show pembelian data
         $datasudah = $this->M_pembelian->showPembeliansudah(); //show pembelian data
-        $project = $this->M_transaksi->getProject(0);
+        $project = $this->M_transaksi->getProjectPembelian(0);
         $pengajuan = $this->M_pembelian->showPencairan(0);
         $project_id = $project[0]['id'];
         $pengajuan_id = $pengajuan[0]['pengajuan_id'];
@@ -337,9 +337,23 @@ class C_pembelian extends CI_Controller
             $cash_remaining = ($data_remaining[0]['cash_remaining']) - $jumlah_uang_pembelian; //cash di total remaining office berkurang 
             $id_trx_cash_remaining = $data_remaining[0]['id'];
         }
+        $config['upload_path']          = './upload/pembelian/';
+        $config['allowed_types']        = 'gif|jpg|png';
+        $config['max_size']             = '5000';
+        $config['max_width']            = '5000';
+        $config['encrypt_name']         = TRUE;
+        $config['max_height']           = '5000';
+
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
         if ($jumlah_uang_pembelian > $data_remaining[0]['cash_remaining']) {
             $pesan = "Jumlah Pembelian yang diinput tidak boleh melebihi jumlah yang ada";
             $this->flashdata_failed1($pesan);
+            redirect('pembelian');
+        } elseif (!$this->upload->do_upload('foto_tanpa')) {
+            $error = array('error' => $this->upload->display_errors());
+            $msg = $error['error'];
+            $this->flashdata_failed1($msg);
             redirect('pembelian');
         } else {
             $where_trx_remaining = array("id" => $id_trx_cash_remaining);
@@ -348,6 +362,7 @@ class C_pembelian extends CI_Controller
                 "updated_at" => $date,
                 "last_updated_by" => $user_id
             );
+            $data1 = $this->upload->data();
             $datapembelian_remaining = array(
                 "project_id" => $project_id,
                 "rap_biaya_id" => $rap_biaya_id,
@@ -357,6 +372,7 @@ class C_pembelian extends CI_Controller
                 "created_at" => $date,
                 "last_updated_by" => $user_id,
                 "note" => $_POST['note'],
+                "upload_file" => $data1['file_name'],
             );
             $wheresource = array('id' => $project_office_id);
             $datasource = array(

@@ -270,20 +270,32 @@ class C_project extends CI_Controller
     public function generaterap()
     {
         $project_id = $_POST['project_id'];
+        $cekpengajuan = $this->M_project->GetData("akk_pengajuan ", "where project_id = '$project_id'");
         $cekrap = $this->M_project->GetData("akk_rap ", "where project_id = '$project_id'");
-        if ($cekrap) {
-            redirect('rap/' . $project_id);
+        if ($cekrap && $cekpengajuan) {
+            redirect('project_detail/' . $project_id);
         } else {
-            $data = array(
-                "project_id" => $project_id,
-                "last_updated_by" => $this->session->userdata('id'),
-            );
-            $res = $this->db->insert('akk_rap', $data);
-            if ($res > 0) {
-                redirect('rap/' . $project_id);
-            } else {
-                $this->flashdata_failed_rap();
-                redirect('project_detail/' . $project_id);
+            try {
+                if (!$cekrap && !$cekpengajuan) {
+                    $datarap = array(
+                        "project_id" => $project_id,
+                        "last_updated_by" => $this->session->userdata('id'),
+                    );
+                    $this->db->insert('akk_rap', $datarap);
+                    $insert_id = $this->db->insert_id();
+                    $cekraplagi = $this->M_project->GetData("akk_rap ", "where project_id = '$project_id'");
+                    $data = array(
+                        "project_id" => $project_id,
+                        "rap_id"    => $insert_id,
+                        "last_updated_by" => $this->session->userdata('id'),
+                    );
+                    $rest = $this->db->insert('akk_pengajuan', $data);
+                    $this->flashdata_failed1($insert_id);
+                    redirect('project_detail/' . $project_id);
+                }
+            } catch (Exception $e) {
+                $this->flashdata_failed1($e);
+                redirect('project_on');
             }
         }
     }
@@ -303,10 +315,10 @@ class C_project extends CI_Controller
             );
             $res = $this->db->insert('akk_pengajuan', $data);
             if ($res > 0) {
-                redirect('pengajuan/');
+                redirect('pengajuan');
             } else {
                 $this->flashdata_failed_rap();
-                redirect('project_detail/' . $project_id);
+                redirect('pengajuan');
             }
         }
     }

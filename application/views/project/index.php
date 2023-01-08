@@ -67,8 +67,13 @@
                             <a data-toggle="modal" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></a>
                           <?php } ?>
                         </td> -->
-                          <td style="width: 15%;" class="text"><span><a href="<?php echo base_url() . "project_detail/" . $d['id']; ?>"><?php echo $d['project_name']; ?></a></span></td>
-                          <td style="width: 10%;" class="text"><span><?php echo $d['project_location']; ?></span></td>
+                          <td style="width: 15%;" class="text text-center">
+                            <form action="<?php echo site_url('createrap'); ?>" method="post">
+                              <input type="hidden" name="project_id" value="<?php echo $d['id']; ?>">
+                              <button type="text" style="border: none; backgroud: none; padding: 0; color: blue;"><?php echo $d['project_name']; ?></button>
+                            </form>
+                          </td>
+                          <td style=" width: 10%;" class="text"><span><?php echo $d['project_location']; ?></span></td>
                           <td style="width: 10%;" class="text text-center"><span><?php echo $d['project_deadline_v']; ?></span></td>
                           <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['cash_in_hand']; ?></span></td>
                           <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['rab_project_v']; ?></span></td>

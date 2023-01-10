@@ -337,7 +337,7 @@ class C_pembelian extends CI_Controller
             $cash_remaining = ($data_remaining[0]['cash_remaining']) - $jumlah_uang_pembelian; //cash di total remaining office berkurang 
             $id_trx_cash_remaining = $data_remaining[0]['id'];
         }
-        $config['upload_path']          = './upload/pembelian/';
+        $config['upload_path']          = './upload/pembelian/'; // config upload
         $config['allowed_types']        = 'gif|jpg|png';
         $config['max_size']             = '5000';
         $config['max_width']            = '5000';

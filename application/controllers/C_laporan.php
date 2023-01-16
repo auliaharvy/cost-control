@@ -85,19 +85,17 @@ class C_laporan extends CI_Controller
     {
         $get = $this->M_laporan->getRap($id);
         $project_name = $get[0]['project_name'];
-        $data_rap_biaya = $this->M_laporan->getBiayaRap($id, 1);
-        $data_rap_biaya2 = $this->M_laporan->getBiayaRap($id, 2);
-        $data_rap_biaya3 = $this->M_laporan->getBiayaRap($id, 3);
-        $data_rap_biaya4 = $this->M_laporan->getBiayaRap($id, 4);
-        $data_pengajuan = $this->M_laporan->showpengajuandetail($id);
-        $data_pencairan = $this->M_laporan->dataPencairan($id);
-        $data_pembelian = $this->M_laporan->dataPembelian($id);
-        $data_pembelian_remaining = $this->M_laporan->dataPembelianRemaining($id);
+        $data_rap_biaya = $this->M_laporan->getBiayaRap($id);
+        $data_uang1 = $this->M_laporan->showuangdetail($id);
+        $data_uang2 = $this->M_laporan->showuangdetailremaining($id);
+        $data_uang = array_merge($data_uang1, $data_uang2);
+        $rab_project = $this->lharby->formatRupiah($get[0]['rab_project']);
+        $cash_in_hand = $this->lharby->formatRupiah($get[0]['cash_in_hand']);
         // Create new Spreadsheet object
         $spreadsheet = new Spreadsheet();
         /* RAP */
         $spreadsheet->setActiveSheetIndex(0)
-            ->setCellValue('B2', 'RAP Biaya Umum Proyek');
+            ->setCellValue('B2', 'RAP Proyek');
         $spreadsheet->getActiveSheet()->mergeCells('B2:H2');
         $spreadsheet->getActiveSheet()->getStyle('B2')->getAlignment()->setHorizontal('center');
         $spreadsheet->getActiveSheet()->getStyle('B4:H4')
@@ -122,8 +120,8 @@ class C_laporan extends CI_Controller
             ->setKeywords('office 2007 openxml php');
         // Add some data
         $spreadsheet->setActiveSheetIndex(0)
-            ->setCellValue('B4', 'Jenis')
-            ->setCellValue('C4', 'Nama Jenis')
+            ->setCellValue('B4', 'No')
+            ->setCellValue('C4', 'Kategori')
             ->setCellValue('D4', 'Nama Pekerjaan')
             ->setCellValue('E4', 'Jumlah RAP')
             ->setCellValue('F4', 'Jumlah Aktual')
@@ -132,6 +130,7 @@ class C_laporan extends CI_Controller
         // Miscellaneous glyphs, UTF-8
         if (is_array($data_rap_biaya) || is_object($data_rap_biaya)) {
             $i = 5;
+            $no = 1;
             foreach ($data_rap_biaya as $d) {
                 $spreadsheet->getActiveSheet()->getStyle('B' . $i . ':H' . $i)
                     ->applyFromArray(
@@ -145,22 +144,24 @@ class C_laporan extends CI_Controller
                         )
                     );
                 $spreadsheet->setActiveSheetIndex(0)
-                    ->setCellValue('B' . $i, $d['nama_jenis'])
-                    ->setCellValue('C' . $i, $d['nama_jenis_rap'])
+                    ->setCellValue('B' . $i, $no)
+                    ->setCellValue('C' . $i, $d['nama_kategori'])
                     ->setCellValue('D' . $i, $d['nama_pekerjaan'])
                     ->setCellValue('E' . $i, $d['jumlah_biaya'])
-                    ->setCellValue('F' . $i, $d['jumlah_aktual_f'])
+                    ->setCellValue('F' . $i, $d['jumlah_aktual'])
                     ->setCellValue('G' . $i, $d['presentase'])
                     ->setCellValue('H' . $i, $d['note']);
                 $i++;
+                $no++;
             }
         }
-        //Biaya Material
+        // Pembelian
         $j = $i + 2;
         $k = $j + 2;
         $l = $k + 1;
+        $noPembelian = 1;
         $spreadsheet->setActiveSheetIndex(0)
-            ->setCellValue('B' . $j, 'RAP Biaya Material dan Alat');
+            ->setCellValue('B' . $j, 'Pembelian');
         $spreadsheet->getActiveSheet()->mergeCells('B' . $j . ':H' . $j);
         $spreadsheet->getActiveSheet()->getStyle('B' . $j)->getAlignment()->setHorizontal('center');
         $spreadsheet->getActiveSheet()->getStyle('B' . $k . ':H' . $k)
@@ -179,17 +180,16 @@ class C_laporan extends CI_Controller
             );
         // Add some data
         $spreadsheet->setActiveSheetIndex(0)
-            ->setCellValue('B' . $k, 'Jenis')
-            ->setCellValue('C' . $k, 'Nama Jenis')
-            ->setCellValue('D' . $k, 'Nama Pekerjaan')
-            ->setCellValue('E' . $k, 'Jumlah RAP')
-            ->setCellValue('F' . $k, 'Jumlah Aktual')
-            ->setCellValue('G' . $k, 'Persentase')
-            ->setCellValue('H' . $k, 'Keterangan');
+            ->setCellValue('B' . $k, 'No')
+            ->setCellValue('C' . $k, 'Tanggal')
+            ->setCellValue('D' . $k, 'Keterangan')
+            ->setCellValue('E' . $k, 'Jumlah Pembelian')
+            ->setCellValue('F' . $k, 'Kategori')
+            ->setCellValue('G' . $k, 'Foto');
         // Miscellaneous glyphs, UTF-8
-        if (is_array($data_rap_biaya2) || is_object($data_rap_biaya2)) {
+        if (is_array($data_uang) || is_object($data_uang)) {
             $l = $k + 1;
-            foreach ($data_rap_biaya2 as $d) {
+            foreach ($data_uang as $d) {
                 $spreadsheet->getActiveSheet()->getStyle('B' . $l . ':H' . $l)
                     ->applyFromArray(
                         array(
@@ -202,371 +202,17 @@ class C_laporan extends CI_Controller
                         )
                     );
                 $spreadsheet->setActiveSheetIndex(0)
-                    ->setCellValue('B' . $l, $d['nama_jenis'])
-                    ->setCellValue('C' . $l, $d['nama_jenis_rap'])
-                    ->setCellValue('D' . $l, $d['nama_pekerjaan'])
-                    ->setCellValue('E' . $l, $d['jumlah_biaya'])
-                    ->setCellValue('F' . $l, $d['jumlah_aktual_f'])
-                    ->setCellValue('G' . $l, $d['presentase'])
-                    ->setCellValue('H' . $l, $d['note']);
+                    ->setCellValue('B' . $l, $noPembelian)
+                    ->setCellValue('C' . $l, $d['created_at'])
+                    ->setCellValue('D' . $l, $d['keterangan'])
+                    ->setCellValue('E' . $l, $d['jumlah_uang_pembelian'])
+                    ->setCellValue('F' . $l, $d['nama_kategori'])
+                    ->setCellValue('G' . $l, base_url('/upload/pembelian/' . $d['upload_file']));
                 $l++;
             }
         }
-        //Biaya Temporary Persiapan
-        $m = $l + 2;
-        $n = $m + 2;
-        $l = $n + 1;
-        $spreadsheet->setActiveSheetIndex(0)
-            ->setCellValue('B' . $m, 'RAP Biaya Temporary dan Persiapan');
-        $spreadsheet->getActiveSheet()->mergeCells('B' . $m . ':H' . $m);
-        $spreadsheet->getActiveSheet()->getStyle('B' . $m)->getAlignment()->setHorizontal('center');
-        $spreadsheet->getActiveSheet()->getStyle('B' . $n . ':H' . $n)
-            ->applyFromArray(
-                array(
-                    'font'  => array(
-                        'bold'  =>  true
-                    ),
-                    'borders' => array(
-                        'allBorders' => array(
-                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                            'color' => array('argb' => '000000'),
-                        ),
-                    )
-                )
-            );
-        // Add some data
-        $spreadsheet->setActiveSheetIndex(0)
-            ->setCellValue('B' . $n, 'Jenis')
-            ->setCellValue('C' . $n, 'Nama Jenis')
-            ->setCellValue('D' . $n, 'Nama Pekerjaan')
-            ->setCellValue('E' . $n, 'Jumlah RAP')
-            ->setCellValue('F' . $n, 'Jumlah Aktual')
-            ->setCellValue('G' . $n, 'Persentase')
-            ->setCellValue('H' . $n, 'Keterangan');
-        // Miscellaneous glyphs, UTF-8
-        if (is_array($data_rap_biaya3) || is_object($data_rap_biaya3)) {
-            $l = $n + 1;
-            foreach ($data_rap_biaya3 as $d) {
-                $spreadsheet->getActiveSheet()->getStyle('B' . $l . ':H' . $l)
-                    ->applyFromArray(
-                        array(
-                            'borders' => array(
-                                'allBorders' => array(
-                                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                                    'color' => array('argb' => '000000'),
-                                ),
-                            )
-                        )
-                    );
-                $spreadsheet->setActiveSheetIndex(0)
-                    ->setCellValue('B' . $l, $d['nama_jenis'])
-                    ->setCellValue('C' . $l, $d['nama_jenis_rap'])
-                    ->setCellValue('D' . $l, $d['nama_pekerjaan'])
-                    ->setCellValue('E' . $l, $d['jumlah_biaya'])
-                    ->setCellValue('F' . $l, $d['jumlah_aktual_f'])
-                    ->setCellValue('G' . $l, $d['presentase'])
-                    ->setCellValue('H' . $l, $d['note']);
-                $l++;
-            }
-        }
-        //Biaya Temporary Persiapan
-        $m = $l + 2;
-        $n = $m + 2;
-        $l = $n + 1;
-        $spreadsheet->setActiveSheetIndex(0)
-            ->setCellValue('B' . $m, 'RAP Biaya Lain Lain');
-        $spreadsheet->getActiveSheet()->mergeCells('B' . $m . ':H' . $m);
-        $spreadsheet->getActiveSheet()->getStyle('B' . $m)->getAlignment()->setHorizontal('center');
-        $spreadsheet->getActiveSheet()->getStyle('B' . $n . ':H' . $n)
-            ->applyFromArray(
-                array(
-                    'font'  => array(
-                        'bold'  =>  true
-                    ),
-                    'borders' => array(
-                        'allBorders' => array(
-                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                            'color' => array('argb' => '000000'),
-                        ),
-                    )
-                )
-            );
-        // Add some data
-        $spreadsheet->setActiveSheetIndex(0)
-            ->setCellValue('B' . $n, 'Jenis')
-            ->setCellValue('C' . $n, 'Nama Jenis')
-            ->setCellValue('D' . $n, 'Nama Pekerjaan')
-            ->setCellValue('E' . $n, 'Jumlah RAP')
-            ->setCellValue('F' . $n, 'Jumlah Aktual')
-            ->setCellValue('G' . $n, 'Persentase')
-            ->setCellValue('H' . $n, 'Keterangan');
-        // Miscellaneous glyphs, UTF-8
-        if (is_array($data_rap_biaya4) || is_object($data_rap_biaya4)) {
-            $l = $n + 1;
-            foreach ($data_rap_biaya4 as $d) {
-                $spreadsheet->getActiveSheet()->getStyle('B' . $l . ':H' . $l)
-                    ->applyFromArray(
-                        array(
-                            'borders' => array(
-                                'allBorders' => array(
-                                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                                    'color' => array('argb' => '000000'),
-                                ),
-                            )
-                        )
-                    );
-                $spreadsheet->setActiveSheetIndex(0)
-                    ->setCellValue('B' . $l, $d['nama_jenis'])
-                    ->setCellValue('C' . $l, $d['nama_jenis_rap'])
-                    ->setCellValue('D' . $l, $d['nama_pekerjaan'])
-                    ->setCellValue('E' . $l, $d['jumlah_biaya'])
-                    ->setCellValue('F' . $l, $d['jumlah_aktual_f'])
-                    ->setCellValue('G' . $l, $d['presentase'])
-                    ->setCellValue('H' . $l, $d['note']);
-                $l++;
-            }
-        }
-        // Rename worksheet
-        $spreadsheet->getActiveSheet()->setTitle('Report RAP 1 ' . date('d-m-Y H'));
-        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-        $spreadsheet->setActiveSheetIndex(0);
-        /* END RAP */
-        /* PENGAJUAN */
-        $spreadsheet->createSheet();
-        $spreadsheet->setActiveSheetIndex(1)
-            ->setCellValue('B2', 'PENGAJUAN');
-        $spreadsheet->getActiveSheet()->mergeCells('B2:G2');
-        $spreadsheet->getActiveSheet()->getStyle('B2')->getAlignment()->setHorizontal('center');
-        $spreadsheet->getActiveSheet()->getStyle('B4:G4')
-            ->applyFromArray(
-                array(
-                    'font'  => array(
-                        'bold'  =>  true
-                    ),
-                    'borders' => array(
-                        'allBorders' => array(
-                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                            'color' => array('argb' => '000000'),
-                        ),
-                    )
-                )
-            );
-        // Add some data
-        $spreadsheet->setActiveSheetIndex(1)
-            ->setCellValue('B4', 'Nama Jenis')
-            ->setCellValue('C4', 'Nama Pekerjaan')
-            ->setCellValue('D4', 'Jumlah Pengajuan')
-            ->setCellValue('E4', 'Jumlah Approval')
-            ->setCellValue('F4', 'Tanggal Approval')
-            ->setCellValue('G4', 'Keterangan');
-        // Miscellaneous glyphs, UTF-8
-        if (is_array($data_pengajuan) || is_object($data_pengajuan)) {
-            $i = 5;
-            foreach ($data_pengajuan as $d) {
-                $spreadsheet->getActiveSheet()->getStyle('B' . $i . ':F' . $i)
-                    ->applyFromArray(
-                        array(
-                            'borders' => array(
-                                'allBorders' => array(
-                                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                                    'color' => array('argb' => '000000'),
-                                ),
-                            )
-                        )
-                    );
-                $spreadsheet->setActiveSheetIndex(1)
-                    ->setCellValue('B' . $i, $d['nama_jenis_rap'])
-                    ->setCellValue('C' . $i, $d['nama_pekerjaan'])
-                    ->setCellValue('D' . $i, $d['jumlah_pengajuan'])
-                    ->setCellValue('E' . $i, $d['jumlah_approval'])
-                    ->setCellValue('F' . $i, $d['approval_date'])
-                    ->setCellValue('F' . $i, $d['note_app']);
-                $i++;
-            }
-        }
-        // Rename worksheet
-        $spreadsheet->getActiveSheet()->setTitle('Report Pengajuan ' . date('d-m-Y H'));
-        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-        $spreadsheet->setActiveSheetIndex(1);
-        /* END PENGAJUAN */
-        /* PENCAIRAN */
-        $spreadsheet->createSheet();
-        $spreadsheet->setActiveSheetIndex(2)
-            ->setCellValue('B2', 'PENCAIRAN');
-        $spreadsheet->getActiveSheet()->mergeCells('B2:H2');
-        $spreadsheet->getActiveSheet()->getStyle('B2')->getAlignment()->setHorizontal('center');
-        $spreadsheet->getActiveSheet()->getStyle('B4:H4')
-            ->applyFromArray(
-                array(
-                    'font'  => array(
-                        'bold'  =>  true
-                    ),
-                    'borders' => array(
-                        'allBorders' => array(
-                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                            'color' => array('argb' => '000000'),
-                        ),
-                    )
-                )
-            );
-        // Add some data
-        $spreadsheet->setActiveSheetIndex(2)
-            ->setCellValue('B4', 'Project')
-            ->setCellValue('C4', 'Nama Jenis')
-            ->setCellValue('D4', 'Nama Pekerjaan')
-            ->setCellValue('E4', 'Sumber Dana')
-            ->setCellValue('F4', 'Tujuan Dana')
-            ->setCellValue('G4', 'Jumlah Dana')
-            ->setCellValue('H4', 'Tanggal Pencairan');
-        // Miscellaneous glyphs, UTF-8
-        if (is_array($data_pencairan) || is_object($data_pencairan)) {
-            $i = 5;
-            foreach ($data_pencairan as $d) {
-                $spreadsheet->getActiveSheet()->getStyle('B' . $i . ':H' . $i)
-                    ->applyFromArray(
-                        array(
-                            'borders' => array(
-                                'allBorders' => array(
-                                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                                    'color' => array('argb' => '000000'),
-                                ),
-                            )
-                        )
-                    );
-                $spreadsheet->setActiveSheetIndex(2)
-                    ->setCellValue('B' . $i, $d['project_source'])
-                    ->setCellValue('C' . $i, $d['nama_jenis_rap'])
-                    ->setCellValue('D' . $i, $d['nama_pekerjaan'])
-                    ->setCellValue('E' . $i, $d['organization_name'])
-                    ->setCellValue('F' . $i, $d['pro_office'])
-                    ->setCellValue('G' . $i, $d['jumlah_uang'])
-                    ->setCellValue('H' . $i, $d['tanggal_pencairan']);
-                $i++;
-            }
-        }
-        // Rename worksheet
-        $spreadsheet->getActiveSheet()->setTitle('Report Pencairan ' . date('d-m-Y H'));
-        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-        $spreadsheet->setActiveSheetIndex(2);
-        /* END PENCAIRAN */
-        /* PEMBELIAN BERDASARKAN PENGAJUAN */
-        $spreadsheet->createSheet();
-        $spreadsheet->setActiveSheetIndex(3)
-            ->setCellValue('B2', 'PEMBELIAN BERDASARKAN PENGAJUAN');
-        $spreadsheet->getActiveSheet()->mergeCells('B2:G2');
-        $spreadsheet->getActiveSheet()->getStyle('B2')->getAlignment()->setHorizontal('center');
-        $spreadsheet->getActiveSheet()->getStyle('B4:G4')
-            ->applyFromArray(
-                array(
-                    'font'  => array(
-                        'bold'  =>  true
-                    ),
-                    'borders' => array(
-                        'allBorders' => array(
-                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                            'color' => array('argb' => '000000'),
-                        ),
-                    )
-                )
-            );
-        // Add some data
-        $spreadsheet->setActiveSheetIndex(3)
-            ->setCellValue('B4', 'Project')
-            ->setCellValue('C4', 'Nama Jenis')
-            ->setCellValue('D4', 'Nama Pekerjaan')
-            ->setCellValue('E4', 'Sumber Dana')
-            ->setCellValue('F4', 'Jumlah Dana')
-            ->setCellValue('G4', 'Tanggal Pembelian');
-        // Miscellaneous glyphs, UTF-8
-        if (is_array($data_pembelian) || is_object($data_pembelian)) {
-            $i = 5;
-            foreach ($data_pembelian as $d) {
-                $spreadsheet->getActiveSheet()->getStyle('B' . $i . ':G' . $i)
-                    ->applyFromArray(
-                        array(
-                            'borders' => array(
-                                'allBorders' => array(
-                                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                                    'color' => array('argb' => '000000'),
-                                ),
-                            )
-                        )
-                    );
-                $spreadsheet->setActiveSheetIndex(3)
-                    ->setCellValue('B' . $i, $d['project_source'])
-                    ->setCellValue('C' . $i, $d['nama_jenis_rap'])
-                    ->setCellValue('D' . $i, $d['nama_pekerjaan'])
-                    ->setCellValue('E' . $i, $d['pro_office'])
-                    ->setCellValue('F' . $i, $d['jumlah_uang'])
-                    ->setCellValue('G' . $i, $d['tanggal_pembelian']);
-                $i++;
-            }
-        }
-        // Rename worksheet
-        $spreadsheet->getActiveSheet()->setTitle('Pembelian Berdasar Pengajuan');
-        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-        $spreadsheet->setActiveSheetIndex(3);
-        /* END PEMBELIAN BERDASARKAN PENGAJUAN */
-        /* PEMBELIAN TANPA PENGAJUAN */
-        $spreadsheet->createSheet();
-        $spreadsheet->setActiveSheetIndex(4)
-            ->setCellValue('B2', 'PEMBELIAN TANPA PENGAJUAN');
-        $spreadsheet->getActiveSheet()->mergeCells('B2:H2');
-        $spreadsheet->getActiveSheet()->getStyle('B2')->getAlignment()->setHorizontal('center');
-        $spreadsheet->getActiveSheet()->getStyle('B4:H4')
-            ->applyFromArray(
-                array(
-                    'font'  => array(
-                        'bold'  =>  true
-                    ),
-                    'borders' => array(
-                        'allBorders' => array(
-                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                            'color' => array('argb' => '000000'),
-                        ),
-                    )
-                )
-            );
-        // Add some data
-        $spreadsheet->setActiveSheetIndex(4)
-            ->setCellValue('B4', 'Project')
-            ->setCellValue('C4', 'Nama Jenis')
-            ->setCellValue('D4', 'Nama Pekerjaan')
-            ->setCellValue('E4', 'Sumber Dana')
-            ->setCellValue('F4', 'Jumlah Dana')
-            ->setCellValue('G4', 'Tanggal Pembelian')
-            ->setCellValue('H4', 'Keterangan');
-        // Miscellaneous glyphs, UTF-8
-        if (is_array($data_pembelian_remaining) || is_object($data_pembelian_remaining)) {
-            $i = 5;
-            foreach ($data_pembelian_remaining as $d) {
-                $spreadsheet->getActiveSheet()->getStyle('B' . $i . ':H' . $i)
-                    ->applyFromArray(
-                        array(
-                            'borders' => array(
-                                'allBorders' => array(
-                                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                                    'color' => array('argb' => '000000'),
-                                ),
-                            )
-                        )
-                    );
-                $spreadsheet->setActiveSheetIndex(4)
-                    ->setCellValue('B' . $i, $d['project_source'])
-                    ->setCellValue('C' . $i, $d['nama_jenis_rap'])
-                    ->setCellValue('D' . $i, $d['nama_pekerjaan'])
-                    ->setCellValue('E' . $i, $d['pro_office'])
-                    ->setCellValue('F' . $i, $d['jumlah_uang'])
-                    ->setCellValue('G' . $i, $d['tanggal_pembelian'])
-                    ->setCellValue('H' . $i, $d['note']);
-                $i++;
-            }
-        }
-        // Rename worksheet
-        $spreadsheet->getActiveSheet()->setTitle('Pembelian Tanpa Pengajuan');
-        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-        $spreadsheet->setActiveSheetIndex(4);
-        /* END PEMBELIAN TANPA PENGAJUAN */
+        
+        
         // Redirect output to a client’s web browser (Xlsx)
         $filename = "Report Project - " . $project_name . ".xlsx";
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

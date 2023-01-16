@@ -50,10 +50,10 @@
                           </form>
                         <?php } ?>
                         <?php if ($is_rap_confirm == 1) { ?>
-                          <form action="<?php echo site_url('createpengajuan'); ?>" method="post">
+                          <form action="<?php echo site_url('createpengajuan'); ?>" method="post" style="margin-right: 5px; border-radius: 5px;" class="btn btn-primary btn-sm">
                             <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
-                            <button style="margin-left: 5px; border-radius: 5px;" type="submit" class="btn btn-primary btn-sm"> Pengajuan</button>
-                          </form>
+                            <button style="margin-left: 5px; border-radius: 5px;" type="submit" class="btn btn-primary btn-sm"> <i class="fa fa-plus"></i>  Pengajuan</button>
+                          </form><br>
                           <button style="margin-right: 5px; border-radius: 5px;" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#updateprogress" title="Progress Project"><i class="fa fa-edit"></i> Update Progress </button><br>
                           <button style="margin-left: 5px; border-radius: 5px;" type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#projectselesai" title="Selesai Project"><i class="fa fa-edit"></i> Selesaikan Project </button>
                         <?php } ?>

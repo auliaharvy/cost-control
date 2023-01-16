@@ -286,11 +286,30 @@ class C_project extends CI_Controller
                     $cekraplagi = $this->M_project->GetData("akk_rap ", "where project_id = '$project_id'");
                     $data = array(
                         "project_id" => $project_id,
-                        "rap_id"    => $insert_id,
+                        "rap_id"    => $cekraplagi[0]['id'],
                         "last_updated_by" => $this->session->userdata('id'),
                     );
                     $rest = $this->db->insert('akk_pengajuan', $data);
-                    $this->flashdata_failed1($insert_id);
+                    redirect('project_detail/' . $project_id);
+                }
+                if (!$cekrap) {
+                    $datarap = array(
+                        "project_id" => $project_id,
+                        "last_updated_by" => $this->session->userdata('id'),
+                    );
+                    $this->db->insert('akk_rap', $datarap);
+                    $insert_id = $this->db->insert_id();
+                    $cekraplagi = $this->M_project->GetData("akk_rap ", "where project_id = '$project_id'");
+                    redirect('project_detail/' . $project_id);
+                }
+                if (!$cekpengajuan) {
+                    $cekraplagi = $this->M_project->GetData("akk_rap ", "where project_id = '$project_id'");
+                    $data = array(
+                        "project_id" => $project_id,
+                        "rap_id"    => $cekraplagi[0]['id'],
+                        "last_updated_by" => $this->session->userdata('id'),
+                    );
+                    $rest = $this->db->insert('akk_pengajuan', $data);
                     redirect('project_detail/' . $project_id);
                 }
             } catch (Exception $e) {

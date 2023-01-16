@@ -272,9 +272,9 @@
 
     $('.project_id').change(function() {
       var id = $(this).val();
-      var project_id = $('input[name="project_id"]').val();
+      var project_id = $('input[name="project_office_id"]').val();
       $.ajax({
-        url: "<?php echo base_url(); ?>C_pengajuan/getListBiayaRap/" + project_id,
+        url: "<?php echo base_url(); ?>C_pengajuan/getListBiayaRap/" + id,
         method: "POST",
         data: {
           id: id

@@ -141,7 +141,7 @@
                     </div>
                     <div class="form-group">
                       <label class='col-xs-3'>Jumlah Pengajuan</label>
-                      <div class="input-group">
+                      <div>
                         <div class="input-group-prepend">
                           <span class="input-group-text">Rp</span>
                         </div>

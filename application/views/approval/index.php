@@ -138,9 +138,11 @@
                       </div>
                       <div class="form-group">
                         <label class="control-label col-xs-3">Jumlah Approval</label>
-                        <div class="col-xs-8">
-                          <input name="jumlah_approval" class="form-control uang" type="text" placeholder="Masukan Jumlah Approval.." required>
+                        <div class="input-group"">
+                          <div class=" input-group-prepend">
+                          <span class="input-group-text">Rp</span>
                         </div>
+                        <input name="jumlah_approval" class="form-control uang" type="text" placeholder="Masukan Jumlah Approval.." required>
                       </div>
                       <div class="form-group">
                         <label class='col-xs-3'>Note</label>

@@ -73,7 +73,7 @@ class C_dashboard extends CI_Controller
             'titlepembelianremaining' => $titlepembelianremaining,
             'project' => $project,
         );
-        $this->load->view('dashboard/index', $show);
+        $this->load->view('dashboard/index1', $show);
     }
 
     public function getDetailPerProjectTable($project_id)

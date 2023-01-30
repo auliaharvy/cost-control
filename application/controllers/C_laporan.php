@@ -26,13 +26,15 @@ class C_laporan extends CI_Controller
 
     public function index()
     {
-        $data = $this->M_laporan->getProjectAll();
+        $datasudah = $this->M_laporan->getProjectAllsudah();
+        $dataprogress = $this->M_laporan->getProjectAllon();
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
             'sidebar' => $this->sidebar(),
             'footer' => $this->footer(),
-            'data' => $data,
+            'datasudah' => $datasudah,
+            'dataprogress' => $dataprogress,
         );
         $this->load->view('laporan/index', $show);
     }
@@ -211,8 +213,8 @@ class C_laporan extends CI_Controller
                 $l++;
             }
         }
-        
-        
+
+
         // Redirect output to a client’s web browser (Xlsx)
         $filename = "Report Project - " . $project_name . ".xlsx";
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

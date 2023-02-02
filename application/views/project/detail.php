@@ -301,6 +301,7 @@
               $nama_jenis_rap = $i['nama_jenis_rap'];
               $nama_pekerjaan = $i['nama_pekerjaan'];
               $jumlah_biaya = $i['jumlah_biaya'];
+              $note = $i['note'];
           ?>
               <div class="modal fade" id="modal-edit<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
                 <div class="modal-dialog">
@@ -342,6 +343,10 @@
                             </div>
                             <input type="text" name="jumlah_biaya" value="<?php echo $jumlah_biaya; ?>" autocomplete="off" required class="form-control uang">
                           </div>
+                        </div>
+                        <div class="form-group">
+                          <label class='col-xs-3'>Note</label>
+                          <div class='col-xs-8'><textarea class="form-control" rows="3" name="note"><?php echo $note; ?></textarea></div>
                         </div>
                       </div>
                       <div class="modal-footer">

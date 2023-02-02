@@ -244,13 +244,13 @@ class C_project extends CI_Controller
         //     "updated_at" => $date,
         // );
         $data = array(
-            "kategori_biaya_id" => $_POST['katesgori_biaya_id'],
-            "jenis_biaya_id" => 1,
+            "kategori_biaya_id" => $_POST['kategori_biaya_id'],
             "nama_jenis_rap" => $_POST['nama_jenis_rap'],
             "nama_pekerjaan" => $_POST['nama_pekerjaan'],
             "jumlah_biaya" => $jumlah_biaya,
             "last_update_by" => $this->session->userdata('id'),
             "updated_at" => $date,
+            "note" => $_POST['note'],
         );
         $this->db->trans_start();
         $this->M_data->UpdateData('akk_rap_biaya', $data, $where);

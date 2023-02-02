@@ -310,13 +310,23 @@
     //-------------
     //- BAR CHART -
     //-------------
+
+    var totalNilai = <?php $sum = 0;
+                      foreach ($data as $key => $value) {
+
+                        if (isset($value->total_kas))
+                          $sum += $value->total_kas;
+                      }
+                      echo $sum;
+                      ?>;
     var areaChartDataKas = {
       labels: [
         <?php
         foreach ($data->result_array() as $row1) {
           extract($row1);
           echo "['{$project_name}'],";
-        } ?>
+        } ?>,
+        "total"
       ],
       datasets: [{
         label: 'Jumlah Kas',
@@ -522,7 +532,7 @@
         <?php
         foreach ($datapengajuan->result_array() as $row1) {
           extract($row1);
-          echo "['{$project_name}'],";
+          echo "['{$project_name}'], Total";
         } ?>
       ],
       datasets: [{

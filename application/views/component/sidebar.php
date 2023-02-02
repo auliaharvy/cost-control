@@ -78,14 +78,14 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="<?php echo base_url('inventory') ?>" class="nav-link">
               <i class="nav-icon fas fa-warehouse"></i>
               <p>
                 INVENTORY
               </p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="<?php echo base_url('transaksi') ?>" class="nav-link">
               <i class="nav-icon fas fa-hand-holding-usd"></i>
@@ -137,14 +137,14 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="<?php echo base_url('inventory') ?>" class="nav-link">
               <i class="nav-icon fas fa-warehouse"></i>
               <p>
                 INVENTORY
               </p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="<?php echo base_url('transaksi') ?>" class="nav-link">
               <i class="nav-icon fas fa-hand-holding-usd"></i>
@@ -172,14 +172,14 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="<?php echo base_url('inventory_project') ?>" class="nav-link">
               <i class="nav-icon fas fa-warehouse"></i>
               <p>
                 INVENTORY PROJECT
               </p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="<?php echo base_url('pengajuan') ?>" class="nav-link">
               <i class="nav-icon fas fa-layer-group"></i>
@@ -238,14 +238,14 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="<?php echo base_url('transaksi') ?>" class="nav-link">
               <i class="nav-icon fas fa-hand-holding-usd"></i>
               <p>
                 LOG TRANSAKSI
               </p>
             </a>
-          </li>
+          </li> -->
         <?php } ?>
         <br>
         <li class="nav-item has-treeview">

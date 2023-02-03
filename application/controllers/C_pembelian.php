@@ -411,7 +411,47 @@ class C_pembelian extends CI_Controller
 
     public function delete($id)
     {
-        $where = array('id' => $id);
+        $user_id = $this->session->userdata('id');
+        $getproject = $this->M_project->getProjectAll(0);
+        $idproject = $getproject[0]['id'];
+        $getpembelian = $this->M_pembelian->showPembeliansudah(0);
+        $cash = $getpembelian[0]['jumlah_uang_pembelian'];
+        $idpembelian = $getpembelian[0]['pengiriman_uang_id'];
+        $is_buy = 0;
+        $date = date('Y-m-d H:i:s');
+        $table = 'mst_project ';
+        $getcash = $this->M_pembelian->GetData($table, "where id = '$idproject'");
+        $cashpro = $getcash[0]['cash_in_hand'];
+        $total_cash = $cash + $cashpro; //cash di office
+        if ($is_buy == 1) {
+            $datatotal = array(
+                "last_updated_by" => $user_id,
+                "updated_at" => $date,
+                "is_buy" => $is_buy,
+                "buy_created_at" => NULL,
+            );
+            $dataproject = array(
+                "cash_in_hand" => $total_cash,
+                "last_updated_by" => $user_id,
+                "updated_at" => $date,
+            );
+        } else {
+            $datatotal = array(
+                "last_updated_by" => $user_id,
+                "updated_at" => $date,
+                "is_buy" => $is_buy,
+                "buy_created_at" => NULL,
+            );
+            $dataproject = array(
+                "cash_in_hand" => $total_cash,
+                "last_updated_by" => $user_id,
+                "updated_at" => $date,
+            );
+        }
+        $where = array('id' => $idpembelian);
+        $wherepro = array('id' => $idproject);
+        $this->M_data->UpdateData('trx_pengiriman_uang', $datatotal, $where); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
+        $this->M_data->UpdateData('mst_project', $dataproject, $wherepro); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
         $res = $this->M_data->DeleteData('trx_pembelian_barang', $where);
         if ($res >= 1) {
             $pesan = "Penghapusan Transaksi Pembelian Berhasil";

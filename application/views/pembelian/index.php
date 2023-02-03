@@ -90,6 +90,7 @@
                   <thead>
                     <tr>
                       <th class="text-center">No</th>
+                      <th class="text-center">Action</th>
                       <th class="text-center">Nama Project</th>
                       <th class="text-center">Kategori</th>
                       <th class="text-center">Nama Pekerjaan</th>
@@ -106,8 +107,11 @@
                         $id = $d['id']; ?>
                         <tr class="odd gradeX">
                           <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                          <td style="width: 5%;" align="center">
+                            <a href="<?php echo site_url('C_pembelian/delete/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a>
+                          </td>
                           <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
-                          <td style="width: 15%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
+                          <td style="width: 10%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
                           <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
                           <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_uang']; ?></span></td>
                           <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pembelian']; ?></span></td>

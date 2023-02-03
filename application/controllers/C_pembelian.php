@@ -13,6 +13,7 @@ class C_pembelian extends CI_Controller
         date_default_timezone_set('Asia/Jakarta');
         $this->load->model("M_pembelian");
         $this->load->model("M_transaksi");
+        $this->load->model("M_data");
         $this->load->library('Lharby');
         $this->load->library('upload');
     }
@@ -405,6 +406,21 @@ class C_pembelian extends CI_Controller
                 $this->flashdata_failed1($msg);
                 redirect('pembelian');
             }
+        }
+    }
+
+    public function delete($id)
+    {
+        $where = array('id' => $id);
+        $res = $this->M_data->DeleteData('trx_pembelian_barang', $where);
+        if ($res >= 1) {
+            $pesan = "Penghapusan Transaksi Pembelian Berhasil";
+            $this->flashdata_succeed1($pesan);
+            redirect('pembelian');
+        } else {
+            $pesan = "Penghapusan Transaksi Pembelian Gagal";
+            $this->flashdata_failed1($pesan);
+            redirect('pembelian');
         }
     }
 

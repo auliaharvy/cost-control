@@ -54,7 +54,8 @@ class M_pembelian extends CI_Model
 		$this->db->select('
         a.*,c.project_name,j.note as keterangan,FORMAT(j.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian,
 	    DATE_FORMAT(j.created_at, "%d %M %Y") as tanggal_pembelian,FORMAT(a.jumlah_uang,0,"de_DE") as jumlah_uang,f.id as pengajuan_id,
-		d.jumlah_approval, g.nama_pekerjaan,i.nama_kategori, j.id as id_pembelian, c.cash_in_hand as cash, c.id as id_project
+		d.jumlah_approval, g.nama_pekerjaan,i.nama_kategori, j.id as id_pembelian, c.cash_in_hand as cash, c.id as id_project,
+		h.id as id_project, a.id as id_pengiriman
       ');
 		$this->db->from('trx_pengiriman_uang as a');
 		$this->db->join('mst_organization as b', 'a.organization_id = b.id');
@@ -74,6 +75,22 @@ class M_pembelian extends CI_Model
 		$this->db->where('c.created_by', $user_id);
 		$this->db->group_by('a.id');
 		// $this->db->group_by('h.nama_kategori');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
+
+	public function getPembelian($id)
+	{
+		$this->db->select('
+          a.*,
+      ');
+		$this->db->from('trx_pembelian_barang as a');
+		$this->db->join('mst_project as b', 'a.project_office_id = b.id');
+		$this->db->where('a.id', $id);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();

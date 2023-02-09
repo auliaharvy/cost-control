@@ -42,7 +42,7 @@
                   <thead>
                     <tr>
                       <th class="text-center">No</th>
-                      <!-- <th class="text-center">Action</th> -->
+                      <th class="text-center">Action</th>
                       <th class="text-center">Project</th>
                       <th class="text-center">Location</th>
                       <th class="text-center">Deadline</th>
@@ -62,18 +62,16 @@
                         $id = $d['id']; ?>
                         <tr class="odd gradeX">
                           <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                          <!-- <td style="width: 5%;" align="center">
-                          <?php if (($this->session->userdata('role')) == 4) { ?>
-                            <a data-toggle="modal" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></a>
-                          <?php } ?>
-                        </td> -->
-                          <td style="width: 15%;" class="text text-center">
+                          <td style="width: 5%;" align="center">
+                            <a href="<?php echo site_url('C_project/delete/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Menghapus Project <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a>
+                          </td>
+                          <td style="width: 10%;" class="text text-center">
                             <form action="<?php echo site_url('createrap'); ?>" method="post">
                               <input type="hidden" name="project_id" value="<?php echo $d['id']; ?>">
                               <button type="text" style="border: none; backgroud: none; padding: 0; color: blue;"><?php echo $d['project_name']; ?></button>
                             </form>
                           </td>
-                          <td style=" width: 10%;" class="text"><span><?php echo $d['project_location']; ?></span></td>
+                          <td style="width: 10%;" class="text"><span><?php echo $d['project_location']; ?></span></td>
                           <td style="width: 10%;" class="text text-center"><span><?php echo $d['project_deadline_v']; ?></span></td>
                           <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['cash_in_hand']; ?></span></td>
                           <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['rab_project_v']; ?></span></td>

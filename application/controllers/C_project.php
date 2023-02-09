@@ -433,13 +433,18 @@ class C_project extends CI_Controller
         $project_id = $_POST['project_id'];
         $msg = $_POST['msg'];
         $where = array('id' => $rap_id);
+        $whereproject = array('id' => $project_id);
         $date = date('Y-m-d H:i:s');
         $data = array(
             'is_rap_confirm' => $_POST['is_rap_confirm'],
             "last_updated_by" => $this->session->userdata('id'),
             "updated_at" => $date,
         );
+        $dataproject = array(
+            'is_rap_confirm' => $_POST['is_rap_confirm'],
+        );
         $res = $this->M_data->UpdateData('akk_rap', $data, $where);
+        $res = $this->M_data->UpdateData('mst_project', $dataproject, $whereproject);
         if ($res >= 1) {
             $pesan = "" . $msg . " RAP Sukses";
             $this->flashdata_succeed1($pesan);
@@ -457,13 +462,18 @@ class C_project extends CI_Controller
         $project_id = $_POST['project_id'];
         $msg = $_POST['msg'];
         $where = array('id' => $rap_id);
+        $whereproject = array('id' => $rap_id);
         $date = date('Y-m-d H:i:s');
         $data = array(
             'is_rap_confirm' => $_POST['is_rap_confirm'],
             "last_updated_by" => $this->session->userdata('id'),
             "updated_at" => $date,
         );
+        $dataproject = array(
+            'is_rap_confirm' => $_POST['is_rap_confirm'],
+        );
         $res = $this->M_data->UpdateData('akk_rap', $data, $where);
+        $res = $this->M_data->UpdateData('mst_project', $dataproject, $whereproject);
         if ($res >= 1) {
             $pesan = "" . $msg . " RAP Sukses";
             $this->flashdata_succeed1($pesan);
@@ -791,12 +801,25 @@ class C_project extends CI_Controller
 
     public function delete($id)
     {
-        $where = array('id' => $id);
-        $res = $this->M_data->DeleteData('mst_project', $where);
-        if ($res >= 1) {
-            $this->flashdata_succeed();
+        $get = $this->M_data->GetData("mst_project ", "where id = '$id'");
+        $is_rap_confirm = $get[0]['is_rap_confirm'];
+        if ($is_rap_confirm == 1) { //jika project sudah punya rap
+            $pesan = "Penghapusan Project Gagal Karena Sudah Ada Transaksi";
+            $this->flashdata_failed1($pesan);
+            redirect('project_on');
         } else {
-            $this->flashdata_failed();
+            $where = array('id' => $id);
+            $this->M_data->DeleteData('mst_project', $where);
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === TRUE) {
+                $pesan = "Penghapusan Project Berhasil";
+                $this->flashdata_succeed1($pesan);
+                redirect('project_on');
+            } else {
+                $pesan = "Penghapusan Project Gagal";
+                $this->flashdata_failed1($pesan);
+                redirect('project_on');
+            }
         }
     }
 

@@ -17,7 +17,7 @@
     <!-- Role Finance -->
   <?php }
   if (($this->session->userdata('role')) == 3) { ?>
-    <a href="<?php echo base_url('dashboard') ?>" class="brand-link">
+    <a href="<?php echo base_url('pencairan') ?>" class="brand-link">
       <img src="<?php echo base_url('assets/img/logo.jpg'); ?>" alt="AKK Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <h3>Akkarya Jaya</h3>
       <span class="brand-text font-weight-light" style="padding-left: 15px;"><?php echo $this->session->userdata('username') ?> ( Finance )</span>
@@ -97,15 +97,15 @@
         <?php } ?>
         <!-- Role Finance -->
         <?php if (($this->session->userdata('role')) == 3) { ?>
-          <li class="nav-item has-treeview">
+          <!-- <li class="nav-item has-treeview">
             <a href="<?php echo base_url('dashboard') ?>" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
               <p>
                 DASHBOARD
               </p>
             </a>
-          </li>
-          <li class="nav-item ">
+          </li> -->
+          <li class="nav-item has-treeview">
             <a href="<?php echo base_url('laporan') ?>" class="nav-link">
               <i class="nav-icon fas fa-chart-bar"></i>
               <p>

@@ -90,6 +90,8 @@ $route['pembelian/create_remaining'] = 'C_pembelian/create_belanja_remaining';
 $route['pembelian_detail/(:num)'] = 'C_pembelian/detail/$1';
 $route['create_belanja'] = 'C_pembelian/create_belanja';
 $route['hapusbelanja'] = 'C_pembelian/delete';
+$route['hapusbelanja1'] = 'C_pembelian/delete1';
+$route['hapusbelanjaremaining'] = 'C_pembelian/deleteremaining';
 
 $route['laporan'] = 'C_laporan';
 $route['laporan_detail/(:num)'] = 'C_laporan/detail/$1';

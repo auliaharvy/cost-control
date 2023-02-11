@@ -103,6 +103,7 @@
                     <thead>
                       <tr>
                         <th class="text-center">No</th>
+                        <th class="text-center">Action</th>
                         <th class="text-center">Tanggal</th>
                         <th class="text-center">Keterangan</th>
                         <th class="text-center">Jumlah Pembelian</th>
@@ -117,8 +118,27 @@
                         $id = $d['id']; ?>
                         <tr class="odd gradeX">
                           <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                          <td style="width: 5%;" class="text-center">
+                            <?php if ($data_uang1) { ?>
+                              <form action="<?php echo site_url('hapusbelanja1'); ?>" method="post" class="row col-md-4">
+                                <input name="id_pengiriman" value="<?php echo $d['id_pengiriman']; ?>">
+                                <input name="id_project" value="<?php echo $d['id_project']; ?>">
+                                <input name="id_pembelian" value="<?php echo $id; ?>">
+                                <input name="id_remaining" value="<?php echo $d['id_remaining']; ?>">
+                                <!-- <a href="" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a> -->
+                                <button style="margin-left: 5px; border-radius: 5px;" type="submit" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></button>
+                              </form>
+                            <?php } else { ?>
+                              <form action="<?php echo site_url('hapusbelanjaremaining'); ?>" method="post" class="row col-md-4">
+                                <input type="hidden" name="id_project" value="<?php echo $d['id_project']; ?>">
+                                <input type="hidden" name="id_pembelian" value="<?php echo $id; ?>">
+                                <!-- <a href="" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a> -->
+                                <button style="margin-left: 5px; border-radius: 5px;" type="submit" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></button>
+                              </form>
+                            <?php } ?>
+                          </td>
                           <td style="width: 15%;" class="text"><span><?php echo $d['created_at']; ?></td>
-                          <td style="width: 25%;" class="text"><span><?php echo $d['keterangan']; ?></td>
+                          <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></td>
                           <?php if ($d['jumlah_pembelian_v'] == null) { ?>
                             <td style="width: 15%;" class="text text-center"><span>Rp. 0</span></td>
                           <?php } else { ?>

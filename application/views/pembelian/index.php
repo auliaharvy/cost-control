@@ -107,7 +107,7 @@
                         $id = $d['id_pengiriman']; ?>
                         <tr class="odd gradeX">
                           <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 5%;" align="center">
+                          <td style="width: 5%;" align="text-center">
                             <form action="<?php echo site_url('hapusbelanja'); ?>" method="post" class="row col-md-4">
                               <input type="hidden" name="id_pengiriman" value="<?php echo $id; ?>">
                               <input type="hidden" name="id_project" value="<?php echo $d['id_project']; ?>">

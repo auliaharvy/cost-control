@@ -145,7 +145,7 @@ class M_laporan extends CI_Model
 	{
 		$this->db->select('
         a.*,FORMAT(a.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian_v,DATE_FORMAT(a.created_at,"%d %M %Y") as created_at,
-		a.note as keterangan,g.nama_kategori
+		a.note as keterangan,g.nama_kategori,c.id as id_pengiriman,b.id as id_project,h.id as id_remaining
 		
         ');
 		$this->db->from('trx_pembelian_barang as a');
@@ -155,6 +155,7 @@ class M_laporan extends CI_Model
 		$this->db->join('akk_pengajuan_biaya as e', 'd.pengajuan_biaya_id = e.id');
 		$this->db->join('akk_rap_biaya as f', 'e.rap_biaya_id = f.id');
 		$this->db->join('mst_kategori_biaya as g', 'f.kategori_biaya_id = g.id');
+		$this->db->join('trx_cash_remaining as h', 'b.id = h.project_id');
 		$this->db->where('a.project_office_id', $id);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
@@ -169,7 +170,7 @@ class M_laporan extends CI_Model
 	{
 		$this->db->select('
         a.*,c.nama_pekerjaan,FORMAT(a.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian_v,a.note as keterangan,
-		DATE_FORMAT(a.created_at,"%d %M %Y") as created_at
+		DATE_FORMAT(a.created_at,"%d %M %Y") as created_at,b.id as id_project
         ');
 		$this->db->from('trx_pembelian_barang_remaining as a');
 		$this->db->join('mst_project as b', 'a.project_id = b.id');

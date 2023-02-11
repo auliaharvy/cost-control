@@ -340,6 +340,22 @@ class C_pengajuan extends CI_Controller
         echo json_encode($data);
     }
 
+    public function delete()
+    {
+        $idpengajuan = $_POST['id_pengajuan'];
+        $where = array('id' => $idpengajuan);
+        $this->M_data->DeleteData('akk_pengajuan_biaya', $where);
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === TRUE) {
+            $pesan = "Penghapusan Pengajuan Berhasil";
+            $this->flashdata_succeed1($pesan);
+            redirect('pengajuan');
+        } else {
+            $pesan = "Penghapusan Pengajuan Gagal";
+            $this->flashdata_failed1($pesan);
+            redirect('pengajuan');
+        }
+    }
 
     function convert_date($tgl)
     {

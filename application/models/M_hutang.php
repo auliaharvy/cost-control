@@ -132,13 +132,13 @@ class M_hutang extends CI_Model
 			$this->db->where('b.project_status', 0);
 			$this->db->where('b.created_by', $user_id);
 			$this->db->where('a.is_pay', 0);
-			$this->db->group_by('project_id');
+			// $this->db->group_by('project_id');
 		} else {
 			$this->db->from('akk_hutang as a');
 			$this->db->join('mst_project as b', 'a.project_id = b.id');
 			$this->db->where('b.project_status', 0);
 			$this->db->where('a.is_pay', 0);
-			$this->db->group_by('project_id');
+			// $this->db->group_by('project_id');
 		}
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
@@ -162,13 +162,13 @@ class M_hutang extends CI_Model
 			$this->db->where('b.project_status', 0);
 			$this->db->where('b.created_by', $user_id);
 			$this->db->where('a.is_pay', 1);
-			$this->db->group_by('project_id');
+			// $this->db->group_by('project_id');
 		} else {
 			$this->db->from('akk_hutang as a');
 			$this->db->join('mst_project as b', 'a.project_id = b.id');
 			$this->db->where('b.project_status', 0);
 			$this->db->where('a.is_pay', 1);
-			$this->db->group_by('project_id');
+			// $this->db->group_by('project_id');
 		}
 
 		$data = $this->db->get();

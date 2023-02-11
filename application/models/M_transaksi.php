@@ -106,9 +106,9 @@ JOIN mst_project as c ON a.project_id = c.id WHERE c.project_status=0');
 		$user_id = $this->session->userdata('id');
 		if ($role == 4) {
 			$this->db->select('
-			a.*, c.project_name, d.nama_pekerjaan, DATE_FORMAT(a.created_at,"%d %M %Y") as tanggal_pengajuan,
+			a.*, c.project_name, d.nama_pekerjaan, DATE_FORMAT(b.created_at,"%d %M %Y") as tanggal_pengajuan,
 			FORMAT(b.jumlah_pengajuan,0,"de_DE") as jumlah_pengajuan, b.note as keterangan, b.id as akk_pengajuan_biaya_id,
-			e.nama_kategori
+			e.nama_kategori, b.id as id_pengajuan
 			');
 			$this->db->from('akk_pengajuan as a');
 			$this->db->join('akk_pengajuan_biaya as b', 'a.id = b.pengajuan_id');
@@ -134,7 +134,7 @@ JOIN mst_project as c ON a.project_id = c.id WHERE c.project_status=0');
 			$this->db->group_by('b.id');
 			$data = $this->db->get();
 		}
-		
+
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
 		} else {
@@ -178,7 +178,7 @@ JOIN mst_project as c ON a.project_id = c.id WHERE c.project_status=0');
 			$this->db->group_by('b.pengajuan_id');
 			$data = $this->db->get();
 		}
-		
+
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
 		} else {

@@ -93,6 +93,7 @@ class C_project extends CI_Controller
         $this->form_validation->set_rules('project_name', 'Project Name', 'required|regex_match[/^[][a-zA-Z0-9@# ,().]+$/]');
         $this->form_validation->set_rules('rab_project', 'Total RAB', 'required|numeric|greater_than[0]');
         $date = date('Y-m-d H:i:s');
+        $now = strtotime($date);
         $get = $this->M_data->GetData("mst_project ", "where id = '$id'");
         $now = strtotime($date);
         $deadline = strtotime($_POST['project_deadline']);

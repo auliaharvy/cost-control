@@ -127,6 +127,7 @@ $route['approvepengajuan'] = 'C_approval/approved';
 // Halaman Pengajuan
 $route['pengajuan'] = 'C_pengajuan/index';
 $route['tambahpengajuan'] = 'C_pengajuan/tambahpengajuan';
+$route['hapuspengajuan'] = 'C_pengajuan/delete';
 
 
 $route['inventory_project'] = 'C_inventory_project/index';

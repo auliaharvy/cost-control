@@ -263,7 +263,6 @@ class C_pengajuan extends CI_Controller
     public function create_pengajuan_biaya()
     {
         $this->form_validation->set_rules('jumlah_pengajuan', 'Jumlah Pengajuan', 'required');
-
         $date = date('Y-m-d H:i:s');
         $project_id = $_POST['project_id'];
         if ($this->form_validation->run() == FALSE) {

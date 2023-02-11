@@ -218,7 +218,7 @@ class C_pembelian extends CI_Controller
             } else { //project
                 $table = 'mst_project ';
                 $getcash = $this->M_pembelian->GetData($table, "where id = '$proj_off_id'");
-                $cash = $getcash->cash_in_hand;
+                $cash = $getcash[0]['cash_in_hand'];
                 $total_cash = $cash - $jumlah_uang_pembelian;
             }
             $config['upload_path']          = './upload/pembelian/';
@@ -348,7 +348,7 @@ class C_pembelian extends CI_Controller
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
 
-        if ($jumlah_uang_pembelian > $data_remaining[0]['cash_remaining']) {
+        if ($jumlah_uang_pembelian > $cash) {
             $pesan = "Jumlah Pembelian yang diinput tidak boleh melebihi jumlah yang ada";
             $this->flashdata_failed1($pesan);
             redirect('pembelian');
@@ -414,36 +414,68 @@ class C_pembelian extends CI_Controller
         $idproject = $_POST['id_project'];
         $idpengiriman = $_POST['id_pengiriman'];
         $idpembelian = $_POST['id_pembelian'];
-        $date = date('Y-m-d H:i:s');
+        $idremaining = $_POST['id_remaining'];
         $data_pembelian = $this->M_pembelian->showPembeliansudah();
-        $jumlah_uang_pembelian = $data_pembelian[0]['jumlah_uang'];
+        $jumlah_uang_pembelian = $data_pembelian[0]['jumlah_pembelian'];
         $cash = $data_pembelian[0]['cash'];
+        $remaining_pembelian = $data_pembelian[0]['remaining_pembelian'];
+        $cekbuy = $data_pembelian[0]['is_buy'];
         $wherepengiriman = array('id' => $idpengiriman);
         $whereproject = array('id' => $idproject);
         $where = array('id' => $idpembelian);
-        $total_cash = $cash + $jumlah_uang_pembelian;
-        $data = array(
-            "is_buy" => 0,
-            "last_updated_by" => $this->session->userdata('id'),
-            "updated_at" => $date,
-            "buy_created_at" => NULL,
-        );
-        $dataproject = array(
-            "cash_in_hand" => $total_cash,
-            "last_updated_by" => $this->session->userdata('id'),
-            "updated_at" => $date,
-        );
-        $res = $this->M_data->UpdateData('trx_pengiriman_uang', $data, $wherepengiriman); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
-        $res = $this->M_data->UpdateData('mst_project', $dataproject, $whereproject); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
-        $res = $this->M_data->DeleteData('trx_pembelian_barang', $where);
-        if ($res >= 1) {
-            $pesan = "Penghapusan Transakasi Pembelian Berhasil";
-            $this->flashdata_succeed1($pesan);
-            redirect('pembelian');
+        $whereremaining = array('id' => $idremaining);
+        if ($cekbuy == 1) {
+            $data = array(
+                "is_buy" => 0,
+                "last_updated_by" => $this->session->userdata('id'),
+                "updated_at" => date('Y-m-d H:i:s'),
+                "buy_created_at" => NULL,
+            );
+            $total_cash = $cash + $jumlah_uang_pembelian;
+            $dataproject = array(
+                "cash_in_hand" => $total_cash,
+                "last_updated_by" => $this->session->userdata('id'),
+                "updated_at" => date('Y-m-d H:i:s'),
+            );
+            $res = $this->M_data->UpdateData('trx_pengiriman_uang', $data, $wherepengiriman); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
+            $res = $this->M_data->UpdateData('mst_project', $dataproject, $whereproject); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
+            $res = $this->M_data->DeleteData('trx_pembelian_barang', $where);
+            if ($res >= 1) {
+                $pesan = "Penghapusan Transakasi Pembelian Berhasil";
+                $this->flashdata_succeed1($pesan);
+                redirect('pembelian');
+            } else {
+                $pesan = "Penghapusan Transakasi Pembelian Gagal";
+                $this->flashdata_failed1($pesan);
+                redirect('pembelian');
+            }
         } else {
-            $pesan = "Penghapusan Transakasi Pembelian Gagal";
-            $this->flashdata_failed1($pesan);
-            redirect('pembelian');
+            $data = array(
+                "is_buy" => 0,
+                "last_updated_by" => $this->session->userdata('id'),
+                "updated_at" => date('Y-m-d H:i:s'),
+                "buy_created_at" => NULL,
+                "remaining_pembelian" => 0,
+            );
+            $total_cash = $cash + $jumlah_uang_pembelian;
+            $dataproject = array(
+                "cash_in_hand" => $total_cash,
+                "last_updated_by" => $this->session->userdata('id'),
+                "updated_at" => date('Y-m-d H:i:s'),
+            );
+            $res = $this->M_data->UpdateData('trx_pengiriman_uang', $data, $wherepengiriman); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
+            $res = $this->M_data->UpdateData('mst_project', $dataproject, $whereproject); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
+            $res = $this->M_data->DeleteData('trx_pembelian_barang', $where);
+            $res = $this->M_data->DeleteData('trx_cash_remaining', $whereremaining);
+            if ($res >= 1) {
+                $pesan = "Penghapusan Transakasi Pembelian Berhasil";
+                $this->flashdata_succeed1($pesan);
+                redirect('pembelian');
+            } else {
+                $pesan = "Penghapusan Transakasi Pembelian Gagal";
+                $this->flashdata_failed1($pesan);
+                redirect('pembelian');
+            }
         }
     }
 

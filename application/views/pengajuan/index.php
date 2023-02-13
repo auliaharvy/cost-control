@@ -55,15 +55,17 @@
                         $id = $d['id']; ?>
                         <tr class="odd gradeX">
                           <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 15%;" class="text-center">
-                            <button style="margin-left: 5px; border-radius: 5px;" data-toggle="modal" data-target="#editpengajuan<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm"><i class="fa fa-edit" data-popup="tooltip" data-placement="top" title="Edit Data"></i></button>
-                            <form action="<?php echo site_url('hapuspengajuan'); ?>" method="post">
-                              <input type="hidden" name="id_pengajuan" value="<?php echo $d['id_pengajuan']; ?>">
-                              <!-- <a href="" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a> -->
-                              <button style="margin-left: 5px; border-radius: 5px;" type="submit" onclick="return confirm('Apakah Anda Ingin Menghapus Data Pengajuan di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></button>
-                            </form>
+                          <td style="width: 10%;" class="text-center">
+                            <div class="row" align="center">
+                              <button style="margin-left: 5px; border-radius: 5px;" data-toggle="modal" data-target="#editpengajuan<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm"><i class="fa fa-edit"></i></button>
+                              <form action="<?php echo site_url('hapuspengajuan'); ?>" method="post">
+                                <input type="hidden" name="id_pengajuan" value="<?php echo $d['id_pengajuan']; ?>">
+                                <!-- <a href="" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a> -->
+                                <button style="margin-left: 5px; border-radius: 5px;" type="submit" onclick="return confirm('Apakah Anda Ingin Menghapus Data Pengajuan di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></button>
+                              </form>
+                            </div>
                           </td>
-                          <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
+                          <td style="width: 25%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
                           <td style="width: 20%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
                           <td style="width: 10%;" class="text text-center"><span><?php echo $d['tanggal_pengajuan']; ?></span></td>
                           <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pengajuan']; ?></span></td>

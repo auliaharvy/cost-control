@@ -20,7 +20,7 @@ class C_approval extends CI_Controller
     public function index()
     {
         $datapengajuanbelumapprove = $this->M_approval->pengajuanbelumapprove1();
-        $datapengajuansudahapprove = $this->M_approval->pengajuansudahapprove();
+        $datapengajuansudahapprove = $this->M_approval->pengajuansudahapprove1();
 
         $show = array(
             'nav' => $this->header(),

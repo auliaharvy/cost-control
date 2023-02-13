@@ -55,8 +55,8 @@
                       <tr class="odd gradeX">
                         <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
                         <td style="width: 15%;" align="center">
-                          <!-- <button data-toggle="modal" style="width: 120px;" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-primary btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i>Approve</button> -->
-                          <a href="" data-toggle="modal" style="width: 120px;" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-danger btn-circle" data-popup="tooltip" data-placement="top" title="Approve"><i class="fas fa-edit"></i>Approve</a>
+                          <button data-toggle="modal" style="width: 120px;" data-target="#approval<?php echo $id; ?>" class="btn btn-primary btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i>Approve</button>
+                          <!-- <a href="" data-toggle="modal" style="width: 120px;" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-danger btn-circle" data-popup="tooltip" data-placement="top" title="Approve"><i class="fas fa-edit"></i>Approve</a> -->
                         </td>
                         <td style="width: 15%;" class="text"><span><?php echo $d['project_name']; ?><span></td>
                         <td style="width: 15%;" class="text"><span><?php echo $d['nama_kategori']; ?></td>
@@ -112,50 +112,52 @@
               </div>
             </div>
           </div>
-          <?php if (is_array($datapengajuanbelumapprove) || is_object($datapengajuanbelumapprove))
+          <?php if (is_array($datapengajuanbelumapprove) || is_object($datapengajuanbelumapprove)) {
             foreach ($datapengajuanbelumapprove as $i) :
               $id = $i['id'];
               $pengajuan_id = $i['pengajuan_id'];
           ?>
-            <div class="modal fade" id="modal-edit<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header bg-primary">
-                    <h3 class="modal-title" id="myModalLabel">Approve Pengajuan</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+              <div class="modal fade" id="approval<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                      <h3 class="modal-title" id="myModalLabel">Approve Pengajuan</h3>
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                    </div>
+                    <form class="form-horizontal" method="post" action="<?php echo site_url('approvepengajuan'); ?>" enctype="multipart/form-data">
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <div class="col-xs-8">
+                            <input type="hidden" name="pengajuan_biaya_id" value="<?php echo $id; ?>" class="form-control" readonly>
+                            <input type="hidden" name="pengajuan_id" value="<?php echo $pengajuan_id; ?>" class="form-control" readonly>
+                            <input type="hidden" name="is_approved" value="1">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label col-xs-3">Jumlah Approval</label>
+                          <div class="input-group">
+                            <div class=" input-group-prepend">
+                              <span class="input-group-text">Rp</span>
+                            </div>
+                            <input name="jumlah_approval" class="form-control uang" type="text" placeholder="Masukan Jumlah Approval.." required>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class='col-xs-3'>Note</label>
+                          <div class='col-xs-8'><textarea class="form-control" type="text" rows="3" name="note"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                        <button class="btn btn-info">Approve</button>
+                      </div>
+                    </form>
                   </div>
-                  <form class="form-horizontal" method="post" action="<?php echo site_url('approvepengajuan'); ?>">
-                    <div class="modal-body">
-                      <div class="form-group">
-                        <div class="col-xs-8">
-                          <input name="pengajuan_biaya_id" value="<?php echo $id; ?>" class="form-control" readonly>
-                          <input name="pengajuan_id" value="<?php echo $pengajuan_id; ?>" class="form-control" readonly>
-                          <input type="hidden" name="is_approved" value="1">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-xs-3">Jumlah Approval</label>
-                        <div class="input-group"">
-                          <div class=" input-group-prepend">
-                          <span class="input-group-text">Rp</span>
-                        </div>
-                        <input name="jumlah_approval" class="form-control uang" type="text" placeholder="Masukan Jumlah Approval.." required>
-                      </div>
-                      <div class="form-group">
-                        <label class='col-xs-3'>Note</label>
-                        <div class='col-xs-8'><textarea class="form-control" rows="3" name="note"></textarea>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-                      <button class="btn btn-info">Approve</button>
-                    </div>
-                  </form>
                 </div>
               </div>
-            </div>
-          <?php endforeach; ?>
+          <?php endforeach;
+          } ?>
         </div>
       </div>
     </section>

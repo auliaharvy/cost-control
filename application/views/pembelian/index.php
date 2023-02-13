@@ -61,7 +61,7 @@
                           <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
                           <td style="width: 15%;" align="center">
                             <?php if ($d['is_buy'] == 0) { ?>
-                              <a href="" data-toggle="modal" style="width: 120px;" data-target="#belanja-pengajuan<?php echo $id; ?>" class="btn btn-danger btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fa fa-shopping-cart"></i>BELANJA</a>
+                              <a href="" data-toggle="modal" style="width: 120px;" data-target="#belanja-pengajuan<?php echo $id; ?>" class="btn btn-danger btn-circle" data-popup="tooltip" data-placement="top" title="Belanja"><i class="fa fa-shopping-cart"></i>BELANJA</a>
                             <?php } else { ?>
                               <a><button class="btn btn-success btn-circle disabled text-white"><i class="fa fa-check"></i></button></a>
                             <?php } ?>

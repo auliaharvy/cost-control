@@ -59,11 +59,16 @@
                     if (is_array($databelum) || is_object($databelum)) {
                       $nomor = 1;
                       foreach ($databelum as $d) {
-                        $id = $d['id']; ?>
+                        $id = $d['id'];
+                        $is_rap_confirm = $d['is_rap_confirm'] ?>
                         <tr class="odd gradeX">
                           <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
                           <td style="width: 5%;" align="center">
-                            <a href="<?php echo site_url('C_project/delete/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Menghapus Project <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a>
+                            <?php if ($is_rap_confirm == 0) { ?>
+                              <a href="<?php echo site_url('C_project/delete/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Menghapus Project <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a>
+                            <?php } else { ?>
+                              <a href="<?php echo site_url('C_project/delete/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Menghapus Project <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm disabled" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a>
+                            <?php } ?>
                           </td>
                           <td style="width: 10%;" class="text text-center">
                             <form action="<?php echo site_url('createrap'); ?>" method="post">

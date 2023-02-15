@@ -22,14 +22,12 @@ class C_dashboard extends CI_Controller
     {
         $project = $this->M_laporan->getProjectAll(0);
         if ($this->input->server('REQUEST_METHOD') == 'POST') {
-            $data = $this->M_data->getProject2();
-            $datapengajuan = $this->M_data->getTotalPengajuan();
-            $datapengeluaran = $this->M_data->getProject1();
-            $datapengajuanapproval = $this->M_data->getTotalPengajuanApproval();
-            $datapembelian = $this->M_data->getPembelian();
-            $pembelianremaining = $this->M_data->TotalPembelianRemaining();
-            $totalpembelianremaining = $this->lharby->formatRupiah($pembelianremaining[0]['total_pembelian']);
-            $titlepembelianremaining = $totalpembelianremaining;
+            $dataAll = $this->M_data->getALl();
+            $datakas = $this->M_data->getKasdashboard();
+            $datapengajuan = $this->M_data->getPengajuandashboard();
+            $dataomset = $this->M_data->getOmset();
+            $datahutang = $this->M_data->getHutang();
+            $datapiutang = $this->M_data->getPiutang();
             $get_kas = $this->M_data->masterkas();
             $total_kas = $this->lharby->formatRupiah($get_kas[0]['cash_in_hand']); //pie chart total
             $title = $total_kas;
@@ -43,15 +41,13 @@ class C_dashboard extends CI_Controller
         } else {
             $project_name = $project['0']['project_name'];
             $project_id = $project['0']['id'];
+            $dataAll = $this->M_data->getALl();
             $datapembelianremaining = $this->M_data->getProject3($project['0']['id']);
-            $data = $this->M_data->getProject2();
-            $datapengajuan = $this->M_data->getTotalPengajuan();
-            $datapengeluaran = $this->M_data->getProject1();
-            $datapengajuanapproval = $this->M_data->getTotalPengajuanApproval();
-            $datapembelian = $this->M_data->getPembelian();
-            $pembelianremaining = $this->M_data->TotalPembelianRemaining();
-            $totalpembelianremaining = $this->lharby->formatRupiah($pembelianremaining[0]['total_pembelian']);
-            $titlepembelianremaining = $totalpembelianremaining;
+            $datakas = $this->M_data->getKasdashboard();
+            $datapengajuan = $this->M_data->getPengajuandashboard();
+            $dataomset = $this->M_data->getOmset();
+            $datahutang = $this->M_data->getHutang();
+            $datapiutang = $this->M_data->getPiutang();
             $get_kas = $this->M_data->masterkas();
             $total_kas = $this->lharby->formatRupiah($get_kas[0]['cash_in_hand']); //pie chart total
             $title = $total_kas;
@@ -61,16 +57,15 @@ class C_dashboard extends CI_Controller
             'navbar' => $this->navbar(),
             'sidebar' => $this->sidebar(),
             'footer' => $this->footer(),
-            'data' => $data,
+            'datakas' => $datakas,
+            'dataAll' => $dataAll,
             'title' => $title,
             // 'data_detail_table' => $this->getDetailPerProjectTable($project_id),
             'project_name' => $project_name,
             'datapengajuan' => $datapengajuan,
-            'datapengeluaran' => $datapengeluaran,
-            'datapengajuanapproval' => $datapengajuanapproval,
-            'datapembelian' => $datapembelian,
-            'datapembelianremaining' => $datapembelianremaining,
-            'titlepembelianremaining' => $titlepembelianremaining,
+            'dataomset' => $dataomset,
+            'datahutang' => $datahutang,
+            'datapiutang' => $datapiutang,
             'project' => $project,
         );
         $this->load->view('dashboard/index1', $show);

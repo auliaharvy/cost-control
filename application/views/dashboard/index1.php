@@ -126,6 +126,22 @@
                 </div>
               </div>
             </div>
+            <!-- <div class="col-12">
+              <div class="card card-success">
+                <div class="card-header">
+                  <h3 class="card-title">contoh horizontal chat</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="chart">
+                    <canvas id="barChartHorizontal" style="max-height: 100%; max-width: 100%;"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div> -->
           </div>
           <!-- /.card -->
         </div>
@@ -187,80 +203,85 @@
       labels: ['Total Uang'],
       datasets: [{
         label: 'Total Kas',
-        backgroundColor: 'rgba(60,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
+        backgroundColor: 'rgba(54, 162, 235, 0.3)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1,
         pointRadius: false,
         pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointStrokeColor: 'rgba(54, 162, 235, 1)',
         pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
+        pointHighlightStroke: 'rgba(54, 162, 235, 1)',
         data: [
           <?php
-          foreach ($datapembelian->result_array() as $row1) {
+          foreach ($dataAll->result_array() as $row1) {
             extract($row1);
             echo "'{$total_kas}',";
           } ?>
         ]
       }, {
         label: 'Total Piutang',
-        backgroundColor: 'rgba(60,131,148,0.9)',
-        borderColor: 'rgba(60,131,148,0.8)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1,
         pointRadius: false,
         pointColor: '#ffffff',
-        pointStrokeColor: 'rgba(60,131,148,1)',
+        pointStrokeColor: 'rgba(75, 192, 192, 1)',
         pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(60,131,148,1)',
+        pointHighlightStroke: 'rgba(75, 192, 192, 1)',
         data: [
           <?php
-          foreach ($datapembelian->result_array() as $row2) {
+          foreach ($dataAll->result_array() as $row2) {
             extract($row2);
             echo "'{$total_piutang}',";
           } ?>
         ]
       }, {
         label: 'Total Hutang',
-        backgroundColor: 'rgba(60,121,108,0.9)',
-        borderColor: 'rgba(60,121,108,0.8)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 1,
         pointRadius: false,
         pointColor: '#ffffff',
-        pointStrokeColor: 'rgba(60,121,108,1)',
+        pointStrokeColor: 'rgba(255, 99, 132, 1)',
         pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(60,121,108,1)',
+        pointHighlightStroke: 'rgba(255, 99, 132, 1)',
         data: [
           <?php
-          foreach ($datapembelian->result_array() as $row3) {
+          foreach ($dataAll->result_array() as $row3) {
             extract($row3);
             echo "'{$total_hutang}',";
           } ?>
         ]
       }, {
         label: 'Total Pengajuan',
-        backgroundColor: 'rgba(60,111,68,0.9)',
-        borderColor: 'rgba(60,111,68,0.8)',
+        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+        borderColor: 'rgba(153, 102, 255, 1)',
+        borderWidth: 1,
         pointRadius: false,
         pointColor: '#ffffff',
-        pointStrokeColor: 'rgba(60,111,68,1)',
+        pointStrokeColor: 'rgba(153, 102, 255, 1)',
         pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(60,111,68,1)',
+        pointHighlightStroke: 'rgba(153, 102, 255, 1)',
         data: [
           <?php
-          foreach ($datapembelian->result_array() as $row4) {
+          foreach ($dataAll->result_array() as $row4) {
             extract($row4);
             echo "'{$total_pengajuan}',";
           } ?>
         ]
       }, {
         label: 'Total Omset',
-        backgroundColor: 'rgba(60,111,68,0.9)',
-        borderColor: 'rgba(60,111,68,0.8)',
+        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+        borderColor: 'rgba(255, 159, 64, 1)',
+        borderWidth: 1,
         pointRadius: false,
         pointColor: '#ffffff',
-        pointStrokeColor: 'rgba(60,111,68,1)',
+        pointStrokeColor: 'rgba(255, 159, 64, 1)',
         pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(60,111,68,1)',
+        pointHighlightStroke: 'rgba(255, 159, 64, 1)',
         data: [
           <?php
-          foreach ($datapembelian->result_array() as $row4) {
+          foreach ($dataAll->result_array() as $row4) {
             extract($row5);
             echo "'{$total_omset}',";
           } ?>
@@ -312,8 +333,7 @@
     //-------------
 
     var totalNilai = <?php $sum = 0;
-                      foreach ($data as $key => $value) {
-
+                      foreach ($datakas as $key => $value) {
                         if (isset($value->total_kas))
                           $sum += $value->total_kas;
                       }
@@ -322,7 +342,7 @@
     var areaChartDataKas = {
       labels: [
         <?php
-        foreach ($data->result_array() as $row1) {
+        foreach ($datakas->result_array() as $row1) {
           extract($row1);
           echo "['{$project_name}'],";
         } ?>,
@@ -330,16 +350,17 @@
       ],
       datasets: [{
         label: 'Jumlah Kas',
-        backgroundColor: 'rgba(60,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1,
         pointRadius: false,
         pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointStrokeColor: 'rgba(54, 162, 235, 1)',
         pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
+        pointHighlightStroke: 'rgba(54, 162, 235, 1)',
         data: [
           <?php
-          foreach ($data->result_array() as $row1) {
+          foreach ($datakas->result_array() as $row1) {
             extract($row1);
             echo "'{$total_kas}',";
           } ?>
@@ -392,23 +413,25 @@
     var areaChartDataPiutang = {
       labels: [
         <?php
-        foreach ($datapembelian->result_array() as $row1) {
+        foreach ($datapiutang->result_array() as $row1) {
           extract($row1);
           echo "['{$project_name}'],";
         } ?>
       ],
       datasets: [{
+        axis: 'y',
         label: 'Jumlah Piutang',
-        backgroundColor: 'rgba(60,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1,
         pointRadius: false,
         pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointStrokeColor: 'rgba(75, 192, 192, 1)',
         pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
+        pointHighlightStroke: 'rgba(75, 192, 192, 1)',
         data: [
           <?php
-          foreach ($datapembelian->result_array() as $row1) {
+          foreach ($datapiutang->result_array() as $row1) {
             extract($row1);
             echo "'{$cash_in_hand}',";
           } ?>
@@ -449,7 +472,8 @@
     var barChart = new Chart(barChartCanvas, {
       type: 'bar',
       data: barChartData,
-      options: barChartOptions
+      options: barChartOptions,
+      indexAxis: 'y'
     })
   })
 </script>
@@ -461,23 +485,24 @@
     var areaChartDataHutang = {
       labels: [
         <?php
-        foreach ($datapembelian->result_array() as $row1) {
+        foreach ($datahutang->result_array() as $row1) {
           extract($row1);
           echo "['{$project_name}'],";
         } ?>
       ],
       datasets: [{
         label: 'Jumlah Hutang',
-        backgroundColor: 'rgba(60,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 1,
         pointRadius: false,
         pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointStrokeColor: 'rgba(255, 99, 132, 1)',
         pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
+        pointHighlightStroke: 'rgba(255, 99, 132, 1)',
         data: [
           <?php
-          foreach ($datapembelian->result_array() as $row1) {
+          foreach ($datahutang->result_array() as $row1) {
             extract($row1);
             echo "'{$total_hutang}',";
           } ?>
@@ -489,6 +514,7 @@
     var temp0 = areaChartDataHutang.datasets[0]
     barChartData.datasets[0] = temp0
     var barChartOptions = {
+      indexAxis: 'y',
       responsive: true,
       maintainAspectRatio: false,
       tooltips: {
@@ -518,7 +544,7 @@
     var barChart = new Chart(barChartCanvas, {
       type: 'bar',
       data: barChartData,
-      options: barChartOptions
+      options: barChartOptions,
     })
   })
 </script>
@@ -532,18 +558,19 @@
         <?php
         foreach ($datapengajuan->result_array() as $row1) {
           extract($row1);
-          echo "['{$project_name}'], Total";
+          echo "['{$project_name}'],";
         } ?>
       ],
       datasets: [{
         label: 'Jumlah Pengajuan',
-        backgroundColor: 'rgba(60,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
+        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+        borderColor: 'rgba(153, 102, 255, 1)',
+        borderWidth: 1,
         pointRadius: false,
         pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointStrokeColor: 'rgba(153, 102, 255, 1)',
         pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
+        pointHighlightStroke: 'rgba(153, 102, 255, 1)',
         data: [
           <?php
           foreach ($datapengajuan->result_array() as $row1) {
@@ -599,25 +626,26 @@
     var areaChartDataOmset = {
       labels: [
         <?php
-        foreach ($datapengeluaran->result_array() as $row1) {
+        foreach ($dataomset->result_array() as $row1) {
           extract($row1);
           echo "['{$project_name}'],";
         } ?>
       ],
       datasets: [{
         label: 'Jumlah Omset',
-        backgroundColor: 'rgba(60,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
+        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+        borderColor: 'rgba(255, 159, 64, 1)',
+        borderWidth: 1,
         pointRadius: false,
         pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointStrokeColor: 'rgba(255, 159, 64, 1)',
         pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
+        pointHighlightStroke: 'rgba(255, 159, 64, 1)',
         data: [
           <?php
-          foreach ($datapengeluaran->result_array() as $row1) {
+          foreach ($dataomset->result_array() as $row1) {
             extract($row1);
-            echo "'{$rab_project}',";
+            echo "'{$total_omset}',";
           } ?>
         ]
       }]
@@ -659,6 +687,45 @@
       options: barChartOptions
     })
   })
+</script>
+<script>
+  var ctx = document.getElementById('barChartHorizontal').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        axis: 'y',
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
 </script>
 
 </body>

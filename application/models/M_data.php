@@ -150,14 +150,97 @@ class M_data extends CI_Model
 	}
 
 
-	public function getProject1()
+	public function getAll()
 	{
 		$this->db->select("
-          a.project_name,SUM(c.jumlah_biaya) as total_biaya,SUM(c.jumlah_aktual) as total_pengeluaran,a.rab_project
+          a.project_name,SUM(b.nominal) as total_omset,sum(a.rab_project) - sum(b.nominal) as total_piutang,
+		  sum(c.nominal) as total_hutang,sum(a.cash_in_hand) as total_kas,SUM(e.jumlah_pengajuan) as total_pengajuan
       ");
 		$this->db->from('mst_project as a');
-		$this->db->join('akk_rap as b', 'a.id = b.project_id');
-		$this->db->join('akk_rap_biaya as c', 'b.id = c.rap_id');
+		$this->db->join('akk_penerimaan_project as b', 'a.id = b.project_id');
+		$this->db->join('akk_hutang as c', 'a.id = b.project_id');
+		$this->db->join('akk_pengajuan as d', 'a.id = d.project_id');
+		$this->db->join('akk_pengajuan_biaya as e', 'd.id = e.pengajuan_id');
+		// $this->db->where('a.id');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data;
+		} else {
+			return false;
+		}
+	}
+
+	public function getOmset()
+	{
+		$this->db->select("
+          a.project_name,SUM(b.nominal) as total_omset
+      ");
+		$this->db->from('mst_project as a');
+		$this->db->join('akk_penerimaan_project as b', 'a.id = b.project_id');
+		$this->db->group_by('a.id');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data;
+		} else {
+			return false;
+		}
+	}
+
+	public function getPiutang()
+	{
+		$this->db->select("
+          a.project_name,a.rab_project - sum(b.nominal) as total_piutang
+      ");
+		$this->db->from('mst_project as a');
+		$this->db->join('akk_penerimaan_project as b', 'a.id = b.project_id');
+		$this->db->group_by('a.id');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data;
+		} else {
+			return false;
+		}
+	}
+
+	public function getHutang()
+	{
+		$this->db->select("
+          a.project_name,sum(b.nominal) as total_hutang
+      ");
+		$this->db->from('mst_project as a');
+		$this->db->join('akk_hutang as b', 'a.id = b.project_id');
+		$this->db->group_by('a.id');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data;
+		} else {
+			return false;
+		}
+	}
+
+	public function getKasdashboard()
+	{
+		$this->db->select("
+          a.project_name,sum(a.cash_in_hand) as total_kas	
+      ");
+		$this->db->from('mst_project as a');
+		$this->db->group_by('a.id');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data;
+		} else {
+			return false;
+		}
+	}
+
+	public function getPengajuandashboard()
+	{
+		$this->db->select("
+          a.project_name,SUM(c.jumlah_pengajuan) as total_pengajuan
+      ");
+		$this->db->from('mst_project as a');
+		$this->db->join('akk_pengajuan as b', 'a.id = b.project_id');
+		$this->db->join('akk_pengajuan_biaya as c', 'b.id = c.pengajuan_id');
 		$this->db->group_by('a.id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {

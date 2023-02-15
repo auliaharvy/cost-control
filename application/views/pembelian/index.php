@@ -104,14 +104,14 @@
                     <?php if (is_array($datasudah) || is_object($datasudah)) {
                       $nomor = 1;
                       foreach ($datasudah as $d) {
-                        $id = $d['id_pengiriman']; ?>
+                        $id = $d['id']; ?>
                         <tr class="odd gradeX">
                           <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
                           <td style="width: 5%;" align="text-center">
                             <form action="<?php echo site_url('hapusbelanja'); ?>" method="post" class="row col-md-4">
-                              <input type="hidden" name="id_pengiriman" value="<?php echo $id; ?>">
+                              <input type="hidden" name="id_pengiriman" value="<?php echo $d['id_pengiriman']; ?>">
                               <input type="hidden" name="id_project" value="<?php echo $d['id_project']; ?>">
-                              <input type="hidden" name="id_pembelian" value="<?php echo $d['id_pembelian']; ?>">
+                              <input type="hidden" name="id_pembelian" value="<?php echo $id; ?>">
                               <input type="hidden" name="id_remaining" value="<?php echo $d['id_remaining']; ?>">
                               <!-- <a href="" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a> -->
                               <button style="margin-left: 5px; border-radius: 5px;" type="submit" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></button>
@@ -120,7 +120,7 @@
                           <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
                           <td style="width: 10%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
                           <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
-                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_uang']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_approval']; ?></span></td>
                           <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pembelian']; ?></span></td>
                           <td style="width: 10%;" class="text text-center"><span><?php echo $d['tanggal_pembelian']; ?></span></td>
                           <td style="width: 15%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>

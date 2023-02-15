@@ -85,6 +85,38 @@ class M_pembelian extends CI_Model
 		}
 	}
 
+	public function showPembeliansudah1()
+	{
+
+		$user_id = $this->session->userdata('id');
+		$this->db->select('
+        a.*,b.project_name,d.jumlah_approval,g.nama_pekerjaan,FORMAT(a.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian,
+		DATE_FORMAT(a.created_at, "%d %M %Y") as tanggal_pembelian,a.note as keterangan,h.nama_kategori,FORMAT(i.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian_remaining,
+		c.id as id_pengiriman,j.id as id_remaining, b.id as id_project,f.id as pengajuan_id
+      ');
+		$this->db->from('trx_pembelian_barang as a');
+		$this->db->join('mst_project as b', 'a.project_office_id = b.id', 'left');
+		$this->db->join('trx_pengiriman_uang as c', 'a.pengiriman_uang_id = c.id', 'left');
+		$this->db->join('akk_pengajuan_approval as d', 'c.pengajuan_approval_id = d.id');
+		$this->db->join('akk_pengajuan_biaya as e', 'd.pengajuan_biaya_id = e.id');
+		$this->db->join('akk_pengajuan as f', 'e.pengajuan_id = f.id');
+		$this->db->join('akk_rap_biaya as g', 'e.rap_biaya_id = g.id');
+		$this->db->join('mst_kategori_biaya as h', 'g.kategori_biaya_id = h.id');
+		$this->db->join('trx_pembelian_barang_remaining as i', 'b.id = i.project_id', 'left');
+		$this->db->join('trx_cash_remaining as j', 'b.id = j.project_id');
+		$this->db->where('c.is_buy !=', 0);
+		$this->db->where('b.project_status', 0);
+		$this->db->where('b.created_by', $user_id);
+		$this->db->group_by('c.id');
+
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
+
 	public function getPembelian($id)
 	{
 		$this->db->select('

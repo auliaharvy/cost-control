@@ -21,37 +21,26 @@ class C_dashboard extends CI_Controller
     public function index() //project on progress
     {
         $project = $this->M_laporan->getProjectAll(0);
-        if ($this->input->server('REQUEST_METHOD') == 'POST') {
-            $dataAll = $this->M_data->getALl();
-            $datakas = $this->M_data->getKasdashboard();
-            $datapengajuan = $this->M_data->getPengajuandashboard();
-            $dataomset = $this->M_data->getOmset();
-            $datahutang = $this->M_data->getHutang();
-            $datapiutang = $this->M_data->getPiutang();
-            $get_kas = $this->M_data->masterkas();
-            $total_kas = $this->lharby->formatRupiah($get_kas[0]['cash_in_hand']); //pie chart total
-            $title = $total_kas;
-            $datapembelianremaining = $this->M_data->getProject3($_POST['project_id']);
-            foreach ($project as $element) {
-                if ($_POST['project_id'] == $element['id']) {
-                    $project_name = $element['project_name'];
-                    $project_id = $element['id'];
-                }
-            }
-        } else {
-            $project_name = $project['0']['project_name'];
-            $project_id = $project['0']['id'];
-            $dataAll = $this->M_data->getALl();
-            $datapembelianremaining = $this->M_data->getProject3($project['0']['id']);
-            $datakas = $this->M_data->getKasdashboard();
-            $datapengajuan = $this->M_data->getPengajuandashboard();
-            $dataomset = $this->M_data->getOmset();
-            $datahutang = $this->M_data->getHutang();
-            $datapiutang = $this->M_data->getPiutang();
-            $get_kas = $this->M_data->masterkas();
-            $total_kas = $this->lharby->formatRupiah($get_kas[0]['cash_in_hand']); //pie chart total
-            $title = $total_kas;
-        }
+        $dataAll = $this->M_data->getAll();
+        $titleAll = $this->M_data->getAlltitle();
+        $datakas = $this->M_data->getKasdashboard();
+        $datapengajuan = $this->M_data->getPengajuandashboard();
+        $dataomset = $this->M_data->getOmset();
+        $datahutang = $this->M_data->getHutang();
+        $datapiutang = $this->M_data->getPiutang();
+        $get_kas = $this->M_data->masterkas();
+        $total_kas = $this->lharby->formatRupiah($get_kas[0]['cash_in_hand']); //pie chart total
+        $title = $total_kas;
+        $totalkas = $this->lharby->formatRupiah($titleAll[0]['total_kas']);
+        $titlekas = $totalkas;
+        $totalpiutang = $this->lharby->formatRupiah($titleAll[0]['total_piutang']);
+        $titlepiutang = $totalpiutang;
+        $totalhutang = $this->lharby->formatRupiah($titleAll[0]['total_hutang']);
+        $titlehutang = $totalhutang;
+        $totalpengajuan = $this->lharby->formatRupiah($titleAll[0]['total_pengajuan']);
+        $titlepengajuan = $totalpengajuan;
+        $totalomset = $this->lharby->formatRupiah($titleAll[0]['total_omset']);
+        $titleomset = $totalomset;
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
@@ -59,17 +48,22 @@ class C_dashboard extends CI_Controller
             'footer' => $this->footer(),
             'datakas' => $datakas,
             'dataAll' => $dataAll,
-            'title' => $title,
-            // 'data_detail_table' => $this->getDetailPerProjectTable($project_id),
-            'project_name' => $project_name,
             'datapengajuan' => $datapengajuan,
             'dataomset' => $dataomset,
             'datahutang' => $datahutang,
             'datapiutang' => $datapiutang,
             'project' => $project,
+            'title' => $title,
+            'titlekas' => $titlekas,
+            'titlepiutang' => $titlepiutang,
+            'titlehutang' => $titlehutang,
+            'titlepengajuan' => $titlepengajuan,
+            'titleomset' => $titleomset,
         );
         $this->load->view('dashboard/index1', $show);
     }
+
+
 
     public function getDetailPerProjectTable($project_id)
     {

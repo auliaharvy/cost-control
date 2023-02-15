@@ -21,7 +21,7 @@ class C_pembelian extends CI_Controller
     public function index() //project on progress
     {
         $databelum = $this->M_pembelian->showPembelianbelum(); //show pembelian data
-        $datasudah = $this->M_pembelian->showPembeliansudah(); //show pembelian data
+        $datasudah = $this->M_pembelian->showPembeliansudah1(); //show pembelian data
         $project = $this->M_transaksi->getProject(0);
         $pengajuan = $this->M_pembelian->showPencairan(0);
         $project_id = $project[0]['id'];

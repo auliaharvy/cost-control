@@ -58,6 +58,7 @@
                   </div>
                 </div>
                 <div class="card-body">
+                  <h4>Total Kas : <?php echo $titlekas; ?> </h4>
                   <div class="chart">
                     <canvas id="barChartKas" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                   </div>
@@ -74,7 +75,10 @@
                   </div>
                 </div>
                 <div class="card-body">
-                  <canvas id="barChartPiutang" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                  <h4>Total Piutang : <?php echo $titlepiutang; ?> </h4>
+                  <div class="chart">
+                    <canvas id="barChartPiutang" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                  </div>
                 </div>
               </div>
             </div>
@@ -88,6 +92,7 @@
                   </div>
                 </div>
                 <div class="card-body">
+                  <h4>Total Hutang : <?php echo $titlehutang; ?> </h4>
                   <div class="chart">
                     <canvas id="barChartHutang" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                   </div>
@@ -104,6 +109,7 @@
                   </div>
                 </div>
                 <div class="card-body">
+                  <h4>Total Pengajuan : <?php echo $titlepengajuan; ?> </h4>
                   <div class="chart">
                     <canvas id="barChartPengajuan" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                   </div>
@@ -120,6 +126,7 @@
                   </div>
                 </div>
                 <div class="card-body">
+                  <h4>Total Omset : <?php echo $titleomset; ?> </h4>
                   <div class="chart">
                     <canvas id="barChartOmset" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                   </div>
@@ -433,7 +440,7 @@
           <?php
           foreach ($datapiutang->result_array() as $row1) {
             extract($row1);
-            echo "'{$cash_in_hand}',";
+            echo "'{$total_piutang}',";
           } ?>
         ]
       }]

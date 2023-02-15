@@ -170,6 +170,26 @@ class M_data extends CI_Model
 		}
 	}
 
+	public function getAlltitle()
+	{
+		$this->db->select("
+          a.project_name,SUM(b.nominal) as total_omset,sum(a.rab_project) - sum(b.nominal) as total_piutang,
+		  sum(c.nominal) as total_hutang,sum(a.cash_in_hand) as total_kas,SUM(e.jumlah_pengajuan) as total_pengajuan
+      ");
+		$this->db->from('mst_project as a');
+		$this->db->join('akk_penerimaan_project as b', 'a.id = b.project_id');
+		$this->db->join('akk_hutang as c', 'a.id = b.project_id');
+		$this->db->join('akk_pengajuan as d', 'a.id = d.project_id');
+		$this->db->join('akk_pengajuan_biaya as e', 'd.id = e.pengajuan_id');
+		// $this->db->where('a.id');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
+
 	public function getOmset()
 	{
 		$this->db->select("

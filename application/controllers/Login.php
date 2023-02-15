@@ -41,7 +41,7 @@ class Login extends CI_Controller
 			} elseif ($this->session->userdata('role') == 2) { //Owner
 				redirect('C_dashboard');
 			} elseif ($this->session->userdata('role') == 3) { //Keuangan
-				redirect('C_dashboard');
+				redirect('C_pencairan');
 			} elseif ($this->session->userdata('role') == 4) { //Site Manager
 				redirect('C_project');
 			}

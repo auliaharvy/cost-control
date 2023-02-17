@@ -153,15 +153,13 @@ class M_data extends CI_Model
 	public function getAll()
 	{
 		$this->db->select("
-          a.project_name,SUM(b.nominal) as total_omset,sum(a.rab_project) - sum(b.nominal) as total_piutang,
-		  sum(c.nominal) as total_hutang,sum(a.cash_in_hand) as total_kas,SUM(e.jumlah_pengajuan) as total_pengajuan
-      ");
+		SUM(a.cash_in_hand) as total_kas,
+        ");
 		$this->db->from('mst_project as a');
-		$this->db->join('akk_penerimaan_project as b', 'a.id = b.project_id');
-		$this->db->join('akk_hutang as c', 'a.id = b.project_id');
-		$this->db->join('akk_pengajuan as d', 'a.id = d.project_id');
-		$this->db->join('akk_pengajuan_biaya as e', 'd.id = e.pengajuan_id');
-		// $this->db->where('a.id');
+		$this->db->join('akk_pengajuan as d', 'a.id = d.project_id', 'left');
+		$this->db->join('akk_pengajuan_biaya as e', 'd.id = e.pengajuan_id', 'left');
+		// $this->db->join('akk_penerimaan_project as f', 'a.id = f.project_id', 'left');
+		$this->db->where('a.project_status', 0);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data;
@@ -170,10 +168,23 @@ class M_data extends CI_Model
 		}
 	}
 
+	public function getAll1()
+	{
+		$data = $this->db->query('SELECT a.*,
+		ROUND((a.rab_project - b.termin_terbayar),0) as sisa_termin FROM mst_project as a 
+		RIGHT JOIN (SELECT nominal AS termin_terbayar,project_id FROM akk_penerimaan_project) as b 
+		ON a.id = b.project_id ');
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
+
 	public function getAlltitle()
 	{
 		$this->db->select("
-          a.project_name,SUM(b.nominal) as total_omset,round(sum(a.rab_project) - sum(b.nominal)) as total_piutang,
+          sum(b.nominal) as total_omset,sum(b.nominal) as total_piutang,
 		  sum(c.nominal) as total_hutang,sum(a.cash_in_hand) as total_kas,SUM(e.jumlah_pengajuan) as total_pengajuan
       ");
 		$this->db->from('mst_project as a');
@@ -196,6 +207,7 @@ class M_data extends CI_Model
           a.project_name,sum(a.cash_in_hand) as total_kas,
       ");
 		$this->db->from('mst_project as a');
+		$this->db->where('a.project_status', 0);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
@@ -207,13 +219,15 @@ class M_data extends CI_Model
 	public function gettitlepiutang()
 	{
 		$this->db->select("
-		a.project_name,ROUND(SUM(a.rab_project)-SUM(b.nominal)) as total_piutang
+        a.project_name,FORMAT(ROUND((a.rab_project - sum(b.nominal)),0),0,'de_DE') as total_piutang
         ");
 		$this->db->from('mst_project as a');
-		$this->db->join('akk_penerimaan_project as b', 'a.id = b.project_id');
+		$this->db->join('akk_penerimaan_project as b', 'a.id = b.project_id', 'left');
+		$this->db->where('a.project_status', 0);
+		$this->db->group_by('a.id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
-			return $data->result_array();
+			return $data;
 		} else {
 			return false;
 		}
@@ -222,10 +236,12 @@ class M_data extends CI_Model
 	public function gettitlehutang()
 	{
 		$this->db->select("
-		a.project_name,sum(b.nominal) as total_hutang
+		sum(b.nominal) as total_hutang
         ");
 		$this->db->from('mst_project as a');
 		$this->db->join('akk_hutang as b', 'a.id = b.project_id');
+		$this->db->where('a.project_status', 0);
+		$this->db->where('b.is_pay', 0);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
@@ -237,11 +253,12 @@ class M_data extends CI_Model
 	public function gettitlepengajuan()
 	{
 		$this->db->select("
-		a.project_name,SUM(c.jumlah_pengajuan) as total_pengajuan
+		SUM(c.jumlah_pengajuan) as total_pengajuan
         ");
 		$this->db->from('mst_project as a');
 		$this->db->join('akk_pengajuan as b', 'a.id = b.project_id');
 		$this->db->join('akk_pengajuan_biaya as c', 'b.id = c.pengajuan_id');
+		$this->db->where('a.project_status', 0);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
@@ -253,10 +270,11 @@ class M_data extends CI_Model
 	public function gettitleomset()
 	{
 		$this->db->select("
-		a.project_name,SUM(b.nominal) as total_omset
+		SUM(b.nominal) as total_omset
         ");
 		$this->db->from('mst_project as a');
 		$this->db->join('akk_penerimaan_project as b', 'a.id = b.project_id');
+		$this->db->where('a.project_status', 0);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
@@ -285,7 +303,7 @@ class M_data extends CI_Model
 	public function getPiutang()
 	{
 		$this->db->select("
-        a.project_name,round(a.rab_project - sum(b.nominal)) as total_piutang
+        a.project_name,ROUND((a.rab_project - sum(b.nominal)),0) as total_piutang
         ");
 		$this->db->from('mst_project as a');
 		$this->db->join('akk_penerimaan_project as b', 'a.id = b.project_id', 'left');
@@ -307,6 +325,7 @@ class M_data extends CI_Model
 		$this->db->from('mst_project as a');
 		$this->db->join('akk_hutang as b', 'a.id = b.project_id', 'left');
 		$this->db->where('a.project_status', 0);
+		$this->db->where('b.is_pay', 0);
 		$this->db->group_by('a.id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {

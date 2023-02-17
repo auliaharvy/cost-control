@@ -32,7 +32,7 @@
               <h3 class="card-title">Dashboard</h3>
             </div>
             <br>
-            <div class="col-12">
+            <!-- <div class="col-12">
               <div class="card card-success">
                 <div class="card-header">
                   <h3 class="card-title">Total</h3>
@@ -47,7 +47,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="col-12">
               <div class="card card-success">
                 <div class="card-header">
@@ -60,7 +60,7 @@
                 <div class="card-body">
                   <h4>Total Kas : <?php echo $titlekas; ?> </h4>
                   <div class="chart">
-                    <canvas id="barChartKas" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
+                    <canvas id="barChartKas" style="min-height: 1000px; height: 1000px; max-height: 1000px; max-width: 100%;"></canvas>
                   </div>
                 </div>
               </div>
@@ -75,9 +75,13 @@
                   </div>
                 </div>
                 <div class="card-body">
-                  <h4>Total Piutang : <?php echo $titlepiutang; ?> </h4>
+                  <h4>Total Piutang : <?php
+                                      foreach ($title_piutang->result_array() as $d) {
+                                        $total_piutang = $d['total_piutang'];
+                                        echo ($total_piutang);
+                                      } ?> </h4>
                   <div class="chart">
-                    <canvas id="barChartPiutang" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
+                    <canvas id="barChartPiutang" style="min-height: 1000px; height: 1000px; max-height: 1000px; max-width: 100%;"></canvas>
                   </div>
                 </div>
               </div>
@@ -94,7 +98,7 @@
                 <div class="card-body">
                   <h4>Total Hutang : <?php echo $titlehutang; ?> </h4>
                   <div class="chart">
-                    <canvas id="barChartHutang" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
+                    <canvas id="barChartHutang" style="min-height: 1000px; height: 1000px; max-height: 1000px; max-width: 100%;"></canvas>
                   </div>
                 </div>
               </div>
@@ -111,7 +115,7 @@
                 <div class="card-body">
                   <h4>Total Pengajuan : <?php echo $titlepengajuan; ?> </h4>
                   <div class="chart">
-                    <canvas id="barChartPengajuan" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
+                    <canvas id="barChartPengajuan" style="min-height: 1000px; height: 1000px; max-height: 1000px; max-width: 100%;"></canvas>
                   </div>
                 </div>
               </div>
@@ -128,7 +132,7 @@
                 <div class="card-body">
                   <h4>Total Omset : <?php echo $titleomset; ?> </h4>
                   <div class="chart">
-                    <canvas id="barChartOmset" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
+                    <canvas id="barChartOmset" style="min-height: 1000px; height: 1000px; max-height: 1000px; max-width: 100%;"></canvas>
                   </div>
                 </div>
               </div>
@@ -339,21 +343,13 @@
     //- BAR CHART -
     //-------------
 
-    var totalNilai = <?php $sum = 0;
-                      foreach ($datakas as $key => $value) {
-                        if (isset($value->total_kas))
-                          $sum += $value->total_kas;
-                      }
-                      echo $sum;
-                      ?>;
     var areaChartDataKas = {
       labels: [
         <?php
         foreach ($datakas->result_array() as $row1) {
           extract($row1);
           echo "['{$project_name}'],";
-        } ?>,
-        "total"
+        } ?>
       ],
       datasets: [{
         label: 'Jumlah Kas',
@@ -384,14 +380,14 @@
       tooltips: {
         callbacks: {
           label: function(t, d) {
-            var xLabel = d.datasets[t.datasetIndex].label;
-            var yLabel = t.yLabel >= 1000 ? 'Rp ' + t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '$' + t.yLabel;
-            return xLabel + ': ' + yLabel;
+            var yLabel = d.datasets[t.datasetIndex].label;
+            var xLabel = t.xLabel >= 1000 ? 'Rp ' + t.xLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '$' + t.xLabel;
+            return yLabel + ': ' + xLabel;
           }
         }
       },
       scales: {
-        yAxes: [{
+        xAxes: [{
           ticks: {
             beginAtZero: true,
             callback: function(value, index, values) {
@@ -406,7 +402,7 @@
       }
     }
     var barChart = new Chart(barChartCanvas, {
-      type: 'bar',
+      type: 'horizontalBar',
       data: barChartData,
       options: barChartOptions
     })
@@ -455,14 +451,14 @@
       tooltips: {
         callbacks: {
           label: function(t, d) {
-            var xLabel = d.datasets[t.datasetIndex].label;
-            var yLabel = t.yLabel >= 1000 ? 'Rp ' + t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '$' + t.yLabel;
-            return xLabel + ': ' + yLabel;
+            var yLabel = d.datasets[t.datasetIndex].label;
+            var xLabel = t.xLabel >= 1000 ? 'Rp ' + t.xLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '$' + t.xLabel;
+            return yLabel + ': ' + xLabel;
           }
         }
       },
       scales: {
-        yAxes: [{
+        xAxes: [{
           ticks: {
             beginAtZero: true,
             callback: function(value, index, values) {
@@ -477,7 +473,7 @@
       }
     }
     var barChart = new Chart(barChartCanvas, {
-      type: 'bar',
+      type: 'horizontalBar',
       data: barChartData,
       options: barChartOptions,
       indexAxis: 'y'
@@ -527,14 +523,14 @@
       tooltips: {
         callbacks: {
           label: function(t, d) {
-            var xLabel = d.datasets[t.datasetIndex].label;
-            var yLabel = t.yLabel >= 1000 ? 'Rp ' + t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '$' + t.yLabel;
-            return xLabel + ': ' + yLabel;
+            var yLabel = d.datasets[t.datasetIndex].label;
+            var xLabel = t.xLabel >= 1000 ? 'Rp ' + t.xLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '$' + t.xLabel;
+            return yLabel + ': ' + xLabel;
           }
         }
       },
       scales: {
-        yAxes: [{
+        xAxes: [{
           ticks: {
             beginAtZero: true,
             callback: function(value, index, values) {
@@ -549,7 +545,7 @@
       }
     }
     var barChart = new Chart(barChartCanvas, {
-      type: 'bar',
+      type: 'horizontalBar',
       data: barChartData,
       options: barChartOptions,
     })
@@ -597,14 +593,14 @@
       tooltips: {
         callbacks: {
           label: function(t, d) {
-            var xLabel = d.datasets[t.datasetIndex].label;
-            var yLabel = t.yLabel >= 1000 ? 'Rp ' + t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '$' + t.yLabel;
-            return xLabel + ': ' + yLabel;
+            var yLabel = d.datasets[t.datasetIndex].label;
+            var xLabel = t.xLabel >= 1000 ? 'Rp ' + t.xLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '$' + t.xLabel;
+            return yLabel + ': ' + xLabel;
           }
         }
       },
       scales: {
-        yAxes: [{
+        xAxes: [{
           ticks: {
             beginAtZero: true,
             callback: function(value, index, values) {
@@ -619,7 +615,7 @@
       }
     }
     var barChart = new Chart(barChartCanvas, {
-      type: 'bar',
+      type: 'horizontalBar',
       data: barChartData,
       options: barChartOptions
     })
@@ -667,14 +663,14 @@
       tooltips: {
         callbacks: {
           label: function(t, d) {
-            var xLabel = d.datasets[t.datasetIndex].label;
-            var yLabel = t.yLabel >= 1000 ? 'Rp ' + t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '$' + t.yLabel;
-            return xLabel + ': ' + yLabel;
+            var yLabel = d.datasets[t.datasetIndex].label;
+            var xLabel = t.xLabel >= 1000 ? 'Rp ' + t.xLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '$' + t.xLabel;
+            return yLabel + ': ' + xLabel;
           }
         }
       },
       scales: {
-        yAxes: [{
+        xAxes: [{
           ticks: {
             beginAtZero: true,
             callback: function(value, index, values) {
@@ -689,7 +685,7 @@
       }
     }
     var barChart = new Chart(barChartCanvas, {
-      type: 'bar',
+      type: 'horizontalBar',
       data: barChartData,
       options: barChartOptions
     })

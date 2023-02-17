@@ -43,7 +43,7 @@
                 </div>
                 <div class="card-body">
                   <div class="chart">
-                    <canvas id="barChartTotal" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    <canvas id="barChartTotal" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
                   </div>
                 </div>
               </div>
@@ -60,7 +60,7 @@
                 <div class="card-body">
                   <h4>Total Kas : <?php echo $titlekas; ?> </h4>
                   <div class="chart">
-                    <canvas id="barChartKas" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    <canvas id="barChartKas" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
                   </div>
                 </div>
               </div>
@@ -77,7 +77,7 @@
                 <div class="card-body">
                   <h4>Total Piutang : <?php echo $titlepiutang; ?> </h4>
                   <div class="chart">
-                    <canvas id="barChartPiutang" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    <canvas id="barChartPiutang" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
                   </div>
                 </div>
               </div>
@@ -94,7 +94,7 @@
                 <div class="card-body">
                   <h4>Total Hutang : <?php echo $titlehutang; ?> </h4>
                   <div class="chart">
-                    <canvas id="barChartHutang" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    <canvas id="barChartHutang" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
                   </div>
                 </div>
               </div>
@@ -111,7 +111,7 @@
                 <div class="card-body">
                   <h4>Total Pengajuan : <?php echo $titlepengajuan; ?> </h4>
                   <div class="chart">
-                    <canvas id="barChartPengajuan" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    <canvas id="barChartPengajuan" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
                   </div>
                 </div>
               </div>
@@ -128,7 +128,7 @@
                 <div class="card-body">
                   <h4>Total Omset : <?php echo $titleomset; ?> </h4>
                   <div class="chart">
-                    <canvas id="barChartOmset" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    <canvas id="barChartOmset" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
                   </div>
                 </div>
               </div>

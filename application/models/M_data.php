@@ -219,7 +219,7 @@ class M_data extends CI_Model
 	public function gettitlepiutang()
 	{
 		$this->db->select("
-        a.project_name,FORMAT(ROUND((a.rab_project - sum(b.nominal)),0),0,'de_DE') as total_piutang, 
+        a.project_name,ROUND((a.rab_project - sum(b.nominal)),0) as total_piutang, 
 		(a.rab_project - sum(b.nominal)) as total_piutang_sum
         ");
 		$this->db->from('mst_project as a');
@@ -339,7 +339,7 @@ class M_data extends CI_Model
 	public function getKasdashboard()
 	{
 		$this->db->select("
-          a.project_name,sum(a.cash_in_hand) as total_kas	
+          a.project_name,sum(a.cash_in_hand) as total_kas,sum(a.cash_in_hand) as totalkas
       ");
 		$this->db->from('mst_project as a');
 		$this->db->where('a.project_status', 0);

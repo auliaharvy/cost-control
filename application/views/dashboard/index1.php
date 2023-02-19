@@ -32,7 +32,7 @@
               <h3 class="card-title">Dashboard</h3>
             </div>
             <br>
-            <!-- <div class="col-12">
+            <div class="col-12">
               <div class="card card-success">
                 <div class="card-header">
                   <h3 class="card-title">Total</h3>
@@ -47,7 +47,7 @@
                   </div>
                 </div>
               </div>
-            </div> -->
+            </div>
             <div class="col-12">
               <div class="card card-success">
                 <div class="card-header">
@@ -208,91 +208,30 @@
     //- BAR CHART -
     //-------------
     var areaChartDataTotal = {
-      labels: ['Total Uang'],
+      labels: ['Total Kas', 'Total Piutang', 'Total Hutang', 'Total Pengajuan', 'Total Omset'],
       datasets: [{
-        label: 'Total Kas',
-        backgroundColor: 'rgba(54, 162, 235, 0.3)',
-        borderColor: 'rgba(54, 162, 235, 1)',
+        label: 'Total Uang',
+        backgroundColor: 'rgba(104, 62, 35, 0.3)',
+        borderColor: 'rgba(104, 62, 35, 1)',
         borderWidth: 1,
         pointRadius: false,
         pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(54, 162, 235, 1)',
+        pointStrokeColor: 'rgba(104, 62, 35, 1)',
         pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(54, 162, 235, 1)',
+        pointHighlightStroke: 'rgba(104, 62, 35, 1)',
         data: [
+          <?php echo $totalkas ?>,
           <?php
-          foreach ($dataAll->result_array() as $row1) {
-            extract($row1);
-            echo "'{$total_kas}',";
-          } ?>
-        ]
-      }, {
-        label: 'Total Piutang',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1,
-        pointRadius: false,
-        pointColor: '#ffffff',
-        pointStrokeColor: 'rgba(75, 192, 192, 1)',
-        pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(75, 192, 192, 1)',
-        data: [
-          <?php
-          foreach ($dataAll->result_array() as $row2) {
-            extract($row2);
-            echo "'{$total_piutang}',";
-          } ?>
-        ]
-      }, {
-        label: 'Total Hutang',
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderColor: 'rgba(255, 99, 132, 1)',
-        borderWidth: 1,
-        pointRadius: false,
-        pointColor: '#ffffff',
-        pointStrokeColor: 'rgba(255, 99, 132, 1)',
-        pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(255, 99, 132, 1)',
-        data: [
-          <?php
-          foreach ($dataAll->result_array() as $row3) {
-            extract($row3);
-            echo "'{$total_hutang}',";
-          } ?>
-        ]
-      }, {
-        label: 'Total Pengajuan',
-        backgroundColor: 'rgba(153, 102, 255, 0.2)',
-        borderColor: 'rgba(153, 102, 255, 1)',
-        borderWidth: 1,
-        pointRadius: false,
-        pointColor: '#ffffff',
-        pointStrokeColor: 'rgba(153, 102, 255, 1)',
-        pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(153, 102, 255, 1)',
-        data: [
-          <?php
-          foreach ($dataAll->result_array() as $row4) {
-            extract($row4);
-            echo "'{$total_pengajuan}',";
-          } ?>
-        ]
-      }, {
-        label: 'Total Omset',
-        backgroundColor: 'rgba(255, 159, 64, 0.2)',
-        borderColor: 'rgba(255, 159, 64, 1)',
-        borderWidth: 1,
-        pointRadius: false,
-        pointColor: '#ffffff',
-        pointStrokeColor: 'rgba(255, 159, 64, 1)',
-        pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(255, 159, 64, 1)',
-        data: [
-          <?php
-          foreach ($dataAll->result_array() as $row4) {
-            extract($row5);
-            echo "'{$total_omset}',";
-          } ?>
+          $temp = array();
+          foreach ($title_piutang->result() as $d) {
+            $temp[] = $d->total_piutang_sum;
+          };
+          $total = array_sum($temp);
+          echo ($total);
+          ?>,
+          <?php echo $totalhutang ?>,
+          <?php echo $totalpengajuan ?>,
+          <?php echo $totalomset ?>
         ]
       }]
     }
@@ -306,14 +245,14 @@
       tooltips: {
         callbacks: {
           label: function(t, d) {
-            var xLabel = d.datasets[t.datasetIndex].label;
-            var yLabel = t.yLabel >= 1000 ? 'Rp ' + t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '$' + t.yLabel;
-            return xLabel + ': ' + yLabel;
+            var yLabel = d.datasets[t.datasetIndex].label;
+            var xLabel = t.xLabel >= 1000 ? 'Rp ' + t.xLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '$' + t.xLabel;
+            return yLabel + ': ' + xLabel;
           }
         }
       },
       scales: {
-        yAxes: [{
+        xAxes: [{
           ticks: {
             beginAtZero: true,
             callback: function(value, index, values) {
@@ -328,14 +267,13 @@
       },
     }
     var barChart = new Chart(barChartCanvas, {
-      type: 'bar',
+      type: 'horizontalBar',
       data: barChartData,
       options: barChartOptions,
     })
   })
 </script>
 <script>
-  import ChartDataLabels from 'chartjs-plugin-datalabels';
   $(function() {
     //-------------
     //- BAR CHART -
@@ -416,9 +354,8 @@
     }
     var barChart = new Chart(barChartCanvas, {
       type: 'horizontalBar',
-      plugins: [ChartDataLabels],
       data: barChartData,
-      options: barChartOptions,
+      options: barChartOptions
     })
   })
 </script>

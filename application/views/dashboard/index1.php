@@ -76,10 +76,18 @@
                 </div>
                 <div class="card-body">
                   <h4>Total Piutang : <?php
-                                      foreach ($title_piutang->result_array() as $d) {
-                                        $total_piutang = $d['total_piutang'];
-                                        echo ($total_piutang);
-                                      } ?> </h4>
+                                      $temp = array();
+                                      foreach ($title_piutang->result() as $d) {
+                                        $temp[] = $d->total_piutang_sum;
+                                      };
+                                      function rupiah($temp)
+                                      {
+                                        $hasil = 'Rp ' . number_format($temp, 0, ",", ".");
+                                        return $hasil;
+                                      }
+                                      $total = array_sum($temp);
+                                      echo rupiah($total);
+                                      ?> </h4>
                   <div class="chart">
                     <canvas id="barChartPiutang" style="min-height: 1000px; height: 1000px; max-height: 1000px; max-width: 100%;"></canvas>
                   </div>
@@ -137,22 +145,6 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="col-12">
-              <div class="card card-success">
-                <div class="card-header">
-                  <h3 class="card-title">contoh horizontal chat</h3>
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                    </button>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <div class="chart">
-                    <canvas id="barChartHorizontal" style="max-height: 100%; max-width: 100%;"></canvas>
-                  </div>
-                </div>
-              </div>
-            </div> -->
           </div>
           <!-- /.card -->
         </div>
@@ -165,11 +157,16 @@
   <!-- /.content-wrapper -->
 </div>
 <!-- ./wrapper -->
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 <!-- jQuery -->
 
 <?php echo $footer; ?>
 <!-- page script -->
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js">
+</script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+
 <script>
   $(function() {
     $("#example1").DataTable({
@@ -328,16 +325,17 @@
             }
           }
         }]
-      }
+      },
     }
     var barChart = new Chart(barChartCanvas, {
       type: 'bar',
       data: barChartData,
-      options: barChartOptions
+      options: barChartOptions,
     })
   })
 </script>
 <script>
+  import ChartDataLabels from 'chartjs-plugin-datalabels';
   $(function() {
     //-------------
     //- BAR CHART -
@@ -375,6 +373,14 @@
     var temp0 = areaChartDataKas.datasets[0]
     barChartData.datasets[0] = temp0
     var barChartOptions = {
+      tooltipTemplate: "<%= value %>",
+
+      showTooltips: true,
+
+      onAnimationComplete: function() {
+        this.showTooltip(this.datasets[0].points, true);
+      },
+      tooltipEvents: [],
       responsive: true,
       maintainAspectRatio: false,
       tooltips: {
@@ -399,12 +405,20 @@
             }
           }
         }]
+      },
+      plugins: {
+        datalabels: {
+          display: true,
+          align: 'center',
+          anchor: 'center'
+        },
       }
     }
     var barChart = new Chart(barChartCanvas, {
       type: 'horizontalBar',
+      plugins: [ChartDataLabels],
       data: barChartData,
-      options: barChartOptions
+      options: barChartOptions,
     })
   })
 </script>

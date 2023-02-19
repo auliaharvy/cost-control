@@ -208,7 +208,7 @@
     //- BAR CHART -
     //-------------
     var areaChartDataTotal = {
-      labels: ['Total Kas', 'Total Piutang', 'Total Hutang', 'Total Pengajuan', 'Total Omset'],
+      labels: ['TOTAL KAS', 'TOTAL PIUTANG', 'TOTAL HUTANG', 'TOTAL PENGAJUAN', 'TOTAL OMSET'],
       datasets: [{
         label: 'Total Uang',
         backgroundColor: 'rgba(104, 62, 35, 0.3)',
@@ -280,7 +280,7 @@
     //-------------
 
     var areaChartDataKas = {
-      labels: [
+      labels: ['TOTAL KAS',
         <?php
         foreach ($datakas->result_array() as $row1) {
           extract($row1);
@@ -297,7 +297,14 @@
         pointStrokeColor: 'rgba(54, 162, 235, 1)',
         pointHighlightFill: '#ffff',
         pointHighlightStroke: 'rgba(54, 162, 235, 1)',
-        data: [
+        data: [<?php
+                $temp = array();
+                foreach ($datakas->result() as $d) {
+                  $temp[] = $d->total_kas;
+                };
+                $total = array_sum($temp);
+                echo ($total);
+                ?>,
           <?php
           foreach ($datakas->result_array() as $row1) {
             extract($row1);
@@ -365,7 +372,7 @@
     //- BAR CHART -
     //-------------
     var areaChartDataPiutang = {
-      labels: [
+      labels: ['TOTAL PIUTANG',
         <?php
         foreach ($datapiutang->result_array() as $row1) {
           extract($row1);
@@ -383,7 +390,14 @@
         pointStrokeColor: 'rgba(75, 192, 192, 1)',
         pointHighlightFill: '#fff',
         pointHighlightStroke: 'rgba(75, 192, 192, 1)',
-        data: [
+        data: [<?php
+                $temp = array();
+                foreach ($datapiutang->result() as $d) {
+                  $temp[] = $d->total_piutang;
+                };
+                $total = array_sum($temp);
+                echo ($total);
+                ?>,
           <?php
           foreach ($datapiutang->result_array() as $row1) {
             extract($row1);
@@ -437,7 +451,7 @@
     //- BAR CHART -
     //-------------
     var areaChartDataHutang = {
-      labels: [
+      labels: ['TOTAL HUTANG',
         <?php
         foreach ($datahutang->result_array() as $row1) {
           extract($row1);
@@ -454,7 +468,14 @@
         pointStrokeColor: 'rgba(255, 99, 132, 1)',
         pointHighlightFill: '#fff',
         pointHighlightStroke: 'rgba(255, 99, 132, 1)',
-        data: [
+        data: [<?php
+                $temp = array();
+                foreach ($datahutang->result() as $d) {
+                  $temp[] = $d->total_hutang;
+                };
+                $total = array_sum($temp);
+                echo ($total);
+                ?>,
           <?php
           foreach ($datahutang->result_array() as $row1) {
             extract($row1);
@@ -508,7 +529,7 @@
     //- BAR CHART -
     //-------------
     var areaChartDataPengajuan = {
-      labels: [
+      labels: ['TOTAL PENGAJUAN',
         <?php
         foreach ($datapengajuan->result_array() as $row1) {
           extract($row1);
@@ -525,7 +546,14 @@
         pointStrokeColor: 'rgba(153, 102, 255, 1)',
         pointHighlightFill: '#fff',
         pointHighlightStroke: 'rgba(153, 102, 255, 1)',
-        data: [
+        data: [<?php
+                $temp = array();
+                foreach ($datapengajuan->result() as $d) {
+                  $temp[] = $d->total_pengajuan;
+                };
+                $total = array_sum($temp);
+                echo ($total);
+                ?>,
           <?php
           foreach ($datapengajuan->result_array() as $row1) {
             extract($row1);
@@ -578,7 +606,7 @@
     //- BAR CHART -
     //-------------
     var areaChartDataOmset = {
-      labels: [
+      labels: ['TOTAL OMSET',
         <?php
         foreach ($dataomset->result_array() as $row1) {
           extract($row1);
@@ -595,7 +623,14 @@
         pointStrokeColor: 'rgba(255, 159, 64, 1)',
         pointHighlightFill: '#fff',
         pointHighlightStroke: 'rgba(255, 159, 64, 1)',
-        data: [
+        data: [<?php
+                $temp = array();
+                foreach ($dataomset->result() as $d) {
+                  $temp[] = $d->total_omset;
+                };
+                $total = array_sum($temp);
+                echo ($total);
+                ?>,
           <?php
           foreach ($dataomset->result_array() as $row1) {
             extract($row1);

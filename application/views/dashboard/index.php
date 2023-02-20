@@ -35,7 +35,7 @@
             <div class="col-12">
               <div class="card card-success">
                 <div class="card-header">
-                  <h3 class="card-title">Master Kas</h3>
+                  <h3 class="card-title">Total</h3>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                     </button>
@@ -43,7 +43,7 @@
                 </div>
                 <div class="card-body">
                   <div class="chart">
-                    <canvas id="barChartMaster" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    <canvas id="barChartTotal" style="min-height: 1000px; height: 1000px; max-height: 1000px; max-width: 100%;"></canvas>
                   </div>
                 </div>
               </div>
@@ -51,29 +51,16 @@
             <div class="col-12">
               <div class="card card-success">
                 <div class="card-header">
-                  <h3 class="card-title">Total Cash In Hand Utang dan Piutang ( Per Project )</h3>
+                  <h3 class="card-title">Kas ( Per Project )</h3>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                     </button>
                   </div>
                 </div>
                 <div class="card-body">
-                  <canvas id="barChartKas" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                </div>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="card card-success">
-                <div class="card-header">
-                  <h3 class="card-title">Total RAB RAP dan Pembelian ( Per Project )</h3>
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                    </button>
-                  </div>
-                </div>
-                <div class="card-body">
+                  <h4>Total Kas : <?php echo $titlekas; ?> </h4>
                   <div class="chart">
-                    <canvas id="barChartPengeluaran" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    <canvas id="barChartKas" style="min-height: 1000px; height: 1000px; max-height: 1000px; max-width: 100%;"></canvas>
                   </div>
                 </div>
               </div>
@@ -81,40 +68,87 @@
             <div class="col-12">
               <div class="card card-success">
                 <div class="card-header">
-                  <h3 class="card-title">Detail Per Project <?php echo $project_name; ?></h3>
+                  <h3 class="card-title">Piutang ( Per Project )</h3>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                     </button>
                   </div>
-                  <br>
                 </div>
                 <div class="card-body">
-                  <div class="form-group">
-                    <form action="<?php echo base_url('dashboard') ?>" method="POST" class="form-inline">
-                      <div class="form-group">
-                        <select class="form-control project_id" value="<?php echo set_value('project_id'); ?>" name="project_id" required>
-                          <?php foreach ($project as $us) { ?>
-                            <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?></option>
-                          <?php } ?>
-                        </select>
-                      </div>
-                      <button type="submit" class="btn btn-primary">Search</button>
-                    </form>
+                  <h4>Total Piutang : <?php
+                                      $temp = array();
+                                      foreach ($title_piutang->result() as $d) {
+                                        $temp[] = $d->total_piutang_sum;
+                                      };
+                                      function rupiah($temp)
+                                      {
+                                        $hasil = 'Rp ' . number_format($temp, 0, ",", ".");
+                                        return $hasil;
+                                      }
+                                      $total = array_sum($temp);
+                                      echo rupiah($total);
+                                      ?> </h4>
+                  <div class="chart">
+                    <canvas id="barChartPiutang" style="min-height: 1000px; height: 1000px; max-height: 1000px; max-width: 100%;"></canvas>
                   </div>
-                  <div class="row">
-                    <div class="col-12">
-                      <canvas id="pieChartProject" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="card card-success">
+                <div class="card-header">
+                  <h3 class="card-title">Hutang ( Per Project )</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <h4>Total Hutang : <?php echo $titlehutang; ?> </h4>
+                  <div class="chart">
+                    <canvas id="barChartHutang" style="min-height: 1000px; height: 1000px; max-height: 1000px; max-width: 100%;"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="card card-success">
+                <div class="card-header">
+                  <h3 class="card-title">Pengajuan ( Per Project )</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <h4>Total Pengajuan : <?php echo $titlepengajuan; ?> </h4>
+                  <div class="chart">
+                    <canvas id="barChartPengajuan" style="min-height: 1000px; height: 1000px; max-height: 1000px; max-width: 100%;"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="card card-success">
+                <div class="card-header">
+                  <h3 class="card-title">Omset ( Per Project )</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <h4>Total Omset : <?php echo $titleomset; ?> </h4>
+                  <div class="chart">
+                    <canvas id="barChartOmset" style="min-height: 1000px; height: 1000px; max-height: 1000px; max-width: 100%;"></canvas>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <!-- /.card -->
         </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
+        <!-- /.card -->
+        <!-- /.row -->
     </section>
     <!-- /.content -->
   </div>
@@ -126,6 +160,8 @@
 
 <?php echo $footer; ?>
 <!-- page script -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 <script>
   $(function() {
     $("#example1").DataTable({
@@ -142,22 +178,62 @@
       reverse: true
     });
   });
-  $('.project_id').change(function() {
-    var id = $(this).val();
-    var project_id = $('input[name="project_id"]').val();
-    $.ajax({
-      url: "<?php echo base_url(); ?>C_dashboard/getpengajuan/" + id,
-      method: "POST",
+</script>
+
+<script>
+  $(function() {
+    //-------------
+    //- BAR CHART -
+    //-------------
+    // Contoh data
+    var ctx = document.getElementById('barChartTotal').getContext('2d');
+    var barChartTotal = new Chart(ctx, {
+      type: 'bar',
       data: {
-        id: id
+        labels: ['TOTAL KAS', 'TOTAL PIUTANG', 'TOTAL HUTANG', 'TOTAL PENGAJUAN', 'TOTAL OMSET'],
+        datasets: [{
+          label: 'Total Uang',
+          backgroundColor: 'rgba(104, 62, 35, 0.3)',
+          borderColor: 'rgba(104, 62, 35, 1)',
+          borderWidth: 1,
+          data: [
+            <?php echo $totalkas ?>,
+            <?php
+            $temp = array();
+            foreach ($title_piutang->result() as $d) {
+              $temp[] = $d->total_piutang_sum;
+            };
+            $total = array_sum($temp);
+            echo ($total);
+            ?>,
+            <?php echo $totalhutang ?>,
+            <?php echo $totalpengajuan ?>,
+            <?php echo $totalomset ?>
+          ]
+        }]
       },
-      async: false,
-      dataType: 'json',
-      success: function(data) {
-        var html = '';
-        var i;
-        $('.pieChartProject').html(html);
-      }
+      options: {
+        responsive: true,
+        indexAxis: 'y',
+        scales: {
+          x: {
+            ticks: {
+              display: false
+            }
+          }
+        },
+        plugins: {
+          datalabels: {
+            color: 'black',
+            anchor: 'end',
+            align: 'end',
+            formatter: function(value, context) {
+              return 'Rp ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
     });
   });
 </script>
@@ -166,442 +242,316 @@
     //-------------
     //- BAR CHART -
     //-------------
-    var areaChartDataCash = {
-      labels: ['Total Uang'],
-      datasets: [{
-        label: 'Total Kas Master',
-        backgroundColor: 'rgba(60,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
-        pointRadius: false,
-        pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,188,1)',
-        pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
-        data: [
+    // Contoh data
+    var ctx = document.getElementById('barChartKas').getContext('2d');
+    var barChartKas = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['TOTAL KAS',
           <?php
-          foreach ($datapembelian->result_array() as $row1) {
+          foreach ($datakas->result_array() as $row1) {
             extract($row1);
-            echo "'{$total_uang}',";
+            echo "['{$project_name}'],";
           } ?>
-        ]
-      }, {
-        label: 'Total Cash In Hand',
-        backgroundColor: 'rgba(60,131,148,0.9)',
-        borderColor: 'rgba(60,131,148,0.8)',
-        pointRadius: false,
-        pointColor: '#ffffff',
-        pointStrokeColor: 'rgba(60,131,148,1)',
-        pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(60,131,148,1)',
-        data: [
-          <?php
-          foreach ($datapembelian->result_array() as $row2) {
-            extract($row2);
-            echo "'{$total_cash_in_hand}',";
-          } ?>
-        ]
-      }, {
-        label: 'Total Hutang',
-        backgroundColor: 'rgba(60,121,108,0.9)',
-        borderColor: 'rgba(60,121,108,0.8)',
-        pointRadius: false,
-        pointColor: '#ffffff',
-        pointStrokeColor: 'rgba(60,121,108,1)',
-        pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(60,121,108,1)',
-        data: [
-          <?php
-          foreach ($datapembelian->result_array() as $row3) {
-            extract($row3);
-            echo "'{$total_hutang}',";
-          } ?>
-        ]
-      }, {
-        label: 'Total Piutang',
-        backgroundColor: 'rgba(60,111,68,0.9)',
-        borderColor: 'rgba(60,111,68,0.8)',
-        pointRadius: false,
-        pointColor: '#ffffff',
-        pointStrokeColor: 'rgba(60,111,68,1)',
-        pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(60,111,68,1)',
-        data: [
-          <?php
-          foreach ($datapembelian->result_array() as $row4) {
-            extract($row4);
-            echo "'{$cash_in_hand}',";
-          } ?>
-        ]
-      }]
-    }
-    var barChartCanvas = $('#barChartMaster').get(0).getContext('2d')
-    var barChartData = jQuery.extend(true, {}, areaChartDataCash)
-    var temp0 = areaChartDataCash.datasets[0]
-    barChartData.datasets[0] = temp0
-    var barChartOptions = {
-      responsive: true,
-      maintainAspectRatio: false,
-      tooltips: {
-        callbacks: {
-          label: function(t, d) {
-            var xLabel = d.datasets[t.datasetIndex].label;
-            var yLabel = t.yLabel >= 1000 ? 'Rp ' + t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '$' + t.yLabel;
-            return xLabel + ': ' + yLabel;
+        ],
+        datasets: [{
+          label: 'Jumlah Kas',
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1,
+          data: [<?php
+                  $temp = array();
+                  foreach ($datakas->result() as $d) {
+                    $temp[] = $d->total_kas;
+                  };
+                  $total = array_sum($temp);
+                  echo ($total);
+                  ?>,
+            <?php
+            foreach ($datakas->result_array() as $row1) {
+              extract($row1);
+              echo "'{$total_kas}',";
+            } ?>
+          ]
+        }]
+      },
+      options: {
+        responsive: true,
+        indexAxis: 'y',
+        scales: {
+          x: {
+            ticks: {
+              display: false
+            }
+          }
+        },
+        plugins: {
+          datalabels: {
+            color: 'black',
+            anchor: 'end',
+            align: 'end',
+            formatter: function(value, context) {
+              return 'Rp ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
           }
         }
       },
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true,
-            callback: function(value, index, values) {
-              if (parseInt(value) >= 1000) {
-                return 'Rp ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-              } else {
-                return 'Rp ' + value;
-              }
-            }
-          }
-        }]
-      }
-    }
-    var barChart = new Chart(barChartCanvas, {
-      type: 'bar',
-      data: barChartData,
-      options: barChartOptions
-    })
-  })
+      plugins: [ChartDataLabels]
+    });
+  });
 </script>
 <script>
   $(function() {
     //-------------
     //- BAR CHART -
     //-------------
-    var areaChartDataCash = {
-      labels: [
-        <?php
-        foreach ($data->result_array() as $row1) {
-          extract($row1);
-          echo "['{$project_name}'],";
-        } ?>
-      ],
-      datasets: [{
-        label: 'Total Cash In Hand',
-        backgroundColor: 'rgba(60,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
-        pointRadius: false,
-        pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,188,1)',
-        pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
-        data: [
+    // Contoh data
+    var ctx = document.getElementById('barChartPiutang').getContext('2d');
+    var barChartPiutang = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['TOTAL PIUTANG',
           <?php
-          foreach ($data->result_array() as $row1) {
+          foreach ($datapiutang->result_array() as $row1) {
             extract($row1);
-            echo "'{$total_kas}',";
+            echo "['{$project_name}'],";
           } ?>
-        ]
-      }, {
-        label: 'Total Hutang',
-        backgroundColor: 'rgba(60,141,128,0.9)',
-        borderColor: 'rgba(60,141,128,0.8)',
-        pointRadius: false,
-        pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,128,1)',
-        pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(60,141,128,1)',
-        data: [
-          <?php
-          foreach ($data->result_array() as $row1) {
-            extract($row1);
-            echo "'{$total_hutang}',";
-          } ?>
-        ]
-      }, {
-        label: 'Total Piutang',
-        backgroundColor: 'rgba(60,141,68,0.9)',
-        borderColor: 'rgba(60,141,68,0.8)',
-        pointRadius: false,
-        pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,68,1)',
-        pointHighlightFill: '#ffff',
-        pointHighlightStroke: 'rgba(60,141,68,1)',
-        data: [
-          <?php
-          foreach ($data->result_array() as $row1) {
-            extract($row1);
-            echo "'{$total_piutang}',";
-          } ?>
-        ]
-      }, ]
-    }
-    var barChartCanvas = $('#barChartKas').get(0).getContext('2d')
-    var barChartData = jQuery.extend(true, {}, areaChartDataCash)
-    var temp0 = areaChartDataCash.datasets[0]
-    barChartData.datasets[0] = temp0
-    var barChartOptions = {
-      responsive: true,
-      maintainAspectRatio: false,
-      tooltips: {
-        callbacks: {
-          label: function(t, d) {
-            var xLabel = d.datasets[t.datasetIndex].label;
-            var yLabel = t.yLabel >= 1000 ? 'Rp ' + t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '$' + t.yLabel;
-            return xLabel + ': ' + yLabel;
+        ],
+        datasets: [{
+          label: 'Jumlah Piutang',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+          data: [<?php
+                  $temp = array();
+                  foreach ($datapiutang->result() as $d) {
+                    $temp[] = $d->total_piutang;
+                  };
+                  $total = array_sum($temp);
+                  echo ($total);
+                  ?>,
+            <?php
+            foreach ($datapiutang->result_array() as $row1) {
+              extract($row1);
+              echo "'{$total_piutang}',";
+            } ?>
+          ]
+        }]
+      },
+      options: {
+        responsive: true,
+        indexAxis: 'y',
+        scales: {
+          x: {
+            ticks: {
+              display: false
+            }
+          }
+        },
+        plugins: {
+          datalabels: {
+            color: 'black',
+            anchor: 'end',
+            align: 'end',
+            formatter: function(value, context) {
+              return 'Rp ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
           }
         }
       },
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true,
-            callback: function(value, index, values) {
-              if (parseInt(value) >= 1000) {
-                return 'Rp ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-              } else {
-                return 'Rp ' + value;
-              }
-            }
-          }
-        }]
-      }
-    }
-    var barChart = new Chart(barChartCanvas, {
-      type: 'bar',
-      data: barChartData,
-      options: barChartOptions
-    })
-  })
+      plugins: [ChartDataLabels]
+    });
+  });
 </script>
 <script>
   $(function() {
     //-------------
     //- BAR CHART -
     //-------------
-    var areaChartDataPengeluaran = {
-      labels: [
-        <?php
-        foreach ($datapengeluaran->result_array() as $row1) {
-          extract($row1);
-          echo "['{$project_name}'],";
-        } ?>
-      ],
-      datasets: [{
-        label: 'Total RAB',
-        backgroundColor: 'rgba(60,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
-        pointRadius: false,
-        pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,188,1)',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
-        data: [
+    // Contoh data
+    var ctx = document.getElementById('barChartHutang').getContext('2d');
+    var barChartHutang = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['TOTAL HUTANG',
           <?php
-          foreach ($datapengeluaran->result_array() as $row1) {
+          foreach ($datahutang->result_array() as $row1) {
             extract($row1);
-            echo "'{$rab_project}',";
+            echo "['{$project_name}'],";
           } ?>
-        ]
-      }, {
-        label: 'Total RAP',
-        backgroundColor: 'rgba(60,141,128,0.9)',
-        borderColor: 'rgba(60,141,128,0.8)',
-        pointRadius: false,
-        pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,128,1)',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(60,141,128,1)',
-        data: [
-          <?php
-          foreach ($datapengeluaran->result_array() as $row2) {
-            extract($row2);
-            echo "'{$total_biaya}',";
-          } ?>
-        ]
-      }, {
-        label: 'Total Pembelian',
-        backgroundColor: 'rgba(60,141,68,0.9)',
-        borderColor: 'rgba(60,141,68,0.8)',
-        pointRadius: false,
-        pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,68,1)',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(60,141,68,1)',
-        data: [
-          <?php
-          foreach ($datapengeluaran->result_array() as $row3) {
-            extract($row3);
-            echo "'{$total_pengeluaran}',";
-          } ?>
-        ]
-      }, ]
-    }
-    var barChartCanvas = $('#barChartPengeluaran').get(0).getContext('2d')
-    var barChartData = jQuery.extend(true, {}, areaChartDataPengeluaran)
-    var temp0 = areaChartDataPengeluaran.datasets[0]
-    barChartData.datasets[0] = temp0
-    var barChartOptions = {
-      responsive: true,
-      maintainAspectRatio: false,
-      tooltips: {
-        callbacks: {
-          label: function(t, d) {
-            var xLabel = d.datasets[t.datasetIndex].label;
-            var yLabel = t.yLabel >= 1000 ? 'Rp ' + t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '$' + t.yLabel;
-            return xLabel + ': ' + yLabel;
+        ],
+        datasets: [{
+          label: 'Jumlah Hutang',
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1,
+          data: [<?php
+                  $temp = array();
+                  foreach ($datahutang->result() as $d) {
+                    $temp[] = $d->total_hutang;
+                  };
+                  $total = array_sum($temp);
+                  echo ($total);
+                  ?>,
+            <?php
+            foreach ($datahutang->result_array() as $row1) {
+              extract($row1);
+              echo "'{$total_hutang}',";
+            } ?>
+          ]
+        }]
+      },
+      options: {
+        responsive: true,
+        indexAxis: 'y',
+        scales: {
+          x: {
+            ticks: {
+              display: false
+            }
+          }
+        },
+        plugins: {
+          datalabels: {
+            color: 'black',
+            anchor: 'end',
+            align: 'end',
+            formatter: function(value, context) {
+              return 'Rp ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
           }
         }
       },
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true,
-            callback: function(value, index, values) {
-              if (parseInt(value) >= 1000) {
-                return 'Rp ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-              } else {
-                return 'Rp ' + value;
-              }
-            }
-          }
-        }]
-      }
-    }
-    var barChart = new Chart(barChartCanvas, {
-      type: 'bar',
-      data: barChartData,
-      options: barChartOptions
-    })
-  })
+      plugins: [ChartDataLabels]
+    });
+  });
 </script>
 <script>
   $(function() {
     //-------------
     //- BAR CHART -
     //-------------
-    var areaChartData = {
-      labels: ['Jumlah Uang per Project'],
-      datasets: [{
-        label: 'Jumlah Pengajuan',
-        backgroundColor: 'rgba(60,141,188,0.9)',
-        borderColor: 'rgba(60,141,188,0.8)',
-        pointRadius: false,
-        pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,141,188,1)',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
-        data: [
+    // Contoh data
+    var ctx = document.getElementById('barChartPengajuan').getContext('2d');
+    var barChartPengajuan = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['TOTAL PENGAJUAN',
           <?php
-          foreach ($datapembelianremaining->result_array() as $row1) {
+          foreach ($datapengajuan->result_array() as $row1) {
             extract($row1);
-            echo "'{$jumlah_pengajuan}',";
+            echo "['{$project_name}'],";
           } ?>
-        ]
-      }, {
-        label: 'Jumlah Approval',
-        backgroundColor: 'rgba(60,131,148,0.9)',
-        borderColor: 'rgba(60,131,148,0.8)',
-        pointRadius: false,
-        pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,131,148,1)',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(60,131,148,1)',
-        data: [
-          <?php
-          foreach ($datapembelianremaining->result_array() as $row1) {
-            extract($row1);
-            echo "'{$jumlah_approval}',";
-          } ?>
-        ]
-      }, {
-        label: 'Jumlah Pencairan',
-        backgroundColor: 'rgba(60,121,108,0.9)',
-        borderColor: 'rgba(60,121,108,0.8)',
-        pointRadius: false,
-        pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,121,108,1)',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(60,121,108,1)',
-        data: [
-          <?php
-          foreach ($datapembelianremaining->result_array() as $row1) {
-            extract($row1);
-            echo "'{$jumlah_pencairan}',";
-          } ?>
-        ]
-      }, {
-        label: 'Jumlah Pembelian',
-        backgroundColor: 'rgba(60,111,68,0.9)',
-        borderColor: 'rgba(60,111,68,0.8)',
-        pointRadius: false,
-        pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,111,68,1)',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(60,111,68,1)',
-        data: [
-          <?php
-          foreach ($datapembelianremaining->result_array() as $row1) {
-            extract($row1);
-            echo "'{$jumlah_pembelian}',";
-          } ?>
-        ]
-      }, {
-        label: 'Pembelian Tanpa Pengajuan',
-        backgroundColor: 'rgba(60,101,28,0.9)',
-        borderColor: 'rgba(60,101,28,0.8)',
-        pointRadius: false,
-        pointColor: '#3b8bba',
-        pointStrokeColor: 'rgba(60,101,28,1)',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(60,101,28,1)',
-        data: [
-          <?php
-          foreach ($datapembelianremaining->result_array() as $row1) {
-            extract($row1);
-            echo "'{$jumlah_tanpa_pengajuan}',";
-          } ?>
-        ]
-      }, ]
-    }
-    var barChartCanvas = $('#pieChartProject').get(0).getContext('2d')
-    var barChartData = jQuery.extend(true, {}, areaChartData)
-    var temp0 = areaChartData.datasets[0]
-    barChartData.datasets[0] = temp0
-    var barChartOptions = {
-      responsive: true,
-      maintainAspectRatio: false,
-      tooltips: {
-        callbacks: {
-          label: function(t, d) {
-            var xLabel = d.datasets[t.datasetIndex].label;
-            var yLabel = t.yLabel >= 1000 ? 'Rp ' + t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '$' + t.yLabel;
-            return xLabel + ': ' + yLabel;
+        ],
+        datasets: [{
+          label: 'Jumlah Pengajuan',
+          backgroundColor: 'rgba(153, 102, 255, 0.2)',
+          borderColor: 'rgba(153, 102, 255, 1)',
+          borderWidth: 1,
+          data: [<?php
+                  $temp = array();
+                  foreach ($datapengajuan->result() as $d) {
+                    $temp[] = $d->total_pengajuan;
+                  };
+                  $total = array_sum($temp);
+                  echo ($total);
+                  ?>,
+            <?php
+            foreach ($datapengajuan->result_array() as $row1) {
+              extract($row1);
+              echo "'{$total_pengajuan}',";
+            } ?>
+          ]
+        }]
+      },
+      options: {
+        responsive: true,
+        indexAxis: 'y',
+        scales: {
+          x: {
+            ticks: {
+              display: false
+            }
+          }
+        },
+        plugins: {
+          datalabels: {
+            color: 'black',
+            anchor: 'end',
+            align: 'end',
+            formatter: function(value, context) {
+              return 'Rp ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
           }
         }
       },
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true,
-            callback: function(value, index, values) {
-              if (parseInt(value) >= 1000) {
-                return 'Rp ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-              } else {
-                return 'Rp ' + value;
-              }
+      plugins: [ChartDataLabels]
+    });
+  });
+</script>
+<script>
+  $(function() {
+    //-------------
+    //- BAR CHART -
+    //-------------
+    // Contoh data
+    var ctx = document.getElementById('barChartOmset').getContext('2d');
+    var barChartOmset = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['TOTAL OMSET',
+          <?php
+          foreach ($dataomset->result_array() as $row1) {
+            extract($row1);
+            echo "['{$project_name}'],";
+          } ?>
+        ],
+        datasets: [{
+          label: 'Jumlah Omset',
+          backgroundColor: 'rgba(255, 159, 64, 0.2)',
+          borderColor: 'rgba(255, 159, 64, 1)',
+          borderWidth: 1,
+          data: [<?php
+                  $temp = array();
+                  foreach ($dataomset->result() as $d) {
+                    $temp[] = $d->total_omset;
+                  };
+                  $total = array_sum($temp);
+                  echo ($total);
+                  ?>,
+            <?php
+            foreach ($dataomset->result_array() as $row1) {
+              extract($row1);
+              echo "'{$total_omset}',";
+            } ?>
+          ]
+        }]
+      },
+      options: {
+        responsive: true,
+        indexAxis: 'y',
+        scales: {
+          x: {
+            ticks: {
+              display: false
             }
           }
-        }]
-      }
-    }
-    var barChart = new Chart(barChartCanvas, {
-      type: 'bar',
-      data: barChartData,
-      options: barChartOptions
-    })
-  })
+        },
+        plugins: {
+          datalabels: {
+            color: 'black',
+            anchor: 'end',
+            align: 'end',
+            formatter: function(value, context) {
+              return 'Rp ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+  });
 </script>
-
 </body>
 
 </html>

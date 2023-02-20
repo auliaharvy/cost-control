@@ -157,8 +157,7 @@
   <!-- /.content-wrapper -->
 </div>
 <!-- ./wrapper -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
 <!-- jQuery -->
 
 <?php echo $footer; ?>
@@ -166,7 +165,8 @@
 <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js">
 </script> -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script> -->
 <script>
   $(function() {
     $("#example1").DataTable({
@@ -319,9 +319,7 @@
     barChartData.datasets[0] = temp0
     var barChartOptions = {
       tooltipTemplate: "<%= value %>",
-
       showTooltips: true,
-
       onAnimationComplete: function() {
         this.showTooltip(this.datasets[0].points, true);
       },
@@ -350,13 +348,6 @@
             }
           }
         }]
-      },
-      plugins: {
-        datalabels: {
-          display: true,
-          align: 'center',
-          anchor: 'center'
-        },
       }
     }
     var barChart = new Chart(barChartCanvas, {

@@ -66,7 +66,7 @@ class C_dashboard extends CI_Controller
             'titlepengajuan' => $titlepengajuan,
             'titleomset' => $titleomset,
         );
-        $this->load->view('dashboard/index1', $show);
+        $this->load->view('dashboard/index', $show);
     }
 
 

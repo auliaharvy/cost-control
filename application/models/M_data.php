@@ -260,6 +260,7 @@ class M_data extends CI_Model
 		$this->db->join('akk_pengajuan as b', 'a.id = b.project_id');
 		$this->db->join('akk_pengajuan_biaya as c', 'b.id = c.pengajuan_id');
 		$this->db->where('a.project_status', 0);
+		$this->db->where('c.is_approved', 0);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
@@ -361,6 +362,7 @@ class M_data extends CI_Model
 		$this->db->join('akk_pengajuan as b', 'a.id = b.project_id', 'left');
 		$this->db->join('akk_pengajuan_biaya as c', 'b.id = c.pengajuan_id', 'left');
 		$this->db->where('a.project_status', 0);
+		$this->db->where('c.is_approved', 0);
 		$this->db->group_by('a.id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {

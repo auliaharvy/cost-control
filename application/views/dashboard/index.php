@@ -94,25 +94,23 @@
                 </div>
               </div>
             </div>
-            <?php if (($this->session->userdata('role')) == 4) { ?>
-              <div class="col-12">
-                <div class="card card-success">
-                  <div class="card-header">
-                    <h3 class="card-title">Hutang ( Per Project )</h3>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                      </button>
-                    </div>
+            <div class="col-12">
+              <div class="card card-success">
+                <div class="card-header">
+                  <h3 class="card-title">Hutang ( Per Project )</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
                   </div>
-                  <div class="card-body">
-                    <h4>Total Hutang : <?php echo $titlehutang; ?> </h4>
-                    <div class="chart">
-                      <canvas id="barChartHutang" style="min-height: 1000px; height: 1000px; max-height: 1000px; max-width: 100%;"></canvas>
-                    </div>
+                </div>
+                <div class="card-body">
+                  <h4>Total Hutang : <?php echo $titlehutang; ?> </h4>
+                  <div class="chart">
+                    <canvas id="barChartHutang" style="min-height: 1000px; height: 1000px; max-height: 1000px; max-width: 100%;"></canvas>
                   </div>
                 </div>
               </div>
-            <?php } ?>
+            </div>
             <div class="col-12">
               <div class="card card-success">
                 <div class="card-header">

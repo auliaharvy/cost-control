@@ -77,21 +77,21 @@
                             </form>
                           </td>
                           <td style="width: 10%;" class="text over"><?php echo $d['project_location']; ?></td>
-                          <td style="width: 10%;" class="text text-center over"><?php echo $d['project_deadline_v']; ?></td>
-                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['cash_in_hand']; ?></span></td>
-                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['rab_project_v']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center size"><?php echo $d['project_deadline_v']; ?></td>
+                          <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['cash_in_hand']; ?></td>
+                          <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['rab_project_v']; ?></td>
                           <?php if ($d['total_biaya_v'] == null) { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. 0</td>
                           <?php } else { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_biaya_v']; ?></span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['total_biaya_v']; ?></td>
                           <?php } ?>
                           <?php if ($d['total_pengeluaran_v'] == null) { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. 0</td>
                           <?php } else { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_pengeluaran_v']; ?></span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['total_pengeluaran_v']; ?></td>
                           <?php } ?>
-                          <td style="width: 10%;" class="text text-center"><span><?php echo $d['persentase_v'];  ?></span></td>
-                          <td style="width: 10%;" class="text text-center"><span><?php echo $d['project_progress'];  ?>%</span></td>
+                          <td style="width: 10%;" class="text text-center size"><?php echo $d['persentase_v'];  ?></td>
+                          <td style="width: 10%;" class="text text-center size"><?php echo $d['project_progress'];  ?>%</td>
                         </tr>
                     <?php
                       }
@@ -131,13 +131,13 @@
                         <tr class="odd gradeX">
                           <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
                           <td style="width: 20%;" class="text text-center over"><?php echo $d['project_name']; ?></td>
-                          <td style="width: 15%;" class="text"><span><?php echo $d['project_location']; ?></span></td>
-                          <td style="width: 10%;" class="text text-center"><span><?php echo $d['project_deadline_v']; ?></td>
-                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['rab_project_v']; ?></span></td>
-                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_biaya_v']; ?></span></td>
-                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_pengeluaran_v']; ?></span></td>
-                          <td style="width: 10%;" class="text text-center"><span><?php echo $d['persentase_v']; ?></span></td>
-                          <td style="width: 10%;" class="text text-center"><span><?php echo $d['finish_at_v']; ?></span></td>
+                          <td style="width: 15%;" class="text over"><?php echo $d['project_location']; ?></td>
+                          <td style="width: 10%;" class="text text-center size"><?php echo $d['project_deadline_v']; ?></td>
+                          <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['rab_project_v']; ?></td>
+                          <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['total_biaya_v']; ?></td>
+                          <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['total_pengeluaran_v']; ?></td>
+                          <td style="width: 10%;" class="text text-center size"><?php echo $d['persentase_v']; ?></td>
+                          <td style="width: 10%;" class="text text-center size"><?php echo $d['finish_at_v']; ?></td>
                         </tr>
                     <?php
                       }
@@ -274,6 +274,11 @@
     white-space: normal;
     overflow: visible;
     word-wrap: break-word;
+    font-size: 12px;
+  }
+
+  .size {
+    font-size: 12px;
   }
 </style>
 <script>

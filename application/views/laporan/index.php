@@ -74,38 +74,38 @@
                             <?php } ?>
                           </td>
                           <td style="width: 10%;" class="text over"><a href="<?php echo base_url() . "laporan_detail/" . $d['id']; ?>"><?php echo $d['project_name']; ?></a></td>
-                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['rab_project_v']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['rab_project_v']; ?></td>
                           <?php if ($d['total_biaya_v'] == null) { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. 0</td>
                           <?php } else { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_biaya_v']; ?></span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['total_biaya_v']; ?></td>
                           <?php } ?>
                           <?php if ($d['termin_terbayar'] == null) { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. 0</td>
                           <?php } else { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['termin_terbayar']; ?></span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['termin_terbayar']; ?></td>
                           <?php } ?>
                           <?php if ($d['sisa_termin'] == null) { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. 0</td>
                           <?php } else { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['sisa_termin']; ?></span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['sisa_termin']; ?></td>
                           <?php } ?>
-                          <td style="width: 5%;" class="text text-center"><span>Rp. <?php echo $d['cash_in_hand']; ?></span></td>
+                          <td style="width: 5%;" class="text text-center size">Rp. <?php echo $d['cash_in_hand']; ?></td>
                           <?php if ($d['total_pengeluaran_v'] == null) { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. 0</td>
                           <?php } else { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_pengeluaran_v']; ?></span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['total_pengeluaran_v']; ?></td>
                           <?php } ?>
                           <?php if ($d['total_hutang'] == null) { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. 0</td>
                           <?php } else { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_hutang']; ?></span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['total_hutang']; ?></td>
                           <?php } ?>
-                          <td style="width: 5%;" class="text text-center"><span><?php echo $d['persentase_v'];  ?></span></td>
-                          <td style="width: 5%;" class="text text-center">
-                            <p class="<?php echo $d['background_text']; ?>"><span><?php echo $d['project_progress']; ?>%</span></p>
+                          <td style="width: 5%;" class="text text-center size"><?php echo $d['persentase_v'];  ?></td>
+                          <td style="width: 5%;" class="text text-center size">
+                            <p class="<?php echo $d['background_text']; ?>"><?php echo $d['project_progress']; ?>%</p>
                           </td>
-                          <td style="width: 5%;" class="text text-center"><span><?php echo $status; ?></span></td>
+                          <td style="width: 5%;" class="text text-center size"><?php echo $status; ?></td>
                         </tr>
                     <?php
                       }
@@ -158,38 +158,38 @@
                             <button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button>
                         </td> -->
                           <td style="width: 15%;" class="text over"><a href="<?php echo base_url() . "laporan_detail/" . $d['id']; ?>"><?php echo $d['project_name']; ?></a></td>
-                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['rab_project_v']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['rab_project_v']; ?></td>
                           <?php if ($d['total_biaya_v'] == null) { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. 0</td>
                           <?php } else { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_biaya_v']; ?></span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['total_biaya_v']; ?></td>
                           <?php } ?>
                           <?php if ($d['termin_terbayar'] == null) { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. 0</td>
                           <?php } else { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['termin_terbayar']; ?></span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['termin_terbayar']; ?></td>
                           <?php } ?>
                           <?php if ($d['sisa_termin'] == null) { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. 0</td>
                           <?php } else { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['sisa_termin']; ?></span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['sisa_termin']; ?></td>
                           <?php } ?>
-                          <td style="width: 5%;" class="text text-center"><span>Rp. <?php echo $d['cash_in_hand']; ?></span></td>
+                          <td style="width: 5%;" class="text text-center size">Rp. <?php echo $d['cash_in_hand']; ?></td>
                           <?php if ($d['total_pengeluaran_v'] == null) { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. 0</td>
                           <?php } else { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_pengeluaran_v']; ?></span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['total_pengeluaran_v']; ?></td>
                           <?php } ?>
                           <?php if ($d['total_hutang'] == null) { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. 0</span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. 0</td>
                           <?php } else { ?>
-                            <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['total_hutang']; ?></span></td>
+                            <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['total_hutang']; ?></td>
                           <?php } ?>
-                          <td style="width: 5%;" class="text text-center"><span><?php echo $d['persentase_v'];  ?></span></td>
-                          <td style="width: 5%;" class="text text-center">
-                            <p class="<?php echo $d['background_text']; ?>"><span><?php echo $d['project_progress']; ?>%</span></p>
+                          <td style="width: 5%;" class="text text-center size"><?php echo $d['persentase_v'];  ?></td>
+                          <td style="width: 5%;" class="text text-center size">
+                            <p class="<?php echo $d['background_text']; ?>"><?php echo $d['project_progress']; ?>%</p>
                           </td>
-                          <td style="width: 5%;" class="text text-center"><span><?php echo $status; ?></span></td>
+                          <td style="width: 5%;" class="text text-center size"><?php echo $status; ?></td>
                         </tr>
                     <?php
                       }
@@ -219,6 +219,11 @@
     white-space: normal;
     overflow: visible;
     word-wrap: break-word;
+    font-size: 12px;
+  }
+
+  .size {
+    font-size: 12px;
   }
 </style>
 <script>

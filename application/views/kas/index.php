@@ -58,10 +58,10 @@
                         <td style="width: 10%;" align="center">
                           <a data-toggle="modal" data-target="#editkas<?php echo $id; ?>" class="btn btn-sm btn-warning btn-circle" data-popup="tooltip" data-placement="top" title="Edit Kas"><i class="fas fas fa-edit"></i></a>
                         </td>
-                        <td style="width: 25%;" class="text"><span><?php echo $d['organization_name']; ?></span></td>
-                        <td style="width: 20%;" class="text text-center"><span>Rp. <?php echo $cash; ?></span></td>
-                        <td style="width: 25%;" class="text"><span><?php echo $d['organization_address']; ?></span></td>
-                        <td style="width: 15%;" class="text text-center"><span><?php echo $d['phone_number']; ?></span></td>
+                        <td style="width: 25%;" class="text over"><?php echo $d['organization_name']; ?></td>
+                        <td style="width: 20%;" class="text text-center size">Rp. <?php echo $cash; ?></td>
+                        <td style="width: 25%;" class="text over"><?php echo $d['organization_address']; ?></td>
+                        <td style="width: 15%;" class="text text-center size"><?php echo $d['phone_number']; ?></td>
                       </tr>
                     <?php
                     } ?>
@@ -107,9 +107,9 @@
                       <tr class="odd gradeX">
                         <?php $cash = number_format($d['cash_additional'], '0', ',', '.'); ?>
                         <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                        <td style="width: 30%;" class="text text-center"><span>Rp. <?php echo $cash; ?></span></td>
-                        <td style="width: 50%;" class="text"><span><?php echo $d['note']; ?></span></td>
-                        <td style="width: 15%;" class="text text-center"><span><?php echo $d['created_at_v']; ?></span></td>
+                        <td style="width: 30%;" class="text text-center size">Rp. <?php echo $cash; ?></td>
+                        <td style="width: 50%;" class="text over"><?php echo $d['note']; ?></td>
+                        <td style="width: 15%;" class="text text-center size"><?php echo $d['created_at_v']; ?></td>
                       </tr>
                     <?php
                     } ?>
@@ -176,6 +176,18 @@
 <!-- /.content-wrapper -->
 <?php echo $footer; ?>
 <!-- page script -->
+<style>
+  .over {
+    white-space: normal;
+    overflow: visible;
+    word-wrap: break-word;
+    font-size: 12px;
+  }
+
+  .size {
+    font-size: 12px;
+  }
+</style>
 <script>
   $(function() {
     $('#example1').DataTable({

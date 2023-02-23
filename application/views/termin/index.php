@@ -56,12 +56,12 @@
                         $id = $d['id']; ?>
                         <tr class="odd gradeX">
                           <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
-                          <td style="width: 15%;" class="text"><span><?php echo $d['project_location']; ?></span></td>
-                          <td style="width: 15%;" class="text text-center"><span><?php echo $d['project_deadline']; ?></span></td>
-                          <td style="width: 15%;" class="text text-center"><span>Rp <?php echo $d['rab_project_v']; ?></span></td>
-                          <td style="width: 15%;" class="text text-center"><span>Rp <?php echo $d['termin_terbayar']; ?></span></td>
-                          <td style="width: 15%;" class="text text-center"><span>Rp <?php echo $d['sisa_termin']; ?></span></td>
+                          <td style="width: 20%;" class="text over"><?php echo $d['project_name']; ?></td>
+                          <td style="width: 15%;" class="text over"><?php echo $d['project_location']; ?></td>
+                          <td style="width: 15%;" class="text text-center size"><?php echo $d['project_deadline']; ?></td>
+                          <td style="width: 15%;" class="text text-center size">Rp <?php echo $d['rab_project_v']; ?></td>
+                          <td style="width: 15%;" class="text text-center size">Rp <?php echo $d['termin_terbayar']; ?></td>
+                          <td style="width: 15%;" class="text text-center size">Rp <?php echo $d['sisa_termin']; ?></td>
                         </tr>
                     <?php
                       }
@@ -95,10 +95,10 @@
                         $id = $d['id']; ?>
                         <tr class="odd gradeX">
                           <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 25%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
-                          <td style="width: 20%;" class="text text-center"><span>Rp <?php echo $d['nominal']; ?></span></td>
-                          <td style="width: 15%;" class="text text-center"><span><?php echo $d['termin_ke']; ?></span></td>
-                          <td style="width: 15%;" class="text"><span><?php echo $d['note']; ?></span></td>
+                          <td style="width: 25%;" class="text over"><?php echo $d['project_name']; ?></td>
+                          <td style="width: 20%;" class="text text-center size">Rp <?php echo $d['nominal']; ?></td>
+                          <td style="width: 15%;" class="text text-center size"><?php echo $d['termin_ke']; ?></td>
+                          <td style="width: 15%;" class="text over"><?php echo $d['note']; ?></td>
                         </tr>
                     <?php
                       }
@@ -224,6 +224,18 @@
 <!-- jQuery -->
 <?php echo $footer; ?>
 <!-- page script -->
+<style>
+  .over {
+    white-space: normal;
+    overflow: visible;
+    word-wrap: break-word;
+    font-size: 12px;
+  }
+
+  .size {
+    font-size: 12px;
+  }
+</style>
 <script>
   $(function() {
     $("#example1").DataTable({

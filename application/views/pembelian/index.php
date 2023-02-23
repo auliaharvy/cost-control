@@ -66,11 +66,11 @@
                               <a><button class="btn btn-success btn-circle disabled text-white"><i class="fa fa-check"></i></button></a>
                             <?php } ?>
                           </td>
-                          <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
-                          <td style="width: 15%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
-                          <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
-                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_uang']; ?></span></td>
-                          <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
+                          <td style="width: 20%;" class="text over"><?php echo $d['project_name']; ?></td>
+                          <td style="width: 15%;" class="text over"><?php echo $d['nama_kategori']; ?></td>
+                          <td style="width: 15%;" class="text over"><?php echo $d['nama_pekerjaan']; ?></td>
+                          <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['jumlah_uang']; ?></td>
+                          <td style="width: 20%;" class="text over"><?php echo $d['keterangan']; ?></td>
                         </tr>
                     <?php
                       }
@@ -117,13 +117,13 @@
                               <button style="margin-left: 5px; border-radius: 5px;" type="submit" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></button>
                             </form>
                           </td>
-                          <td style="width: 20%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
-                          <td style="width: 10%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
-                          <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
-                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_approval']; ?></span></td>
-                          <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pembelian']; ?></span></td>
-                          <td style="width: 10%;" class="text text-center"><span><?php echo $d['tanggal_pembelian']; ?></span></td>
-                          <td style="width: 15%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
+                          <td style="width: 20%;" class="text over"><?php echo $d['project_name']; ?></td>
+                          <td style="width: 10%;" class="text over"><?php echo $d['nama_kategori']; ?></td>
+                          <td style="width: 15%;" class="text over"><?php echo $d['nama_pekerjaan']; ?></td>
+                          <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['jumlah_approval']; ?></td>
+                          <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['jumlah_pembelian']; ?></td>
+                          <td style="width: 10%;" class="text text-center size"><?php echo $d['tanggal_pembelian']; ?></td>
+                          <td style="width: 15%;" class="text over"><?php echo $d['keterangan']; ?></td>
                         </tr>
                     <?php
                       }
@@ -260,6 +260,18 @@
 <!-- jQuery -->
 <?php echo $footer; ?>
 <!-- page script -->
+<style>
+  .over {
+    white-space: normal;
+    overflow: visible;
+    word-wrap: break-word;
+    font-size: 12px;
+  }
+
+  .size {
+    font-size: 12px;
+  }
+</style>
 <script>
   $(function() {
     $("#example1").DataTable({

@@ -119,12 +119,12 @@
                               <button type="button" class="btn btn-warning btn-circle btn-sm disabled"><i class="fas fa-edit"></i></button>
                             <?php } ?>
                           </td>
-                          <td style="width: 20%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
-                          <td style="width: 20%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
-                          <td style="width: 10%;" class="text text-center"><span>Rp <?php echo $d['jumlah_biaya_v']; ?></span></td>
-                          <td style="width: 10%;" class="text text-center"><span>Rp <?php echo $d['jumlah_aktual_v']; ?></span></td>
-                          <td style="width: 10%;" class="text text-center"><span><?php echo $d['presentase']; ?> %</span></td>
-                          <td style="width: 20%;" class="text"><span><?php echo $d['note']; ?></span></td>
+                          <td style="width: 20%;" class="text over"><?php echo $d['nama_kategori']; ?></span></td>
+                          <td style="width: 20%;" class="text over"><?php echo $d['nama_pekerjaan']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center size">Rp <?php echo $d['jumlah_biaya_v']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center size">Rp <?php echo $d['jumlah_aktual_v']; ?></span></td>
+                          <td style="width: 10%;" class="text text-center size"><?php echo $d['presentase']; ?> %</span></td>
+                          <td style="width: 20%;" class="text over"><?php echo $d['note']; ?></span></td>
                         </tr>
                     <?php
                       }
@@ -371,6 +371,18 @@
 <!-- jQuery -->
 <?php echo $footer; ?>
 <!-- page script -->
+<style>
+  .over {
+    white-space: normal;
+    overflow: visible;
+    word-wrap: break-word;
+    font-size: 12px;
+  }
+
+  .size {
+    font-size: 12px;
+  }
+</style>
 <script>
   $(function() {
     $('#example1').DataTable({

@@ -271,10 +271,9 @@ class M_data extends CI_Model
 	public function gettitleomset()
 	{
 		$this->db->select("
-		SUM(b.nominal) as total_omset
+		SUM(a.rab_project) as total_omset
         ");
 		$this->db->from('mst_project as a');
-		$this->db->join('akk_penerimaan_project as b', 'a.id = b.project_id');
 		$this->db->where('a.project_status', 0);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
@@ -287,10 +286,9 @@ class M_data extends CI_Model
 	public function getOmset()
 	{
 		$this->db->select("
-          a.project_name,SUM(b.nominal) as total_omset,a.project_status
+          a.project_name,SUM(a.rab_project) as total_omset,a.project_status
       ");
 		$this->db->from('mst_project as a');
-		$this->db->join('akk_penerimaan_project as b', 'a.id = b.project_id', 'left');
 		$this->db->where('a.project_status', 0);
 		$this->db->group_by('a.id');
 		$data = $this->db->get();

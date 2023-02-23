@@ -77,8 +77,8 @@
                         foreach ($data_rap_biaya as $d) {
                           $id = $d['id']; ?>
                           <tr class="odd gradeX">
-                            <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                            <td style="width: 20%;" class="text over"><?php echo $d['nama_kategori']; ?></td>
+                            <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
+                            <td style="width: 23%;" class="text over"><?php echo $d['nama_kategori']; ?></td>
                             <td style="width: 20%;" class="text over"><?php echo $d['nama_pekerjaan']; ?></td>
                             <td style="width: 15%;" class="text text-center size">Rp. <?php echo $d['jumlah_biaya_v']; ?></td>
                             <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['jumlah_aktual_v']; ?></td>
@@ -117,8 +117,8 @@
                       foreach ($data_uang as $d) {
                         $id = $d['id']; ?>
                         <tr class="odd gradeX">
-                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 5%;" class="text-center">
+                          <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
+                          <td style="width: 5%; vertical-align:middle;" class="text-center">
                             <?php if ($data_uang1) { ?>
                               <form action="<?php echo site_url('hapusbelanja1'); ?>" method="post" class="row col-md-4">
                                 <input type="hidden" name="id_pengiriman" value="<?php echo $d['id_pengiriman']; ?>">
@@ -138,7 +138,7 @@
                             <?php } ?>
                           </td>
                           <td style="width: 15%;" class="text size"><span><?php echo $d['created_at']; ?></td>
-                          <td style="width: 20%;" class="text over"><span><?php echo $d['keterangan']; ?></td>
+                          <td style="width: 23%;" class="text over"><span><?php echo $d['keterangan']; ?></td>
                           <?php if ($d['jumlah_pembelian_v'] == null) { ?>
                             <td style="width: 15%;" class="text text-center size"><span>Rp. 0</span></td>
                           <?php } else { ?>
@@ -175,11 +175,11 @@
     white-space: normal;
     overflow: visible;
     word-wrap: break-word;
-    font-size: 12px;
+    font-size: 17px;
   }
 
   .size {
-    font-size: 12px;
+    font-size: 17px;
   }
 </style>
 <script>

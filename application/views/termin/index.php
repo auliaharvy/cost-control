@@ -55,8 +55,8 @@
                       foreach ($data as $d) {
                         $id = $d['id']; ?>
                         <tr class="odd gradeX">
-                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 20%;" class="text over"><?php echo $d['project_name']; ?></td>
+                          <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
+                          <td style="width: 23%; vertical-align:middle;" class="text text-center over"><?php echo $d['project_name']; ?></td>
                           <td style="width: 15%;" class="text over"><?php echo $d['project_location']; ?></td>
                           <td style="width: 15%;" class="text text-center size"><?php echo $d['project_deadline']; ?></td>
                           <td style="width: 15%;" class="text text-center size">Rp <?php echo $d['rab_project_v']; ?></td>
@@ -94,8 +94,8 @@
                       foreach ($datalogtermin as $d) {
                         $id = $d['id']; ?>
                         <tr class="odd gradeX">
-                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 25%;" class="text over"><?php echo $d['project_name']; ?></td>
+                          <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
+                          <td style="width: 28%; vertical-align:middle;" class="text text-center over"><?php echo $d['project_name']; ?></td>
                           <td style="width: 20%;" class="text text-center size">Rp <?php echo $d['nominal']; ?></td>
                           <td style="width: 15%;" class="text text-center size"><?php echo $d['termin_ke']; ?></td>
                           <td style="width: 15%;" class="text over"><?php echo $d['note']; ?></td>
@@ -229,11 +229,11 @@
     white-space: normal;
     overflow: visible;
     word-wrap: break-word;
-    font-size: 12px;
+    font-size: 17px;
   }
 
   .size {
-    font-size: 12px;
+    font-size: 17px;
   }
 </style>
 <script>

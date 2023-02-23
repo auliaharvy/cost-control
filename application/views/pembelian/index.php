@@ -58,15 +58,15 @@
                       foreach ($databelum as $d) {
                         $id = $d['id']; ?>
                         <tr class="odd gradeX">
-                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 15%;" align="center">
+                          <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
+                          <td style="width: 15%; vertical-align:middle;" align="center">
                             <?php if ($d['is_buy'] == 0) { ?>
                               <a href="" data-toggle="modal" style="width: 120px;" data-target="#belanja-pengajuan<?php echo $id; ?>" class="btn btn-danger btn-circle" data-popup="tooltip" data-placement="top" title="Belanja"><i class="fa fa-shopping-cart"></i>BELANJA</a>
                             <?php } else { ?>
                               <a><button class="btn btn-success btn-circle disabled text-white"><i class="fa fa-check"></i></button></a>
                             <?php } ?>
                           </td>
-                          <td style="width: 20%;" class="text over"><?php echo $d['project_name']; ?></td>
+                          <td style="width: 23%; vertical-align:middle;" class="text text-center over"><?php echo $d['project_name']; ?></td>
                           <td style="width: 15%;" class="text over"><?php echo $d['nama_kategori']; ?></td>
                           <td style="width: 15%;" class="text over"><?php echo $d['nama_pekerjaan']; ?></td>
                           <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['jumlah_uang']; ?></td>
@@ -106,8 +106,8 @@
                       foreach ($datasudah as $d) {
                         $id = $d['id']; ?>
                         <tr class="odd gradeX">
-                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 5%;" align="text-center">
+                          <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
+                          <td style="width: 5%; vertical-align:middle;" align="text-center">
                             <form action="<?php echo site_url('hapusbelanja'); ?>" method="post" class="row col-md-4">
                               <input type="hidden" name="id_pengiriman" value="<?php echo $d['id_pengiriman']; ?>">
                               <input type="hidden" name="id_project" value="<?php echo $d['id_project']; ?>">
@@ -117,7 +117,7 @@
                               <button style="margin-left: 5px; border-radius: 5px;" type="submit" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></button>
                             </form>
                           </td>
-                          <td style="width: 20%;" class="text over"><?php echo $d['project_name']; ?></td>
+                          <td style="width: 23%; vertical-align:middle;" class="text text-center over"><?php echo $d['project_name']; ?></td>
                           <td style="width: 10%;" class="text over"><?php echo $d['nama_kategori']; ?></td>
                           <td style="width: 15%;" class="text over"><?php echo $d['nama_pekerjaan']; ?></td>
                           <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['jumlah_approval']; ?></td>
@@ -265,11 +265,11 @@
     white-space: normal;
     overflow: visible;
     word-wrap: break-word;
-    font-size: 12px;
+    font-size: 17px;
   }
 
   .size {
-    font-size: 12px;
+    font-size: 17px;
   }
 </style>
 <script>

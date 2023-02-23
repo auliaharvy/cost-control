@@ -62,15 +62,15 @@
                         $id = $d['id'];
                         $is_rap_confirm = $d['is_rap_confirm'] ?>
                         <tr class="odd gradeX">
-                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 5%;" align="center">
+                          <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
+                          <td style="width: 5%; vertical-align:middle;" align="center">
                             <?php if ($is_rap_confirm == 0) { ?>
                               <a href="<?php echo site_url('C_project/delete/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Menghapus Project <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a>
                             <?php } else { ?>
                               <a href="<?php echo site_url('C_project/delete/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Menghapus Project <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm disabled" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a>
                             <?php } ?>
                           </td>
-                          <td style="width: 10%;" class="text text-center over">
+                          <td style="width: 13%; vertical-align:middle;" class="text text-center over">
                             <form action="<?php echo site_url('createrap'); ?>" method="post">
                               <input type="hidden" name="project_id" value="<?php echo $d['id']; ?>">
                               <button type="text" style="border: none; backgroud: none; padding: 0; color: blue;"><?php echo $d['project_name']; ?></button>
@@ -129,8 +129,8 @@
                       foreach ($datasudah as $d) {
                         $id = $d['id']; ?>
                         <tr class="odd gradeX">
-                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 20%;" class="text text-center over"><?php echo $d['project_name']; ?></td>
+                          <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
+                          <td style="width: 23%; vertical-align:middle;" class="text text-center over"><?php echo $d['project_name']; ?></td>
                           <td style="width: 15%;" class="text over"><?php echo $d['project_location']; ?></td>
                           <td style="width: 10%;" class="text text-center size"><?php echo $d['project_deadline_v']; ?></td>
                           <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['rab_project_v']; ?></td>
@@ -274,11 +274,11 @@
     white-space: normal;
     overflow: visible;
     word-wrap: break-word;
-    font-size: 12px;
+    font-size: 17px;
   }
 
   .size {
-    font-size: 12px;
+    font-size: 17px;
   }
 </style>
 <script>

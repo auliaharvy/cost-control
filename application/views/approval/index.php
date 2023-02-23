@@ -53,12 +53,12 @@
                     foreach ($datapengajuanbelumapprove as $d) {
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
-                        <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                        <td style="width: 10%;" align="center">
+                        <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
+                        <td style="width: 10%; vertical-align:middle;" align="center">
                           <button data-toggle="modal" style="width: 80px;" data-target="#approval<?php echo $id; ?>" class="btn btn-primary btn-circle" data-popup="tooltip" data-placement="top" title="Approve">Approve</button>
                           <!-- <a href="" data-toggle="modal" style="width: 120px;" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-danger btn-circle" data-popup="tooltip" data-placement="top" title="Approve"><i class="fas fa-edit"></i>Approve</a> -->
                         </td>
-                        <td style="width: 10%;" class="text over"><?php echo $d['project_name']; ?></td>
+                        <td style="width: 13%; vertical-align:middle;" class="text text-center over"><?php echo $d['project_name']; ?></td>
                         <td style="width: 15%;" class="text over"><?php echo $d['nama_kategori']; ?></td>
                         <td style="width: 10%;" class="text over"><?php echo $d['nama_pekerjaan']; ?></td>
                         <td style="width: 10%;" class="text text-center size"><?php echo $d['tanggal_pengajuan']; ?></td>
@@ -96,8 +96,8 @@
                     foreach ($datapengajuansudahapprove as $d) {
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
-                        <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                        <td style="width: 15%;" class="text over"><?php echo $d['project_name']; ?></td>
+                        <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
+                        <td style="width: 18%; vertical-align:middle;" class="text text-center over"><?php echo $d['project_name']; ?></td>
                         <td style="width: 15%;" class="text over"><?php echo $d['nama_kategori']; ?></td>
                         <td style="width: 15%;" class="text over"><?php echo $d['nama_pekerjaan']; ?></td>
                         <td style="width: 10%;" class="text text-center size"><?php echo $d['tanggal_approve']; ?></td>
@@ -170,11 +170,11 @@
     white-space: normal;
     overflow: visible;
     word-wrap: break-word;
-    font-size: 12px;
+    font-size: 17px;
   }
 
   .size {
-    font-size: 12px;
+    font-size: 17px;
   }
 </style>
 <script>

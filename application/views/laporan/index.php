@@ -49,7 +49,7 @@
                       <th class="text-center">Total Hutang</th>
                       <th class="text-center">Pengeluaran (%)</th>
                       <th class="text-center">Progress (%)</th>
-                      <th class="text-center">Status</th>
+                      <!-- <th class="text-center">Status</th> -->
                     </tr>
                   </thead>
                   <tbody>
@@ -65,15 +65,15 @@
                           $status = 'ON PROGRESS'; ?>
                         <?php } ?>
                         <tr class="odd gradeX">
-                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 5%;" align="center">
+                          <td style="width: 2%; vertical-align:middle;" class="text-center size"><?php echo $nomor++; ?></td>
+                          <td style="width: 5%; vertical-align:middle;" align="center">
                             <?php if ($is_rap_confirm == 0) { ?>
                               <a href="<?php echo site_url('C_project/delete/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Menghapus Project <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a>
                             <?php } else { ?>
                               <a href="<?php echo site_url('C_project/delete/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Menghapus Project <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm disabled" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a>
                             <?php } ?>
                           </td>
-                          <td style="width: 10%;" class="text over"><a href="<?php echo base_url() . "laporan_detail/" . $d['id']; ?>"><?php echo $d['project_name']; ?></a></td>
+                          <td style="width: 18%; vertical-align:middle;" class="text text-center over"><a href="<?php echo base_url() . "laporan_detail/" . $d['id']; ?>"><?php echo $d['project_name']; ?></a></td>
                           <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['rab_project_v']; ?></td>
                           <?php if ($d['total_biaya_v'] == null) { ?>
                             <td style="width: 10%;" class="text text-center size">Rp. 0</td>
@@ -105,7 +105,7 @@
                           <td style="width: 5%;" class="text text-center size">
                             <p class="<?php echo $d['background_text']; ?>"><?php echo $d['project_progress']; ?>%</p>
                           </td>
-                          <td style="width: 5%;" class="text text-center size"><?php echo $status; ?></td>
+                          <!-- <td style="width: 5%;" class="text text-center size"><?php echo $status; ?></td> -->
                         </tr>
                     <?php
                       }
@@ -137,7 +137,7 @@
                       <th class="text-center">Total Hutang</th>
                       <th class="text-center">Pengeluaran (%)</th>
                       <th class="text-center">Progress (%)</th>
-                      <th class="text-center">Status</th>
+                      <!-- <th class="text-center">Status</th> -->
                     </tr>
                   </thead>
                   <tbody>
@@ -152,13 +152,13 @@
                           $status = 'ON PROGRESS'; ?>
                         <?php } ?>
                         <tr class="odd gradeX">
-                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
+                          <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
                           <!-- <td style="width: 5%;" align="center">
                           <a href="<?php echo base_url() . "laporan_detail/" . $d['id']; ?>">
                             <button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button>
                         </td> -->
-                          <td style="width: 15%;" class="text over"><a href="<?php echo base_url() . "laporan_detail/" . $d['id']; ?>"><?php echo $d['project_name']; ?></a></td>
-                          <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['rab_project_v']; ?></td>
+                          <td style="width: 20%; vertical-align:middle;" class="text text-center over"><a href="<?php echo base_url() . "laporan_detail/" . $d['id']; ?>"><?php echo $d['project_name']; ?></a></td>
+                          <td style="width: 13%;" class="text text-center size">Rp. <?php echo $d['rab_project_v']; ?></td>
                           <?php if ($d['total_biaya_v'] == null) { ?>
                             <td style="width: 10%;" class="text text-center size">Rp. 0</td>
                           <?php } else { ?>
@@ -189,7 +189,7 @@
                           <td style="width: 5%;" class="text text-center size">
                             <p class="<?php echo $d['background_text']; ?>"><?php echo $d['project_progress']; ?>%</p>
                           </td>
-                          <td style="width: 5%;" class="text text-center size"><?php echo $status; ?></td>
+                          <!-- <td style="width: 5%;" class="text text-center size"><?php echo $status; ?></td> -->
                         </tr>
                     <?php
                       }
@@ -219,11 +219,11 @@
     white-space: normal;
     overflow: visible;
     word-wrap: break-word;
-    font-size: 12px;
+    font-size: 17px;
   }
 
   .size {
-    font-size: 12px;
+    font-size: 17px;
   }
 </style>
 <script>
@@ -242,7 +242,7 @@
       "lengthChange": true,
       // "scrollX": true,
       "searching": true,
-      "ordering": true,
+      "ordering": false,
       "info": true,
       "autoWidth": true,
     });

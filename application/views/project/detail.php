@@ -111,15 +111,15 @@
                       foreach ($data_rap_biaya as $d) {
                         $id = $d['id']; ?>
                         <tr class="odd gradeX">
-                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 5%;" align="center">
+                          <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
+                          <td style="width: 5%; vertical-align:middle;" align="center">
                             <?php if ($is_rap_confirm == 0) { ?>
                               <a data-toggle="modal" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></a>
                             <?php } else { ?>
                               <button type="button" class="btn btn-warning btn-circle btn-sm disabled"><i class="fas fa-edit"></i></button>
                             <?php } ?>
                           </td>
-                          <td style="width: 20%;" class="text over"><?php echo $d['nama_kategori']; ?></span></td>
+                          <td style="width: 23%;" class="text over"><?php echo $d['nama_kategori']; ?></span></td>
                           <td style="width: 20%;" class="text over"><?php echo $d['nama_pekerjaan']; ?></span></td>
                           <td style="width: 10%;" class="text text-center size">Rp <?php echo $d['jumlah_biaya_v']; ?></span></td>
                           <td style="width: 10%;" class="text text-center size">Rp <?php echo $d['jumlah_aktual_v']; ?></span></td>
@@ -376,11 +376,11 @@
     white-space: normal;
     overflow: visible;
     word-wrap: break-word;
-    font-size: 12px;
+    font-size: 17px;
   }
 
   .size {
-    font-size: 12px;
+    font-size: 17px;
   }
 </style>
 <script>
@@ -399,7 +399,7 @@
       "lengthChange": true,
       "scrollX": true,
       "searching": true,
-      "ordering": true,
+      "ordering": false,
       "info": true,
       "autoWidth": false,
     });

@@ -54,8 +54,8 @@
                       foreach ($data as $d) {
                         $id = $d['id']; ?>
                         <tr class="odd gradeX">
-                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 10%;" class="text-center">
+                          <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
+                          <td style="width: 10%; vertical-align:middle;" class="text-center">
                             <div class="row" align="center">
                               <button style="margin-left: 5px; border-radius: 5px;" data-toggle="modal" data-target="#editpengajuan<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm"><i class="fa fa-edit"></i></button>
                               <form action="<?php echo site_url('hapuspengajuan'); ?>" method="post">
@@ -65,7 +65,7 @@
                               </form>
                             </div>
                           </td>
-                          <td style="width: 25%;" class="text over"><?php echo $d['project_name']; ?></td>
+                          <td style="width: 28%; vertical-align:middle;" class="text over"><?php echo $d['project_name']; ?></td>
                           <td style="width: 20%;" class="text over"><?php echo $d['nama_pekerjaan']; ?></td>
                           <td style="width: 10%;" class="text text-center size"><?php echo $d['tanggal_pengajuan']; ?></td>
                           <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['jumlah_pengajuan']; ?></td>
@@ -104,8 +104,8 @@
                       foreach ($datapengajuansudahapprove as $d) {
                         $id = $d['id']; ?>
                         <tr class="odd gradeX">
-                          <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 20%;" class="text over"><?php echo $d['project_name']; ?></td>
+                          <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
+                          <td style="width: 23%; vertical-align:middle;" class="text over"><?php echo $d['project_name']; ?></td>
                           <td style="width: 15%;" class="text over"><?php echo $d['nama_pekerjaan']; ?></td>
                           <td style="width: 20%;" class="text text-center size"><?php echo $d['tanggal_approve']; ?></td>
                           <td style="width: 15%;" class="text text-center size">Rp. <?php echo $d['jumlah_pengajuan']; ?></td>
@@ -240,11 +240,11 @@
     white-space: normal;
     overflow: visible;
     word-wrap: break-word;
-    font-size: 12px;
+    font-size: 17px;
   }
 
   .size {
-    font-size: 12px;
+    font-size: 17px;
   }
 </style>
 <script>

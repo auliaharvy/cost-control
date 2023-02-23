@@ -54,16 +54,16 @@
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
                         <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                        <td style="width: 15%;" align="center">
-                          <button data-toggle="modal" style="width: 120px;" data-target="#approval<?php echo $id; ?>" class="btn btn-primary btn-circle" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i>Approve</button>
+                        <td style="width: 10%;" align="center">
+                          <button data-toggle="modal" style="width: 80px;" data-target="#approval<?php echo $id; ?>" class="btn btn-primary btn-circle" data-popup="tooltip" data-placement="top" title="Approve">Approve</button>
                           <!-- <a href="" data-toggle="modal" style="width: 120px;" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-danger btn-circle" data-popup="tooltip" data-placement="top" title="Approve"><i class="fas fa-edit"></i>Approve</a> -->
                         </td>
-                        <td style="width: 15%;" class="text"><span><?php echo $d['project_name']; ?><span></td>
-                        <td style="width: 15%;" class="text"><span><?php echo $d['nama_kategori']; ?></td>
-                        <td style="width: 10%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></td>
-                        <td style="width: 10%;" class="text text-center"><span><?php echo $d['tanggal_pengajuan']; ?></span></td>
-                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pengajuan_v']; ?></span></td>
-                        <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
+                        <td style="width: 10%;" class="text over"><?php echo $d['project_name']; ?></td>
+                        <td style="width: 15%;" class="text over"><?php echo $d['nama_kategori']; ?></td>
+                        <td style="width: 10%;" class="text over"><?php echo $d['nama_pekerjaan']; ?></td>
+                        <td style="width: 10%;" class="text text-center size"><?php echo $d['tanggal_pengajuan']; ?></td>
+                        <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['jumlah_pengajuan_v']; ?></td>
+                        <td style="width: 20%;" class="text over"><?php echo $d['keterangan']; ?></td>
                       </tr>
                     <?php } ?>
                   </tbody>
@@ -97,13 +97,13 @@
                       $id = $d['id']; ?>
                       <tr class="odd gradeX">
                         <td style="width: 5%;" class="text-center"><?php echo $nomor++; ?></td>
-                        <td style="width: 15%;" class="text"><span><?php echo $d['project_name']; ?></span></td>
-                        <td style="width: 15%;" class="text"><span><?php echo $d['nama_kategori']; ?></span></td>
-                        <td style="width: 15%;" class="text"><span><?php echo $d['nama_pekerjaan']; ?></span></td>
-                        <td style="width: 10%;" class="text"><span><?php echo $d['tanggal_approve']; ?></span></td>
-                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_pengajuan_v']; ?></span></td>
-                        <td style="width: 10%;" class="text text-center"><span>Rp. <?php echo $d['jumlah_approval_v']; ?></span></td>
-                        <td style="width: 20%;" class="text"><span><?php echo $d['keterangan']; ?></span></td>
+                        <td style="width: 15%;" class="text over"><?php echo $d['project_name']; ?></td>
+                        <td style="width: 15%;" class="text over"><?php echo $d['nama_kategori']; ?></td>
+                        <td style="width: 15%;" class="text over"><?php echo $d['nama_pekerjaan']; ?></td>
+                        <td style="width: 10%;" class="text text-center size"><?php echo $d['tanggal_approve']; ?></td>
+                        <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['jumlah_pengajuan_v']; ?></td>
+                        <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['jumlah_approval_v']; ?></td>
+                        <td style="width: 20%;" class="text over"><?php echo $d['keterangan']; ?></td>
                       </tr>
                     <?php
                     } ?>
@@ -165,6 +165,18 @@
 </div>
 <?php echo $footer; ?>
 <!-- page script -->
+<style>
+  .over {
+    white-space: normal;
+    overflow: visible;
+    word-wrap: break-word;
+    font-size: 12px;
+  }
+
+  .size {
+    font-size: 12px;
+  }
+</style>
 <script>
   $(function() {
     $('#example1').DataTable({

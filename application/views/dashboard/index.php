@@ -43,7 +43,7 @@
                 </div>
                 <div class="card-body">
                   <div class="chart">
-                    <canvas id="barChartTotal" style="min-height: 1000px; height: 1000px; max-height: 1000px; max-width: 100%;"></canvas>
+                    <canvas id="barChartTotal" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
                   </div>
                 </div>
               </div>
@@ -190,13 +190,15 @@
     var barChartTotal = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['TOTAL KAS', 'TOTAL PIUTANG', 'TOTAL HUTANG', 'TOTAL PENGAJUAN', 'TOTAL OMSET'],
+        labels: ['TOTAL SEMUA KAS', 'TOTAL KAS PERUSAHAAN', 'TOTAL KAS PROJECT', 'TOTAL PIUTANG', 'TOTAL HUTANG', 'TOTAL PENGAJUAN', 'TOTAL OMSET'],
         datasets: [{
           label: 'Total Uang',
           backgroundColor: 'rgba(104, 62, 35, 0.3)',
           borderColor: 'rgba(104, 62, 35, 1)',
           borderWidth: 1,
           data: [
+            <?php echo $totalkasall ?>,
+            <?php echo $totalkasper ?>,
             <?php echo $totalkas ?>,
             <?php
             $temp = array();

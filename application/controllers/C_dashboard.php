@@ -24,6 +24,7 @@ class C_dashboard extends CI_Controller
         $dataAll = $this->M_data->getAll();
         $titleAll = $this->M_data->getAlltitle();
         $title_kas = $this->M_data->gettitlekas();
+        $title_kasper = $this->M_data->gettitlekasper();
         $title_piutang = $this->M_data->gettitlepiutang();
         $title_hutang = $this->M_data->gettitlehutang();
         $title_omset = $this->M_data->gettitleomset();
@@ -35,6 +36,8 @@ class C_dashboard extends CI_Controller
         $datapiutang = $this->M_data->getPiutang();
         $totalkas = $this->lharby->formatRupiah($title_kas[0]['total_kas']);
         $titlekas = $totalkas;
+        $totalkasper = $this->lharby->formatRupiah($title_kasper[0]['total_kas']);
+        $titlekasper = $totalkasper;
         $totalhutang = $this->lharby->formatRupiah($title_hutang[0]['total_hutang']);
         $titlehutang = $totalhutang;
         $totalpengajuan = $this->lharby->formatRupiah($title_pengajuan[0]['total_pengajuan']);
@@ -55,6 +58,8 @@ class C_dashboard extends CI_Controller
             'datahutang' => $datahutang,
             'datapiutang' => $datapiutang,
             'totalkas' => $title_kas[0]['total_kas'],
+            'totalkasper' => $title_kasper[0]['total_kas'],
+            'totalkasall' => $title_kas[0]['total_kas'] + $title_kasper[0]['total_kas'],
             'totalhutang' => $title_hutang[0]['total_hutang'],
             'totalpengajuan' => $title_pengajuan[0]['total_pengajuan'],
             'totalomset' => $title_omset[0]['total_omset'],

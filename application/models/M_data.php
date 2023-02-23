@@ -201,6 +201,19 @@ class M_data extends CI_Model
 		}
 	}
 
+	public function gettitlekasper()
+	{
+		$this->db->select("a.cash_in_hand as total_kas
+      ");
+		$this->db->from('mst_organization as a');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data->result_array();
+		} else {
+			return false;
+		}
+	}
+
 	public function gettitlekas()
 	{
 		$this->db->select("

@@ -73,7 +73,7 @@
                               <a href="<?php echo site_url('C_project/delete/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Menghapus Project <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm disabled" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a>
                             <?php } ?>
                           </td>
-                          <td style="width: 18%; vertical-align:middle;" class="text text-center over"><a href="<?php echo base_url() . "laporan_detail/" . $d['id']; ?>"><?php echo $d['project_name']; ?></a></td>
+                          <td style="width: 18%; vertical-align:middle;" class="text over"><a href="<?php echo base_url() . "laporan_detail/" . $d['id']; ?>"><?php echo $d['project_name']; ?></a></td>
                           <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['rab_project_v']; ?></td>
                           <?php if ($d['total_biaya_v'] == null) { ?>
                             <td style="width: 10%;" class="text text-center size">Rp. 0</td>
@@ -157,7 +157,7 @@
                           <a href="<?php echo base_url() . "laporan_detail/" . $d['id']; ?>">
                             <button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-eye" data-popup="tooltip" data-placement="top" title="Detail Data"></i></button>
                         </td> -->
-                          <td style="width: 20%; vertical-align:middle;" class="text text-center over"><a href="<?php echo base_url() . "laporan_detail/" . $d['id']; ?>"><?php echo $d['project_name']; ?></a></td>
+                          <td style="width: 20%; vertical-align:middle;" class="text over"><a href="<?php echo base_url() . "laporan_detail/" . $d['id']; ?>"><?php echo $d['project_name']; ?></a></td>
                           <td style="width: 13%;" class="text text-center size">Rp. <?php echo $d['rab_project_v']; ?></td>
                           <?php if ($d['total_biaya_v'] == null) { ?>
                             <td style="width: 10%;" class="text text-center size">Rp. 0</td>

@@ -66,7 +66,7 @@
                               <a><button class="btn btn-success btn-circle disabled text-white"><i class="fa fa-check"></i></button></a>
                             <?php } ?>
                           </td>
-                          <td style="width: 23%; vertical-align:middle;" class="text text-center over"><?php echo $d['project_name']; ?></td>
+                          <td style="width: 23%; vertical-align:middle;" class="text over"><?php echo $d['project_name']; ?></td>
                           <td style="width: 15%;" class="text over"><?php echo $d['nama_kategori']; ?></td>
                           <td style="width: 15%;" class="text over"><?php echo $d['nama_pekerjaan']; ?></td>
                           <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['jumlah_uang']; ?></td>
@@ -117,7 +117,7 @@
                               <button style="margin-left: 5px; border-radius: 5px;" type="submit" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></button>
                             </form>
                           </td>
-                          <td style="width: 23%; vertical-align:middle;" class="text text-center over"><?php echo $d['project_name']; ?></td>
+                          <td style="width: 23%; vertical-align:middle;" class="text over"><?php echo $d['project_name']; ?></td>
                           <td style="width: 10%;" class="text over"><?php echo $d['nama_kategori']; ?></td>
                           <td style="width: 15%;" class="text over"><?php echo $d['nama_pekerjaan']; ?></td>
                           <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['jumlah_approval']; ?></td>

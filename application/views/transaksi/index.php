@@ -70,7 +70,7 @@
                               $id = $d['id']; ?>
                               <tr class="odd gradeX">
                                 <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
-                                <td style="width: 18%; vertical-align:middle;" class="text text-center over"><?php echo $d['project_name']; ?></td>
+                                <td style="width: 18%; vertical-align:middle;" class="text over"><?php echo $d['project_name']; ?></td>
                                 <td style="width: 15%;" class="text over"><?php echo $d['nama_kategori']; ?></td>
                                 <td style="width: 15%;" class="text over"><?php echo $d['nama_pekerjaan']; ?></td>
                                 <td style="width: 15%;" class="text text-center size"><?php echo $d['tanggal_pengajuan']; ?></td>
@@ -112,7 +112,7 @@
                               $id = $d['id']; ?>
                               <tr class="odd gradeX">
                                 <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
-                                <td style="width: 18%; vertical-align:middle;" class="text text-center over"><?php echo $d['project_name']; ?></td>
+                                <td style="width: 18%; vertical-align:middle;" class="text over"><?php echo $d['project_name']; ?></td>
                                 <td style="width: 15%;" class="text over"><?php echo $d['nama_kategori']; ?></td>
                                 <td style="width: 15%;" class="text over"><?php echo $d['nama_pekerjaan']; ?></td>
                                 <td style="width: 10%;" class="text text-center size"><?php echo $d['tanggal_approve']; ?></td>
@@ -154,7 +154,7 @@
                               $id = $d['id']; ?>
                               <tr class="odd gradeX">
                                 <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
-                                <td style="width: 28%; vertical-align:middle;" class="text text-center over"><?php echo $d['project_name']; ?></td>
+                                <td style="width: 28%; vertical-align:middle;" class="text over"><?php echo $d['project_name']; ?></td>
                                 <td style="width: 20%;" class="text text-center size">Rp. <?php echo $d['cash_in_hand']; ?></td>
                                 <td style="width: 10%;" class="text text-center size"><?php echo $d['created_at']; ?></td>
                                 <td style="width: 15%;" class="text text-center size">Rp. <?php echo $d['nominal']; ?></td>
@@ -191,7 +191,7 @@
                               $id = $d['id']; ?>
                               <tr class="odd gradeX">
                                 <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
-                                <td style="width: 45%; vertical-align:middle;" class="text text-center over"><?php echo $d['project_name']; ?></td>
+                                <td style="width: 45%; vertical-align:middle;" class="text over"><?php echo $d['project_name']; ?></td>
                                 <td style="width: 20%;" class="text text-center size"><?php echo $d['pay_at']; ?></td>
                                 <td style="width: 20%;" class="text text-center size">Rp. <?php echo $d['nominal']; ?></td>
                                 <td style="width: 13%;" class="text text-center size">Terbayar</td>
@@ -230,7 +230,7 @@
                               $id = $d['id']; ?>
                               <tr class="odd gradeX">
                                 <td style="width: 2%; vertical-align:middle;"><?php echo $nomor++; ?></td>
-                                <td style="width: 23%; vertical-align:middle;" class="text text-center over"><?php echo $d['project_name']; ?></td>
+                                <td style="width: 23%; vertical-align:middle;" class="text over"><?php echo $d['project_name']; ?></td>
                                 <td style="width: 20%;" class="text over"><?php echo $d['nama_kategori']; ?></td>
                                 <td style="width: 20%;" class="text over"><?php echo $d['nama_pekerjaan']; ?></td>
                                 <td style="width: 15%;" class="text text-center size">Rp. <?php echo $d['jumlah_approval']; ?></td>
@@ -269,7 +269,7 @@
                               $id = $d['id']; ?>
                               <tr class="odd gradeX">
                                 <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
-                                <td style="width: 28%; vertical-align:middle;" class="text text-center over"><?php echo $d['project_name']; ?></td>
+                                <td style="width: 28%; vertical-align:middle;" class="text over"><?php echo $d['project_name']; ?></td>
                                 <td style="width: 10%;" class="text over"><?php echo $d['nama_kategori']; ?></td>
                                 <td style="width: 20%;" class="text over"><?php echo $d['nama_pekerjaan']; ?></td>
                                 <td style="width: 10%;" class="text over"><?php echo $d['organization_name']; ?></td>

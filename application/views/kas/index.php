@@ -58,7 +58,7 @@
                         <td style="width: 10%; vertical-align:middle;" align="center">
                           <a data-toggle="modal" data-target="#editkas<?php echo $id; ?>" class="btn btn-sm btn-warning btn-circle" data-popup="tooltip" data-placement="top" title="Edit Kas"><i class="fas fas fa-edit"></i></a>
                         </td>
-                        <td style="width: 25%; vertical-align:middle;" class="text text-center over"><?php echo $d['organization_name']; ?></td>
+                        <td style="width: 25%; vertical-align:middle;" class="text over"><?php echo $d['organization_name']; ?></td>
                         <td style="width: 20%;" class="text text-center size">Rp. <?php echo $cash; ?></td>
                         <td style="width: 25%;" class="text over"><?php echo $d['organization_address']; ?></td>
                         <td style="width: 15%;" class="text text-center size"><?php echo $d['phone_number']; ?></td>

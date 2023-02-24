@@ -65,7 +65,7 @@
                             </td>
                         <?php }
                             } ?>
-                        <td style="width: 25%; vertical-align:middle;" class="text text-center over"><?php echo $d['project_name']; ?></td>
+                        <td style="width: 25%; vertical-align:middle;" class="text over"><?php echo $d['project_name']; ?></td>
                         <td style="width: 20%;" class="text text-center size"><?php echo $d['cash_in_hand']; ?></td>
                         <td style="width: 15%;" class="text text-center size"><?php echo $d['created_at']; ?></td>
                         <td style="width: 15%;" class="text text-center size">Rp. <?php echo $d['nominal']; ?></td>
@@ -102,7 +102,7 @@
                         $id = $d['id']; ?>
                         <tr class="odd gradeX">
                           <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 45%; vertical-align:middle;" class="text text-center over"><?php echo $d['project_name']; ?></td>
+                          <td style="width: 45%; vertical-align:middle;" class="text over"><?php echo $d['project_name']; ?></td>
                           <td style="width: 20%;" class="text text-center size"><?php echo $d['pay_at']; ?></td>
                           <td style="width: 20%;" class="text text-center size">Rp. <?php echo $d['nominal']; ?></td>
                           <td style="width: 13%;" class="text text-center size">Terbayar</td>

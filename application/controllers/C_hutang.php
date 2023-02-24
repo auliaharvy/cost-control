@@ -250,6 +250,22 @@ class C_hutang extends CI_Controller
         }
     }
 
+    public function delete()
+    {
+        $idhutang = $_POST['id_hutang'];
+        $where = array('id' => $idhutang);
+        $this->M_data->DeleteData('akk_hutang', $where);
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === TRUE) {
+            $pesan = "Penghapusan Hutang Berhasil";
+            $this->flashdata_succeed1($pesan);
+            redirect('hutang');
+        } else {
+            $pesan = "Penghapusan Hutang Gagal";
+            $this->flashdata_failed1($pesan);
+            redirect('hutang');
+        }
+    }
 
 
 

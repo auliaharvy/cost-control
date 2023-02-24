@@ -777,7 +777,7 @@ class C_project extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $pesan = validation_errors();
             $this->flashdata_failed1($pesan);
-            redirect('pengajuan/' . $project_id);
+            redirect();
         } else {
             $data = array(
                 "project_id" => $project_id,

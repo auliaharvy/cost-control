@@ -102,6 +102,7 @@ $route['dashboard'] = 'C_dashboard/index';
 $route['hutang'] = 'C_hutang/index';
 $route['hutang_detail/(:num)'] = 'C_hutang/detail/$1';
 $route['bayarhutang/(:num)'] = 'C_hutang/bayar_hutang/$1';
+$route['hapushutang'] = 'C_hutang/delete';
 
 //Halaman Master Data
 $route['masterdata'] = 'C_masterdata/index';

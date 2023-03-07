@@ -62,6 +62,7 @@ class C_dashboard extends CI_Controller
             'totalkasall' => $title_kas[0]['total_kas'] + $title_kasper[0]['total_kas'],
             'totalhutang' => $title_hutang[0]['total_hutang'],
             'totalpengajuan' => $title_pengajuan[0]['total_pengajuan'],
+            'is_approved' => $title_pengajuan[0]['is_approved'],
             'totalomset' => $title_omset[0]['total_omset'],
             // 'totalpiutang' => $title_piutang[0]['total_piutang'],
             'title_piutang' => $title_piutang,

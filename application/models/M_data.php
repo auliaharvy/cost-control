@@ -267,7 +267,7 @@ class M_data extends CI_Model
 	public function gettitlepengajuan()
 	{
 		$this->db->select("
-		SUM(c.jumlah_pengajuan) as total_pengajuan
+		SUM(c.jumlah_pengajuan) as total_pengajuan,a.project_name,c.is_approved
         ");
 		$this->db->from('mst_project as a');
 		$this->db->join('akk_pengajuan as b', 'a.id = b.project_id');

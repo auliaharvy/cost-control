@@ -49,9 +49,15 @@ class C_approval extends CI_Controller
             "last_updated_by" => $this->session->userdata('id'),
             "updated_at" => $date,
         );
+        $cekpengajuan = $this->M_pengajuan->GetData("akk_pengajuan_biaya ", "where id = '$pengajuan_biaya_id'");
+        $uang_pengajuan = $cekpengajuan[0]['jumlah_pengajuan'];
         $cekapproval = $this->M_pengajuan->GetData("akk_pengajuan_approval ", "where pengajuan_biaya_id = '$pengajuan_biaya_id'");
         $this->db->trans_start();
-        if ($cekapproval) {
+        if ($jumlah_approval > $uang_pengajuan) {
+            $pesan = "Jumlah approval yang diinput tidak boleh melebihi jumlah pengajuan";
+            $this->flashdata_failed1($pesan);
+            redirect('approval');
+        } elseif ($cekapproval) {
             $data_approval = array(
                 'jumlah_approval' => $jumlah_approval,
                 'note_app' => $_POST['note'],

@@ -230,7 +230,10 @@
           echo ($total);
           ?>,
           <?php echo $totalhutang ?>,
-          <?php echo $totalpengajuan ?>,
+          <?php if ($totalpengajuan == null) { ?> 0,
+          <?php } else { ?>
+            <?php echo $totalpengajuan ?>
+          <?php } ?>,
           <?php echo $totalomset ?>
         ]
       }]
@@ -537,19 +540,23 @@
         pointStrokeColor: 'rgba(153, 102, 255, 1)',
         pointHighlightFill: '#fff',
         pointHighlightStroke: 'rgba(153, 102, 255, 1)',
-        data: [<?php
-                $temp = array();
-                foreach ($datapengajuan->result() as $d) {
-                  $temp[] = $d->total_pengajuan;
-                };
-                $total = array_sum($temp);
-                echo ($total);
-                ?>,
-          <?php
-          foreach ($datapengajuan->result_array() as $row1) {
-            extract($row1);
-            echo "'{$total_pengajuan}',";
-          } ?>
+        data: [
+          <?php if ($datapengajuan == null) { ?> 0, 0
+          <?php } else { ?>
+            <?php
+            $temp = array();
+            foreach ($datapengajuan->result() as $d) {
+              $temp[] = $d->total_pengajuan;
+            };
+            $total = array_sum($temp);
+            echo ($total);
+            ?>,
+            <?php
+            foreach ($datapengajuan->result_array() as $row1) {
+              extract($row1);
+              echo "'{$total_pengajuan}',";
+            } ?>
+          <?php } ?>
         ]
       }]
     }

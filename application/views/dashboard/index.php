@@ -197,9 +197,20 @@
           borderColor: 'rgba(104, 62, 35, 1)',
           borderWidth: 1,
           data: [
-            <?php echo $totalkasall ?>,
-            <?php echo $totalkasper ?>,
-            <?php echo $totalkas ?>,
+            <?php if ($totalkasall == null) { ?>0
+          <?php } else { ?>
+            <?php echo $totalkasall ?>
+          <?php } ?>,
+          <?php if ($totalkasper == null) { ?>0
+          <?php } else { ?>
+            <?php echo $totalkasper ?>
+          <?php } ?>,
+          <?php if ($totalkas == null) { ?>0
+          <?php } else { ?>
+            <?php echo $totalkas ?>
+          <?php } ?>,
+          <?php if ($title_piutang == null) { ?>0
+          <?php } else { ?>
             <?php
             $temp = array();
             foreach ($title_piutang->result() as $d) {
@@ -207,10 +218,20 @@
             };
             $total = array_sum($temp);
             echo ($total);
-            ?>,
-            <?php echo $totalhutang ?>,
-            <?php echo $totalpengajuan ?>,
+            ?>
+          <?php } ?>,
+          <?php if ($totalhutang == null) { ?>0
+          <?php } else { ?>
+            <?php echo $totalhutang ?>
+          <?php } ?>,
+          <?php if ($totalpengajuan == null) { ?>0
+          <?php } else { ?>
+            <?php echo $totalpengajuan ?>
+          <?php } ?>,
+          <?php if ($totalomset == null) { ?>0
+          <?php } else { ?>
             <?php echo $totalomset ?>
+          <?php } ?>
           ]
         }]
       },
@@ -250,30 +271,37 @@
       type: 'bar',
       data: {
         labels: ['TOTAL KAS',
-          <?php
-          foreach ($datakas->result_array() as $row1) {
-            extract($row1);
-            echo "['{$project_name}'],";
-          } ?>
+          <?php if ($datakas == null) { ?> 'Kas'
+          <?php } else { ?>
+            <?php
+            foreach ($datakas->result_array() as $row1) {
+              extract($row1);
+              echo "['{$project_name}'],";
+            } ?>
+          <?php } ?>
         ],
         datasets: [{
           label: 'Jumlah Kas',
           backgroundColor: 'rgba(54, 162, 235, 0.2)',
           borderColor: 'rgba(54, 162, 235, 1)',
           borderWidth: 1,
-          data: [<?php
-                  $temp = array();
-                  foreach ($datakas->result() as $d) {
-                    $temp[] = $d->total_kas;
-                  };
-                  $total = array_sum($temp);
-                  echo ($total);
-                  ?>,
+          data: [
+            <?php if ($datakas == null) { ?>0, 0
+          <?php } else { ?>
             <?php
-            foreach ($datakas->result_array() as $row1) {
-              extract($row1);
-              echo "'{$total_kas}',";
-            } ?>
+              $temp = array();
+              foreach ($datakas->result() as $d) {
+                $temp[] = $d->total_kas;
+              };
+              $total = array_sum($temp);
+              echo ($total);
+            ?>,
+            <?php
+              foreach ($datakas->result_array() as $row1) {
+                extract($row1);
+                echo "'{$total_kas}',";
+              } ?>
+          <?php } ?>
           ]
         }]
       },
@@ -313,30 +341,37 @@
       type: 'bar',
       data: {
         labels: ['TOTAL PIUTANG',
-          <?php
-          foreach ($datapiutang->result_array() as $row1) {
-            extract($row1);
-            echo "['{$project_name}'],";
-          } ?>
+          <?php if ($datapiutang == null) { ?> 'Piutang'
+          <?php } else { ?>
+            <?php
+            foreach ($datapiutang->result_array() as $row1) {
+              extract($row1);
+              echo "['{$project_name}'],";
+            } ?>
+          <?php } ?>
         ],
         datasets: [{
           label: 'Jumlah Piutang',
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
           borderColor: 'rgba(75, 192, 192, 1)',
           borderWidth: 1,
-          data: [<?php
-                  $temp = array();
-                  foreach ($datapiutang->result() as $d) {
-                    $temp[] = $d->total_piutang;
-                  };
-                  $total = array_sum($temp);
-                  echo ($total);
-                  ?>,
+          data: [
+            <?php if ($datapiutang == null) { ?>0, 0
+          <?php } else { ?>
             <?php
-            foreach ($datapiutang->result_array() as $row1) {
-              extract($row1);
-              echo "'{$total_piutang}',";
-            } ?>
+              $temp = array();
+              foreach ($datapiutang->result() as $d) {
+                $temp[] = $d->total_piutang;
+              };
+              $total = array_sum($temp);
+              echo ($total);
+            ?>,
+            <?php
+              foreach ($datapiutang->result_array() as $row1) {
+                extract($row1);
+                echo "'{$total_piutang}',";
+              } ?>
+          <?php } ?>
           ]
         }]
       },
@@ -376,30 +411,37 @@
       type: 'bar',
       data: {
         labels: ['TOTAL HUTANG',
-          <?php
-          foreach ($datahutang->result_array() as $row1) {
-            extract($row1);
-            echo "['{$project_name}'],";
-          } ?>
+          <?php if ($datahutang == null) { ?> 'Hutang'
+          <?php } else { ?>
+            <?php
+            foreach ($datahutang->result_array() as $row1) {
+              extract($row1);
+              echo "['{$project_name}'],";
+            } ?>
+          <?php } ?>
         ],
         datasets: [{
           label: 'Jumlah Hutang',
           backgroundColor: 'rgba(255, 99, 132, 0.2)',
           borderColor: 'rgba(255, 99, 132, 1)',
           borderWidth: 1,
-          data: [<?php
-                  $temp = array();
-                  foreach ($datahutang->result() as $d) {
-                    $temp[] = $d->total_hutang;
-                  };
-                  $total = array_sum($temp);
-                  echo ($total);
-                  ?>,
+          data: [
+            <?php if ($datahutang == null) { ?>0, 0
+          <?php } else { ?>
             <?php
-            foreach ($datahutang->result_array() as $row1) {
-              extract($row1);
-              echo "'{$total_hutang}',";
-            } ?>
+              $temp = array();
+              foreach ($datahutang->result() as $d) {
+                $temp[] = $d->total_hutang;
+              };
+              $total = array_sum($temp);
+              echo ($total);
+            ?>,
+            <?php
+              foreach ($datahutang->result_array() as $row1) {
+                extract($row1);
+                echo "'{$total_hutang}',";
+              } ?>
+          <?php } ?>
           ]
         }]
       },
@@ -439,30 +481,37 @@
       type: 'bar',
       data: {
         labels: ['TOTAL PENGAJUAN',
-          <?php
-          foreach ($datapengajuan->result_array() as $row1) {
-            extract($row1);
-            echo "['{$project_name}'],";
-          } ?>
+          <?php if ($datapengajuan == null) { ?> 'Pengajuan'
+          <?php } else { ?>
+            <?php
+            foreach ($datapengajuan->result_array() as $row1) {
+              extract($row1);
+              echo "['{$project_name}'],";
+            } ?>
+          <?php } ?>
         ],
         datasets: [{
           label: 'Jumlah Pengajuan',
           backgroundColor: 'rgba(153, 102, 255, 0.2)',
           borderColor: 'rgba(153, 102, 255, 1)',
           borderWidth: 1,
-          data: [<?php
-                  $temp = array();
-                  foreach ($datapengajuan->result() as $d) {
-                    $temp[] = $d->total_pengajuan;
-                  };
-                  $total = array_sum($temp);
-                  echo ($total);
-                  ?>,
+          data: [
+            <?php if ($datapengajuan == null) { ?>0, 0
+          <?php } else { ?>
             <?php
-            foreach ($datapengajuan->result_array() as $row1) {
-              extract($row1);
-              echo "'{$total_pengajuan}',";
-            } ?>
+              $temp = array();
+              foreach ($datapengajuan->result() as $d) {
+                $temp[] = $d->total_pengajuan;
+              };
+              $total = array_sum($temp);
+              echo ($total);
+            ?>,
+            <?php
+              foreach ($datapengajuan->result_array() as $row1) {
+                extract($row1);
+                echo "'{$total_pengajuan}',";
+              } ?>
+          <?php } ?>
           ]
         }]
       },
@@ -502,30 +551,37 @@
       type: 'bar',
       data: {
         labels: ['TOTAL OMSET',
-          <?php
-          foreach ($dataomset->result_array() as $row1) {
-            extract($row1);
-            echo "['{$project_name}'],";
-          } ?>
+          <?php if ($dataomset == null) { ?> 'Omset'
+          <?php } else { ?>
+            <?php
+            foreach ($dataomset->result_array() as $row1) {
+              extract($row1);
+              echo "['{$project_name}'],";
+            } ?>
+          <?php } ?>
         ],
         datasets: [{
           label: 'Jumlah Omset',
           backgroundColor: 'rgba(255, 159, 64, 0.2)',
           borderColor: 'rgba(255, 159, 64, 1)',
           borderWidth: 1,
-          data: [<?php
-                  $temp = array();
-                  foreach ($dataomset->result() as $d) {
-                    $temp[] = $d->total_omset;
-                  };
-                  $total = array_sum($temp);
-                  echo ($total);
-                  ?>,
+          data: [
+            <?php if ($dataomset == null) { ?>0, 0
+          <?php } else { ?>
             <?php
-            foreach ($dataomset->result_array() as $row1) {
-              extract($row1);
-              echo "'{$total_omset}',";
-            } ?>
+              $temp = array();
+              foreach ($dataomset->result() as $d) {
+                $temp[] = $d->total_omset;
+              };
+              $total = array_sum($temp);
+              echo ($total);
+            ?>,
+            <?php
+              foreach ($dataomset->result_array() as $row1) {
+                extract($row1);
+                echo "'{$total_omset}',";
+              } ?>
+          <?php } ?>
           ]
         }]
       },

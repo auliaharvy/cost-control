@@ -415,30 +415,39 @@ class C_pembelian extends CI_Controller
         $idpengiriman = $_POST['id_pengiriman'];
         $idpembelian = $_POST['id_pembelian'];
         $idremaining = $_POST['id_remaining'];
-        $data_pembelian = $this->M_pembelian->showPembeliansudah();
-        $jumlah_uang_pembelian = $data_pembelian[0]['jumlah_pembelian'];
-        $cash = $data_pembelian[0]['cash'];
-        $remaining_pembelian = $data_pembelian[0]['remaining_pembelian'];
-        $cekbuy = $data_pembelian[0]['is_buy'];
-        $wherepengiriman = array('id' => $idpengiriman);
-        $whereproject = array('id' => $idproject);
-        $where = array('id' => $idpembelian);
-        $whereremaining = array('id' => $idremaining);
+        $idrap = $_POST['id_rap'];
+        $a = $_POST['jumlah_pembelian'];
+        $b = str_replace('.', '', $a); //ubah format rupiah ke integer
+        $jumlah_pembelian = intval($b);
+        $cash = $_POST['cash'];
+        $c = $_POST['cash'];
+        $d = str_replace('.', '', $c); //ubah format rupiah ke integer
+        $cash = intval($d);
+        $cekbuy = $_POST['is_buy'];
         if ($cekbuy == 1) {
+            $wherepengiriman = array('id' => $idpengiriman);
             $data = array(
                 "is_buy" => 0,
                 "last_updated_by" => $this->session->userdata('id'),
                 "updated_at" => date('Y-m-d H:i:s'),
                 "buy_created_at" => NULL,
             );
-            $total_cash = $cash + $jumlah_uang_pembelian;
+            $whereproject = array('id' => $idproject);
             $dataproject = array(
-                "cash_in_hand" => $total_cash,
+                "cash_in_hand" => $cash + $jumlah_pembelian,
                 "last_updated_by" => $this->session->userdata('id'),
                 "updated_at" => date('Y-m-d H:i:s'),
             );
+            $whererap = array('id' => $idrap);
+            $datarap = array(
+                "jumlah_aktual" => 0,
+                "last_update_by" => $this->session->userdata('id'),
+                "updated_at" => date('Y-m-d H:i:s'),
+            );
+            $where = array('id' => $idpembelian);
             $res = $this->M_data->UpdateData('trx_pengiriman_uang', $data, $wherepengiriman); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
             $res = $this->M_data->UpdateData('mst_project', $dataproject, $whereproject); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
+            $res = $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
             $res = $this->M_data->DeleteData('trx_pembelian_barang', $where);
             if ($res >= 1) {
                 $pesan = "Penghapusan Transakasi Pembelian Berhasil";
@@ -450,6 +459,7 @@ class C_pembelian extends CI_Controller
                 redirect('pembelian');
             }
         } else {
+            $wherepengiriman = array('id' => $idpengiriman);
             $data = array(
                 "is_buy" => 0,
                 "last_updated_by" => $this->session->userdata('id'),
@@ -457,14 +467,23 @@ class C_pembelian extends CI_Controller
                 "buy_created_at" => NULL,
                 "remaining_pembelian" => 0,
             );
-            $total_cash = $cash + $jumlah_uang_pembelian;
+            $whereproject = array('id' => $idproject);
             $dataproject = array(
-                "cash_in_hand" => $total_cash,
+                "cash_in_hand" => $cash + $jumlah_pembelian,
                 "last_updated_by" => $this->session->userdata('id'),
                 "updated_at" => date('Y-m-d H:i:s'),
             );
+            $whererap = array('id' => $idrap);
+            $datarap = array(
+                "jumlah_aktual" => 0,
+                "last_updated_by" => $this->session->userdata('id'),
+                "updated_at" => date('Y-m-d H:i:s'),
+            );
+            $where = array('id' => $idpembelian);
+            $whereremaining = array('id' => $idremaining);
             $res = $this->M_data->UpdateData('trx_pengiriman_uang', $data, $wherepengiriman); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
             $res = $this->M_data->UpdateData('mst_project', $dataproject, $whereproject); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
+            $res = $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
             $res = $this->M_data->DeleteData('trx_pembelian_barang', $where);
             $res = $this->M_data->DeleteData('trx_cash_remaining', $whereremaining);
             if ($res >= 1) {
@@ -513,30 +532,39 @@ class C_pembelian extends CI_Controller
         $idpengiriman = $_POST['id_pengiriman'];
         $idpembelian = $_POST['id_pembelian'];
         $idremaining = $_POST['id_remaining'];
-        $data_pembelian = $this->M_pembelian->showPembeliansudah();
-        $jumlah_uang_pembelian = $data_pembelian[0]['jumlah_pembelian'];
-        $cash = $data_pembelian[0]['cash'];
-        $remaining_pembelian = $data_pembelian[0]['remaining_pembelian'];
-        $cekbuy = $data_pembelian[0]['is_buy'];
-        $wherepengiriman = array('id' => $idpengiriman);
-        $whereproject = array('id' => $idproject);
-        $where = array('id' => $idpembelian);
-        $whereremaining = array('id' => $idremaining);
+        $idrap = $_POST['id_rap'];
+        $a = $_POST['jumlah_pembelian'];
+        $b = str_replace('.', '', $a); //ubah format rupiah ke integer
+        $jumlah_pembelian = intval($b);
+        $cash = $_POST['cash'];
+        $c = $_POST['cash'];
+        $d = str_replace('.', '', $c); //ubah format rupiah ke integer
+        $cash = intval($d);
+        $cekbuy = $_POST['is_buy'];
         if ($cekbuy == 1) {
+            $wherepengiriman = array('id' => $idpengiriman);
             $data = array(
                 "is_buy" => 0,
                 "last_updated_by" => $this->session->userdata('id'),
                 "updated_at" => date('Y-m-d H:i:s'),
                 "buy_created_at" => NULL,
             );
-            $total_cash = $cash + $jumlah_uang_pembelian;
+            $whereproject = array('id' => $idproject);
             $dataproject = array(
-                "cash_in_hand" => $total_cash,
+                "cash_in_hand" => $cash + $jumlah_pembelian,
                 "last_updated_by" => $this->session->userdata('id'),
                 "updated_at" => date('Y-m-d H:i:s'),
             );
+            $whererap = array('id' => $idrap);
+            $datarap = array(
+                "jumlah_aktual" => 0,
+                "last_update_by" => $this->session->userdata('id'),
+                "updated_at" => date('Y-m-d H:i:s'),
+            );
+            $where = array('id' => $idpembelian);
             $res = $this->M_data->UpdateData('trx_pengiriman_uang', $data, $wherepengiriman); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
             $res = $this->M_data->UpdateData('mst_project', $dataproject, $whereproject); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
+            $res = $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
             $res = $this->M_data->DeleteData('trx_pembelian_barang', $where);
             if ($res >= 1) {
                 $pesan = "Penghapusan Transakasi Pembelian Berhasil";
@@ -548,6 +576,7 @@ class C_pembelian extends CI_Controller
                 redirect('laporan_detail/' . $idproject);
             }
         } else {
+            $wherepengiriman = array('id' => $idpengiriman);
             $data = array(
                 "is_buy" => 0,
                 "last_updated_by" => $this->session->userdata('id'),
@@ -555,14 +584,23 @@ class C_pembelian extends CI_Controller
                 "buy_created_at" => NULL,
                 "remaining_pembelian" => 0,
             );
-            $total_cash = $cash + $jumlah_uang_pembelian;
+            $whereproject = array('id' => $idproject);
             $dataproject = array(
-                "cash_in_hand" => $total_cash,
+                "cash_in_hand" => $cash + $jumlah_pembelian,
                 "last_updated_by" => $this->session->userdata('id'),
                 "updated_at" => date('Y-m-d H:i:s'),
             );
+            $whererap = array('id' => $idrap);
+            $datarap = array(
+                "jumlah_aktual" => 0,
+                "last_updated_by" => $this->session->userdata('id'),
+                "updated_at" => date('Y-m-d H:i:s'),
+            );
+            $where = array('id' => $idpembelian);
+            $whereremaining = array('id' => $idremaining);
             $res = $this->M_data->UpdateData('trx_pengiriman_uang', $data, $wherepengiriman); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
             $res = $this->M_data->UpdateData('mst_project', $dataproject, $whereproject); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
+            $res = $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
             $res = $this->M_data->DeleteData('trx_pembelian_barang', $where);
             $res = $this->M_data->DeleteData('trx_cash_remaining', $whereremaining);
             if ($res >= 1) {

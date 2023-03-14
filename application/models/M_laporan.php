@@ -57,7 +57,8 @@ class M_laporan extends CI_Model
 			RIGHT JOIN mst_project as a ON b.project_id = a.id 
 			LEFT JOIN (SELECT SUM(nominal) AS termin_terbayar,project_id FROM akk_penerimaan_project GROUP BY project_id) as d ON d.project_id = a.id
 			LEFT JOIN (SELECT SUM(nominal) AS total_hutang,project_id FROM akk_hutang WHERE is_pay = 0 GROUP BY project_id) as e ON e.project_id = a.id
-			WHERE a.created_by = $user_id && a.project_status = 0");
+			WHERE a.created_by = $user_id && a.project_status = 0
+			ORDER BY a.created_at ASC");
 		} else {
 			$data = $this->db->query("SELECT a.*, IF((c.persentase-a.project_progress)>5,'bg-danger text-white','') as background_text, FORMAT(d.termin_terbayar,0,'de_DE') as termin_terbayar, FORMAT(e.total_hutang,0,'de_DE') as total_hutang,FORMAT(c.total_biaya,0,'de_DE') as total_biaya_v,FORMAT(c.total_pengeluaran,0,'de_DE') as total_pengeluaran_v, a.project_name,FORMAT(a.cash_in_hand,0,'de_DE') as cash_in_hand
 			, FORMAT(ROUND((a.rab_project - d.termin_terbayar),0),0,'de_DE') as sisa_termin, a.project_location, a.project_deadline,FORMAT(a.rab_project,0,'de_DE') as rab_project_v,DATE_FORMAT(a.project_deadline,'%d %M %Y') as project_deadline_v,DATE_FORMAT(a.finish_at,'%d %M %Y') as finish_at_v, CONCAT(c.persentase,'%') as persentase_v FROM akk_rap as b 
@@ -66,7 +67,8 @@ class M_laporan extends CI_Model
 			RIGHT JOIN mst_project as a ON b.project_id = a.id
 			LEFT JOIN (SELECT SUM(nominal) AS termin_terbayar,project_id FROM akk_penerimaan_project GROUP BY project_id) as d ON d.project_id = a.id
 			LEFT JOIN (SELECT SUM(nominal) AS total_hutang,project_id FROM akk_hutang WHERE is_pay = 0 GROUP BY project_id) as e ON e.project_id = a.id
-			WHERE a.project_status = 0");
+			WHERE a.project_status = 0
+			ORDER BY a.created_at ASC");
 		}
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
@@ -87,7 +89,8 @@ class M_laporan extends CI_Model
 			RIGHT JOIN mst_project as a ON b.project_id = a.id 
 			LEFT JOIN (SELECT SUM(nominal) AS termin_terbayar,project_id FROM akk_penerimaan_project GROUP BY project_id) as d ON d.project_id = a.id
 			LEFT JOIN (SELECT SUM(nominal) AS total_hutang,project_id FROM akk_hutang WHERE is_pay = 0 GROUP BY project_id) as e ON e.project_id = a.id
-			WHERE a.created_by = $user_id && a.project_status = 1");
+			WHERE a.created_by = $user_id && a.project_status = 1
+			ORDER BY a.created_at ASC");
 		} else {
 			$data = $this->db->query("SELECT a.*, IF((c.persentase-a.project_progress)>5,'bg-danger text-white','') as background_text, FORMAT(d.termin_terbayar,0,'de_DE') as termin_terbayar, FORMAT(e.total_hutang,0,'de_DE') as total_hutang,FORMAT(c.total_biaya,0,'de_DE') as total_biaya_v,FORMAT(c.total_pengeluaran,0,'de_DE') as total_pengeluaran_v, a.project_name,FORMAT(a.cash_in_hand,0,'de_DE') as cash_in_hand
 			, FORMAT(ROUND((a.rab_project - d.termin_terbayar),0),0,'de_DE') as sisa_termin, a.project_location, a.project_deadline,FORMAT(a.rab_project,0,'de_DE') as rab_project_v,DATE_FORMAT(a.project_deadline,'%d %M %Y') as project_deadline_v,DATE_FORMAT(a.finish_at,'%d %M %Y') as finish_at_v, CONCAT(c.persentase,'%') as persentase_v FROM akk_rap as b 
@@ -96,7 +99,8 @@ class M_laporan extends CI_Model
 			RIGHT JOIN mst_project as a ON b.project_id = a.id
 			LEFT JOIN (SELECT SUM(nominal) AS termin_terbayar,project_id FROM akk_penerimaan_project GROUP BY project_id) as d ON d.project_id = a.id
 			LEFT JOIN (SELECT SUM(nominal) AS total_hutang,project_id FROM akk_hutang WHERE is_pay = 0 GROUP BY project_id) as e ON e.project_id = a.id
-			WHERE a.project_status = 1");
+			WHERE a.project_status = 1
+			ORDER BY a.created_at ASC");
 		}
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
@@ -128,10 +132,11 @@ class M_laporan extends CI_Model
 	{
 		$this->db->select("
           a.*,b.project_name, b.project_location, b.project_deadline, b.rab_project,b.cash_in_hand,b.project_status,
-          IF(b.project_status=0,'bg-danger text-white','bg-success text-white') as background_text
+          IF(b.project_status=0,'bg-danger text-white','bg-success text-white') as background_text, c.fullname
       ");
 		$this->db->from('akk_rap as a');
 		$this->db->join('mst_project as b', 'a.project_id = b.id');
+		$this->db->join('mst_users as c', 'b.created_by = c.id');
 		$this->db->where('b.id', $id);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
@@ -145,8 +150,8 @@ class M_laporan extends CI_Model
 	{
 		$this->db->select('
         a.*,FORMAT(a.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian_v,DATE_FORMAT(a.created_at,"%d %M %Y") as created_at,
-		a.note as keterangan,g.nama_kategori,c.id as id_pengiriman,b.id as id_project,h.id as id_remaining
-		
+		a.note as keterangan,g.nama_kategori,c.id as id_pengiriman,b.id as id_project,h.id as id_remaining,
+		b.project_name,b.cash_in_hand as cash, c.is_buy , f.id as id_rap
         ');
 		$this->db->from('trx_pembelian_barang as a');
 		$this->db->join('mst_project as b', 'a.project_office_id = b.id');
@@ -170,7 +175,8 @@ class M_laporan extends CI_Model
 	{
 		$this->db->select('
         a.*,c.nama_pekerjaan,FORMAT(a.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian_v,a.note as keterangan,
-		DATE_FORMAT(a.created_at,"%d %M %Y") as created_at,b.id as id_project
+		DATE_FORMAT(a.created_at,"%d %M %Y") as created_at,b.id as id_project, b.project_name, b.cash_in_hand as cash,
+		c.id as id_rap
         ');
 		$this->db->from('trx_pembelian_barang_remaining as a');
 		$this->db->join('mst_project as b', 'a.project_id = b.id');

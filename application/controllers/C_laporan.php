@@ -72,6 +72,7 @@ class C_laporan extends CI_Controller
             'project_name' => $get[0]['project_name'],
             'project_location' => $get[0]['project_location'],
             'background_text' => $get[0]['background_text'],
+            'pic' => $get[0]['fullname'],
             'status' => $status,
             'cash_in_hand' => $cash_in_hand,
             'project_deadline' => $deadline,
@@ -232,6 +233,52 @@ class C_laporan extends CI_Controller
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         $writer->save('php://output');
         exit;
+    }
+
+    public function pdf($id)
+    {
+        $cekrap = $this->M_data->GetData("akk_rap ", "where project_id = '$id'");
+        $get = $this->M_laporan->getRap($id);
+        $stat = $get[0]['project_status'];
+        if ($stat == 1) {
+            $status = 'SELESAI';
+        } else {
+            $status = ' ON PROCCESS';
+        }
+        if ($cekrap) { //jika project sudah punya rap
+            $is_rap_confirm = $cekrap[0]['is_rap_confirm'];
+        } else { //jika project belum ada rap
+            $is_rap_confirm = 0;
+        }
+        $tgl = $get[0]['project_deadline'];
+        $deadline = $this->convert_date($tgl);
+        $rab_project = $this->lharby->formatRupiah($get[0]['rab_project']);
+        $cash_in_hand = $this->lharby->formatRupiah($get[0]['cash_in_hand']);
+        $data_rap_biaya = $this->M_laporan->getBiayaRap($id);
+        $data_uang1 = $this->M_laporan->showuangdetail($id);
+        $data_uang2 = $this->M_laporan->showuangdetailremaining($id);
+        $data_uang = array_merge($data_uang1, $data_uang2);
+        $show = array(
+            'nav' => $this->header(),
+            'navbar' => $this->navbar(),
+            'sidebar' => $this->sidebar(),
+            'footer' => $this->footer(),
+            'project_id' => $id,
+            'rap_id' => $get[0]['id'],
+            'project_name' => $get[0]['project_name'],
+            'project_location' => $get[0]['project_location'],
+            'background_text' => $get[0]['background_text'],
+            'status' => $status,
+            'cash_in_hand' => $cash_in_hand,
+            'project_deadline' => $deadline,
+            'rab_project' => $rab_project,
+            'data_rap_biaya' => $data_rap_biaya,
+            'data_uang' => $data_uang,
+            'data_uang1' => $data_uang1,
+            'data_uang2' => $data_uang2,
+            'is_rap_confirm' => $is_rap_confirm,
+        );
+        $this->load->view('laporan/pdf', $show);
     }
 
     function convert_date($tgl)

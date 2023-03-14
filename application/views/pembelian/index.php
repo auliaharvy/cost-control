@@ -113,6 +113,10 @@
                               <input type="hidden" name="id_project" value="<?php echo $d['id_project']; ?>">
                               <input type="hidden" name="id_pembelian" value="<?php echo $id; ?>">
                               <input type="hidden" name="id_remaining" value="<?php echo $d['id_remaining']; ?>">
+                              <input type="hidden" name="cash" value="<?php echo $d['cash']; ?>">
+                              <input type="hidden" name="jumlah_pembelian" value="<?php echo $d['jumlah_pembelian']; ?>">
+                              <input type="hidden" name="is_buy" value="<?php echo $d['is_buy']; ?>">
+                              <input type="hidden" name="id_rap" value="<?php echo $d['id_rap']; ?>">
                               <!-- <a href="" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a> -->
                               <button style="margin-left: 5px; border-radius: 5px;" type="submit" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></button>
                             </form>

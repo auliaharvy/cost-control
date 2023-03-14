@@ -55,7 +55,8 @@ class M_pembelian extends CI_Model
         a.*,c.project_name,j.note as keterangan,FORMAT(j.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian,
 	    DATE_FORMAT(j.created_at, "%d %M %Y") as tanggal_pembelian,FORMAT(a.jumlah_uang,0,"de_DE") as jumlah_uang,f.id as pengajuan_id,
 		d.jumlah_approval, g.nama_pekerjaan,i.nama_kategori, j.id as id_pembelian, c.cash_in_hand as cash, c.id as id_project,
-		h.id as id_project, a.id as id_pengiriman, k.id as id_remaining,FORMAT(l.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian_remaining
+		h.id as id_project, a.id as id_pengiriman, k.id as id_remaining,FORMAT(l.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian_remaining,
+		g.id as id_rap
       ');
 		$this->db->from('trx_pengiriman_uang as a');
 		$this->db->join('mst_organization as b', 'a.organization_id = b.id');
@@ -90,9 +91,9 @@ class M_pembelian extends CI_Model
 
 		$user_id = $this->session->userdata('id');
 		$this->db->select('
-        a.*,b.project_name,d.jumlah_approval,g.nama_pekerjaan,FORMAT(a.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian,
+        a.*,b.project_name,FORMAT(d.jumlah_approval,0,"de_DE") as jumlah_approval,g.nama_pekerjaan,FORMAT(a.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian,
 		DATE_FORMAT(a.created_at, "%d %M %Y") as tanggal_pembelian,a.note as keterangan,h.nama_kategori,FORMAT(i.jumlah_uang_pembelian,0,"de_DE") as jumlah_pembelian_remaining,
-		c.id as id_pengiriman,j.id as id_remaining, b.id as id_project,f.id as pengajuan_id
+		c.id as id_pengiriman,j.id as id_remaining, b.id as id_project,f.id as pengajuan_id,b.cash_in_hand as cash, c.is_buy,g.id as id_rap , g.jumlah_aktual as cash_rap
       ');
 		$this->db->from('trx_pembelian_barang as a');
 		$this->db->join('mst_project as b', 'a.project_office_id = b.id', 'left');

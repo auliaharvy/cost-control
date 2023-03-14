@@ -94,8 +94,10 @@ $route['hapusbelanja1'] = 'C_pembelian/delete1';
 $route['hapusbelanjaremaining'] = 'C_pembelian/deleteremaining';
 
 $route['laporan'] = 'C_laporan';
+$route['laporanpdf/(:num)'] = 'C_laporan/pdf/$1';
 $route['laporan_detail/(:num)'] = 'C_laporan/detail/$1';
 $route['report/export/(:num)'] = 'C_laporan/export/$1';
+$route['report/pdf/(:num)'] = 'C_laporan/pdf/$1';
 
 $route['dashboard'] = 'C_dashboard/index';
 

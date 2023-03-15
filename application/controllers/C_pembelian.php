@@ -423,6 +423,8 @@ class C_pembelian extends CI_Controller
         $c = $_POST['cash'];
         $d = str_replace('.', '', $c); //ubah format rupiah ke integer
         $cash = intval($d);
+        $getRapItem = $this->M_data->GetData("akk_rap_biaya ", "where id = '$idrap'"); //cari data untuk menambahkan jumlah aktual
+        $aktual_rap = $getRapItem[0]['jumlah_aktual'];
         $cekbuy = $_POST['is_buy'];
         if ($cekbuy == 1) {
             $wherepengiriman = array('id' => $idpengiriman);
@@ -440,7 +442,7 @@ class C_pembelian extends CI_Controller
             );
             $whererap = array('id' => $idrap);
             $datarap = array(
-                "jumlah_aktual" => 0,
+                "jumlah_aktual" => $aktual_rap - $jumlah_pembelian,
                 "last_update_by" => $this->session->userdata('id'),
                 "updated_at" => date('Y-m-d H:i:s'),
             );
@@ -475,7 +477,7 @@ class C_pembelian extends CI_Controller
             );
             $whererap = array('id' => $idrap);
             $datarap = array(
-                "jumlah_aktual" => 0,
+                "jumlah_aktual" => $aktual_rap - $jumlah_pembelian,
                 "last_updated_by" => $this->session->userdata('id'),
                 "updated_at" => date('Y-m-d H:i:s'),
             );
@@ -540,6 +542,8 @@ class C_pembelian extends CI_Controller
         $c = $_POST['cash'];
         $d = str_replace('.', '', $c); //ubah format rupiah ke integer
         $cash = intval($d);
+        $getRapItem = $this->M_data->GetData("akk_rap_biaya ", "where id = '$idrap'"); //cari data untuk menambahkan jumlah aktual
+        $aktual_rap = $getRapItem[0]['jumlah_aktual'];
         $cekbuy = $_POST['is_buy'];
         if ($cekbuy == 1) {
             $wherepengiriman = array('id' => $idpengiriman);
@@ -557,7 +561,7 @@ class C_pembelian extends CI_Controller
             );
             $whererap = array('id' => $idrap);
             $datarap = array(
-                "jumlah_aktual" => 0,
+                "jumlah_aktual" => $aktual_rap - $jumlah_pembelian,
                 "last_update_by" => $this->session->userdata('id'),
                 "updated_at" => date('Y-m-d H:i:s'),
             );
@@ -592,7 +596,7 @@ class C_pembelian extends CI_Controller
             );
             $whererap = array('id' => $idrap);
             $datarap = array(
-                "jumlah_aktual" => 0,
+                "jumlah_aktual" => $aktual_rap - $jumlah_pembelian,
                 "last_updated_by" => $this->session->userdata('id'),
                 "updated_at" => date('Y-m-d H:i:s'),
             );

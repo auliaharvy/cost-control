@@ -129,23 +129,23 @@
                           <td style="width: 5%; vertical-align:middle;" class="text-center">
                             <?php if ($data_uang1) { ?>
                               <form action="<?php echo site_url('hapusbelanja1'); ?>" method="post" class="row col-md-4">
-                                <input type="" name="id_pengiriman" value="<?php echo $d['id_pengiriman']; ?>">
-                                <input type="" name="id_project" value="<?php echo $d['id_project']; ?>">
-                                <input type="" name="id_pembelian" value="<?php echo $id; ?>">
-                                <input type="" name="id_remaining" value="<?php echo $d['id_remaining']; ?>">
-                                <input type="" name="cash" value="<?php echo $d['cash']; ?>">
-                                <input type="" name="jumlah_pembelian" value="<?php echo $d['jumlah_pembelian_v']; ?>">
-                                <input type="" name="is_buy" value="<?php echo $d['is_buy']; ?>">
-                                <input type="" name="id_rap" value="<?php echo $d['id_rap']; ?>">
+                                <input type="hidden" name="id_pengiriman" value="<?php echo $d['id_pengiriman']; ?>">
+                                <input type="hidden" name="id_project" value="<?php echo $d['id_project']; ?>">
+                                <input type="hidden" name="id_pembelian" value="<?php echo $id; ?>">
+                                <input type="hidden" name="id_remaining" value="<?php echo $d['id_remaining']; ?>">
+                                <input type="hidden" name="cash" value="<?php echo $d['cash']; ?>">
+                                <input type="hidden" name="jumlah_pembelian" value="<?php echo $d['jumlah_pembelian_v']; ?>">
+                                <input type="hidden" name="is_buy" value="<?php echo $d['is_buy']; ?>">
+                                <input type="hidden" name="id_rap" value="<?php echo $d['id_rap']; ?>">
                                 <!-- <a href="" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a> -->
                                 <button style="margin-left: 5px; border-radius: 5px;" type="submit" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></button>
                               </form>
                             <?php } else { ?>
                               <form action="<?php echo site_url('hapusbelanjaremaining'); ?>" method="post" class="row col-md-4">
-                                <input type="" name="id_project" value="<?php echo $d['id_project']; ?>">
-                                <input type="" name="id_pembelian" value="<?php echo $id; ?>"><input name="cash" value="<?php echo $d['cash']; ?>">
-                                <input type="" name="jumlah_pembelian" value="<?php echo $d['jumlah_pembelian_v']; ?>">
-                                <input type="" name="is_buy" value="<?php echo $d['is_buy']; ?>">
+                                <input type="hidden" name="id_project" value="<?php echo $d['id_project']; ?>">
+                                <input type="hidden" name="id_pembelian" value="<?php echo $id; ?>"><input name="cash" value="<?php echo $d['cash']; ?>">
+                                <input type="hidden" name="jumlah_pembelian" value="<?php echo $d['jumlah_pembelian_v']; ?>">
+                                <input type="hidden" name="is_buy" value="<?php echo $d['is_buy']; ?>">
                                 <!-- <a href="" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a> -->
                                 <button style="margin-left: 5px; border-radius: 5px;" type="submit" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></button>
                               </form>

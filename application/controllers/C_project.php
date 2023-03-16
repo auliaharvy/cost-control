@@ -135,13 +135,18 @@ class C_project extends CI_Controller
         $this->form_validation->set_rules('rap_biaya_id', 'Rap Item', 'required');
         $this->form_validation->set_rules('jumlah_pengajuan', 'Jumlah Pengajuan', 'required');
         $rap_biaya_id = $_POST['rap_biaya_id'];
+        $idrap = $_POST['rap_biaya_id'];
         $a = $_POST['jumlah_pengajuan'];
         $b = str_replace('.', '', $a); //ubah format rupiah ke integer
         $jumlah_pengajuan = intval($b);
         $date = date('Y-m-d H:i:s');
         $project_id = $_POST['project_id'];
-        if ($this->form_validation->run() == FALSE) {
-            $pesan = validation_errors();
+        $getRapItem = $this->M_data->GetData("akk_rap_biaya ", "where id = '$idrap'"); //cari data untuk menambahkan jumlah aktual
+        $jumlah_aktual = $getRapItem[0]['jumlah_aktual'];
+        $total_aktual = $jumlah_aktual + $jumlah_pengajuan;
+        $jumlah_biaya = $getRapItem[0]['jumlah_biaya'];
+        if ($jumlah_biaya < $total_aktual) {
+            $pesan = "Pembuatan Pengajuan Gagal karena melebihi RAP";
             $this->flashdata_failed1($pesan);
             redirect('pengajuan');
         } else {

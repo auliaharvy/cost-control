@@ -426,6 +426,7 @@ class C_pembelian extends CI_Controller
         $getRapItem = $this->M_data->GetData("akk_rap_biaya ", "where id = '$idrap'"); //cari data untuk menambahkan jumlah aktual
         $aktual_rap = $getRapItem[0]['jumlah_aktual'];
         $cekbuy = $_POST['is_buy'];
+        $this->db->trans_start();
         if ($cekbuy == 1) {
             $wherepengiriman = array('id' => $idpengiriman);
             $data = array(
@@ -447,11 +448,12 @@ class C_pembelian extends CI_Controller
                 "updated_at" => date('Y-m-d H:i:s'),
             );
             $where = array('id' => $idpembelian);
-            $res = $this->M_data->UpdateData('trx_pengiriman_uang', $data, $wherepengiriman); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
-            $res = $this->M_data->UpdateData('mst_project', $dataproject, $whereproject); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
-            $res = $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
-            $res = $this->M_data->DeleteData('trx_pembelian_barang', $where);
-            if ($res >= 1) {
+            $this->M_data->UpdateData('trx_pengiriman_uang', $data, $wherepengiriman); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
+            $this->M_data->UpdateData('mst_project', $dataproject, $whereproject); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
+            $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
+            $this->M_data->DeleteData('trx_pembelian_barang', $where);
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === TRUE) {
                 $pesan = "Penghapusan Transakasi Pembelian Berhasil";
                 $this->flashdata_succeed1($pesan);
                 redirect('pembelian');
@@ -488,7 +490,8 @@ class C_pembelian extends CI_Controller
             $res = $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
             $res = $this->M_data->DeleteData('trx_pembelian_barang', $where);
             $res = $this->M_data->DeleteData('trx_cash_remaining', $whereremaining);
-            if ($res >= 1) {
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === TRUE) {
                 $pesan = "Penghapusan Transakasi Pembelian Berhasil";
                 $this->flashdata_succeed1($pesan);
                 redirect('pembelian');
@@ -515,14 +518,16 @@ class C_pembelian extends CI_Controller
             "last_updated_by" => $this->session->userdata('id'),
             "updated_at" => date('Y-m-d H:i:s'),
         );
+        $this->db->trans_start();
         $res = $this->M_data->UpdateData('mst_project', $dataproject, $whereproject); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
         $res = $this->M_data->DeleteData('trx_pembelian_barang_remaining', $where);
-        if ($res >= 1) {
-            $pesan = "Penghapusan Transakasi Pembelian Tanpa Pengajuan Berhasil";
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === TRUE) {
+            $pesan = "Penghapusan Transakasi Pembelian Berhasil";
             $this->flashdata_succeed1($pesan);
             redirect('laporan_detail/' . $idproject);
         } else {
-            $pesan = "Penghapusan Transakasi Pembelian Tanpa Pengajuan Gagal";
+            $pesan = "Penghapusan Transakasi Pembelian Gagal";
             $this->flashdata_failed1($pesan);
             redirect('laporan_detail/' . $idproject);
         }
@@ -545,6 +550,7 @@ class C_pembelian extends CI_Controller
         $getRapItem = $this->M_data->GetData("akk_rap_biaya ", "where id = '$idrap'"); //cari data untuk menambahkan jumlah aktual
         $aktual_rap = $getRapItem[0]['jumlah_aktual'];
         $cekbuy = $_POST['is_buy'];
+        $this->db->trans_start();
         if ($cekbuy == 1) {
             $wherepengiriman = array('id' => $idpengiriman);
             $data = array(
@@ -566,11 +572,12 @@ class C_pembelian extends CI_Controller
                 "updated_at" => date('Y-m-d H:i:s'),
             );
             $where = array('id' => $idpembelian);
-            $res = $this->M_data->UpdateData('trx_pengiriman_uang', $data, $wherepengiriman); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
-            $res = $this->M_data->UpdateData('mst_project', $dataproject, $whereproject); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
-            $res = $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
-            $res = $this->M_data->DeleteData('trx_pembelian_barang', $where);
-            if ($res >= 1) {
+            $this->M_data->UpdateData('trx_pengiriman_uang', $data, $wherepengiriman); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
+            $this->M_data->UpdateData('mst_project', $dataproject, $whereproject); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
+            $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
+            $this->M_data->DeleteData('trx_pembelian_barang', $where);
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === TRUE) {
                 $pesan = "Penghapusan Transakasi Pembelian Berhasil";
                 $this->flashdata_succeed1($pesan);
                 redirect('laporan_detail/' . $idproject);
@@ -607,7 +614,8 @@ class C_pembelian extends CI_Controller
             $res = $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
             $res = $this->M_data->DeleteData('trx_pembelian_barang', $where);
             $res = $this->M_data->DeleteData('trx_cash_remaining', $whereremaining);
-            if ($res >= 1) {
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === TRUE) {
                 $pesan = "Penghapusan Transakasi Pembelian Berhasil";
                 $this->flashdata_succeed1($pesan);
                 redirect('laporan_detail/' . $idproject);
@@ -616,6 +624,15 @@ class C_pembelian extends CI_Controller
                 $this->flashdata_failed1($pesan);
                 redirect('laporan_detail/' . $idproject);
             }
+            // if ($res >= 1) {
+            //     $pesan = "Penghapusan Transakasi Pembelian Berhasil";
+            //     $this->flashdata_succeed1($pesan);
+            //     redirect('laporan_detail/' . $idproject);
+            // } else {
+            //     $pesan = "Penghapusan Transakasi Pembelian Gagal";
+            //     $this->flashdata_failed1($pesan);
+            //     redirect('laporan_detail/' . $idproject);
+            // }
         }
     }
 

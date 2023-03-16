@@ -681,11 +681,11 @@ class C_project extends CI_Controller
         if ($this->db->trans_status() === TRUE) {
             $pesan = "Penyelesaian Project Sukses";
             $this->flashdata_succeed1($pesan);
-            redirect('project_on');
+            redirect('laporan');
         } else {
             $pesan = "Penyelesaian Project Gagal";
             $this->flashdata_failed1($pesan);
-            redirect('project_on');
+            redirect('laporan');
         }
     }
 

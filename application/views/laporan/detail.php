@@ -52,13 +52,16 @@
                       <button type="submit" class="btn btn-primary " disabled><i class="fa fa-edit"></i> Unconfirm RAP</button>
                     </form>
                   <?php } else { ?>
-                    <form action="<?php echo site_url('unconfirmrap'); ?>" method="post">
-                      <input type="hidden" name="is_rap_confirm" value="0">
-                      <input type="hidden" name="rap_id" value="<?php echo $rap_id; ?>">
-                      <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
-                      <input type="hidden" name="msg" value="Unconfirm">
-                      <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i> Unconfirm RAP</button>
-                    </form>
+                    <div class="row">
+                      <form action="<?php echo site_url('unconfirmrap'); ?>" method="post">
+                        <input type="hidden" name="is_rap_confirm" value="0">
+                        <input type="hidden" name="rap_id" value="<?php echo $rap_id; ?>">
+                        <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
+                        <input type="hidden" name="msg" value="Unconfirm">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i> Unconfirm RAP</button>
+                      </form>
+                      <button style="margin-left: 5px; border-radius: 5px;" type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#projectselesai" title="Selesai Project"><i class="fa fa-edit"></i> Selesaikan Project </button>
+                    </div>
                 <?php }
                 } ?>
                 <br>
@@ -126,23 +129,23 @@
                           <td style="width: 5%; vertical-align:middle;" class="text-center">
                             <?php if ($data_uang1) { ?>
                               <form action="<?php echo site_url('hapusbelanja1'); ?>" method="post" class="row col-md-4">
-                                <input type="hidden" name="id_pengiriman" value="<?php echo $d['id_pengiriman']; ?>">
-                                <input type="hidden" name="id_project" value="<?php echo $d['id_project']; ?>">
-                                <input type="hidden" name="id_pembelian" value="<?php echo $id; ?>">
-                                <input type="hidden" name="id_remaining" value="<?php echo $d['id_remaining']; ?>">
-                                <input type="hidden" name="cash" value="<?php echo $d['cash']; ?>">
-                                <input type="hidden" name="jumlah_pembelian" value="<?php echo $d['jumlah_pembelian_v']; ?>">
-                                <input type="hidden" name="is_buy" value="<?php echo $d['is_buy']; ?>">
-                                <input type="hidden" name="id_rap" value="<?php echo $d['id_rap']; ?>">
+                                <input type="" name="id_pengiriman" value="<?php echo $d['id_pengiriman']; ?>">
+                                <input type="" name="id_project" value="<?php echo $d['id_project']; ?>">
+                                <input type="" name="id_pembelian" value="<?php echo $id; ?>">
+                                <input type="" name="id_remaining" value="<?php echo $d['id_remaining']; ?>">
+                                <input type="" name="cash" value="<?php echo $d['cash']; ?>">
+                                <input type="" name="jumlah_pembelian" value="<?php echo $d['jumlah_pembelian_v']; ?>">
+                                <input type="" name="is_buy" value="<?php echo $d['is_buy']; ?>">
+                                <input type="" name="id_rap" value="<?php echo $d['id_rap']; ?>">
                                 <!-- <a href="" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a> -->
                                 <button style="margin-left: 5px; border-radius: 5px;" type="submit" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></button>
                               </form>
                             <?php } else { ?>
                               <form action="<?php echo site_url('hapusbelanjaremaining'); ?>" method="post" class="row col-md-4">
-                                <input type="hidden" name="id_project" value="<?php echo $d['id_project']; ?>">
-                                <input type="hidden" name="id_pembelian" value="<?php echo $id; ?>"><input name="cash" value="<?php echo $d['cash']; ?>">
-                                <input name="jumlah_pembelian" value="<?php echo $d['jumlah_pembelian_v']; ?>">
-                                <input name="is_buy" value="<?php echo $d['is_buy']; ?>">
+                                <input type="" name="id_project" value="<?php echo $d['id_project']; ?>">
+                                <input type="" name="id_pembelian" value="<?php echo $id; ?>"><input name="cash" value="<?php echo $d['cash']; ?>">
+                                <input type="" name="jumlah_pembelian" value="<?php echo $d['jumlah_pembelian_v']; ?>">
+                                <input type="" name="is_buy" value="<?php echo $d['is_buy']; ?>">
                                 <!-- <a href="" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a> -->
                                 <button style="margin-left: 5px; border-radius: 5px;" type="submit" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></button>
                               </form>
@@ -169,6 +172,29 @@
             <!-- /.card -->
           </div>
           <!-- /.col -->
+          <div id="projectselesai" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+            <div class="modal-dialog">
+              <form action="<?php echo site_url() . 'C_project/finishing_project' ?>" method="post">
+                <div class="modal-content">
+                  <div class="modal-header bg-primary">
+                    <h4 class="modal-title">Finish Project</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <input type="hidden" name="id_project" value="<?php echo $project_id; ?>" autocomplete="off" required placeholder="Masukkan Nama Project" class="form-control">
+                    <div class="form-group">
+                      <label class='col-xs-3'>Finish At</label>
+                      <div class='col-xs-8'><input type="date" name="finish_at" autocomplete="off" required class="form-control"></div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary"><i class="icon-checkmark-circle2"></i> Simpan</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
         <!-- /.row -->
       </section>

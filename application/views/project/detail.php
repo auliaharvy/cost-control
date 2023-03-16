@@ -52,7 +52,6 @@
                         <?php if ($is_rap_confirm == 1) { ?>
                           <button style="margin-right: 10px; border-radius: 5px;" type="button" data-toggle="modal" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-warning btn-sm" data-popup="tooltip" data-placement="top" title="Edit Project"><i class="fas fa-edit"></i>Edit Project</button><br>
                           <button style="margin-right: 5px; border-radius: 5px;" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#updateprogress" title="Progress Project"><i class="fa fa-edit"></i> Update Progress </button><br>
-                          <button style="margin-left: 5px; border-radius: 5px;" type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#projectselesai" title="Selesai Project"><i class="fa fa-edit"></i> Selesaikan Project </button>
                         <?php } ?>
                         <br>
                         <br>

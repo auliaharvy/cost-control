@@ -71,7 +71,7 @@
                         <?php }
                             } ?>
                         <td style="width: 25%; vertical-align:middle;" class="text over"><?php echo $d['project_name']; ?></td>
-                        <td style="width: 20%;" class="text text-center size"><?php echo $d['cash_in_hand']; ?></td>
+                        <td style="width: 20%;" class="text text-center size">Rp. <?php echo $d['cash_in_hand']; ?></td>
                         <td style="width: 15%;" class="text text-center size"><?php echo $d['created_at']; ?></td>
                         <td style="width: 15%;" class="text text-center size">Rp. <?php echo $d['nominal']; ?></td>
                         <td style="width: 13%;" class="text over"><?php echo $d['note']; ?></td>

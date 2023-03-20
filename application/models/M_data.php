@@ -232,11 +232,47 @@ class M_data extends CI_Model
 	public function gettitlepiutang()
 	{
 		$this->db->select("
-        a.project_name,ROUND((a.rab_project - sum(b.nominal)),0) as total_piutang, 
-		(a.rab_project - sum(b.nominal)) as total_piutang_sum
+        a.project_name,ROUND((a.rab_project - sum(b.nominal)),0) as total_tagihan, 
+		(a.rab_project - sum(b.nominal)) as total_tagihan_sum
         ");
 		$this->db->from('mst_project as a');
 		$this->db->join('akk_penerimaan_project as b', 'a.id = b.project_id', 'left');
+		$this->db->where('a.project_status', 0);
+		$this->db->group_by('a.id');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data;
+		} else {
+			return false;
+		}
+	}
+
+	public function gettitlepiutang2()
+	{
+		$this->db->select("
+        a.project_name,sum(b.nominal) - ((a.project_progress/100) * a.rab_project) as total_piutang, 
+		sum(b.nominal) - ((a.project_progress/100) * a.rab_project) as total_piutang_sum
+        ");
+		$this->db->from('mst_project as a');
+		$this->db->join('akk_penerimaan_project as b', 'a.id = b.project_id', 'left');
+		$this->db->where('a.project_status', 0);
+		$this->db->group_by('a.id');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data;
+		} else {
+			return false;
+		}
+	}
+
+	public function gettitleusaha()
+	{
+		$this->db->select("
+        a.project_name,sum(b.jumlah_uang_pembelian) - ((a.project_progress/100) * a.rab_project) as total_usaha, 
+		sum(b.jumlah_uang_pembelian) - ((a.project_progress/100) * a.rab_project) as total_usaha_sum
+        ");
+		$this->db->from('mst_project as a');
+		$this->db->join('trx_pembelian_barang as b', 'a.id = b.project_office_id', 'left');
 		$this->db->where('a.project_status', 0);
 		$this->db->group_by('a.id');
 		$data = $this->db->get();
@@ -316,10 +352,44 @@ class M_data extends CI_Model
 	public function getPiutang()
 	{
 		$this->db->select("
-        a.project_name,ROUND((a.rab_project - sum(b.nominal)),0) as total_piutang
+        a.project_name,ROUND((a.rab_project - sum(b.nominal)),0) as total_tagihan
         ");
 		$this->db->from('mst_project as a');
 		$this->db->join('akk_penerimaan_project as b', 'a.id = b.project_id', 'left');
+		$this->db->where('a.project_status', 0);
+		$this->db->group_by('a.id');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data;
+		} else {
+			return false;
+		}
+	}
+
+	public function getPiutang2()
+	{
+		$this->db->select("
+        a.project_name,sum(b.nominal) - ((a.project_progress/100) * a.rab_project) as total_piutang
+        ");
+		$this->db->from('mst_project as a');
+		$this->db->join('akk_penerimaan_project as b', 'a.id = b.project_id', 'left');
+		$this->db->where('a.project_status', 0);
+		$this->db->group_by('a.id');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data;
+		} else {
+			return false;
+		}
+	}
+
+	public function getUsaha()
+	{
+		$this->db->select("
+        a.project_name,sum(b.jumlah_uang_pembelian) - ((a.project_progress/100) * a.rab_project) as total_usaha
+        ");
+		$this->db->from('mst_project as a');
+		$this->db->join('trx_pembelian_barang as b', 'a.id = b.project_office_id', 'left');
 		$this->db->where('a.project_status', 0);
 		$this->db->group_by('a.id');
 		$data = $this->db->get();

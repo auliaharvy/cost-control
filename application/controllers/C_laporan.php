@@ -254,6 +254,8 @@ class C_laporan extends CI_Controller
         $deadline = $this->convert_date($tgl);
         $rab_project = $this->lharby->formatRupiah($get[0]['rab_project']);
         $cash_in_hand = $this->lharby->formatRupiah($get[0]['cash_in_hand']);
+        $total = $this->M_laporan->showuangdetail($id);
+        $totalall = $total[0]['total_pembelian'];
         $data_rap_biaya = $this->M_laporan->getBiayaRap($id);
         $data_uang1 = $this->M_laporan->showuangdetail($id);
         $data_uang2 = $this->M_laporan->showuangdetailremaining($id);
@@ -277,6 +279,7 @@ class C_laporan extends CI_Controller
             'data_uang1' => $data_uang1,
             'data_uang2' => $data_uang2,
             'is_rap_confirm' => $is_rap_confirm,
+            'total' => $totalall,
         );
         $this->load->view('laporan/pdf', $show);
     }

@@ -86,6 +86,7 @@ class C_hutang extends CI_Controller
         $get = $this->M_data->GetData("akk_hutang ", "where id='$hutang_id'");
         $project_id = $get[0]['project_id'];
         $nominal = $get[0]['nominal'];
+        $note = $get[0]['note'];
         //project cash in hand
         $getproject = $this->M_data->GetData("mst_project ", "where id='$project_id'");
         $cashproject = $getproject[0]['cash_in_hand'];
@@ -112,10 +113,19 @@ class C_hutang extends CI_Controller
                 "updated_at" => $date,
                 "last_updated_by" => $this->session->userdata('id'),
             );
+            $data_pembelian = array(
+                "project_office_id" => $project_id,
+                "destination_id" => 2,
+                "jumlah_uang_pembelian" => $nominal,
+                "created_at" => $date,
+                "last_updated_by" => $this->session->userdata('id'),
+                "note" => $note,
+            );
             $where_cash_project = array("id" => $project_id);
             $this->db->trans_start();
             $this->M_data->UpdateData('akk_hutang', $data_update_hutang, $where_loghutang);
             $this->M_data->UpdateData('mst_project', $data_upd_cash_project, $where_cash_project);
+            $this->M_data->InsertData('trx_pembelian_barang', $data_pembelian);
             $this->db->trans_complete();
             if ($this->db->trans_status() === TRUE) {
                 if ($role == 4) {

@@ -25,7 +25,9 @@ class C_dashboard extends CI_Controller
         $titleAll = $this->M_data->getAlltitle();
         $title_kas = $this->M_data->gettitlekas();
         $title_kasper = $this->M_data->gettitlekasper();
-        $title_piutang = $this->M_data->gettitlepiutang();
+        $title_tagihan = $this->M_data->gettitlepiutang();
+        $title_piutang = $this->M_data->gettitlepiutang2();
+        $title_usaha = $this->M_data->gettitleusaha();
         $title_hutang = $this->M_data->gettitlehutang();
         $title_omset = $this->M_data->gettitleomset();
         $title_pengajuan = $this->M_data->gettitlepengajuan();
@@ -33,11 +35,16 @@ class C_dashboard extends CI_Controller
         $datapengajuan = $this->M_data->getPengajuandashboard();
         $dataomset = $this->M_data->getOmset();
         $datahutang = $this->M_data->getHutang();
-        $datapiutang = $this->M_data->getPiutang();
+        $datatagihan = $this->M_data->getPiutang();
+        $datapiutang = $this->M_data->getPiutang2();
+        $datausaha = $this->M_data->getUsaha();
+        // $a = $piutang[0]['persentase'];
+        // $b = str_replace('.', '', $a); //ubah format rupiah ke integer
+        // $datapiutang = $b;
         $totalkas = $this->lharby->formatRupiah($title_kas[0]['total_kas']);
         $titlekas = $totalkas;
-        $totalkasper = $this->lharby->formatRupiah($title_kasper[0]['total_kas']);
-        $titlekasper = $totalkasper;
+        // $totalpiutang = $this->lharby->formatRupiah($title_piutang[0]['total_kas']);
+        // $titlepiutang = $totalpiutang;
         $totalhutang = $this->lharby->formatRupiah($title_hutang[0]['total_hutang']);
         $titlehutang = $totalhutang;
         $totalpengajuan = $this->lharby->formatRupiah($title_pengajuan[0]['total_pengajuan']);
@@ -56,7 +63,9 @@ class C_dashboard extends CI_Controller
             'datapengajuan' => $datapengajuan,
             'dataomset' => $dataomset,
             'datahutang' => $datahutang,
+            'datatagihan' => $datatagihan,
             'datapiutang' => $datapiutang,
+            'datausaha' => $datausaha,
             'totalkas' => $title_kas[0]['total_kas'],
             'totalkasper' => $title_kasper[0]['total_kas'],
             'totalkasall' => $title_kas[0]['total_kas'] + $title_kasper[0]['total_kas'],
@@ -65,12 +74,15 @@ class C_dashboard extends CI_Controller
             'is_approved' => $title_pengajuan[0]['is_approved'],
             'totalomset' => $title_omset[0]['total_omset'],
             // 'totalpiutang' => $title_piutang[0]['total_piutang'],
+            'title_tagihan' => $title_tagihan,
             'title_piutang' => $title_piutang,
+            'title_usaha' => $title_usaha,
             'project' => $project,
             'titlekas' => $titlekas,
             'titlehutang' => $titlehutang,
             'titlepengajuan' => $titlepengajuan,
             'titleomset' => $titleomset,
+            // 'titlepiutang' => $titlepiutang,
         );
         $this->load->view('dashboard/index', $show);
     }

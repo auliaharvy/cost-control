@@ -80,16 +80,74 @@
                                       foreach ($title_piutang->result() as $d) {
                                         $temp[] = $d->total_piutang_sum;
                                       };
-                                      function rupiah($temp)
+                                      function rp($temp)
                                       {
                                         $hasil = 'Rp ' . number_format($temp, 0, ",", ".");
                                         return $hasil;
                                       }
                                       $total = array_sum($temp);
-                                      echo rupiah($total);
+                                      echo rp($total);
                                       ?> </h4>
                   <div class="chart">
                     <canvas id="barChartPiutang" style="min-height: 1000px; height: 1000px; max-height: 1000px; max-width: 100%;"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="card card-success">
+                <div class="card-header">
+                  <h3 class="card-title">Sisa Tagihan ( Per Project )</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <h4>Total Sisa Tagihan : <?php
+                                            $temp = array();
+                                            foreach ($title_tagihan->result() as $d) {
+                                              $temp[] = $d->total_tagihan_sum;
+                                            };
+                                            function rupiah($temp)
+                                            {
+                                              $hasil = 'Rp ' . number_format($temp, 0, ",", ".");
+                                              return $hasil;
+                                            }
+                                            $total = array_sum($temp);
+                                            echo rupiah($total);
+                                            ?> </h4>
+                  <div class="chart">
+                    <canvas id="barChartTagihan" style="min-height: 1000px; height: 1000px; max-height: 1000px; max-width: 100%;"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="card card-success">
+                <div class="card-header">
+                  <h3 class="card-title">Hasil Usaha ( Per Project )</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <h4>Total Hasil Usaha : <?php
+                                          $temp = array();
+                                          foreach ($title_usaha->result() as $d) {
+                                            $temp[] = $d->total_usaha_sum;
+                                          };
+                                          function rupi($temp)
+                                          {
+                                            $hasil = 'Rp ' . number_format($temp, 0, ",", ".");
+                                            return $hasil;
+                                          }
+                                          $total = array_sum($temp);
+                                          echo rupi($total);
+                                          ?> </h4>
+                  <div class="chart">
+                    <canvas id="barChartUsaha" style="min-height: 1000px; height: 1000px; max-height: 1000px; max-width: 100%;"></canvas>
                   </div>
                 </div>
               </div>
@@ -190,7 +248,7 @@
     var barChartTotal = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['TOTAL SEMUA KAS', 'TOTAL KAS PERUSAHAAN', 'TOTAL KAS PROJECT', 'TOTAL PIUTANG', 'TOTAL HUTANG', 'TOTAL PENGAJUAN', 'TOTAL OMSET'],
+        labels: ['TOTAL SEMUA KAS', 'TOTAL KAS PERUSAHAAN', 'TOTAL KAS PROJECT', 'TOTAL SISA TAGIHAN', 'TOTAL HUTANG', 'TOTAL PENGAJUAN', 'TOTAL OMSET'],
         datasets: [{
           label: 'Total Uang',
           backgroundColor: 'rgba(104, 62, 35, 0.3)',
@@ -209,12 +267,12 @@
           <?php } else { ?>
             <?php echo $totalkas ?>
           <?php } ?>,
-          <?php if ($title_piutang == null) { ?>0
+          <?php if ($title_tagihan == null) { ?>0
           <?php } else { ?>
             <?php
             $temp = array();
-            foreach ($title_piutang->result() as $d) {
-              $temp[] = $d->total_piutang_sum;
+            foreach ($title_tagihan->result() as $d) {
+              $temp[] = $d->total_tagihan_sum;
             };
             $total = array_sum($temp);
             echo ($total);
@@ -370,6 +428,146 @@
               foreach ($datapiutang->result_array() as $row1) {
                 extract($row1);
                 echo "'{$total_piutang}',";
+              } ?>
+          <?php } ?>
+          ]
+        }]
+      },
+      options: {
+        responsive: true,
+        indexAxis: 'y',
+        scales: {
+          x: {
+            ticks: {
+              display: false
+            }
+          }
+        },
+        plugins: {
+          datalabels: {
+            color: 'black',
+            anchor: 'end',
+            align: 'end',
+            formatter: function(value, context) {
+              return 'Rp ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+  });
+</script>
+<script>
+  $(function() {
+    //-------------
+    //- BAR CHART -
+    //-------------
+    // Contoh data
+    var ctx = document.getElementById('barChartTagihan').getContext('2d');
+    var barChartTagihan = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['TOTAL SISA TAGIHAN',
+          <?php if ($datatagihan == null) { ?> 'Sisa Tagihan'
+          <?php } else { ?>
+            <?php
+            foreach ($datatagihan->result_array() as $row1) {
+              extract($row1);
+              echo "['{$project_name}'],";
+            } ?>
+          <?php } ?>
+        ],
+        datasets: [{
+          label: 'Jumlah Sisa Tagihan',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+          data: [
+            <?php if ($datatagihan == null) { ?>0, 0
+          <?php } else { ?>
+            <?php
+              $temp = array();
+              foreach ($datatagihan->result() as $d) {
+                $temp[] = $d->total_tagihan;
+              };
+              $total = array_sum($temp);
+              echo ($total);
+            ?>,
+            <?php
+              foreach ($datatagihan->result_array() as $row1) {
+                extract($row1);
+                echo "'{$total_tagihan}',";
+              } ?>
+          <?php } ?>
+          ]
+        }]
+      },
+      options: {
+        responsive: true,
+        indexAxis: 'y',
+        scales: {
+          x: {
+            ticks: {
+              display: false
+            }
+          }
+        },
+        plugins: {
+          datalabels: {
+            color: 'black',
+            anchor: 'end',
+            align: 'end',
+            formatter: function(value, context) {
+              return 'Rp ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+  });
+</script>
+<script>
+  $(function() {
+    //-------------
+    //- BAR CHART -
+    //-------------
+    // Contoh data
+    var ctx = document.getElementById('barChartUsaha').getContext('2d');
+    var barChartUsaha = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['TOTAL HASIL USAHA',
+          <?php if ($datausaha == null) { ?> 'Hasil Usaha'
+          <?php } else { ?>
+            <?php
+            foreach ($datausaha->result_array() as $row1) {
+              extract($row1);
+              echo "['{$project_name}'],";
+            } ?>
+          <?php } ?>
+        ],
+        datasets: [{
+          label: 'Jumlah Hasil Usaha',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+          data: [
+            <?php if ($datausaha == null) { ?>0, 0
+          <?php } else { ?>
+            <?php
+              $temp = array();
+              foreach ($datausaha->result() as $d) {
+                $temp[] = $d->total_usaha;
+              };
+              $total = array_sum($temp);
+              echo ($total);
+            ?>,
+            <?php
+              foreach ($datausaha->result_array() as $row1) {
+                extract($row1);
+                echo "'{$total_usaha}',";
               } ?>
           <?php } ?>
           ]

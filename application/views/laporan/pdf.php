@@ -79,9 +79,11 @@
                 </tr>
             <?php
             } ?>
-            <script>
-                window.print();
-            </script>
+        </tbody>
+    </table>
+    <script>
+        window.print();
+    </script>
 
 </body>
 <style>

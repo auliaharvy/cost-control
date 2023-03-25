@@ -100,6 +100,7 @@ class C_hutang extends CI_Controller
                 redirect('transaksi/');
             }
         } else {
+            $this->db->trans_start();
             $cash_remaining = $cashproject - $nominal;
             $data_update_hutang = array(
                 "is_pay" => $is_pay,
@@ -113,7 +114,6 @@ class C_hutang extends CI_Controller
                 "last_updated_by" => $this->session->userdata('id'),
             );
             $where_cash_project = array("id" => $project_id);
-            $this->db->trans_start();
             $this->M_data->UpdateData('akk_hutang', $data_update_hutang, $where_loghutang);
             $this->M_data->UpdateData('mst_project', $data_upd_cash_project, $where_cash_project);
             $this->db->trans_complete();
@@ -176,7 +176,7 @@ class C_hutang extends CI_Controller
         }
     }
 
-    public function create_kiriM_hutang()
+    public function create_kirim_hutang()
     {
         $this->form_validation->set_rules('jumlah_uang', 'Jumlah Pencairan', 'required|numeric|greater_than[0]');
         $this->form_validation->set_rules('destination_id', 'destination', 'required');

@@ -124,11 +124,15 @@ class M_hutang extends CI_Model
 		$user_id = $this->session->userdata('id');
 		$this->db->select('
  		a.*,b.project_name,FORMAT(b.cash_in_hand,0,"de_DE") as cash_in_hand,DATE_FORMAT(a.created_at, "%d %M %Y") as created_at,
-		FORMAT(a.nominal,0,"de_DE") as nominal
+		FORMAT(a.nominal,0,"de_DE") as nominal, b.id as id_project
         ');
 		if ($role == 4) {
 			$this->db->from('akk_hutang as a');
-			$this->db->join('mst_project as b', 'a.project_id = b.id');
+			$this->db->join('mst_project as b', 'a.project_id = b.id', 'right');
+			// $this->db->join('akk_rap c', 'b.id = c.project_id', 'left');
+			// $this->db->join('akk_rap_biaya as d', 'c.id = d.rap_id', 'left');
+			// $this->db->join('akk_pengajuan as f', 'c.id = f.rap_id', 'left');
+			// $this->db->join('akk_pengajuan_biaya as e', 'f.id = e.pengajuan_id', 'left');
 			$this->db->where('b.project_status', 0);
 			$this->db->where('b.created_by', $user_id);
 			$this->db->where('a.is_pay', 0);

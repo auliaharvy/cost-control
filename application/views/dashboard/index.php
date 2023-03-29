@@ -248,7 +248,7 @@
     var barChartTotal = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['TOTAL SEMUA KAS', 'TOTAL KAS PERUSAHAAN', 'TOTAL KAS PROJECT', 'TOTAL SISA TAGIHAN', 'TOTAL HUTANG', 'TOTAL PENGAJUAN', 'TOTAL OMSET'],
+        labels: ['TOTAL SEMUA KAS', 'TOTAL KAS PERUSAHAAN', 'TOTAL KAS PROJECT', 'TOTAL PIUTANG', 'TOTAL SISA TAGIHAN', 'TOTAL HASIL USAHA', 'TOTAL HUTANG', 'TOTAL PENGAJUAN', 'TOTAL OMSET'],
         datasets: [{
           label: 'Total Uang',
           backgroundColor: 'rgba(104, 62, 35, 0.3)',
@@ -267,12 +267,34 @@
           <?php } else { ?>
             <?php echo $totalkas ?>
           <?php } ?>,
+          <?php if ($title_piutang == null) { ?>0
+          <?php } else { ?>
+            <?php
+            $temp = array();
+            foreach ($title_piutang->result() as $d) {
+              $temp[] = $d->total_piutang_sum;
+            };
+            $total = array_sum($temp);
+            echo ($total);
+            ?>
+          <?php } ?>,
           <?php if ($title_tagihan == null) { ?>0
           <?php } else { ?>
             <?php
             $temp = array();
             foreach ($title_tagihan->result() as $d) {
               $temp[] = $d->total_tagihan_sum;
+            };
+            $total = array_sum($temp);
+            echo ($total);
+            ?>
+          <?php } ?>,
+          <?php if ($title_usaha == null) { ?>0
+          <?php } else { ?>
+            <?php
+            $temp = array();
+            foreach ($title_usaha->result() as $d) {
+              $temp[] = $d->total_usaha_sum;
             };
             $total = array_sum($temp);
             echo ($total);

@@ -386,6 +386,21 @@ class M_pembelian extends CI_Model
 		return $query->result_array();
 	}
 
+	public function getBiayaAktualRap2($id)
+	{
+		$this->db->select('
+          a.id,d.id as rap_biaya_id, d.jumlah_aktual, b.pengajuan_id,e.id as pengiriman_id
+      ');
+		$this->db->from('mst_project as a');
+		$this->db->join('trx_pengiriman_uang as e', 'a.id = e.project_office_id');
+		$this->db->join('akk_pengajuan_approval as b', 'e.pengajuan_approval_id = b.id');
+		$this->db->join('akk_pengajuan_biaya as c', 'b.pengajuan_biaya_id = c.id');
+		$this->db->join('akk_rap_biaya as d', 'c.rap_biaya_id = d.id');
+		$this->db->where('a.id', $id);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 	public function getBiayaRap($id)
 	{
 		$this->db->select('

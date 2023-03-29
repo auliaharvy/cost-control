@@ -59,22 +59,27 @@
                         <tr class="odd gradeX">
                           <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
                           <?php if (($this->session->userdata('role')) == 4) { ?>
-                            <td style="width: 10%; vertical-align:middle;" align="center">
-                              <?php if ($d['is_pay'] == 0) { ?>
-                                <a href="<?php echo site_url('bayarhutang/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Membayar Hutang <?= $d['project_name']; ?> ?');" style="width: 80px;" class="btn btn-success btn-circle " data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fas fa-edit"></i>BAYAR</a>
-                                <form action="<?php echo site_url('hapushutang'); ?>" method="post">
-                                  <input type="hidden" name="id_hutang" value="<?php echo $d['id']; ?>">
-                                  <!-- <a href="" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a> -->
-                                  <button style="margin-left: 5px; border-radius: 5px;" type="submit" onclick="return confirm('Apakah Anda Ingin Menghapus Data Hutang di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></button>
-                                </form>
+                            <td style="width: 10%; vertical-align:middle;" align="text-center">
+                              <!-- <a href="<?php echo site_url('bayarhutang/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Membayar Hutang <?= $d['project_name']; ?> ?');" style="width: 80px;" class="btn btn-success btn-circle " data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fas fa-edit"></i>BAYAR</a> -->
+                              <form action="<?php echo site_url('hutangbayar'); ?>" method="post" class="row col-md-4">
+                                <input name="id_hutang" value="<?php echo $d['id']; ?>">
+                                <input name="id_project" value="<?php echo $d['id_project']; ?>">
+                                <input name="id_rap" value="<?php echo $d['id_rap']; ?>">
+                                <button style="margin-left: 5px; border-radius: 5px;" class="btn btn-success btn-circle " onclick="return confirm('Apakah Anda Ingin Membayar Hutang <?= $d['project_name']; ?> ?');" style="width: 80px;" class="btn btn-success btn-circle " data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fas fa-edit"></i>BAYAR</button>
+                              </form>
+                              <form action="<?php echo site_url('hapushutang'); ?>" method="post" class="row col-md-4">
+                                <input type="hidden" name="id_hutang" value="<?php echo $d['id']; ?>">
+                                <!-- <a href="" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a> -->
+                                <button style="margin-left: 5px; border-radius: 5px;" type="submit" onclick="return confirm('Apakah Anda Ingin Menghapus Data Hutang di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></button>
+                              </form>
                             </td>
-                        <?php }
-                            } ?>
-                        <td style="width: 25%; vertical-align:middle;" class="text over"><?php echo $d['project_name']; ?></td>
-                        <td style="width: 20%;" class="text text-center size">Rp. <?php echo $d['cash_in_hand']; ?></td>
-                        <td style="width: 15%;" class="text text-center size"><?php echo $d['created_at']; ?></td>
-                        <td style="width: 15%;" class="text text-center size">Rp. <?php echo $d['nominal']; ?></td>
-                        <td style="width: 13%;" class="text over"><?php echo $d['note']; ?></td>
+                          <?php
+                          } ?>
+                          <td style="width: 25%; vertical-align:middle;" class="text over"><?php echo $d['project_name']; ?></td>
+                          <td style="width: 20%;" class="text text-center size">Rp. <?php echo $d['cash_in_hand']; ?></td>
+                          <td style="width: 15%;" class="text text-center size"><?php echo $d['created_at']; ?></td>
+                          <td style="width: 15%;" class="text text-center size">Rp. <?php echo $d['nominal']; ?></td>
+                          <td style="width: 13%;" class="text over"><?php echo $d['note']; ?></td>
                         </tr>
                     <?php
                       }

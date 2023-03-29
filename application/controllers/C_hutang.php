@@ -81,15 +81,22 @@ class C_hutang extends CI_Controller
     public function bayar_hutang($hutang_id)
     {
         $role = $this->session->userdata('role');
+        $user_id = $this->session->userdata('id');
         $date = date('Y-m-d H:i:s');
         $is_pay = 1; //lunas
         $get = $this->M_data->GetData("akk_hutang ", "where id='$hutang_id'");
         $project_id = $get[0]['project_id'];
         $nominal = $get[0]['nominal'];
         $note = $get[0]['note'];
+        $note2 = "( Bayar Hutang )";
         //project cash in hand
         $getproject = $this->M_data->GetData("mst_project ", "where id='$project_id'");
         $cashproject = $getproject[0]['cash_in_hand'];
+        $getpengiriman = $this->M_data->GetData("trx_pengiriman_uang ", "where project_office_id='$project_id'");
+        // $getRapItem = $this->M_pembelian->getBiayaAktualRap2($project_id); //cari data untuk menambahkan jumlah aktual
+        // $rap_item_id = $getRapItem[0]['rap_biaya_id'];
+        // $aktual_rap = $getRapItem[0]['jumlah_aktual'];
+        // $jumlah_aktual_total = $nominal + $aktual_rap;
         if ($cashproject < $nominal) {
             if ($role == 4) {
                 $msg = "Jumlah cash di projek kurang dari biaya hutang";
@@ -101,13 +108,20 @@ class C_hutang extends CI_Controller
                 redirect('transaksi/');
             }
         } else {
+            // $whererap = array('id' => $rap_item_id);
+            // $datarap = array(
+            //     'jumlah_aktual' => $jumlah_aktual_total,
+            //     "last_update_by" => $user_id,
+            //     "updated_at" => $date,
+            // );
             $cash_remaining = $cashproject - $nominal;
+            $where_loghutang = array("id" => $hutang_id);
             $data_update_hutang = array(
                 "is_pay" => $is_pay,
                 "pay_at" => $date,
                 "updated_by" => $this->session->userdata('id'),
             );
-            $where_loghutang = array("id" => $hutang_id);
+            $where_cash_project = array("id" => $project_id);
             $data_upd_cash_project = array(
                 "cash_in_hand" => $cash_remaining,
                 "updated_at" => $date,
@@ -119,12 +133,12 @@ class C_hutang extends CI_Controller
                 "jumlah_uang_pembelian" => $nominal,
                 "created_at" => $date,
                 "last_updated_by" => $this->session->userdata('id'),
-                "note" => $note,
+                "note" => $note2,
             );
-            $where_cash_project = array("id" => $project_id);
             $this->db->trans_start();
             $this->M_data->UpdateData('akk_hutang', $data_update_hutang, $where_loghutang);
             $this->M_data->UpdateData('mst_project', $data_upd_cash_project, $where_cash_project);
+            // $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
             $this->M_data->InsertData('trx_pembelian_barang', $data_pembelian);
             $this->db->trans_complete();
             if ($this->db->trans_status() === TRUE) {
@@ -147,6 +161,41 @@ class C_hutang extends CI_Controller
                     $this->flashdata_failed1($msg);
                     redirect('transaksi/');
                 }
+            }
+        }
+    }
+
+    public function hutang_bayar()
+    {
+
+        $this->form_validation->set_rules('project_id', 'Project', 'required');
+        $this->form_validation->set_rules('nominal', 'Nominal', 'required');
+        $project_id = $_POST['project_id'];
+        $a = $_POST['nominal'];
+        $b = str_replace('.', '', $a); //ubah format rupiah ke integer
+        $nominal = intval($b);
+        $date = date('Y-m-d H:i:s');
+        if ($this->form_validation->run() == FALSE) {
+            $pesan = validation_errors();
+            $this->flashdata_failed1($pesan);
+            redirect('hutang/');
+        } else {
+            $data = array(
+                "project_id" => $project_id,
+                "nominal" => $nominal,
+                "note" => $_POST['note'],
+                "created_by" => $this->session->userdata('id'),
+                "created_at" => $date,
+            );
+            $res = $this->db->insert('akk_hutang', $data);
+            if ($res >= 1) {
+                $pesan = "Pengajuan Hutang Berhasil";
+                $this->flashdata_succeed1($pesan);
+                redirect('hutang/');
+            } else {
+                $pesan = "Pengajuan Hutang Gagal";
+                $this->flashdata_failed1($pesan);
+                redirect('hutang/');
             }
         }
     }

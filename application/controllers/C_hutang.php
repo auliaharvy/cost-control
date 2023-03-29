@@ -127,6 +127,7 @@ class C_hutang extends CI_Controller
                 "updated_at" => $date,
                 "last_updated_by" => $this->session->userdata('id'),
             );
+<<<<<<< HEAD
             $data_pembelian = array(
                 "project_office_id" => $project_id,
                 "destination_id" => 2,
@@ -136,6 +137,9 @@ class C_hutang extends CI_Controller
                 "note" => $note2,
             );
             $this->db->trans_start();
+=======
+            $where_cash_project = array("id" => $project_id);
+>>>>>>> 0b4f24c45ade42f20fb4aaccc7be2c05f333b6bd
             $this->M_data->UpdateData('akk_hutang', $data_update_hutang, $where_loghutang);
             $this->M_data->UpdateData('mst_project', $data_upd_cash_project, $where_cash_project);
             // $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
@@ -235,7 +239,7 @@ class C_hutang extends CI_Controller
         }
     }
 
-    public function create_kiriM_hutang()
+    public function create_kirim_hutang()
     {
         $this->form_validation->set_rules('jumlah_uang', 'Jumlah Pencairan', 'required|numeric|greater_than[0]');
         $this->form_validation->set_rules('destination_id', 'destination', 'required');

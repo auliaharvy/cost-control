@@ -106,6 +106,7 @@ class C_pencairan extends CI_Controller
         $date = date('Y-m-d H:i:s');
         $pengajuan_id = $_POST['pengajuan_id'];
         $organization_id = 1;
+        $rap_biaya_id = $_POST['rap_biaya_id'];
         $destination_id = $_POST['destination_id'];
         $project_office_id = $_POST['project_office_id'];
         $jumlah_uang = $_POST['jumlah_uang'];
@@ -155,10 +156,15 @@ class C_pencairan extends CI_Controller
                 "updated_at" => $date,
                 "last_updated_by" => $this->session->userdata('id'),
             );
+            $wherehutang = array('rap_biaya_id' => $rap_biaya_id);
+            $data_hutang = array(
+                "pengajuan_approval_id" => $pengajuan_approval_id,
+            );
             $where_off_proj = array('id' => $project_office_id);
             $this->db->trans_start();
             $this->db->insert('trx_pengiriman_uang', $data);
             $this->M_data->UpdateData('akk_pengajuan_approval', $data_update_approv, $where_approv);
+            $this->M_data->UpdateData('akk_hutang', $data_hutang, $wherehutang);
             $this->M_data->UpdateData('mst_organization', $data_update_org, $where_org);
             $this->M_data->UpdateData($table, $data_update_off_proj, $where_off_proj);
             $this->db->trans_complete();

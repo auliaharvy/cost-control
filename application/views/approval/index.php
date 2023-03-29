@@ -130,6 +130,7 @@
                           <div class="col-xs-8">
                             <input type="hidden" name="pengajuan_biaya_id" value="<?php echo $id; ?>" class="form-control" readonly>
                             <input type="hidden" name="pengajuan_id" value="<?php echo $pengajuan_id; ?>" class="form-control" readonly>
+                            <input type="hidden" name="rap_biaya_id" value="<?php echo $rap_biaya_id; ?>" class="form-control" readonly>
                             <input type="hidden" name="is_approved" value="1">
                           </div>
                         </div>

@@ -227,7 +227,6 @@ class C_pembelian extends CI_Controller
             $config['max_width']              = '5000';
             $config['encrypt_name']    = TRUE;
             $config['max_height']           = '5000';
-
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
 
@@ -248,7 +247,6 @@ class C_pembelian extends CI_Controller
                     "note" => $_POST['note'],
                     "upload_file" => $data1['file_name'],
                 );
-
                 $wheresource = array('id' => $proj_off_id);
                 $datasource = array(
                     "cash_in_hand" => $total_cash,
@@ -448,8 +446,8 @@ class C_pembelian extends CI_Controller
                 "updated_at" => date('Y-m-d H:i:s'),
             );
             $where = array('id' => $idpembelian);
-            $this->M_data->UpdateData('trx_pengiriman_uang', $data, $wherepengiriman); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
-            $this->M_data->UpdateData('mst_project', $dataproject, $whereproject); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
+            $this->M_data->UpdateData('trx_pengiriman_uang', $data, $wherepengiriman);
+            $this->M_data->UpdateData('mst_project', $dataproject, $whereproject);
             $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
             $this->M_data->DeleteData('trx_pembelian_barang', $where);
             $this->db->trans_complete();
@@ -485,11 +483,11 @@ class C_pembelian extends CI_Controller
             );
             $where = array('id' => $idpembelian);
             $whereremaining = array('id' => $idremaining);
-            $res = $this->M_data->UpdateData('trx_pengiriman_uang', $data, $wherepengiriman); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
-            $res = $this->M_data->UpdateData('mst_project', $dataproject, $whereproject); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
-            $res = $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
-            $res = $this->M_data->DeleteData('trx_pembelian_barang', $where);
-            $res = $this->M_data->DeleteData('trx_cash_remaining', $whereremaining);
+            $this->M_data->UpdateData('trx_pengiriman_uang', $data, $wherepengiriman);
+            $this->M_data->UpdateData('mst_project', $dataproject, $whereproject);
+            $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
+            $this->M_data->DeleteData('trx_pembelian_barang', $where);
+            $this->M_data->DeleteData('trx_cash_remaining', $whereremaining);
             $this->db->trans_complete();
             if ($this->db->trans_status() === TRUE) {
                 $pesan = "Penghapusan Transakasi Pembelian Berhasil";
@@ -572,8 +570,8 @@ class C_pembelian extends CI_Controller
                 "updated_at" => date('Y-m-d H:i:s'),
             );
             $where = array('id' => $idpembelian);
-            $this->M_data->UpdateData('trx_pengiriman_uang', $data, $wherepengiriman); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
-            $this->M_data->UpdateData('mst_project', $dataproject, $whereproject); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
+            $this->M_data->UpdateData('trx_pengiriman_uang', $data, $wherepengiriman);
+            $this->M_data->UpdateData('mst_project', $dataproject, $whereproject);
             $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
             $this->M_data->DeleteData('trx_pembelian_barang', $where);
             $this->db->trans_complete();
@@ -609,8 +607,8 @@ class C_pembelian extends CI_Controller
             );
             $where = array('id' => $idpembelian);
             $whereremaining = array('id' => $idremaining);
-            $res = $this->M_data->UpdateData('trx_pengiriman_uang', $data, $wherepengiriman); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
-            $res = $this->M_data->UpdateData('mst_project', $dataproject, $whereproject); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
+            $res = $this->M_data->UpdateData('trx_pengiriman_uang', $data, $wherepengiriman);
+            $res = $this->M_data->UpdateData('mst_project', $dataproject, $whereproject);
             $res = $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
             $res = $this->M_data->DeleteData('trx_pembelian_barang', $where);
             $res = $this->M_data->DeleteData('trx_cash_remaining', $whereremaining);
@@ -624,15 +622,6 @@ class C_pembelian extends CI_Controller
                 $this->flashdata_failed1($pesan);
                 redirect('laporan_detail/' . $idproject);
             }
-            // if ($res >= 1) {
-            //     $pesan = "Penghapusan Transakasi Pembelian Berhasil";
-            //     $this->flashdata_succeed1($pesan);
-            //     redirect('laporan_detail/' . $idproject);
-            // } else {
-            //     $pesan = "Penghapusan Transakasi Pembelian Gagal";
-            //     $this->flashdata_failed1($pesan);
-            //     redirect('laporan_detail/' . $idproject);
-            // }
         }
     }
 

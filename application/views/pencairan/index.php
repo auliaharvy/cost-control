@@ -120,6 +120,7 @@
         <?php if (is_array($data) || is_object($data)) {
           foreach ($data as $i) :
             $id = $i['id'];
+            $rap_biaya_id = $i['rap_biaya_id'];
             $pengajuan_id = $i['pengajuan_id'];
             $jumlah_approval = $i['jumlah_approval'];
             $project_name = $i['project_name'];
@@ -138,6 +139,7 @@
                         <div class="col-xs-8">
                           <input name="pengajuan_approval_id" value="<?php echo $id; ?>" class="form-control" type="hidden" readonly>
                           <input name="pengajuan_id" value="<?php echo $pengajuan_id; ?>" class="form-control" type="hidden" readonly>
+                          <input name="rap_biaya_id" value="<?php echo $rap_biaya_id; ?>" class="form-control" type="hidden" readonly>
                           <input type="hidden" name="is_approved" value="1">
                           <input type="hidden" name="msg" value="Approve">
                         </div>

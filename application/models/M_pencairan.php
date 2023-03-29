@@ -39,7 +39,7 @@ class M_pencairan extends CI_Model
 		$this->db->select('
         a.*,c.nama_jenis_rap,c.nama_pekerjaan,FORMAT(a.jumlah_approval,0,"de_DE") as jumlah_approval_v,
         IF(d.created_at is NOT NULL,DATE_FORMAT(d.created_at,"%d %M %Y"),"-") as tanggal_pencairan,f.project_name,
-	    a.note_app as keterangan, f.id as project_id ,g.nama_kategori
+	    a.note_app as keterangan, f.id as project_id ,g.nama_kategori, c.id as rap_biaya_id
         ');
 		$this->db->from('akk_pengajuan_approval as a');
 		$this->db->join('trx_pengiriman_uang as d', 'd.pengajuan_approval_id = a.id', 'left');
@@ -119,7 +119,7 @@ class M_pencairan extends CI_Model
 	{
 		$this->db->select('
 		a.*,IF (a.destination_id = 1, concat(q.nama_type," ",r.fullname), c.project_name) AS pro_office,b.organization_name,FORMAT(a.jumlah_uang,0,"de_DE") as jumlah_uang,
-		g.nama_jenis_rap,g.nama_pekerjaan,h.project_name,FORMAT(d.jumlah_approval,0,"de_DE") as jumlah_approval,d.note_app as keterangan
+		g.nama_jenis_rap,g.nama_pekerjaan,h.project_name,FORMAT(d.jumlah_approval,0,"de_DE") as jumlah_approval,d.note_app as keterangan, g.id as rap_biaya_id
 		');
 		$this->db->order_by('id', 'desc');
 		$this->db->from('trx_pengiriman_uang as a');

@@ -276,7 +276,6 @@ class C_pengajuan extends CI_Controller
                 "last_updated_by" => $this->session->userdata('id'),
                 "created_at" => $date,
             );
-            $this->db->insert('akk_pengajuan_biaya', $data);
             $this->flashdata_succeed_rap();
             redirect('pengajuan/' . $project_id);
         }

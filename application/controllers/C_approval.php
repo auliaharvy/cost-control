@@ -51,6 +51,7 @@ class C_approval extends CI_Controller
         );
         $cekpengajuan = $this->M_pengajuan->GetData("akk_pengajuan_biaya ", "where id = '$pengajuan_biaya_id'");
         $uang_pengajuan = $cekpengajuan[0]['jumlah_pengajuan'];
+        $rap_id = $cekpengajuan[0]['rap_biaya_id'];
         $cekapproval = $this->M_pengajuan->GetData("akk_pengajuan_approval ", "where pengajuan_biaya_id = '$pengajuan_biaya_id'");
         $this->db->trans_start();
         if ($jumlah_approval > $uang_pengajuan) {

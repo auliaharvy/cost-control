@@ -36,7 +36,7 @@ class M_approval extends CI_Model
 		$this->db->select('
         a.*,c.project_name,e.nama_kategori,a.note as keterangan,e.nama_kategori, a.id as id_pengajuan,
 		d.nama_jenis_rap,d.nama_pekerjaan,FORMAT(a.jumlah_pengajuan,0,"de_DE") as jumlah_pengajuan_v ,
-		DATE_FORMAT(a.created_at,"%d %M %Y") as tanggal_pengajuan
+		DATE_FORMAT(a.created_at,"%d %M %Y") as tanggal_pengajuan, d.id as rap_biaya_id
         ');
 		$this->db->from('akk_pengajuan_biaya as a');
 		$this->db->join('akk_pengajuan as b', 'a.pengajuan_id = b.id', 'left');

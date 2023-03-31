@@ -43,7 +43,6 @@ class M_hutang extends CI_Model
 		$this->db->from('akk_pengajuan_approval as a');
 		$this->db->join('akk_pengajuan_biaya as b', 'a.pengajuan_biaya_id = b.id');
 		$this->db->join('akk_rap_biaya as c', 'b.rap_biaya_id = c.id');
-
 		$this->db->where('b.pengajuan_id', $id);
 
 		$data = $this->db->get();
@@ -54,14 +53,15 @@ class M_hutang extends CI_Model
 		}
 	}
 
-	public function getHutang($id)
+	public function getHutang()
 	{
 		$this->db->select('
-          a.*,b.project_name, b.project_location, b.project_deadline, b.rab_project, b.id, a.id as hutang_id, b.cash_in_hand
+          a.*,b.project_name, b.project_location, b.project_deadline, b.rab_project, b.id, a.id as hutang_id, b.cash_in_hand,
+		  FORMAT(a.nominal,0,"de_DE") as nominal, a.note
       ');
 		$this->db->from('akk_hutang as a');
 		$this->db->join('mst_project as b', 'a.project_id = b.id');
-		$this->db->where('a.project_id', $id);
+		$this->db->where('a.is_pay', 0);
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
@@ -124,13 +124,11 @@ class M_hutang extends CI_Model
 		$user_id = $this->session->userdata('id');
 		$this->db->select('
  		a.*,b.project_name,FORMAT(b.cash_in_hand,0,"de_DE") as cash_in_hand,DATE_FORMAT(a.created_at, "%d %M %Y") as created_at,
-		FORMAT(a.nominal,0,"de_DE") as nominal, b.id as id_project, d.id as id_pengiriman
+		FORMAT(a.nominal,0,"de_DE") as nominal, b.id as id_project, 
         ');
 		if ($role == 4) {
 			$this->db->from('akk_hutang as a');
 			$this->db->join('mst_project as b', 'a.project_id = b.id');
-			$this->db->join('akk_pengajuan_approval as c', 'a.pengajuan_approval_id = c.id', 'left');
-			$this->db->join('trx_pengiriman_uang as d', 'c.id = d.pengajuan_approval_id', 'left');
 			$this->db->where('b.project_status', 0);
 			$this->db->where('b.created_by', $user_id);
 			$this->db->where('a.is_pay', 0);

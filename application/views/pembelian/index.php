@@ -215,9 +215,28 @@
                             <input name="pengiriman_uang_id" value="<?php echo $pengiriman_uang_id; ?>" class="form-control" type="hidden" readonly>
                             <input name="destination_id" value="<?php echo $destination_id; ?>" class="form-control" type="hidden" readonly>
                             <input name="project_office_id" value="<?php echo $project_office_id; ?>" class="form-control" type="hidden" readonly>
-                            <input name="project_id" value="<?php echo $project_id; ?>" class="form-control" type="hidden" readonly>
+                            <input name="project_id" value="<?php echo $project_id; ?>" class="form-control id_project" type="hidden" id="id_project" readonly>
                             <input type="hidden" name="is_buy" value="1">
                             <input type="hidden" name="msg" value="Pembelian">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class='col-xs-3'>Jenis Transaksi :</label>
+                          <select class="form-control js-states jenis_transaksi" id="single" style="width:100%;" name="jenis_transaksi">
+                            <option selected="selected" value="0">Silahkan Pilih Transaksi</option>
+                            <option value="1">Pembelian</option>
+                            <option value="2">Bayar Hutang</option>
+                          </select>
+                        </div>
+                        <div class="bayar">
+                          <div class="form-group">
+                            <label>Pilih Hutang</label>
+                            <select class="form-control js-states id_hutang" id="single" style="width:100%;" name="id_hutang">
+                              <option selected="selected" value=""></option>
+                              <?php foreach ($hutang as $us) { ?>
+                                <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?> : <?php echo $us['note']; ?> (Rp <?php echo $us['nominal']; ?>)</option>
+                              <?php } ?>
+                            </select>
                           </div>
                         </div>
                         <div class="form-group">
@@ -230,7 +249,7 @@
                           </div>
                         </div>
                         <div class="form-group">
-                          <label class='col-xs-3'>Note</label>
+                          <label>Note</label>
                           <div class='col-xs-8'><textarea class="form-control" type="text" rows="3" name="note"></textarea>
                           </div>
                         </div>
@@ -295,6 +314,22 @@
       "ordering": false,
       "info": true,
       "autoWidth": true,
+    });
+
+    $(document).ready(function() {
+
+      $('.jenis_transaksi').on('change', function() {
+        var value = $(this).val();
+        if (value == "2") {
+          $(".bayar").show();
+        } else if (value == "0") {
+          $(".bayar").hide();
+        } else {
+          $(".bayar").hide();
+        }
+
+      });
+
     });
 
     $('.project_id').change(function() {

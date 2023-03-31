@@ -59,19 +59,11 @@
                         <tr class="odd gradeX">
                           <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
                           <?php if (($this->session->userdata('role')) == 4) { ?>
-                            <td style="width: 10%; vertical-align:middle;" align="text-center">
-                              <div class="row">
-                                <a href="<?php echo site_url('bayarhutang/' . $d['id']); ?>" onclick="return confirm('Apakah Anda Ingin Membayar Hutang <?= $d['project_name']; ?> ?');" class="btn btn-success btn-circle " data-popup="tooltip" data-placement="top" title="Bayar Hutang"><i class="fas fa-money-bill"></i></a>
-                                <!-- <form action="<?php echo site_url('hutangbayar'); ?>" method="post" class="row col-md-4">
-                                <input name="id_hutang" value="<?php echo $d['id']; ?>">
-                                <input name="id_project" value="<?php echo $d['id_project']; ?>">
-                                <button style="margin-left: 5px; border-radius: 5px;" class="btn btn-success btn-circle " onclick="return confirm('Apakah Anda Ingin Membayar Hutang <?= $d['project_name']; ?> ?');" style="width: 80px;" class="btn btn-success btn-circle " data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fas fa-edit"></i>BAYAR</button>
-                              </form> -->
-                                <form action="<?php echo site_url('hapushutang'); ?>" method="post" class="row col-md-4">
-                                  <input type="hidden" name="id_hutang" value="<?php echo $d['id']; ?>">
-                                  <button style="margin-left: 5px; border-radius: 5px;" type="submit" onclick="return confirm('Apakah Anda Ingin Menghapus Data Hutang di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" title="Hapus Data"><i class="fa fa-trash"></i></button>
-                                </form>
-                              </div>
+                            <td style="width: 5%; vertical-align:middle;" align="text-center">
+                              <form action="<?php echo site_url('hapushutang'); ?>" method="post" class="row col-md-4">
+                                <input type="hidden" name="id_hutang" value="<?php echo $d['id']; ?>">
+                                <button style="margin-left: 5px; border-radius: 5px;" type="submit" onclick="return confirm('Apakah Anda Ingin Menghapus Data Hutang di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" title="Hapus Data"><i class="fa fa-trash"></i></button>
+                              </form>
                             </td>
                           <?php
                           } ?>
@@ -79,7 +71,7 @@
                           <td style="width: 20%;" class="text text-center size">Rp. <?php echo $d['cash_in_hand']; ?></td>
                           <td style="width: 15%;" class="text text-center size"><?php echo $d['created_at']; ?></td>
                           <td style="width: 15%;" class="text text-center size">Rp. <?php echo $d['nominal']; ?></td>
-                          <td style="width: 13%;" class="text over"><?php echo $d['note']; ?></td>
+                          <td style="width: 18%;" class="text over"><?php echo $d['note']; ?></td>
                         </tr>
                     <?php
                       }
@@ -141,12 +133,6 @@
                         <?php foreach ($project as $us) { ?>
                           <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?></option>
                         <?php } ?>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label>RAP</label>
-                      <select class="form-control js-states rap_biaya_id" id="single" style="width:100%;" name="rap_biaya_id" required>
-                        <option value="">---Select List---</option>
                       </select>
                     </div>
                     <div class="form-group">
@@ -215,28 +201,6 @@
       "ordering": false,
       "info": true,
       "autoWidth": true,
-    });
-    $('.project_id').change(function() {
-      var id = $(this).val();
-      var project_id = $('input[name="project_id"]').val();
-      $.ajax({
-        url: "<?php echo base_url(); ?>C_pengajuan/getListBiayaRap/" + id,
-        method: "POST",
-        data: {
-          id: id
-        },
-        async: false,
-        dataType: 'json',
-        success: function(data) {
-          var html = '';
-          var i;
-          for (i = 0; i < data.length; i++) {
-            html += '<option value="' + data[i].id + '">' + data[i].nama_pekerjaan + " > " + data[i].jumlah_biaya_v + '</option>';
-          }
-          $('.rap_biaya_id').html(html);
-
-        }
-      });
     });
     table.columns.adjust().draw();
 

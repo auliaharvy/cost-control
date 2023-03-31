@@ -16,6 +16,8 @@ class M_pembelian extends CI_Model
 		}
 	}
 
+
+
 	public function showPembelianbelum()
 	{
 

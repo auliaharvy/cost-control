@@ -174,7 +174,6 @@ class C_hutang extends CI_Controller
             $data = array(
                 "project_id" => $project_id,
                 "nominal" => $nominal,
-                "rap_biaya_id" => $_POST['rap_biaya_id'],
                 "note" => $_POST['note'],
                 "created_by" => $this->session->userdata('id'),
                 "created_at" => $date,

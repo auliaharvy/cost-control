@@ -245,7 +245,7 @@
                             <div class="input-group-prepend">
                               <span class="input-group-text">Rp</span>
                             </div>
-                            <input name="jumlah_uang_pembelian" class="form-control uang " type="text" placeholder="Masukan Jumlah Pembelian.." required>
+                            <input name="jumlah_uang_pembelian" id="jumlah_uang_pembelian" class="form-control uang_pembelian" type="text" placeholder="<?php echo $jumlah_uang; ?>" required>
                           </div>
                         </div>
                         <div class="form-group">
@@ -327,9 +327,23 @@
         } else {
           $(".bayar").hide();
         }
-
       });
-
+    });
+    $('.id_hutang').change(function() {
+      var id = $(this).val();
+      $.ajax({
+        url: "<?php echo base_url(); ?>C_pembelian/getListHutang/" + id,
+        method: "POST",
+        data: {
+          id: id
+        },
+        async: false,
+        dataType: 'json',
+        success: function(data) {
+          var html = nominal;
+          $('#jumlah_uang_pembelian').html(html);
+        }
+      });
     });
 
     $('.project_id').change(function() {

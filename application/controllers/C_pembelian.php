@@ -48,9 +48,7 @@ class C_pembelian extends CI_Controller
 
     public function getListHutang()
     {
-        //  $id=$this->input->post('id');
-        $get = $this->M_hutang->getHutang();
-
+        $get = $this->M_hutang->showHutangbelum1();
         echo $get[0]['id'];
     }
 
@@ -202,6 +200,11 @@ class C_pembelian extends CI_Controller
         $rap_item_id = $getRapItem[0]['rap_biaya_id'];
         $aktual_rap = $getRapItem[0]['jumlah_aktual'];
         $jumlah_aktual_total = $jumlah_uang_pembelian + $aktual_rap;
+        if ($jenis_transaksi == 1) {
+            $note = $_POST['note'];
+        } else {
+            $note = '( Bayar Hutang )';
+        }
         $whererap = array('id' => $rap_item_id);
         $datarap = array(
             'jumlah_aktual' => $jumlah_aktual_total,
@@ -217,6 +220,10 @@ class C_pembelian extends CI_Controller
             } else {
                 $pesan = "Jumlah Pembayaran Hutang yang diinput tidak boleh melebihi jumlah yang ada";
             }
+            $this->flashdata_failed1($pesan);
+            redirect('pembelian');
+        } else if ($jumlah_uang_pembelian < $uang_pencairan && $jenis_transaksi == 2) {
+            $pesan = "Jumlah Pembayaran Hutang yang diinput harus sesuai";
             $this->flashdata_failed1($pesan);
             redirect('pembelian');
         } else {
@@ -260,7 +267,7 @@ class C_pembelian extends CI_Controller
                     "jumlah_uang_pembelian" => $jumlah_uang_pembelian,
                     "created_at" => $date,
                     "last_updated_by" => $user_id,
-                    "note" => $_POST['note'],
+                    "note" => $note,
                     "upload_file" => $data1['file_name'],
                 );
                 $wheresource = array('id' => $proj_off_id);

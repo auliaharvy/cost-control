@@ -229,7 +229,7 @@ class M_data extends CI_Model
 		}
 	}
 
-	public function gettitlepiutang()
+	public function gettitletagihan()
 	{
 		$this->db->select("
         a.project_name,ROUND((a.rab_project - sum(b.nominal)),0) as total_tagihan, 
@@ -247,7 +247,7 @@ class M_data extends CI_Model
 		}
 	}
 
-	public function gettitlepiutang2()
+	public function gettitlepiutang()
 	{
 		$this->db->select("
         a.project_name,ROUND((ROUND((a.project_progress/100),4) * a.rab_project) - sum(b.nominal),0) as total_piutang,(ROUND((a.project_progress/100),4) * a.rab_project) as total_piutang_tanpa,  
@@ -349,7 +349,7 @@ class M_data extends CI_Model
 		}
 	}
 
-	public function getPiutang()
+	public function getTagihan()
 	{
 		$this->db->select("
         a.project_name,ROUND((a.rab_project - sum(b.nominal)),0) as total_tagihan
@@ -366,7 +366,7 @@ class M_data extends CI_Model
 		}
 	}
 
-	public function getPiutang2()
+	public function getPiutang()
 	{
 		$this->db->select("
         a.project_name,ROUND((ROUND((a.project_progress/100),4) * a.rab_project) - sum(b.nominal),0) as total_piutang

@@ -74,54 +74,6 @@ class M_hutang extends CI_Model
 	{
 		$role = $this->session->userdata('role');
 		$user_id = $this->session->userdata('id');
-		if ($role == 4) {
-			$data = $this->db->query("SELECT a.*, FORMAT(b.termin_terbayar,0,'de_DE') as jumlah_hutang, FORMAT(a.rab_project,0,'de_DE') as rab_project_v,
-		FORMAT(ROUND((a.rab_project - b.termin_terbayar),0),0,'de_DE') as sisa_termin FROM mst_project as a 
-		JOIN (SELECT SUM(nominal) AS termin_terbayar,project_id,is_pay,note AS keterangan,created_at AS tanggal_pengajuan FROM akk_hutang GROUP BY id) as b 
-		ON a.id = b.project_id 
-		WHERE a.project_status = 0 AND a.created_by = $user_id AND b.is_pay = 0");
-		} else {
-			$data = $this->db->query("SELECT a.*, FORMAT(b.termin_terbayar,0,'de_DE') as total_hutang, FORMAT(a.rab_project,0,'de_DE') as rab_project_v,
-		FORMAT(ROUND((a.rab_project - b.termin_terbayar),0),0,'de_DE') as sisa_termin FROM mst_project as a 
-		JOIN (SELECT SUM(nominal) AS termin_terbayar,project_id, is_pay FROM akk_hutang GROUP BY project_id) as b 
-		ON a.id = b.project_id 
-		WHERE b.is_pay = 0");
-		}
-		if ($data->num_rows() > 0) {
-			return $data->result_array();
-		} else {
-			return false;
-		}
-	}
-
-	public function showHutangsudah()
-	{
-		$role = $this->session->userdata('role');
-		$user_id = $this->session->userdata('id');
-		if ($role == 4) {
-			$data = $this->db->query("SELECT a.*, FORMAT(b.termin_terbayar,0,'de_DE') as total_hutang, FORMAT(a.rab_project,0,'de_DE') as rab_project_v,
-		FORMAT(ROUND((a.rab_project - b.termin_terbayar),0),0,'de_DE') as sisa_termin FROM mst_project as a 
-		JOIN (SELECT SUM(nominal) AS termin_terbayar,project_id, is_pay FROM akk_hutang GROUP BY id) as b 
-		ON a.id = b.project_id 
-		WHERE a.project_status = 0 AND a.created_by = $user_id AND b.is_pay = 1");
-		} else {
-			$data = $this->db->query("SELECT a.*, FORMAT(b.termin_terbayar,0,'de_DE') as total_hutang, FORMAT(a.rab_project,0,'de_DE') as rab_project_v,
-		FORMAT(ROUND((a.rab_project - b.termin_terbayar),0),0,'de_DE') as sisa_termin FROM mst_project as a 
-		JOIN (SELECT SUM(nominal) AS termin_terbayar,project_id, is_pay FROM akk_hutang GROUP BY project_id) as b 
-		ON a.id = b.project_id 
-		WHERE b.is_pay = 1");
-		}
-		if ($data->num_rows() > 0) {
-			return $data->result_array();
-		} else {
-			return false;
-		}
-	}
-
-	public function showHutangbelum1()
-	{
-		$role = $this->session->userdata('role');
-		$user_id = $this->session->userdata('id');
 		$this->db->select('
  		a.*,b.project_name,FORMAT(b.cash_in_hand,0,"de_DE") as cash_in_hand,DATE_FORMAT(a.created_at, "%d %M %Y") as created_at,
 		FORMAT(a.nominal,0,"de_DE") as nominal, b.id as id_project, 
@@ -147,7 +99,7 @@ class M_hutang extends CI_Model
 		}
 	}
 
-	public function showHutangsudah1()
+	public function showHutangsudah()
 	{
 		$role = $this->session->userdata('role');
 		$user_id = $this->session->userdata('id');
@@ -178,66 +130,6 @@ class M_hutang extends CI_Model
 		}
 	}
 
-	public function showHutangbelum2()
-	{
-		$role = $this->session->userdata('role');
-		$user_id = $this->session->userdata('id');
-		$this->db->select('
- 		a.*,b.project_name,FORMAT(b.cash_in_hand,0,"de_DE") as cash_in_hand,DATE_FORMAT(a.created_at, "%d %M %Y") as created_at,
-		FORMAT(SUM(a.nominal),0,"de_DE") as nominal
-        ');
-		if ($role == 4) {
-			$this->db->from('akk_hutang as a');
-			$this->db->join('mst_project as b', 'a.project_id = b.id');
-			$this->db->where('b.project_status', 0);
-			$this->db->where('b.created_by', $user_id);
-			$this->db->where('a.is_pay', 0);
-			// $this->db->group_by('project_id');
-		} else {
-			$this->db->from('akk_hutang as a');
-			$this->db->join('mst_project as b', 'a.project_id = b.id');
-			$this->db->where('b.project_status', 0);
-			$this->db->where('a.is_pay', 0);
-			$this->db->order_by('a.project_id', 'ASC');
-		}
-		$data = $this->db->get();
-		if ($data->num_rows() > 0) {
-			return $data->result_array();
-		} else {
-			return false;
-		}
-	}
-
-	public function showHutangsudah2()
-	{
-		$role = $this->session->userdata('role');
-		$user_id = $this->session->userdata('id');
-		$this->db->select('
- 		a.*,b.project_name,FORMAT(b.cash_in_hand,0,"de_DE") as cash_in_hand,DATE_FORMAT(a.pay_at, "%d %M %Y") as pay_at,
-		FORMAT(SUM(a.nominal),0,"de_DE") as nominal
-        ');
-		if ($role == 4) {
-			$this->db->from('akk_hutang as a');
-			$this->db->join('mst_project as b', 'a.project_id = b.id');
-			$this->db->where('b.project_status', 0);
-			$this->db->where('b.created_by', $user_id);
-			$this->db->where('a.is_pay', 1);
-			// $this->db->group_by('project_id');
-		} else {
-			$this->db->from('akk_hutang as a');
-			$this->db->join('mst_project as b', 'a.project_id = b.id');
-			$this->db->where('b.project_status', 0);
-			$this->db->where('a.is_pay', 1);
-			// $this->db->group_by('project_id');
-		}
-
-		$data = $this->db->get();
-		if ($data->num_rows() > 0) {
-			return $data->result_array();
-		} else {
-			return false;
-		}
-	}
 
 	public function showHutangProject($id)
 	{

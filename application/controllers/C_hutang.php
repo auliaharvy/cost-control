@@ -19,8 +19,8 @@ class C_hutang extends CI_Controller
     public function index() //project on progress
     {
 
-        $databelum = $this->M_hutang->showHutangbelum1();
-        $datasudah = $this->M_hutang->showHutangsudah1();
+        $databelum = $this->M_hutang->showHutangbelum();
+        $datasudah = $this->M_hutang->showHutangsudah();
         $project = $this->M_transaksi->getProject(0);
 
         $show = array(

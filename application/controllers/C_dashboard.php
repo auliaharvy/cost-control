@@ -20,13 +20,10 @@ class C_dashboard extends CI_Controller
 
     public function index() //project on progress
     {
-        $project = $this->M_laporan->getProjectAll(0);
-        $dataAll = $this->M_data->getAll();
-        $titleAll = $this->M_data->getAlltitle();
         $title_kas = $this->M_data->gettitlekas();
         $title_kasper = $this->M_data->gettitlekasper();
-        $title_tagihan = $this->M_data->gettitlepiutang();
-        $title_piutang = $this->M_data->gettitlepiutang2();
+        $title_tagihan = $this->M_data->gettitletagihan();
+        $title_piutang = $this->M_data->gettitlepiutang();
         $title_usaha = $this->M_data->gettitleusaha();
         $title_hutang = $this->M_data->gettitlehutang();
         $title_omset = $this->M_data->gettitleomset();
@@ -35,8 +32,8 @@ class C_dashboard extends CI_Controller
         $datapengajuan = $this->M_data->getPengajuandashboard();
         $dataomset = $this->M_data->getOmset();
         $datahutang = $this->M_data->getHutang();
-        $datatagihan = $this->M_data->getPiutang();
-        $datapiutang = $this->M_data->getPiutang2();
+        $datatagihan = $this->M_data->getTagihan();
+        $datapiutang = $this->M_data->getPiutang();
         $datausaha = $this->M_data->getUsaha();
         $totalkas = $this->lharby->formatRupiah($title_kas[0]['total_kas']);
         $titlekas = $totalkas;
@@ -52,7 +49,6 @@ class C_dashboard extends CI_Controller
             'sidebar' => $this->sidebar(),
             'footer' => $this->footer(),
             'datakas' => $datakas,
-            'dataAll' => $dataAll,
             'datapengajuan' => $datapengajuan,
             'dataomset' => $dataomset,
             'datahutang' => $datahutang,
@@ -69,12 +65,10 @@ class C_dashboard extends CI_Controller
             'title_tagihan' => $title_tagihan,
             'title_piutang' => $title_piutang,
             'title_usaha' => $title_usaha,
-            'project' => $project,
             'titlekas' => $titlekas,
             'titlehutang' => $titlehutang,
             'titlepengajuan' => $titlepengajuan,
             'titleomset' => $titleomset,
-            // 'titlepiutang' => $titlepiutang,
         );
         $this->load->view('dashboard/index', $show);
     }

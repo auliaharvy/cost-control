@@ -25,7 +25,7 @@ class C_pembelian extends CI_Controller
         $datasudah = $this->M_pembelian->showPembeliansudah(); //show pembelian data
         $project = $this->M_transaksi->getProject(0);
         $pengajuan = $this->M_pembelian->showPencairan(0);
-        $hutang = $this->M_hutang->showHutangbelum1(0);
+        $hutang = $this->M_hutang->showHutangbelum(0);
         $project_id = $project[0]['id'];
         $pengajuan_id = $pengajuan[0]['pengajuan_id'];
         $destination_id = 2;
@@ -384,14 +384,13 @@ class C_pembelian extends CI_Controller
         $project_id = $_POST['project_id'];
         $pengajuan_id = $_POST['pengajuan_id'];
         $destination_id = 2;
-        $project_office_id = $_POST['project_office_id'];
         $rap_biaya_id = $_POST['rap_biaya_id'];
         $a = $_POST['jumlah_uang_pembelian'];
         $b = str_replace('.', '', $a); //ubah format rupiah ke integer
         $jumlah_uang_pembelian = intval($b);
         if ($destination_id == 1) { //office
             $table = 'mst_office ';
-            $getcash = $this->M_pembelian->GetData($table, "where id = '$project_office_id'");
+            $getcash = $this->M_pembelian->GetData($table, "where id = '$project_id'");
             $cash = $getcash[0]['cash_in_hand'];
             $total_cash = $cash - $jumlah_uang_pembelian; //cash di office
             $data_remaining = $this->M_pembelian->showPencairanRemainingOffice($project_id, $destination_id, $user_id);
@@ -399,7 +398,7 @@ class C_pembelian extends CI_Controller
             $id_trx_cash_remaining = $data_remaining[0]['id'];
         } else { //project
             $table = 'mst_project ';
-            $getcash = $this->M_pembelian->GetData($table, "where id = '$project_office_id'");
+            $getcash = $this->M_pembelian->GetData($table, "where id = '$project_id'");
             $cash = $getcash[0]['cash_in_hand'];
             $total_cash = $cash - $jumlah_uang_pembelian;
             $data_remaining = $this->M_pembelian->showPencairanRemainingProject($project_id, $destination_id, $user_id);
@@ -437,14 +436,14 @@ class C_pembelian extends CI_Controller
                 "project_id" => $project_id,
                 "rap_biaya_id" => $rap_biaya_id,
                 "destination_id" => $destination_id,
-                "project_office_id" => $project_office_id,
+                "project_office_id" => $project_id,
                 "jumlah_uang_pembelian" => $jumlah_uang_pembelian,
                 "created_at" => $date,
                 "last_updated_by" => $user_id,
                 "note" => $_POST['note'],
                 "upload_file" => $data1['file_name'],
             );
-            $wheresource = array('id' => $project_office_id);
+            $wheresource = array('id' => $project_id);
             $datasource = array(
                 "cash_in_hand" => $total_cash,
                 "last_updated_by" => $user_id,
@@ -487,7 +486,6 @@ class C_pembelian extends CI_Controller
         $a = $_POST['jumlah_pembelian'];
         $b = str_replace('.', '', $a); //ubah format rupiah ke integer
         $jumlah_pembelian = intval($b);
-        $cash = $_POST['cash'];
         $c = $_POST['cash'];
         $d = str_replace('.', '', $c); //ubah format rupiah ke integer
         $cash = intval($d);
@@ -573,22 +571,35 @@ class C_pembelian extends CI_Controller
 
     public function deleteremaining()
     {
-        $idproject = $_POST['id_project'];
-        $idpembelian = $_POST['id_pembelian'];
-        $data_pembelian = $this->M_pembelian->showPembeliansudah();
-        $jumlah_uang_pembelian = $data_pembelian[0]['jumlah_pembelian_remaining'];
-        $cash = $data_pembelian[0]['cash'];
+        $idproject = $_POST['id_project_remaining'];
+        $idpembelian = $_POST['id_pembelian_remaining'];
+        $idrap = $_POST['id_rap_remaining'];
+        $a = $_POST['jumlah_pembelian_remaining'];
+        $b = str_replace('.', '', $a); //ubah format rupiah ke integer
+        $jumlah_pembelian = intval($b);
+        $c = $_POST['cash_remaining'];
+        $d = str_replace('.', '', $c); //ubah format rupiah ke integer
+        $cash = intval($d);
+        $getRapItem = $this->M_data->GetData("akk_rap_biaya ", "where id = '$idrap'"); //cari data untuk menambahkan jumlah aktual
+        $aktual_rap = $getRapItem[0]['jumlah_aktual'];
         $whereproject = array('id' => $idproject);
         $where = array('id' => $idpembelian);
-        $total_cash = $cash + $jumlah_uang_pembelian;
+        $total_cash = $cash + $jumlah_pembelian;
         $dataproject = array(
             "cash_in_hand" => $total_cash,
             "last_updated_by" => $this->session->userdata('id'),
             "updated_at" => date('Y-m-d H:i:s'),
         );
+        $whererap = array('id' => $idrap);
+        $datarap = array(
+            "jumlah_aktual" => $aktual_rap - $jumlah_pembelian,
+            "last_update_by" => $this->session->userdata('id'),
+            "updated_at" => date('Y-m-d H:i:s'),
+        );
         $this->db->trans_start();
-        $res = $this->M_data->UpdateData('mst_project', $dataproject, $whereproject); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
-        $res = $this->M_data->DeleteData('trx_pembelian_barang_remaining', $where);
+        $this->M_data->UpdateData('mst_project', $dataproject, $whereproject); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
+        $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
+        $this->M_data->DeleteData('trx_pembelian_barang_remaining', $where);
         $this->db->trans_complete();
         if ($this->db->trans_status() === TRUE) {
             $pesan = "Penghapusan Transakasi Pembelian Berhasil";

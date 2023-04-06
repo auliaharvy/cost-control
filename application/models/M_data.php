@@ -369,7 +369,8 @@ class M_data extends CI_Model
 	public function getPiutang()
 	{
 		$this->db->select("
-        a.project_name,ROUND((ROUND((a.project_progress/100),4) * a.rab_project) - sum(b.nominal),0) as total_piutang
+        a.project_name,ROUND((ROUND((a.project_progress/100),4) * a.rab_project) - sum(b.nominal),0) as total_piutang,
+		ROUND((ROUND((a.project_progress/100),4) * a.rab_project),0) as total_piutang_no
         ");
 		$this->db->from('mst_project as a');
 		$this->db->join('akk_penerimaan_project as b', 'a.id = b.project_id', 'left');

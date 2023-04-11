@@ -186,7 +186,6 @@ class C_pembelian extends CI_Controller
         $upload = $_POST['upload'];
         $jenis_transaksi = $_POST['jenis_transaksi'];
         $id_hutang = $_POST['id_hutang'];
-        $is_pay = 1;
         $date = date('Y-m-d H:i:s');
         $user_id = $this->session->userdata('id');
         $pengiriman_uang_id = $_POST['pengiriman_uang_id'];
@@ -196,6 +195,9 @@ class C_pembelian extends CI_Controller
         $a = $_POST['jumlah_uang_pembelian'];
         $b = str_replace('.', '', $a); //ubah format rupiah ke integer
         $jumlah_uang_pembelian = intval($b);
+        $getHutang = $this->M_pembelian->GetData("akk_hutang ", "where id = '$id_hutang'");
+        $total_hutang = $getHutang[0]['nominal'];
+        $hasil_hutang = $total_hutang - $jumlah_uang_pembelian;
         $getRapItem = $this->M_pembelian->getBiayaAktualRap($pengiriman_uang_id); //cari data untuk menambahkan jumlah aktual
         $rap_item_id = $getRapItem[0]['rap_biaya_id'];
         $aktual_rap = $getRapItem[0]['jumlah_aktual'];
@@ -223,7 +225,7 @@ class C_pembelian extends CI_Controller
             $this->flashdata_failed1($pesan);
             redirect('pembelian');
         } else {
-            
+
             $remaining_pembelian = $uang_pencairan - $jumlah_uang_pembelian;
             if ($remaining_pembelian > 0) {
                 $is_buy = 2; //parsial
@@ -273,16 +275,6 @@ class C_pembelian extends CI_Controller
                     "last_updated_by" => $user_id,
                     "updated_at" => $date,
                 );
-                $wherehutang = array('id' => $id_hutang);
-                $getHutang = $this->M_pembelian->GetData("akk_hutang", "where id = '$id_hutang'");
-                $total_hutang = $getHutang[0]['nominal'];
-                $hasil_hutang = $total_hutang - $jumlah_uang_pembelian;
-                    $datahutang = array(
-                        "is_pay" => 0,
-                        "nominal" => $hasil_hutang,
-                        "pay_at" => $date,
-                        "updated_by" => $user_id,
-                    );
                 $where = array('id' => $pengiriman_uang_id);
                 $data = array(
                     "remaining_pembelian" => $remaining_pembelian,
@@ -291,6 +283,21 @@ class C_pembelian extends CI_Controller
                     "updated_at" => $date,
                     "buy_created_at" => $date,
                 );
+                $wherehutang = array('id' => $id_hutang);
+                if ($total_hutang > $jumlah_uang_pembelian) {
+                    $datahutang = array(
+                        "is_pay" => 0,
+                        "nominal" => $hasil_hutang,
+                        "pay_at" => $date,
+                        "updated_by" => $user_id,
+                    );
+                } else {
+                    $datahutang = array(
+                        "is_pay" => 1,
+                        "pay_at" => $date,
+                        "updated_by" => $user_id,
+                    );
+                }
                 $this->db->trans_start();
                 if ($jenis_transaksi == 1) {
                     /*Trx Cash Remaining */

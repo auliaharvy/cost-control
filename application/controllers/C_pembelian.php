@@ -197,6 +197,7 @@ class C_pembelian extends CI_Controller
         $jumlah_uang_pembelian = intval($b);
         $getHutang = $this->M_pembelian->GetData("akk_hutang ", "where id = '$id_hutang'");
         $total_hutang = $getHutang[0]['nominal'];
+        $project_hutang = $getHutang[0]['project_id'];
         $hasil_hutang = $total_hutang - $jumlah_uang_pembelian;
         $getRapItem = $this->M_pembelian->getBiayaAktualRap($pengiriman_uang_id); //cari data untuk menambahkan jumlah aktual
         $rap_item_id = $getRapItem[0]['rap_biaya_id'];
@@ -222,6 +223,15 @@ class C_pembelian extends CI_Controller
             } else {
                 $pesan = "Jumlah Pembayaran Hutang yang diinput tidak boleh melebihi jumlah yang ada";
             }
+
+            $this->flashdata_failed1($pesan);
+            redirect('pembelian');
+        } else if ($project_hutang != $project_id) {
+            $pesan = "Pengajuan Project tidak sesuai dengan project";
+            $this->flashdata_failed1($pesan);
+            redirect('pembelian');
+        } else if ($jumlah_uang_pembelian > $total_hutang) {
+            $pesan = "Pembayaran Hutang Gagal Karena Melebihi Hutang yang ada";
             $this->flashdata_failed1($pesan);
             redirect('pembelian');
         } else {

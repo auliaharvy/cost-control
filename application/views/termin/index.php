@@ -81,6 +81,7 @@
                   <thead>
                     <tr>
                       <th class="text-center">No</th>
+                      <th class="text-center">Action</th>
                       <th class="text-center">Nama Project</th>
                       <th class="text-center">Jumlah Termin</th>
                       <th class="text-center">Termin Ke-</th>
@@ -95,6 +96,9 @@
                         $id = $d['id']; ?>
                         <tr class="odd gradeX">
                           <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
+                          <td style="width: 5%; vertical-align:middle;" align="center">
+                            <a data-toggle="modal" data-target="#modal-edit<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></a>
+                          </td>
                           <td style="width: 28%; vertical-align:middle;" class="text over"><?php echo $d['project_name']; ?></td>
                           <td style="width: 20%;" class="text text-center size">Rp <?php echo $d['nominal']; ?></td>
                           <td style="width: 15%;" class="text text-center size"><?php echo $d['termin_ke']; ?></td>
@@ -155,62 +159,35 @@
             </div>
           </div>
         </div>
-        <?php
-        foreach ($data as $i) :
-          $id = $i['id'];
-          $type_office_id = $i['type_office_id'];
-          $user_id = $i['user_id'];
-          $nama_type = $i['nama_type'];
-          $fullname = $i['fullname'];
-          $project_name = $i['project_name'];
+        <?php if (is_array($datalogtermin) || is_object($datalogtermin)) {
+          foreach ($datalogtermin as $i) :
+            $id = $i['id'];
         ?>
-          <div class="modal fade" id="modal-edit<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header bg-primary">
-                  <h3 class="modal-title" id="myModalLabel">Edit Project</h3>
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+            <div class="modal fade" id="modal-edit<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header bg-primary">
+                    <h3 class="modal-title" id="myModalLabel">Edit Termin</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                  </div>
+                  <form class="form-horizontal" method="post" action="<?php echo base_url() . 'C_termin/update_termin' ?>">
+                    <div class="modal-body">
+                      <input type="hidden" name="termin_id" autocomplete="off" value="<?php echo $id; ?>" required class="form-control">
+                      <div class="form-group">
+                        <label class='col-xs-3'>Note</label>
+                        <div class='col-xs-8'><textarea class="form-control" rows="3" name="note"><?php echo $note; ?></textarea></div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                      <button class="btn btn-info">Update</button>
+                    </div>
+                  </form>
                 </div>
-                <form class="form-horizontal" method="post" action="<?php echo base_url() . 'C_office/do_update' ?>">
-                  <div class="modal-body">
-                    <input type="hidden" name="office_id" autocomplete="off" value="<?php echo $id; ?>" required class="form-control">
-                    <div class="form-group">
-                      <label>Tipe Office</label>
-                      <select class="form-control office_type_id" name="office_type_id" required>
-                        <option value="<?php echo $type_office_id; ?>"><?php echo $nama_type; ?></option>
-                        <?php foreach ($office_type as $dk) { ?>
-                          <option value="<?php echo $dk['id']; ?>"><?php echo $dk['nama_type']; ?></option>
-                        <?php } ?>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label>User</label>
-                      <select class="form-control user_id" name="user_id" required>
-                        <option value="<?php echo $user_id; ?>"><?php echo $fullname; ?></option>
-                        <?php foreach ($user as $us) { ?>
-                          <option value="<?php echo $us['id']; ?>"><?php echo $us['fullname']; ?></option>
-                        <?php } ?>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label>Project</label>
-                      <select class="form-control project_name" name="project_name" required>
-                        <option value="<?php echo $project_name; ?>"><?php echo $project_name; ?></option>
-                        <?php foreach ($project as $pr) { ?>
-                          <option value="<?php echo $pr['project_name']; ?>"><?php echo $pr['project_name']; ?></option>
-                        <?php } ?>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-                    <button class="btn btn-info">Update</button>
-                  </div>
-                </form>
               </div>
             </div>
-          </div>
-        <?php endforeach; ?>
+        <?php endforeach;
+        } ?>
         <!-- /.card -->
       </div>
       <!-- /.col -->

@@ -96,6 +96,27 @@ class C_termin extends CI_Controller
         }
     }
 
+    public function update_termin()
+    {
+        $id = $_POST['termin_id'];
+        $where = array('id' => $id);
+        $data = array(
+            "note" => $_POST['note'],
+        );
+        $this->db->trans_start();
+        $this->M_data->UpdateData('akk_penerimaan_project', $data, $where);
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === TRUE) {
+            $pesan = "Update Termin Sukses";
+            $this->flashdata_succeed1($pesan);
+            redirect('termin');
+        } else {
+            $pesan = "Update Termin Sukses";
+            $this->flashdata_failed1($pesan);
+            redirect('termin');
+        }
+    }
+
     function convert_date($tgl)
     {
         $tanggal = date('d F Y', strtotime($tgl));

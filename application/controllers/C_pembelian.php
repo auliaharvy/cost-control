@@ -222,11 +222,8 @@ class C_pembelian extends CI_Controller
             }
             $this->flashdata_failed1($pesan);
             redirect('pembelian');
-        } else if ($jumlah_uang_pembelian < $uang_pencairan && $jenis_transaksi == 2) {
-            $pesan = "Jumlah Pembayaran Hutang yang diinput harus sesuai";
-            $this->flashdata_failed1($pesan);
-            redirect('pembelian');
         } else {
+            
             $remaining_pembelian = $uang_pencairan - $jumlah_uang_pembelian;
             if ($remaining_pembelian > 0) {
                 $is_buy = 2; //parsial
@@ -277,11 +274,15 @@ class C_pembelian extends CI_Controller
                     "updated_at" => $date,
                 );
                 $wherehutang = array('id' => $id_hutang);
-                $datahutang = array(
-                    "is_pay" => $is_pay,
-                    "pay_at" => $date,
-                    "updated_by" => $user_id,
-                );
+                $getHutang = $this->M_pembelian->GetData("akk_hutang", "where id = '$id_hutang'");
+                $total_hutang = $getHutang[0]['nominal'];
+                $hasil_hutang = $total_hutang - $jumlah_uang_pembelian;
+                    $datahutang = array(
+                        "is_pay" => 0,
+                        "nominal" => $hasil_hutang,
+                        "pay_at" => $date,
+                        "updated_by" => $user_id,
+                    );
                 $where = array('id' => $pengiriman_uang_id);
                 $data = array(
                     "remaining_pembelian" => $remaining_pembelian,

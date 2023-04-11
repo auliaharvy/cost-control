@@ -149,6 +149,10 @@ class C_project extends CI_Controller
             $pesan = "Pembuatan Pengajuan Gagal karena melebihi RAP";
             $this->flashdata_failed1($pesan);
             redirect('pengajuan');
+        } else if ($jumlah_pengajuan == 0) {
+            $pesan = "Pembuatan Pengajuan Gagal karena tidak ada nominal";
+            $this->flashdata_failed1($pesan);
+            redirect('pengajuan');
         } else {
             $data = array(
                 "pengajuan_id" => $_POST['pengajuan_id'],

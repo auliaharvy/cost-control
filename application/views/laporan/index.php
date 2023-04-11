@@ -86,7 +86,7 @@
                             <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['termin_terbayar']; ?></td>
                           <?php } ?>
                           <?php if ($d['sisa_termin'] == null) { ?>
-                            <td style="width: 10%;" class="text text-center size">Rp. 0</td>
+                            <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['rab_project_v']; ?></td>
                           <?php } else { ?>
                             <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['sisa_termin']; ?></td>
                           <?php } ?>

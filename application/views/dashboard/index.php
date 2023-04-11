@@ -107,7 +107,11 @@
                   <h4>Total Sisa Tagihan : <?php
                                             $temp = array();
                                             foreach ($title_tagihan->result() as $d) {
-                                              $temp[] = $d->total_tagihan_sum;
+                                              if ($d->total_tagihan_sum == null) {
+                                                $temp[] = $d->rab_project;
+                                              } else {
+                                                $temp[] = $d->total_tagihan_sum;
+                                              }
                                             };
                                             function rupiah($temp)
                                             {
@@ -283,7 +287,11 @@
             <?php
             $temp = array();
             foreach ($title_tagihan->result() as $d) {
-              $temp[] = $d->total_tagihan_sum;
+              if ($d->total_tagihan_sum == null) {
+                $temp[] = $d->rab_project;
+              } else {
+                $temp[] = $d->total_tagihan_sum;
+              }
             };
             $total = array_sum($temp);
             echo ($total);
@@ -480,10 +488,10 @@
       type: 'bar',
       data: {
         labels: ['TOTAL SISA TAGIHAN',
-          <?php if ($datausaha == null) { ?> 'Hasil Usaha'
+          <?php if ($datatagihan == null) { ?> 'Sisa Tagihan'
           <?php } else { ?>
             <?php
-            foreach ($datausaha->result_array() as $row1) {
+            foreach ($datatagihan->result_array() as $row1) {
               extract($row1);
               echo "['{$project_name}'],";
             } ?>
@@ -499,8 +507,12 @@
           <?php } else { ?>
             <?php
               $temp = array();
-              foreach ($datatagihan->result() as $d) {
-                $temp[] = $d->total_tagihan;
+              foreach ($title_tagihan->result() as $d) {
+                if ($d->total_tagihan_sum == null) {
+                  $temp[] = $d->rab_project;
+                } else {
+                  $temp[] = $d->total_tagihan_sum;
+                }
               };
               $total = array_sum($temp);
               echo ($total);
@@ -508,7 +520,11 @@
             <?php
               foreach ($datatagihan->result_array() as $row1) {
                 extract($row1);
-                echo "'{$total_tagihan}',";
+                if ($total_tagihan == null) {
+                  echo "'{$rab_project}',";
+                } else {
+                  echo "'{$total_tagihan}',";
+                }
               } ?>
           <?php } ?>
           ]

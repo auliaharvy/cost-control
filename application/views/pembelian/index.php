@@ -149,6 +149,14 @@
                     <input type="hidden" name="destination_id" autocomplete="off" value="<?php echo $destination_id; ?>" required class="form-control">
                     <input type="hidden" name="project_office_id" autocomplete="off" value="<?php echo $project_office_id; ?>" required class="form-control">
                     <div class="form-group">
+                      <label class='col-xs-3'>Jenis Transaksi :</label>
+                      <select class="form-control js-states jenis_transaksi_tanpa" id="single" style="width:100%;" name="jenis_transaksi">
+                        <option selected="selected" value="0">Silahkan Pilih Transaksi</option>
+                        <option value="1">Pembelian Tanpa Pengajuan</option>
+                        <option value="2">Bayar Hutang</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
                       <label>Project (Cash in Hand)</label>
                       <select class="form-control project_id" name="project_id" required>
                         <option value=""></option>
@@ -157,11 +165,24 @@
                         <?php } ?>
                       </select>
                     </div>
-                    <div class="form-group">
-                      <label>RAP Item List (Sisa budget)</label>
-                      <select class="form-control js-states rap_biaya_id" id="single" style="width:100%;" name="rap_biaya_id" required>
-                        <option value=""></option>
-                      </select>
+                    <div class="bayar">
+                      <div class="form-group">
+                        <label>RAP Item List (Sisa budget)</label>
+                        <select class="form-control js-states rap_biaya_id" id="single" style="width:100%;" name="rap_biaya_id" required>
+                          <option value=""></option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="hutang">
+                      <div class="form-group">
+                        <label>Pilih Hutang</label>
+                        <select class="form-control js-states id_hutang" id="single" style="width:100%;" name="id_hutang">
+                          <option selected="selected" value=""></option>
+                          <?php foreach ($hutang as $us) { ?>
+                            <option value="<?php echo $us['id']; ?>"><?php echo $us['project_name']; ?> : <?php echo $us['note']; ?> (Rp <?php echo $us['nominal']; ?>)</option>
+                          <?php } ?>
+                        </select>
+                      </div>
                     </div>
                     <div class="form-group">
                       <label class='col-xs-3'>Jumlah Pembelian</label>
@@ -325,6 +346,22 @@
           $(".bayar").hide();
         } else {
           $(".bayar").hide();
+        }
+      });
+    });
+    $(document).ready(function() {
+
+      $('.jenis_transaksi_tanpa').on('change', function() {
+        var value = $(this).val();
+        if (value == "1") {
+          $(".bayar").show();
+          $(".hutang").hide();
+        } else if (value == "2") {
+          $(".bayar").hide();
+          $(".hutang").show();
+        } else {
+          $(".bayar").hide();
+          $(".hutang").hide();
         }
       });
     });

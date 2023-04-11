@@ -233,7 +233,7 @@ class M_data extends CI_Model
 	{
 		$this->db->select("
         a.project_name,ROUND((a.rab_project - sum(b.nominal)),0) as total_tagihan, 
-		(a.rab_project - sum(b.nominal)) as total_tagihan_sum
+		(a.rab_project - sum(b.nominal)) as total_tagihan_sum, a.rab_project
         ");
 		$this->db->from('mst_project as a');
 		$this->db->join('akk_penerimaan_project as b', 'a.id = b.project_id', 'left');
@@ -352,7 +352,7 @@ class M_data extends CI_Model
 	public function getTagihan()
 	{
 		$this->db->select("
-        a.project_name,ROUND((a.rab_project - sum(b.nominal)),0) as total_tagihan
+        a.project_name,(a.rab_project - sum(b.nominal)) as total_tagihan, a.rab_project
         ");
 		$this->db->from('mst_project as a');
 		$this->db->join('akk_penerimaan_project as b', 'a.id = b.project_id', 'left');

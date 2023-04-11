@@ -401,11 +401,22 @@ class C_pembelian extends CI_Controller
         $user_id = $this->session->userdata('id');
         $project_id = $_POST['project_id'];
         $pengajuan_id = $_POST['pengajuan_id'];
+        $id_hutang = $_POST['id_hutang'];
+        $jenis_transaksi = $_POST['jenis_transaksi'];
         $destination_id = 2;
         $rap_biaya_id = $_POST['rap_biaya_id'];
         $a = $_POST['jumlah_uang_pembelian'];
         $b = str_replace('.', '', $a); //ubah format rupiah ke integer
         $jumlah_uang_pembelian = intval($b);
+        $getHutang = $this->M_pembelian->GetData("akk_hutang ", "where id = '$id_hutang'");
+        $total_hutang = $getHutang[0]['nominal'];
+        $project_hutang = $getHutang[0]['project_id'];
+        $hasil_hutang = $total_hutang - $jumlah_uang_pembelian;
+        if ($jenis_transaksi == 1) {
+            $note = $_POST['note'];
+        } else {
+            $note = '( Bayar Hutang Tanpa Pengajuan )';
+        }
         if ($destination_id == 1) { //office
             $table = 'mst_office ';
             $getcash = $this->M_pembelian->GetData($table, "where id = '$project_id'");
@@ -434,7 +445,20 @@ class C_pembelian extends CI_Controller
         $this->upload->initialize($config);
 
         if ($jumlah_uang_pembelian > $cash) {
-            $pesan = "Jumlah Pembelian yang diinput tidak boleh melebihi jumlah yang ada";
+            if ($jenis_transaksi == 1) {
+                $pesan = "Jumlah Pembelian yang diinput tidak boleh melebihi jumlah yang ada";
+            } else {
+                $pesan = "Jumlah Pembayaran Hutang yang diinput tidak boleh melebihi jumlah yang ada";
+            }
+
+            $this->flashdata_failed1($pesan);
+            redirect('pembelian');
+        } else if ($project_hutang != $project_id) {
+            $pesan = "Pengajuan Project tidak sesuai dengan project";
+            $this->flashdata_failed1($pesan);
+            redirect('pembelian');
+        } else if ($jumlah_uang_pembelian > $total_hutang) {
+            $pesan = "Pembayaran Hutang Gagal Karena Melebihi Hutang yang ada";
             $this->flashdata_failed1($pesan);
             redirect('pembelian');
         } elseif (!$this->upload->do_upload('foto_tanpa')) {
@@ -458,9 +482,24 @@ class C_pembelian extends CI_Controller
                 "jumlah_uang_pembelian" => $jumlah_uang_pembelian,
                 "created_at" => $date,
                 "last_updated_by" => $user_id,
-                "note" => $_POST['note'],
+                "note" => $note,
                 "upload_file" => $data1['file_name'],
             );
+            $wherehutang = array('id' => $id_hutang);
+            if ($total_hutang > $jumlah_uang_pembelian) {
+                $datahutang = array(
+                    "is_pay" => 0,
+                    "nominal" => $hasil_hutang,
+                    "pay_at" => $date,
+                    "updated_by" => $user_id,
+                );
+            } else {
+                $datahutang = array(
+                    "is_pay" => 1,
+                    "pay_at" => $date,
+                    "updated_by" => $user_id,
+                );
+            }
             $wheresource = array('id' => $project_id);
             $datasource = array(
                 "cash_in_hand" => $total_cash,
@@ -477,17 +516,33 @@ class C_pembelian extends CI_Controller
                 "updated_at" => $date,
             );
             $this->db->trans_start();
-            $this->M_data->UpdateData($table, $datasource, $wheresource); //update cash in hand source (office ' project')
-            $this->M_data->UpdateData('trx_cash_remaining', $data_trx_remaining, $where_trx_remaining);
-            $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
-            $this->M_data->InsertData('trx_pembelian_barang_remaining', $datapembelian_remaining);
+            if ($jenis_transaksi == 1) {
+                $this->M_data->UpdateData($table, $datasource, $wheresource); //update cash in hand source (office ' project')
+                $this->M_data->UpdateData('trx_cash_remaining', $data_trx_remaining, $where_trx_remaining);
+                $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
+                $this->M_data->InsertData('trx_pembelian_barang_remaining', $datapembelian_remaining);
+            } else {
+                $this->M_data->UpdateData($table, $datasource, $wheresource); //update cash in hand source (office ' project')
+                $this->M_data->UpdateData('trx_cash_remaining', $data_trx_remaining, $where_trx_remaining);
+                $this->M_data->UpdateData('akk_hutang', $datahutang, $wherehutang);
+                $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
+                $this->M_data->InsertData('trx_pembelian_barang_remaining', $datapembelian_remaining);
+            }
             $this->db->trans_complete();
             if ($this->db->trans_status() === TRUE) {
-                $msg = 'Pembelian Sisa Pengajuan Berhasil';
+                if ($jenis_transaksi == 1) {
+                    $msg = 'Pembelian Sisa Pengajuan Berhasil';
+                } else {
+                    $msg = 'Pembayaran Hutang Melalui Sisa Pengajuan Berhasil';
+                }
                 $this->flashdata_succeed1($msg);
                 redirect('pembelian');
             } else {
-                $msg = 'Pembelian Sisa Pengajuan Gagal';
+                if ($jenis_transaksi == 1) {
+                    $msg = 'Pembelian Sisa Pengajuan Gagal';
+                } else {
+                    $msg = 'Pembayaran Hutang Melalui Sisa Pengajuan Gagal';
+                }
                 $this->flashdata_failed1($msg);
                 redirect('pembelian');
             }

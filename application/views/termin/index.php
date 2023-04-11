@@ -162,6 +162,7 @@
         <?php if (is_array($datalogtermin) || is_object($datalogtermin)) {
           foreach ($datalogtermin as $i) :
             $id = $i['id'];
+            $note = $i['note'];
         ?>
             <div class="modal fade" id="modal-edit<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
               <div class="modal-dialog">

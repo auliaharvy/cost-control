@@ -244,7 +244,7 @@
                             <div class="input-group-prepend">
                               <span class="input-group-text">Rp</span>
                             </div>
-                            <input name="jumlah_uang_pembelian" id="jumlah_uang_pembelian" class="form-control uang_pembelian" type="text" placeholder="<?php echo $jumlah_uang; ?>" required>
+                            <input name="jumlah_uang_pembelian" id="jumlah_uang_pembelian" class="form-control uang_pembelian uang" type="text" placeholder="<?php echo $jumlah_uang; ?>" required>
                           </div>
                         </div>
                         <div class="form-group">

@@ -283,7 +283,7 @@
           var html = '';
           var i;
           for (i = 0; i < data.length; i++) {
-            html += '<option value="' + data[i].id + '">' + data[i].nama_pekerjaan + " > " + data[i].jumlah_biaya_v + '</option>';
+            html += '<option value="' + data[i].id + '">' + data[i].nama_pekerjaan + " > " + data[i].sisa_budget_v + '</option>';
           }
           $('.rap_biaya_id').html(html);
 

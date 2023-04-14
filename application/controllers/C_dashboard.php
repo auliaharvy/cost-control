@@ -43,6 +43,8 @@ class C_dashboard extends CI_Controller
         $titlepengajuan = $totalpengajuan;
         $totalomset = $this->lharby->formatRupiah($title_omset[0]['total_omset']);
         $titleomset = $totalomset;
+        $getpembelian = $this->M_data->getPembelianDash();
+        $totalpembelian = $getpembelian[0]['total_pembelian'];
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),

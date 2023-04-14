@@ -268,12 +268,14 @@ class M_data extends CI_Model
 	public function gettitleusaha()
 	{
 		$this->db->select("
-        a.project_name,ROUND((ROUND((a.project_progress/100),4) * a.rab_project) - sum(b.jumlah_uang_pembelian),0) as total_usaha, 
-		ROUND((ROUND((a.project_progress/100),4) * a.rab_project) - sum(b.jumlah_uang_pembelian),0) as total_usaha_sum
+        a.project_name,ROUND((ROUND((a.project_progress/100),4) * a.rab_project) - (sum(b.jumlah_uang_pembelian)+sum(c.nominal)),0) as total_usaha, 
+		ROUND((ROUND((a.project_progress/100),4) * a.rab_project) - (sum(b.jumlah_uang_pembelian)+sum(c.nominal)),0) as total_usaha_sum
         ");
 		$this->db->from('mst_project as a');
 		$this->db->join('trx_pembelian_barang as b', 'a.id = b.project_office_id', 'left');
+		$this->db->join('akk_hutang as c', 'a.id = c.project_id', 'inner');
 		$this->db->where('a.project_status', 0);
+		$this->db->where('c.is_pay', 0);
 		$this->db->group_by('a.id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
@@ -387,11 +389,15 @@ class M_data extends CI_Model
 	public function getUsaha()
 	{
 		$this->db->select("
-        a.project_name,ROUND((ROUND((a.project_progress/100),4) * a.rab_project) - sum(b.jumlah_uang_pembelian),0) as total_usaha
+        a.project_name,ROUND((ROUND((a.project_progress/100),4) * a.rab_project) - (sum(b.jumlah_uang_pembelian)+sum(d.jumlah_uang_pembelian)) - sum(c.nominal) ,0) as total_usaha,
+		ROUND((ROUND((a.project_progress/100),4) * a.rab_project) - sum(b.jumlah_uang_pembelian) - c.nominal ,0) as total_usaha_no_remaining
         ");
 		$this->db->from('mst_project as a');
 		$this->db->join('trx_pembelian_barang as b', 'a.id = b.project_office_id', 'left');
+		$this->db->join('trx_pembelian_barang_remaining as d', 'a.id = d.project_office_id', 'left');
+		$this->db->join('akk_hutang as c', 'a.id = c.project_id', 'left');
 		$this->db->where('a.project_status', 0);
+		$this->db->where('c.is_pay', 0);
 		$this->db->group_by('a.id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
@@ -404,12 +410,46 @@ class M_data extends CI_Model
 	public function getHutang()
 	{
 		$this->db->select("
-          a.project_name,sum(b.nominal) as total_hutang
+          a.*,sum(b.nominal) as total_hutang
       ");
 		$this->db->from('mst_project as a');
 		$this->db->join('akk_hutang as b', 'a.id = b.project_id', 'left');
 		$this->db->where('a.project_status', 0);
 		$this->db->where('b.is_pay', 0);
+		$this->db->group_by('a.id');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data;
+		} else {
+			return false;
+		}
+	}
+
+	public function getPembelianDash()
+	{
+		$this->db->select("
+          a.*,sum(b.jumlah_uang_pembelian) as total_pembelian
+      ");
+		$this->db->from('mst_project as a');
+		$this->db->join('trx_pembelian_barang as b', 'a.id = b.project_office_id', 'left');
+		$this->db->where('a.project_status', 0);
+		$this->db->group_by('a.id');
+		$data = $this->db->get();
+		if ($data->num_rows() > 0) {
+			return $data;
+		} else {
+			return false;
+		}
+	}
+
+	public function getPembelianRemainingDash()
+	{
+		$this->db->select("
+          a.*,sum(b.jumlah_uang_pembelian) as total_pembelian_remaining
+      ");
+		$this->db->from('mst_project as a');
+		$this->db->join('trx_pembelian_barang_remaining as b', 'a.id = b.project_office_id', 'left');
+		$this->db->where('a.project_status', 0);
 		$this->db->group_by('a.id');
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {

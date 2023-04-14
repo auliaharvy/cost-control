@@ -418,10 +418,10 @@
       type: 'bar',
       data: {
         labels: ['TOTAL PIUTANG HASIL USAHA',
-          <?php if ($datapiutang == null) { ?> 'Piutang Hasil Usaha'
+          <?php if ($datausaha == null) { ?> 'Piutang Hasil Usaha'
           <?php } else { ?>
             <?php
-            foreach ($datapiutang->result_array() as $row1) {
+            foreach ($datausaha->result_array() as $row1) {
               extract($row1);
               echo "['{$project_name}'],";
             } ?>
@@ -446,7 +446,11 @@
             <?php
               foreach ($datausaha->result_array() as $row1) {
                 extract($row1);
-                echo "'{$total_usaha}',";
+                if ($total_usaha == null) {
+                  echo "'{$total_usaha_no_remaining}',";
+                } else {
+                  echo "'{$total_usaha}',";
+                }
               } ?>
           <?php } ?>
           ]

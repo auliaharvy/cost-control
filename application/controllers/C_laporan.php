@@ -79,8 +79,6 @@ class C_laporan extends CI_Controller
             'rab_project' => $rab_project,
             'data_rap_biaya' => $data_rap_biaya,
             'data_uang' => $data_uang,
-            'data_uang1' => $data_uang1,
-            'data_uang2' => $data_uang2,
             'is_rap_confirm' => $is_rap_confirm,
         );
         $this->load->view('laporan/detail', $show);

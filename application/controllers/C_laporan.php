@@ -60,7 +60,13 @@ class C_laporan extends CI_Controller
         $cash_in_hand = $this->lharby->formatRupiah($get[0]['cash_in_hand']);
         $data_rap_biaya = $this->M_laporan->getBiayaRap($id);
         $data_uang1 = $this->M_laporan->showuangdetail($id);
+        for($i = 0; $i < count($data_uang1); $i++) {
+            $data_uang1[$i]['tipe_pembelian'] = "0";
+        }
         $data_uang2 = $this->M_laporan->showuangdetailremaining($id);
+        for($x = 0; $x < count($data_uang2); $x++) {
+            $data_uang2[$x]['tipe_pembelian'] = "1";
+        }
         $data_uang = array_merge($data_uang1, $data_uang2);
         $show = array(
             'nav' => $this->header(),

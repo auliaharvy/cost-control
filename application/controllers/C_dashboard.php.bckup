@@ -43,55 +43,6 @@ class C_dashboard extends CI_Controller
         $titlepengajuan = $totalpengajuan;
         $totalomset = $this->lharby->formatRupiah($title_omset[0]['total_omset']);
         $titleomset = $totalomset;
-
-        $dataPiutangUsaha = $this->M_data->getDataPiutangUsaha();
-        echo '<script>console.log('.json_encode($dataPiutangUsaha).')</script>';
-        
-        foreach ($dataPiutangUsaha['dataProject'] as $key => $value) {
-
-            // dapatkan data pembelian
-            foreach ($dataPiutangUsaha['dataPembelian'] as $key1 => $value_pembelian) {
-                if ($value['id'] == $value_pembelian['project_office_id']) {
-                    $dataPiutangUsaha['dataProject'][$key]['total_pembelian'] = $value_pembelian['total_pembelian'];
-                    echo '<script>console.log('.json_encode($dataPiutangUsaha['dataProject'][$key]).')</script>';
-                }
-            }
-            if (!$dataPiutangUsaha['dataProject'][$key]['total_pembelian']) {
-                $dataPiutangUsaha['dataProject'][$key]['total_pembelian'] = 0;
-                echo '<script>console.log('.json_encode($dataPiutangUsaha['dataProject'][$key]).')</script>';
-            }
-
-            // dapatkan data pembelian tanpa pengajuan
-            foreach ($dataPiutangUsaha['dataPembelianSisa'] as $key2 => $value_pembelian_sisa) {
-                if ($value['id'] == $value_pembelian_sisa['project_office_id']) {
-                    $dataPiutangUsaha['dataProject'][$key]['total_pembelian_sisa'] = $value_pembelian_sisa['total_pembelian'];
-                    echo '<script>console.log('.json_encode($dataPiutangUsaha['dataProject'][$key]).')</script>';
-                }
-            }
-            if (!$dataPiutangUsaha['dataProject'][$key]['total_pembelian_sisa']) {
-                $dataPiutangUsaha['dataProject'][$key]['total_pembelian_sisa'] = 0;
-                echo '<script>console.log('.json_encode($dataPiutangUsaha['dataProject'][$key]).')</script>';
-            }
-
-            // dapatkan data hutang
-            foreach ($dataPiutangUsaha['dataHutang'] as $key3 => $value_hutang) {
-                if ($value['id'] == $value_hutang['project_id']) {
-                    $dataPiutangUsaha['dataProject'][$key]['total_hutang'] = $value_hutang['total_hutang'];
-                    echo '<script>console.log('.json_encode($dataPiutangUsaha['dataProject'][$key]).')</script>';
-                }
-            }
-            if (!$dataPiutangUsaha['dataProject'][$key]['total_hutang']) {
-                $dataPiutangUsaha['dataProject'][$key]['total_hutang'] = 0;
-                echo '<script>console.log('.json_encode($dataPiutangUsaha['dataProject'][$key]).')</script>';
-            }
-
-            $kontrak = $dataPiutangUsaha['dataProject'][$key]['rab_project'];
-            $pengeluaran = $dataPiutangUsaha['dataProject'][$key]['total_pembelian'] + $dataPiutangUsaha['dataProject'][$key]['total_pembelian_sisa'];
-            $progress = $dataPiutangUsaha['dataProject'][$key]['project_progress'] / 100;
-            $hutang = $dataPiutangUsaha['dataProject'][$key]['total_hutang'];
-            $dataPiutangUsaha['dataProject'][$key]['nilai_piutang'] = ($kontrak * $progress) - $pengeluaran - $hutang;
-        }
-        echo '<script>console.log('.json_encode($dataPiutangUsaha).')</script>';
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),
@@ -103,7 +54,6 @@ class C_dashboard extends CI_Controller
             'datahutang' => $datahutang,
             'datatagihan' => $datatagihan,
             'datapiutang' => $datapiutang,
-            'dataPiutangUsaha' => $dataPiutangUsaha,
             'datausaha' => $datausaha,
             'totalkas' => $title_kas[0]['total_kas'],
             'totalkasper' => $title_kasper[0]['total_kas'],

@@ -226,6 +226,24 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 <script>
   $(function() {
+    $("#example1").DataTable({
+      // "paging": true,
+      // "lengthChange": true,
+      // "scrollX": true,
+      // "searching": true,
+      // "ordering": true,
+      // "info": true,
+      // "autoWidth": true,
+    });
+    table.columns.adjust().draw();
+    $('.uang').mask('000.000.000', {
+      reverse: true
+    });
+  });
+</script>
+
+<script>
+  $(function() {
     //-------------
     //- BAR CHART -
     //-------------
@@ -389,8 +407,6 @@
     });
   });
 </script>
-
-<!-- Piutang -->
 <script>
   $(function() {
     //-------------
@@ -402,10 +418,10 @@
       type: 'bar',
       data: {
         labels: ['TOTAL PIUTANG HASIL USAHA',
-          <?php if ($dataPiutangUsaha == null) { ?> 'Piutang Hasil Usaha'
+          <?php if ($datapiutang == null) { ?> 'Piutang Hasil Usaha'
           <?php } else { ?>
             <?php
-            foreach ($dataPiutangUsaha['dataProject'] as $row1) {
+            foreach ($datapiutang->result_array() as $row1) {
               extract($row1);
               echo "['{$project_name}'],";
             } ?>
@@ -417,24 +433,20 @@
           borderColor: 'rgba(75, 192, 192, 1)',
           borderWidth: 1,
           data: [
-            <?php if ($dataPiutangUsaha['dataProject'] == null) { ?>0, 0
+            <?php if ($datausaha == null) { ?>0, 0
           <?php } else { ?>
             <?php
               $temp = array();
-              foreach ($dataPiutangUsaha['dataProject'] as $d) {
-                $temp[] = $d['nilai_piutang'];
+              foreach ($datausaha->result() as $d) {
+                $temp[] = $d->total_usaha;
               };
               $total = array_sum($temp);
               echo ($total);
             ?>,
             <?php
-              foreach ($dataPiutangUsaha['dataProject'] as $row1) {
+              foreach ($datausaha->result_array() as $row1) {
                 extract($row1);
-                if ($dataPiutangUsaha['dataProject'] == null) {
-                  echo "'{$nilai_piutang}',";
-                } else {
-                  echo "'{$nilai_piutang}',";
-                }
+                echo "'{$total_usaha}',";
               } ?>
           <?php } ?>
           ]

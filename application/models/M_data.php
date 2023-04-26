@@ -429,6 +429,7 @@ class M_data extends CI_Model
 
 		$this->db->select("a.project_id, CAST(sum(a.nominal) as INT) as total_hutang");
 		$this->db->from('akk_hutang as a');
+		$this->db->where('a.is_pay', 0);
 		$this->db->group_by('a.project_id');
 		$dataHutang = $this->db->get();
 		$resultHutang = $dataHutang->result_array();
@@ -439,8 +440,6 @@ class M_data extends CI_Model
 			'dataPembelianSisa' => $resultPembelianSisa,
 			'dataHutang' => $resultHutang,
 		);
-
-		
 
 		if ($data > 0) {
 			return $data;

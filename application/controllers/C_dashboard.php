@@ -53,36 +53,40 @@ class C_dashboard extends CI_Controller
             foreach ($dataPiutangUsaha['dataPembelian'] as $key1 => $value_pembelian) {
                 if ($value['id'] == $value_pembelian['project_office_id']) {
                     $dataPiutangUsaha['dataProject'][$key]['total_pembelian'] = $value_pembelian['total_pembelian'];
-                    echo '<script>console.log('.json_encode($dataPiutangUsaha['dataProject'][$key]).')</script>';
                 }
             }
             if (!$dataPiutangUsaha['dataProject'][$key]['total_pembelian']) {
                 $dataPiutangUsaha['dataProject'][$key]['total_pembelian'] = 0;
-                echo '<script>console.log('.json_encode($dataPiutangUsaha['dataProject'][$key]).')</script>';
             }
 
             // dapatkan data pembelian tanpa pengajuan
             foreach ($dataPiutangUsaha['dataPembelianSisa'] as $key2 => $value_pembelian_sisa) {
                 if ($value['id'] == $value_pembelian_sisa['project_office_id']) {
                     $dataPiutangUsaha['dataProject'][$key]['total_pembelian_sisa'] = $value_pembelian_sisa['total_pembelian'];
-                    echo '<script>console.log('.json_encode($dataPiutangUsaha['dataProject'][$key]).')</script>';
                 }
             }
             if (!$dataPiutangUsaha['dataProject'][$key]['total_pembelian_sisa']) {
                 $dataPiutangUsaha['dataProject'][$key]['total_pembelian_sisa'] = 0;
-                echo '<script>console.log('.json_encode($dataPiutangUsaha['dataProject'][$key]).')</script>';
             }
 
             // dapatkan data hutang
             foreach ($dataPiutangUsaha['dataHutang'] as $key3 => $value_hutang) {
                 if ($value['id'] == $value_hutang['project_id']) {
                     $dataPiutangUsaha['dataProject'][$key]['total_hutang'] = $value_hutang['total_hutang'];
-                    echo '<script>console.log('.json_encode($dataPiutangUsaha['dataProject'][$key]).')</script>';
                 }
             }
             if (!$dataPiutangUsaha['dataProject'][$key]['total_hutang']) {
                 $dataPiutangUsaha['dataProject'][$key]['total_hutang'] = 0;
-                echo '<script>console.log('.json_encode($dataPiutangUsaha['dataProject'][$key]).')</script>';
+            }
+
+            // dapatkan data termin
+            foreach ($dataPiutangUsaha['dataTermin'] as $key4 => $value_termin) {
+                if ($value['id'] == $value_termin['project_id']) {
+                    $dataPiutangUsaha['dataProject'][$key]['total_termin'] = $value_termin['total_termin'];
+                }
+            }
+            if (!$dataPiutangUsaha['dataProject'][$key]['total_termin']) {
+                $dataPiutangUsaha['dataProject'][$key]['total_termin'] = 0;
             }
 
             $kontrak = $dataPiutangUsaha['dataProject'][$key]['rab_project'];

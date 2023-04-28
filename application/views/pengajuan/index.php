@@ -42,8 +42,11 @@
                       <th class="text-center">Action</th>
                       <th class="text-center">Nama Project</th>
                       <th class="text-center">Nama Pekerjaan</th>
-                      <th class="text-center">Tanggal Pengajuan</th>
-                      <th class="text-center">Jumlah Pengajuan</th>
+                      <th class="text-center">Tanggal</th>
+                      <th class="text-center">RAP</th>
+                      <th class="text-center">Jumlah Aktual</th>
+                      <th class="text-center">Sisa RAP</th>
+                      <th class="text-center">Pengajuan</th>
                       <th class="text-center">Keterangan</th>
                     </tr>
                   </thead>
@@ -55,21 +58,26 @@
                         $id = $d['id']; ?>
                         <tr class="odd gradeX">
                           <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
-                          <td style="width: 10%; vertical-align:middle;" class="text-center">
+                          <td style="width: 3%; vertical-align:middle;" class="text-center">
                             <div class="row" align="center">
-                              <button style="margin-left: 5px; border-radius: 5px;" data-toggle="modal" data-target="#editpengajuan<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm"><i class="fa fa-edit"></i></button>
+                              <button style="border-radius: 5px;" data-toggle="modal" data-target="#editpengajuan<?php echo $id; ?>" class="btn btn-warning btn-circle btn-sm"><i class="fa fa-edit"></i></button>
+                            </div>
+                            <div class="row" align="center">
                               <form action="<?php echo site_url('hapuspengajuan'); ?>" method="post">
                                 <input type="hidden" name="id_pengajuan" value="<?php echo $d['id_pengajuan']; ?>">
                                 <!-- <a href="" onclick="return confirm('Apakah Anda Ingin Menghapus Data Transaksi Pembelian di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="fa fa-trash"></i></a> -->
-                                <button style="margin-left: 5px; border-radius: 5px;" type="submit" onclick="return confirm('Apakah Anda Ingin Menghapus Data Pengajuan di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></button>
+                                <button style="border-radius: 5px;" type="submit" onclick="return confirm('Apakah Anda Ingin Menghapus Data Pengajuan di <?= $d['project_name']; ?> ?');" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></button>
                               </form>
                             </div>
                           </td>
-                          <td style="width: 28%; vertical-align:middle;" class="text over"><?php echo $d['project_name']; ?></td>
-                          <td style="width: 20%;" class="text over"><?php echo $d['nama_pekerjaan']; ?></td>
-                          <td style="width: 10%;" class="text text-center size"><?php echo $d['tanggal_pengajuan']; ?></td>
-                          <td style="width: 10%;" class="text text-center size">Rp. <?php echo $d['jumlah_pengajuan']; ?></td>
-                          <td style="width: 20%;" class="text over"><?php echo $d['keterangan']; ?></td>
+                          <td style="width: 10%; vertical-align:middle;" class="text over"><?php echo $d['project_name']; ?></td>
+                          <td style="width: 10%; vertical-align:middle;" class="text over"><?php echo $d['nama_pekerjaan']; ?></td>
+                          <td style="width: 10%; vertical-align:middle;" class="text text-center size"><?php echo $d['tanggal_pengajuan']; ?></td>
+                          <td style="width: 10%; vertical-align:middle;" class="text text-center size">Rp. <?php echo $d['nilai_rap']; ?></td>
+                          <td style="width: 10%; vertical-align:middle;" class="text text-center size">Rp. <?php echo $d['jumlah_aktual']; ?></td>
+                          <td style="width: 10%; vertical-align:middle;" class="text text-center size">Rp. <?php echo $d['sisa_rap']; ?></td>
+                          <td style="width: 10%; vertical-align:middle;" class="text text-center size">Rp. <?php echo $d['jumlah_pengajuan']; ?></td>
+                          <td style="width: 15%; vertical-align:middle;" class="text over"><?php echo $d['keterangan']; ?></td>
                         </tr>
                     <?php
                       }

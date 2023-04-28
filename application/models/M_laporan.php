@@ -162,6 +162,7 @@ class M_laporan extends CI_Model
 		$this->db->join('mst_kategori_biaya as g', 'f.kategori_biaya_id = g.id');
 		$this->db->join('trx_cash_remaining as h', 'b.id = h.project_id');
 		$this->db->where('a.project_office_id', $id);
+		$this->db->order_by("a.created_at desc");
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();
@@ -182,6 +183,7 @@ class M_laporan extends CI_Model
 		$this->db->join('mst_project as b', 'a.project_id = b.id');
 		$this->db->join('akk_rap_biaya as c', 'a.rap_biaya_id = c.id');
 		$this->db->where('a.project_id', $id);
+		$this->db->order_by("a.created_at desc");
 		$data = $this->db->get();
 		if ($data->num_rows() > 0) {
 			return $data->result_array();

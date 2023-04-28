@@ -415,31 +415,40 @@ class M_data extends CI_Model
 		$dataProject = $this->db->get();
 		$resultProject = $dataProject->result_array();
 
-		$this->db->select("a.project_office_id, CAST(sum(a.jumlah_uang_pembelian) as INT) as total_pembelian");
+		$this->db->select('a.project_office_id, SUM(a.jumlah_uang_pembelian) as total_pembelian');
 		$this->db->from('trx_pembelian_barang as a');
 		$this->db->group_by('a.project_office_id');
 		$dataPembelian = $this->db->get();
 		$resultPembelian = $dataPembelian->result_array();
 
-		$this->db->select("a.project_office_id, CAST(sum(a.jumlah_uang_pembelian) as INT) as total_pembelian");
+		$this->db->select("a.project_office_id, SUM(a.jumlah_uang_pembelian) as total_pembelian");
 		$this->db->from('trx_pembelian_barang_remaining as a');
 		$this->db->group_by('a.project_office_id');
 		$dataPembelianSisa = $this->db->get();
 		$resultPembelianSisa = $dataPembelianSisa->result_array();
 
-		$this->db->select("a.project_id, CAST(sum(a.nominal) as INT) as total_hutang");
+		$this->db->select("a.project_id, SUM(a.nominal) as total_hutang");
 		$this->db->from('akk_hutang as a');
 		$this->db->where('a.is_pay', 0);
 		$this->db->group_by('a.project_id');
 		$dataHutang = $this->db->get();
 		$resultHutang = $dataHutang->result_array();
 
+		$this->db->select("a.project_id, SUM(a.nominal) as total_termin");
+		$this->db->from('akk_penerimaan_project as a');
+		$this->db->group_by('a.project_id');
+		$dataTermin = $this->db->get();
+		$resultTermin = $dataTermin->result_array();
+
 		$data = array(
 			'dataProject' => $resultProject,
 			'dataPembelian' => $resultPembelian,
 			'dataPembelianSisa' => $resultPembelianSisa,
 			'dataHutang' => $resultHutang,
+			'dataTermin' => $resultTermin,
 		);
+
+		
 
 		if ($data > 0) {
 			return $data;
@@ -451,8 +460,8 @@ class M_data extends CI_Model
 	public function getHutang()
 	{
 		$this->db->select("
-          a.*,sum(b.nominal) as total_hutang
-      ");
+			a.*,sum(b.nominal) as total_hutang
+		");
 		$this->db->from('mst_project as a');
 		$this->db->join('akk_hutang as b', 'a.id = b.project_id', 'left');
 		$this->db->where('a.project_status', 0);
@@ -469,8 +478,8 @@ class M_data extends CI_Model
 	public function getPembelianDash()
 	{
 		$this->db->select("
-          a.*,sum(b.jumlah_uang_pembelian) as total_pembelian
-      ");
+			a.*,sum(b.jumlah_uang_pembelian) as total_pembelian
+		");
 		$this->db->from('mst_project as a');
 		$this->db->join('trx_pembelian_barang as b', 'a.id = b.project_office_id', 'left');
 		$this->db->where('a.project_status', 0);

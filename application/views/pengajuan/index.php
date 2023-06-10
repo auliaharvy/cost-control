@@ -149,7 +149,7 @@
                       </select>
                     </div>
                     <div class="form-group">
-                      <label>RAP Item List</label>
+                      <label>Nama Pekerjaan > RAP > Aktual > Sisa RAP</label>
                       <select class="form-control js-states rap_biaya_id" id="single" style="width:100%;" name="rap_biaya_id" required>
                         <option value="">---Select List---</option>
                       </select>
@@ -288,10 +288,11 @@
         async: false,
         dataType: 'json',
         success: function(data) {
+        console.log(data);
           var html = '';
           var i;
           for (i = 0; i < data.length; i++) {
-            html += '<option value="' + data[i].id + '">' + data[i].nama_pekerjaan + " > " + data[i].sisa_budget_v + '</option>';
+            html += '<option value="' + data[i].id + '">' + data[i].nama_pekerjaan + "  >  " + data[i].jumlah_biaya_v +  "  >  " + data[i].jumlah_aktual_v +  "  >  " + data[i].sisa_budget_v +'</option>';
           }
           $('.rap_biaya_id').html(html);
 

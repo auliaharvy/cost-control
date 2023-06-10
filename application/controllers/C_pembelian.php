@@ -673,6 +673,7 @@ class C_pembelian extends CI_Controller
         $this->M_data->UpdateData('mst_project', $dataproject, $whereproject); //update untuk tanda bahwa cash yg dikirim telah dibelanakan
         $this->M_data->UpdateData('akk_rap_biaya', $datarap, $whererap);
         $this->M_data->DeleteData('trx_pembelian_barang_remaining', $where);
+        echo '<script>console.log('.json_encode($where).')</script>';
         $this->db->trans_complete();
         if ($this->db->trans_status() === TRUE) {
             $pesan = "Penghapusan Transakasi Pembelian Berhasil";
@@ -756,7 +757,7 @@ class C_pembelian extends CI_Controller
             $whererap = array('id' => $idrap);
             $datarap = array(
                 "jumlah_aktual" => $aktual_rap - $jumlah_pembelian,
-                "last_updated_by" => $this->session->userdata('id'),
+                "last_update_by" => $this->session->userdata('id'),
                 "updated_at" => date('Y-m-d H:i:s'),
             );
             $where = array('id' => $idpembelian);
@@ -772,8 +773,10 @@ class C_pembelian extends CI_Controller
                 $this->flashdata_succeed1($pesan);
                 redirect('laporan_detail/' . $idproject);
             } else {
+                $this->db->trans_rollback();
+                // log_message('error', sprintf('%s : %s : DB transaction failed. Error no: %s, Error msg:%s, Last query: %s', __CLASS__, __FUNCTION__, $e->getCode(), $e->getMessage(), print_r($this->main_db->last_query(), TRUE)));
                 $pesan = "Penghapusan Transakasi Pembelian Gagal";
-                $this->flashdata_failed1($pesan);
+                $this->flashdata_failed1($this->db->trans_status());
                 redirect('laporan_detail/' . $idproject);
             }
         }

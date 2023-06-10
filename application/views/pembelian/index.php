@@ -384,6 +384,7 @@
 
     $('.project_id').change(function() {
       var id = $(this).val();
+      console.log('berhasil')
       var project_id = $('input[name="project_office_id"]').val();
       $.ajax({
         url: "<?php echo base_url(); ?>C_pengajuan/getListBiayaRap/" + id,
@@ -400,7 +401,6 @@
             html += '<option value="' + data[i].id + '">' + data[i].nama_pekerjaan + " ( " + "Rp. " + data[i].sisa_budget_v + " ) " + '</option>';
           }
           $('.rap_biaya_id').html(html);
-
         }
       });
     });

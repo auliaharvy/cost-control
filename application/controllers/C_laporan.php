@@ -68,6 +68,8 @@ class C_laporan extends CI_Controller
             $data_uang2[$x]['tipe_pembelian'] = "1";
         }
         $data_uang = array_merge($data_uang1, $data_uang2);
+        echo '<script>console.log('.json_encode($data_uang).')</script>';
+        echo '<script>console.log('.json_encode($data_uang1).')</script>';
         $show = array(
             'nav' => $this->header(),
             'navbar' => $this->navbar(),

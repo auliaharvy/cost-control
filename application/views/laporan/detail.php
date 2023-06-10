@@ -127,7 +127,7 @@
                         <tr class="odd gradeX">
                           <td style="width: 2%; vertical-align:middle;" class="text-center"><?php echo $nomor++; ?></td>
                           <td style="width: 5%; vertical-align:middle;" class="text-center">
-                            <?php if ($d['tipe_pembelian' === '0']) { ?>
+                            <?php if ($d['tipe_pembelian'] == '0') { ?>
                               <form action="<?php echo site_url('hapusbelanja1'); ?>" method="post" class="row col-md-4">
                                 <input type="hidden" name="id_pengiriman" value="<?php echo $d['id_pengiriman']; ?>">
                                 <input type="hidden" name="id_project" value="<?php echo $d['id_project']; ?>">
@@ -152,7 +152,7 @@
                               </form>
                             <?php } ?>
                           </td>
-                          <td style="width: 15%;" class="text size"><span><?php echo $d['created_at']; ?></td>
+                          <td style="width: 15%;" class="text size"><span><?php echo $d['tipe_pembelian']; ?></td>
                           <td style="width: 23%;" class="text over"><span><?php echo $d['keterangan']; ?></td>
                           <?php if ($d['jumlah_pembelian_v'] == null) { ?>
                             <td style="width: 15%;" class="text text-center size"><span>Rp. 0</span></td>

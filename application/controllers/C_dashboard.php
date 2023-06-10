@@ -45,7 +45,6 @@ class C_dashboard extends CI_Controller
         $titleomset = $totalomset;
 
         $dataPiutangUsaha = $this->M_data->getDataPiutangUsaha();
-        echo '<script>console.log('.json_encode($dataPiutangUsaha).')</script>';
         
         foreach ($dataPiutangUsaha['dataProject'] as $key => $value) {
 
@@ -89,8 +88,18 @@ class C_dashboard extends CI_Controller
                 $dataPiutangUsaha['dataProject'][$key]['total_termin'] = 0;
             }
 
+            // dapatkan data pengeluaran
+            foreach ($dataPiutangUsaha['dataPengeluaran'] as $key5 => $value_pengeluaran) {
+                if ($value['id'] == $value_pengeluaran['id']) {
+                    $dataPiutangUsaha['dataProject'][$key]['total_pengeluaran'] = $value_pengeluaran['total_pengeluaran'];
+                }
+            }
+            if (!$dataPiutangUsaha['dataProject'][$key]['total_pengeluaran']) {
+                $dataPiutangUsaha['dataProject'][$key]['total_pengeluaran'] = 0;
+            }
+
             $kontrak = $dataPiutangUsaha['dataProject'][$key]['rab_project'];
-            $pengeluaran = $dataPiutangUsaha['dataProject'][$key]['total_pembelian'] + $dataPiutangUsaha['dataProject'][$key]['total_pembelian_sisa'];
+            $pengeluaran = $dataPiutangUsaha['dataProject'][$key]['total_pengeluaran'];
             $progress = $dataPiutangUsaha['dataProject'][$key]['project_progress'] / 100;
             $hutang = $dataPiutangUsaha['dataProject'][$key]['total_hutang'];
             $dataPiutangUsaha['dataProject'][$key]['nilai_piutang'] = ($kontrak * $progress) - $pengeluaran - $hutang;

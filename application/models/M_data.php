@@ -427,8 +427,18 @@ class M_data extends CI_Model
 		$dataPembelianSisa = $this->db->get();
 		$resultPembelianSisa = $dataPembelianSisa->result_array();
 
-		$this->db->select("a.project_id, SUM(a.nominal) as total_hutang");
+		$this->db->select("b.id, SUM(c.jumlah_aktual) as total_pengeluaran, b.project_name");
+		$this->db->from('akk_rap as a');
+		$this->db->join('mst_project as b', 'a.project_id = b.id', 'left');
+		$this->db->join('akk_rap_biaya as c', 'a.id = c.rap_id', 'left');
+		$this->db->where('b.project_status', 0);
+		$this->db->group_by('b.id');
+		$dataPengeluaran = $this->db->get();
+		$resultPengeluaran = $dataPengeluaran->result_array();
+
+		$this->db->select("a.project_id, SUM(a.nominal) as total_hutang, b.project_name");
 		$this->db->from('akk_hutang as a');
+		$this->db->join('mst_project as b', 'a.project_id = b.id', 'left');
 		$this->db->where('a.is_pay', 0);
 		$this->db->group_by('a.project_id');
 		$dataHutang = $this->db->get();
@@ -446,6 +456,7 @@ class M_data extends CI_Model
 			'dataPembelianSisa' => $resultPembelianSisa,
 			'dataHutang' => $resultHutang,
 			'dataTermin' => $resultTermin,
+			'dataPengeluaran' => $resultPengeluaran
 		);
 
 		
